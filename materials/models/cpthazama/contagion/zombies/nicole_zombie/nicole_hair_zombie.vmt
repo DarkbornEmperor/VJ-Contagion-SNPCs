@@ -1,0 +1,8 @@
+VertexLitGeneric
+{
+    $basetexture "models/cpthazama/contagion/zombies/nicole_zombie\nicole_hair_zombie"
+    $halflambert "1"
+    $alphatest "1"
+    $allowalphatocoverage "1"
+    $nocull "1"
+}

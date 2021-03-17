@@ -1,0 +1,42 @@
+VertexLitGeneric
+{
+    $basetexture                "models/cpthazama/contagion/zombies/jessica_zombie\jessica_skin_zombie_diff"
+    $bumpmap                    "models/cpthazama/contagion/zombies/jessica_zombie\jessica_skin_zombie_norm"
+    $phong                      "1"
+    $phongexponenttexture       "models/cpthazama/contagion/zombies/jessica_zombie\jessica_skin_zombie_exp"
+    $phongboost                 "8"
+    $phongfresnelranges         "[.05 0.5 1]"
+    $phongalbedotint            "1"
+    $phongtint                  "[.75 .75 1]"
+    $damaged                    1
+    $damagethreshold            "0.4"
+    $damagebloodcolor           "[0.5 0 0]"
+    $damagetexture1             "black"
+    $damagetexture2             "black"
+    $damagetexture3             "black"
+    $damagetexture4             "black"
+
+    Proxies
+    {
+        "ZombieTestProxy"
+        {
+            "0"         "black"                                             // DF_NONE
+
+            "4"         "models/cpthazama/contagion/zombies/jessica_zombie\damage_handr"        // DF_ARM_LLOWER
+            "8"         "models/cpthazama/contagion/zombies/jessica_zombie\damage_handl"        // DF_ARM_RLOWER
+
+            "16"        "models/cpthazama/contagion/zombies/jessica_zombie\damage_footlr"       // DF_LEG_R
+            "32"        "models/cpthazama/contagion/zombies/jessica_zombie\damage_footlr"       // DF_LEG_L
+
+            //"1024"      "models/cpthazama/contagion/zombies/tony_zombie\woundtest_bodycenter" // DF_BODY_1
+            //"2048"      "black"                                           // DF_BODY_2
+
+            //"4096"      "black"                                           // DF_BODY_LOWER1
+            //"8192"      "black"                                           // DF_BODY_LOWER2
+
+            //"16384"     "black"                                           // DF_BODY_BACK
+            
+            "32768"     "models/cpthazama/contagion/zombies/jessica_zombie\damage_decap"         // DF_DECAP
+        }
+    }
+}

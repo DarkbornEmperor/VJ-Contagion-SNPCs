@@ -1,0 +1,8 @@
+ENT.Base 			= "npc_vj_con_zmale"
+ENT.Type 			= "ai"
+ENT.PrintName 		= "Marcus (Zombie)"
+ENT.Author 			= "DrVrej"
+ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Purpose 		= "Spawn it and fight with it!"
+ENT.Instructions 	= "Click on the spawnicon to spawn it."
+ENT.Category		= "Contagion"

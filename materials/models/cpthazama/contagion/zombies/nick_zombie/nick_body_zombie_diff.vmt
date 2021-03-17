@@ -1,0 +1,44 @@
+VertexLitGeneric
+{
+    $basetexture "models/cpthazama/contagion/zombies/nick_zombie\nick_body_zombie_diff"
+    $bumpmap "models/cpthazama/contagion/zombies/nick_zombie\nick_body_zombie_norm"
+    $normalmapalphaenvmapmask "1"
+    $halflambert "1"
+    $phong "1"
+    $phongexponenttexture "models/cpthazama/contagion/zombies/nick_zombie\nick_body_zombie_exp"
+    $phongboost "1.5"
+    $phongfresnelranges "[.45 0.65 1]"
+    
+    $nocull 1
+    $damaged                    1
+    $damagebloodcolor           "[0.26 0 0]"
+    $damagetexture1             "black"
+    $damagetexture2             "black"
+    $damagetexture3             "black"
+    $damagetexture4             "black"
+
+    Proxies
+    {
+        "ZombieTestProxy"
+        {
+            "0"         "black"                                             // DF_NONE
+
+            //"1"         "black"                                           // DF_ARM_L
+            //"2"         "black"                                           // DF_ARM_R
+
+            "4"         "models/cpthazama/contagion/zombies/nick_zombie\damage_larml"           // DF_ARM_LLOWER
+            "8"         "models/cpthazama/contagion/zombies/nick_zombie\damage_larmr"           // DF_ARM_RLOWER
+
+            "16"        "models/cpthazama/contagion/zombies/nick_zombie\damage_legr"            // DF_LEG_R
+            "32"        "models/cpthazama/contagion/zombies/nick_zombie\damage_legl"            // DF_LEG_L
+
+            "1024"      "models/cpthazama/contagion/zombies/nick_zombie\damage_bodyf"           // DF_BODY_1
+            "2048"      "models/cpthazama/contagion/zombies/nick_zombie\damage_lbodyf"          // DF_BODY_2
+
+            "4096"      "models/cpthazama/contagion/zombies/nick_zombie\damage_lbodyl"          // DF_BODY_LOWER1
+            "8192"      "models/cpthazama/contagion/zombies/nick_zombie\damage_lbodyr"          // DF_BODY_LOWER2
+
+            "16384"     "models/cpthazama/contagion/zombies/nick_zombie\damage_bodyb"           // DF_BODY_BACK
+        }
+    }
+}

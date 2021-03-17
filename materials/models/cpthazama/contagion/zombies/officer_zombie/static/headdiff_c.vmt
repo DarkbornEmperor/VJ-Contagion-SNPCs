@@ -1,0 +1,9 @@
+Patch
+{
+    include "materials\models\zombies\officer_zombie\static\ref.vmt"
+    insert
+    {
+        $basetexture "models\zombies\officer_zombie\headdiff_c"
+        $bumpmap "models\zombies\officer_zombie\headdiff_c_nrm"
+    }
+}

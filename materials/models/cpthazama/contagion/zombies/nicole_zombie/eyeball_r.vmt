@@ -1,0 +1,16 @@
+VertexLitGeneric
+
+{   $basetexture                "models/zombies/zombie_shared/zombie_eye_iris"
+
+
+    $bumpmap                    "models/items/generic_norm"
+    $normalmapalphaenvmapmask   "1"
+    $envmap                     "models/shared/envmap_lighting"
+    $envmaptint                 "[1 1 1]"
+        
+    $phong                      "1"
+    $phongboost                 "0"
+    $phongexponent              "25"
+    $phongalbedotint            "[0.76 .94 .93]"
+    
+}

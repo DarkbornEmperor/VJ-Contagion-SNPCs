@@ -1,0 +1,34 @@
+VertexLitGeneric
+{
+    $basetexture                "models/cpthazama/contagion/zombies/common_zombie\skin_female_c_02"
+    $bumpmap                    "models/cpthazama/contagion/zombies/common_zombie\skin_female_c_02_bump"
+    $halflambert                "1"
+    $phong                      "1"
+    $phongboost                 "1"
+    $phongexponent              "85"
+    $phongfresnelranges         "[.25 .45 .75]"
+    
+    $damaged                    "1"
+    $damagethreshold            "0.4"
+    $damagebloodcolor           "[0.21 0 0]"
+    $damagetexture1             "black"
+    $damagetexture2             "black"
+    $damagetexture3             "black"
+    $damagetexture4             "black"
+
+    Proxies
+    {
+        "ZombieTestProxy"
+        {
+            "0"         "black"                                                      // DF_NONE
+
+            "64"        "models/cpthazama/contagion/zombies/common_zombie\damages\damage_hair1_headl"    // DF_HEAD_1
+            "128"       "models/cpthazama/contagion/zombies/common_zombie\damages\damage_hair1_headr"    // DF_HEAD_2
+
+            "256"       "models/cpthazama/contagion/zombies/common_zombie\damages\damage_hair1_headb"    // DF_HEAD_FACE1
+            //"512"       "black"                                                    // DF_HEAD_FACE2
+            
+            "32768"     "white"                                                      // DF_DECAP
+        }
+    }
+}

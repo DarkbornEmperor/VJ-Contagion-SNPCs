@@ -1,0 +1,12 @@
+VertexLitGeneric
+{
+    $basetexture                "models/cpthazama/contagion/zombies/shared_zombie\head_gibs_diff"
+    $bumpmap                    "models/cpthazama/contagion/zombies/shared_zombie\head_gibs_norm"
+    $normalmapalphaenvmapmask   "1"
+    $phong                      "1"
+    $phongtint                  "[.3 .6 .9]"
+    $phongexponent              "50"
+    $phongboost                 "10"
+    $phongfresnelranges         "[0.4 1 3]"
+    $ambientocclusion           "0"
+}

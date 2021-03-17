@@ -1,0 +1,42 @@
+VertexLitGeneric
+{
+    $basetexture "models/cpthazama/contagion/zombies/eugene_zombie\eugene_pants_diff_zombie"
+    $bumpmap "models/cpthazama/contagion/zombies/eugene_zombie\eugene_pants_norm_zombie"
+    $normalmapalphaenvmapmask "1"
+    $envmap env_cubemap
+    $envmaptint "[.025 .025 .025]"
+    $phong "1"
+    $phongboost ".5"
+    $phongexponenttexture "models/cpthazama/contagion/zombies/eugene_zombie\eugene_pants_exp_zombie"
+    $phongfresnelranges "[.45 .65 1]"
+    $halflambert "1"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
+    $damaged                    1
+    $damagethreshold            "0.4"
+    $damagebloodcolor           "[0.5 0 0]"
+    $damagetexture1             "black"
+    $damagetexture2             "black"
+    $damagetexture3             "black"
+    $damagetexture4             "black"
+
+    Proxies
+    {
+        "ZombieTestProxy"
+        {
+            "0"         "black"                                             // DF_NONE
+
+            "16"        "models/cpthazama/contagion/zombies/eugene_zombie\damage_legr"          // DF_LEG_R
+            "32"        "models/cpthazama/contagion/zombies/eugene_zombie\damage_legl"          // DF_LEG_L
+
+            //"1024"      "models/cpthazama/contagion/zombies/tony_zombie\woundtest_bodycenter" // DF_BODY_1
+            //"2048"      "black"                                           // DF_BODY_2
+
+            //"4096"      "black"                                           // DF_BODY_LOWER1
+            //"8192"      "black"                                           // DF_BODY_LOWER2
+
+            //"16384"     "black"                                           // DF_BODY_BACK
+        }
+    }
+}

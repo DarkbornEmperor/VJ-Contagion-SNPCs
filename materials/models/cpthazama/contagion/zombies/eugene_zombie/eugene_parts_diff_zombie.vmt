@@ -1,0 +1,48 @@
+VertexLitGeneric
+{
+    $basetexture "models/cpthazama/contagion/zombies/eugene_zombie\eugene_parts_diff_zombie"
+    $bumpmap "models/cpthazama/contagion/zombies/eugene_zombie\eugene_parts_norm_zombie"
+    $normalmapalphaphongmask "1"
+    $envmap env_cubemap
+    $envmaptint "[.01 .01 .01]"
+    $halflambert "1"
+    $phong "1"
+    $phongexponenttexture "models/cpthazama/contagion/zombies/eugene_zombie\eugene_parts_exp_zombie"
+    $phongboost ".5"
+    $phongfresnelranges "[.45 .65 1]"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
+    $damaged                    1
+    $damagethreshold            "0.4"
+    $damagebloodcolor           "[0.67 0 0]"
+    $damagetexture1             "models/cpthazama/contagion/zombies/eugene_zombie\damage_lbodyf"
+    $damagetexture2             "black"
+    $damagetexture3             "black"
+    $damagetexture4             "black"
+
+    Proxies
+    {
+        "ZombieTestProxy"
+        {
+            "0"         "black"                                             // DF_NONE
+
+            //"1"         "models/cpthazama/contagion/zombies/eugene_zombie\damage_arml"        // DF_ARM_L
+            //"2"         "models/cpthazama/contagion/zombies/eugene_zombie\damage_armr"        // DF_ARM_R
+
+            "4"         "models/cpthazama/contagion/zombies/eugene_zombie\damage_larmr"         // DF_ARM_RLOWER
+            "8"         "models/cpthazama/contagion/zombies/eugene_zombie\damage_larml"         // DF_ARM_LLOWER
+
+            "16"        "models/cpthazama/contagion/zombies/eugene_zombie\damage_footl"         // DF_LEG_R
+            "32"        "models/cpthazama/contagion/zombies/eugene_zombie\damage_footl"         // DF_LEG_L
+
+            //"1024"      "models/cpthazama/contagion/zombies/tony_zombie\woundtest_bodycenter" // DF_BODY_1
+            //"2048"      "black"                                           // DF_BODY_2
+
+            //"4096"      "black"                                           // DF_BODY_LOWER1
+            //"8192"      "black"                                           // DF_BODY_LOWER2
+
+            //"16384"     "black"                                           // DF_BODY_BACK
+        }
+    }
+}
