@@ -32,7 +32,7 @@ ENT.MaxJumpLegalDistance = VJ_Set(0,300)
 	-- ====== Flinching Code ====== --
 //ENT.AnimTbl_Flinch = {"vjges_flinch_01"} -- If it uses normal based animation, use this
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.FlinchChance = 31.5 -- Chance of it flinching from 1 to x | 1 will make it always flinch
+ENT.FlinchChance = 1.5 -- Chance of it flinching from 1 to x | 1 will make it always flinch
 ENT.NextFlinchTime = 1.5
 ENT.NextMoveAfterFlinchTime = "LetBaseDecide" -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
