@@ -1,6 +1,6 @@
 Patch
 {
-    include "materials\models/cpthazama/contagion/zombies/doctor_zombie\male01_clothes.vmt"
+    include "materials/models/cpthazama/contagion/zombies/doctor_zombie\male01_clothes.vmt"
     insert
     {    
         $basetexture    "models/cpthazama/contagion/zombies/civillian_zombie\male01_clothes_diff"
