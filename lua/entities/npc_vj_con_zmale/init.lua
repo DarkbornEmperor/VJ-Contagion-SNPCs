@@ -29,6 +29,13 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 --ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.HasMeleeAttackSlowPlayerSound = false -- Does it have a sound when it slows down the player?
 ENT.MaxJumpLegalDistance = VJ_Set(0,300)
+	-- ====== Controller Data ====== --
+ENT.VJC_Data = {
+	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+	ThirdP_Offset = Vector(40, 20, -50), -- The offset for the controller when the camera is in third person
+	FirstP_Bone = "ValveBiped.Bip01_Head1", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+}
 	-- ====== Flinching Code ====== --
 //ENT.AnimTbl_Flinch = {"vjges_flinch_01"} -- If it uses normal based animation, use this
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
