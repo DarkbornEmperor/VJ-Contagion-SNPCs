@@ -22,7 +22,7 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
-	self:SetBodygroup(0,math.random(0,4))
+	self:SetBodygroup(2,math.random(0,4))
 	self:SetSkin(math.random(0,5))
 	if self.AdvancedStrain then
 		self:SetSuperStrain(100)
