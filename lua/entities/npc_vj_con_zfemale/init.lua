@@ -37,7 +37,7 @@ ENT.NextFlinchTime = 1.5
 ENT.NextMoveAfterFlinchTime = "LetBaseDecide" -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
 ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},{HitGroup = {HITGROUP_CHEST}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},{HitGroup = {HITGROUP_STOMACH}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
+ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},{HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},{HitGroup = {HITGROUP_STOMACH}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
 	-- ====== Death Animation Variables ====== --
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 2
@@ -238,19 +238,14 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-	 if math.random (1,16) == 1 then
-		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() && hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
-			 self:VJ_ACT_PLAYACTIVITY("stumble02",true,2.4)
-			 self.Zombie_NextStumble = CurTime() + 10
-	end		 
-end	if math.random (1,16) == 1 then		 
-		 if self.Zombie_NextStumble < CurTime() && hitgroup == HITGROUP_CHEST then
-			 self:VJ_ACT_PLAYACTIVITY("stumble01",true,4)
-			 self.Zombie_NextStumble = CurTime() + 10		 
-	    end
-	end
+-------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self:IsMoving() then -- When moving
+	   self.AnimTbl_Death = {"death2013_run_01","death2013_run_02","death2013_run_03"}	
+end
+    if dmginfo:IsDamageType(DMG_BUCKSHOT) then -- When killed by shotgun damage
+       self.AnimTbl_Death = {"death2013_shotgun_backward","death2013_shotgun_forward"}	
+end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

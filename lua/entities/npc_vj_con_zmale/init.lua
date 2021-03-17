@@ -37,7 +37,7 @@ ENT.NextFlinchTime = 1.5
 ENT.NextMoveAfterFlinchTime = "LetBaseDecide" -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
 ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},{HitGroup = {HITGROUP_CHEST}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},{HitGroup = {HITGROUP_STOMACH}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
+ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},{HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},{HitGroup = {HITGROUP_STOMACH}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
 	-- ====== Death Animation Variables ====== --
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 2
@@ -49,7 +49,7 @@ ENT.SoundTbl_Idle = {"contagion/male/moan01.wav","contagion/male/breathing9.wav"
 ENT.SoundTbl_Alert = {"contagion/male/become_alert21.wav","contagion/male/become_alert19.wav","contagion/male/become_alert18.wav","contagion/male/become_alert17.wav","contagion/male/become_alert15.wav","contagion/male/alert9.wav","contagion/male/alert8.wav","contagion/male/alert7.wav","contagion/male/alert6.wav","contagion/male/alert4.wav","contagion/male/alert5.wav","contagion/male/alert3.wav","contagion/male/alert2.wav","contagion/male/alert15.wav","contagion/male/alert14.wav","contagion/male/alert13.wav","contagion/male/alert12.wav","contagion/male/alert11.wav","contagion/male/alert10.wav","contagion/male/alert1.wav","contagion/male/alert01.mp3","contagion/male/alert02.mp3","contagion/male/alert03.mp3","contagion/male/alert04.mp3","contagion/male/alert05.mp3","contagion/male/alert06.mp3","contagion/male/alert07.mp3","contagion/male/alert08.mp3","contagion/male/alert09.mp3","contagion/male/alert10.mp3"}
 ENT.SoundTbl_CombatIdle = {"contagion/male/become_enraged9.wav","contagion/male/become_enraged8.wav","contagion/male/become_enraged7.wav","contagion/male/become_enraged6.wav","contagion/male/become_enraged5.wav","contagion/male/become_enraged4.wav","contagion/male/become_enraged3.wav","contagion/male/become_enraged2.wav","contagion/male/become_enraged17.wav","contagion/male/become_enraged16.wav","contagion/male/become_enraged15.wav","contagion/male/become_enraged14.wav","contagion/male/become_enraged13.wav","contagion/male/become_enraged12.wav","contagion/male/become_enraged11.wav","contagion/male/become_enraged10.wav","contagion/male/become_enraged1.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"contagion/male/become_enraged9.wav","contagion/male/become_enraged8.wav","contagion/male/become_enraged7.wav","contagion/male/become_enraged6.wav","contagion/male/become_enraged5.wav","contagion/male/become_enraged4.wav","contagion/male/become_enraged3.wav","contagion/male/become_enraged2.wav","contagion/male/become_enraged17.wav","contagion/male/become_enraged16.wav","contagion/male/become_enraged15.wav","contagion/male/become_enraged14.wav","contagion/male/become_enraged13.wav","contagion/male/become_enraged12.wav","contagion/male/become_enraged11.wav","contagion/male/become_enraged10.wav","contagion/male/become_enraged1.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_lnrhl2/claw_strike1.mp3","vj_lnrhl2/claw_strike2.mp3","vj_lnrhl2/claw_strike3.mp3"}
+ENT.SoundTbl_MeleeAttack = {"contagion/claw_strike1.mp3","contagion/claw_strike2.mp3","contagion/claw_strike3.mp3"}
 ENT.SoundTbl_MeleeAttackMiss = {"npc/zombie/claw_miss1.wav","npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"contagion/male/pain7.wav","contagion/male/pain6.wav","contagion/male/pain5.wav","contagion/male/pain4.wav","contagion/male/pain3.wav","contagion/male/pain2.wav","contagion/male/pain1.wav","contagion/male/pain7.wav","contagion/male/pain8.wav","contagion/male/pain01.mp3","contagion/male/pain02.mp3","contagion/male/pain03.mp3","contagion/male/pain04.mp3","contagion/male/pain05.mp3"}
 ENT.SoundTbl_Death = {"contagion/male/death9.wav","contagion/male/death8.wav","contagion/male/death7.wav","contagion/male/death6.wav","contagion/male/death5.wav","contagion/male/death4.wav","contagion/male/death3.wav","contagion/male/death2.wav","contagion/male/death10.wav","contagion/male/death1.wav","contagion/male/die01.mp3","contagion/male/die02.mp3","contagion/male/die03.mp3","contagion/male/die04.mp3","contagion/male/die05.mp3"}
@@ -296,6 +296,15 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 			 self.Zombie_NextStumble = CurTime() + 10		 
 	    end
 	end
+end
+-------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self:IsMoving() then -- When moving
+	   self.AnimTbl_Death = {"death2013_run_06","death2013_run_07"}	
+end
+    if dmginfo:IsDamageType(DMG_BUCKSHOT) then -- When killed by shotgun damage
+       self.AnimTbl_Death = {"death2013_shotgun_backward","death2013_shotgun_forward"}	
+end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
