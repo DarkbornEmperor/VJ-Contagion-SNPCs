@@ -86,8 +86,48 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
-	self:SetBodygroup(0,math.random(0,4))
-	self:SetSkin(math.random(0,15))
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,7))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_t.mdl" then
+	    self:SetBodygroup(0,math.random(0,3))
+		self:SetBodygroup(1,math.random(0,4))
+		self:SetSkin(math.random(0,7))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,9))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
+	    self:SetBodygroup(1,math.random(0,3))
+		self:SetSkin(math.random(0,9))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_t.mdl" then
+	    self:SetBodygroup(0,math.random(0,3))
+		self:SetBodygroup(1,math.random(0,4))
+		self:SetSkin(math.random(0,9))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,9))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_h.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,9))
+end
+
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_t.mdl" then
+	    self:SetBodygroup(0,math.random(0,3))
+		self:SetBodygroup(1,math.random(0,4))
+		self:SetSkin(math.random(0,9))
+end
 	if self.AdvancedStrain then
 		self:SetSuperStrain(100)
 	end
