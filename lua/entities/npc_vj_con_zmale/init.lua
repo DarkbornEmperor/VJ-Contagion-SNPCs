@@ -15,6 +15,7 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 15
 ENT.MeleeAttackDistance = 35
 ENT.MeleeAttackDamageDistance = 70
+--ENT.NextAnyAttackTime_Melee = 0.05
 ENT.AnimTbl_MeleeAttack = {
 	"vjges_Melee2013_01",
 	"vjges_Melee2013_02",
@@ -274,39 +275,32 @@ function ENT:Zombie_CustomOnInitialize()
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,7))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_t.mdl" then
 	    self:SetBodygroup(0,math.random(0,3))
 		self:SetBodygroup(1,math.random(0,4))
 		self:SetSkin(math.random(0,7))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
 	    self:SetBodygroup(1,math.random(0,3))
 		self:SetSkin(math.random(0,9))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_t.mdl" then
 	    self:SetBodygroup(0,math.random(0,3))
 		self:SetBodygroup(1,math.random(0,4))
 		self:SetSkin(math.random(0,9))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_h.mdl" then
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
 end
-
 	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_t.mdl" then
 	    self:SetBodygroup(0,math.random(0,3))
 		self:SetBodygroup(1,math.random(0,4))
@@ -402,7 +396,7 @@ function ENT:Crouch(bCrouch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.VJ_IsBeingControlled == true then
+	if self.VJ_IsBeingControlled == true && !self.Crippled && self.AdvancedStrain then
 		if self.VJ_TheController:KeyDown(IN_JUMP) then
 			if self:IsOnGround() then
 				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
@@ -415,15 +409,14 @@ end
 function ENT:CustomOnIsJumpLegal(startPos,apex,endPos)
 	if self.VJ_IsBeingControlled == true then
 		return false
-	else
+	elseif !self.Crippled && self.AdvancedStrain then
 		return true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
-    ply:ChatPrint("C: Jump")
-	
 if !self.Crippled && self.AdvancedStrain then	
+    ply:ChatPrint("SPACE: Jump")
 	ply:ChatPrint("C: Crouch")
 end
 end
