@@ -76,6 +76,8 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/tony_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/yumi_zombie.mdl")	
+	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie_female.mdl")	
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
