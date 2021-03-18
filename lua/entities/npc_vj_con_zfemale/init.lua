@@ -82,6 +82,7 @@ ENT.AdvancedStrain = false
 ENT.LegHealth = 28
 ENT.Crippled = false
 ENT.Stumbled = true
+ENT.CanUseUnableAnim = true
 
 ENT.FootSteps = {
 	[MAT_ANTLION] = {
@@ -319,6 +320,13 @@ function ENT:Cripple()
 	self.Stumbled = false
 	self.CanFlinch = 0
 	self.HasDeathAnimation = false
+	self.CanUseUnableAnim = false
+    self.VJC_Data = {
+	CameraMode = 1, 
+	ThirdP_Offset = Vector(45, 20, -15), 
+	FirstP_Bone = "ValveBiped.Bip01_Head1", 
+	FirstP_Offset = Vector(10, 0, -30), 
+}	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
@@ -378,9 +386,17 @@ end
 function ENT:CustomOnIsJumpLegal(startPos,apex,endPos)
 	if self.VJ_IsBeingControlled == true then
 		return false
-	elseif !self.Crippled && self.AdvancedStrain then
+	else
 		return true
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnChangeMovementType(movType)	
+	if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled && self.AdvancedStrain then self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) end
+	if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled && self.AdvancedStrain then self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB)) end
+
+	if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
+	if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
@@ -391,7 +407,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-		if IsValid(self:GetEnemy()) then 	
+		if IsValid(self:GetEnemy()) && self.CanUseUnableAnim == true then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
 end
 
