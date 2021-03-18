@@ -11,6 +11,8 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied t
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 15
+ENT.MeleeAttackDistance = 35
+ENT.MeleeAttackDamageDistance = 70
 ENT.AnimTbl_MeleeAttack = {
 	"vjges_Melee2013_01",
 	"vjges_Melee2013_02",
@@ -248,10 +250,10 @@ end
 -------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if self:IsMoving() then -- When moving
-	   self.AnimTbl_Death = {"death2013_run_01","death2013_run_02","death2013_run_03"}	
+	   self.AnimTbl_Death = {"vjseq_death2013_run_01","vjseq_death2013_run_02","vjseq_death2013_run_03"}	
 end
     if dmginfo:IsDamageType(DMG_BUCKSHOT) then -- When killed by shotgun damage
-       self.AnimTbl_Death = {"death2013_shotgun_backward","death2013_shotgun_forward"}	
+       self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward"}	
 end
 end
 /*-----------------------------------------------
