@@ -383,6 +383,10 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+		if IsValid(self:GetEnemy()) then 	
+			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
+end
+
 	if !self.Crippled && self.AdvancedStrain then
 		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() then
 			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
