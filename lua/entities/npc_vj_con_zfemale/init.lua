@@ -377,7 +377,7 @@ function ENT:CustomOnThink()
 		if self.VJ_TheController:KeyDown(IN_JUMP) then
 			if self:IsOnGround() then
 				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
-				self:VJ_ACT_PLAYACTIVITY("jump",true,0.7,false)	   
+				self:VJ_ACT_PLAYACTIVITY("jump",true,0.6,false)	   
             end			
 		end
 	end
