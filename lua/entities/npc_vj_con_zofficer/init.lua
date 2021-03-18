@@ -38,8 +38,8 @@ if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" the
 		dmginfo:ScaleDamage(0.00)
 		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
 		local attacker = dmginfo:GetAttacker()
-		if math.random(1,3) == 1 then
-			dmginfo:ScaleDamage(0.60)
+		--if math.random(1,3) == 1 then
+			--dmginfo:ScaleDamage(0.60)
 			self.DamageSpark1 = ents.Create("env_spark")
 			self.DamageSpark1:SetKeyValue("Magnitude","1")
 			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
@@ -52,10 +52,10 @@ if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" the
 			self.DamageSpark1:Fire("StartSpark", "", 0)
 			self.DamageSpark1:Fire("StopSpark", "", 0.001)
 			self:DeleteOnRemove(self.DamageSpark1)		
-	end
+	--end
 end		
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
-		dmginfo:ScaleDamage(0.90)
+		dmginfo:ScaleDamage(1)
 		
 		end
 	end	
