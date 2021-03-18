@@ -46,7 +46,14 @@ ENT.NextFlinchTime = 1.5
 ENT.NextMoveAfterFlinchTime = "LetBaseDecide" -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
 ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},{HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},{HitGroup = {HITGROUP_STOMACH}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
+ENT.HitGroupFlinching_Values = {
+{HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},
+{HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_STOMACH}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_LEfTARM}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_LEFTLEG}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}}}
 	-- ====== Death Animation Variables ====== --
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 2
