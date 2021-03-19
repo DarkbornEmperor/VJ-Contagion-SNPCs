@@ -51,8 +51,8 @@ ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups 
 ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
 ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2013_01","vjges_injured_head2013_02","vjges_injured_head2013_03","vjges_injured_head2013_04"}},
-{HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
-{HitGroup = {HITGROUP_STOMACH}, Animation = {"shoved_backwards1","shoved_backwards2","shoved_backwards3","vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_CHEST}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
+{HitGroup = {HITGROUP_STOMACH}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
 {HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
 {HitGroup = {HITGROUP_LEfTARM}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
 {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}},
@@ -76,7 +76,7 @@ ENT.SoundTbl_Death = {"contagion/female/pain01.mp3","contagion/female/pain02.mp3
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
---ENT.Zombie_AllowClimbing = true
+ENT.Zombie_AllowClimbing = false
 ENT.Zombie_NextStumble = CurTime()
 ENT.AdvancedStrain = false
 ENT.LegHealth = 28
@@ -296,6 +296,8 @@ function ENT:CustomOnInitialize()
 	self:Zombie_CustomOnInitialize()
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]
+	
+if GetConVarNumber("vj_con_allowclimbing") == 1 then self.Zombie_AllowClimbing = true end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -330,7 +332,7 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup == 1 then
+	if hitgroup == 1 && GetConVarNumber("vj_con_headshot") == 1 then
 		dmginfo:SetDamage(self:Health())
 	end
 end
@@ -447,7 +449,9 @@ self.VJC_Data = {
 	end
 end
 
-	if self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
+	//print(self:GetBlockingEntity())
+	// IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
+	if !self.Crippled && self.AdvancedStrain && self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
 		//print("-------------------------------------------------------------------------------------")
 		local anim = false
 		local finalpos = self:GetPos()
@@ -457,7 +461,7 @@ end
 		local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
 		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
 		local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
-		
+				
 		//VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
 		//VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
 		//PrintTable(tr2)
@@ -465,20 +469,20 @@ end
 			if IsValid(tr5.Entity) then
 				local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
 				if !IsValid(tr5b.Entity) then
-					anim = VJ_PICKRANDOMTABLE({"vjseq_climb144_00_inplace","vjseq_climb144_00a_inplace","vjseq_climb144_01_inplace","vjseq_climb144_03_inplace","vjseq_climb144_03a_inplace","vjseq_climb144_04_inplace"})
+					anim = VJ_PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
 					finalpos = tr5.HitPos
 				end
 			elseif IsValid(tr4.Entity) then
-				anim = VJ_PICKRANDOMTABLE({"vjseq_climb120_00_inplace","vjseq_climb120_00a_inplace","vjseq_climb120_01_inplace","vjseq_climb120_03_inplace","vjseq_climb120_03a_inplace","vjseq_climb120_04_inplace"})
+				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
 				finalpos = tr4.HitPos
 			elseif IsValid(tr3.Entity) then
-				anim = VJ_PICKRANDOMTABLE({"vjseq_climb96_00_inplace","vjseq_climb96_00a_inplace","vjseq_climb96_03_inplace","vjseq_climb96_03a_inplace","vjseq_climb96_04a_inplace","vjseq_climb96_05_inplace"})
+				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
 				finalpos = tr3.HitPos
 			elseif IsValid(tr2.Entity) then
-				anim = VJ_PICKRANDOMTABLE({"vjseq_climb72_03_inplace","vjseq_climb72_04_inplace","vjseq_climb72_05_inplace","vjseq_climb72_06_inplace","vjseq_climb72_07_inplace"})
+				anim = VJ_PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
 				finalpos = tr2.HitPos
 			elseif IsValid(tr1.Entity) then
-				anim = VJ_PICKRANDOMTABLE({"vjseq_climb48_01_inplace","vjseq_climb48_02_inplace","vjseq_climb48_03_inplace","vjseq_climb48_04_inplace"})
+				anim = VJ_PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
 				finalpos = tr1.HitPos
 			end
 		
@@ -505,7 +509,38 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetSightDirection()
-	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() -- Attachment example
+	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+	 if math.random (1,16) == 1 && self.Stumbled == true then
+		 if self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_backwards1",true,3.2)
+			 self.Zombie_NextStumble = CurTime() + 10
+			 
+		 elseif self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_backwards2",true,3.4)
+			 self.Zombie_NextStumble = CurTime() + 10
+			 
+		 elseif self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_backwards3",true,3.4)
+	end		 self.Zombie_NextStumble = CurTime() + 10
+end			 
+     if math.random (1,16) == 1 && self.Stumbled == true then
+		 if self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_forward1",true,2)
+			 self.Zombie_NextStumble = CurTime() + 10
+			 
+		 elseif self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_forward2",true,3.4)
+	end		 self.Zombie_NextStumble = CurTime() + 10
+end
+     if math.random (1,16) == 1 && self.Stumbled == true then
+		 if self.Zombie_NextStumble < CurTime() then
+			 self:VJ_ACT_PLAYACTIVITY("shoved_forward_heavy",true,3.4)
+			 self.Zombie_NextStumble = CurTime() + 10				 
+	    end
+	end
 end
 -------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)

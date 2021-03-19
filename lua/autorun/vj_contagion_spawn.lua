@@ -79,6 +79,30 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie_female.mdl")	
 	
+		-- Menu --
+	VJ.AddConVar("vj_con_allowclimbing",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_headshot",0,{FCVAR_ARCHIVE})
+	
+	if CLIENT then
+		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
+			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion", "Contagion", "", "", function(Panel)
+				if !game.SinglePlayer() then
+				if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
+					Panel:AddControl( "Label", {Text = "You are not an admin!"})
+					Panel:ControlHelp("Notice: Only admins can change this settings")
+					return
+					end
+				end
+				Panel:AddControl("Label", {Text = "Notice: Only admins can change this settings."})
+				Panel:AddControl( "Label", {Text = "WARNING: Only future spawned SNPCs will be affected!"})
+				Panel:AddControl("Button",{Text = "Reset Everything", Command = "vj_con_allowclimbing 0"})
+				Panel:AddControl("Checkbox", {Label = "Enable Climbing", Command = "vj_con_allowclimbing"})
+				Panel:ControlHelp("WARNING: Enabling climbing will cause heavy performance drops!")
+				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
+			end, {})
+		end)
+	end	
+	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
 	VJ.AddAddonProperty(AddonName,AddonType)

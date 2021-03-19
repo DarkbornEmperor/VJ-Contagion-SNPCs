@@ -6,6 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.StartHealth = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zofficer" then
@@ -27,19 +28,16 @@ function ENT:Zombie_CustomOnInitialize()
 	--self:SetBodygroup(0,math.random(0,1))
 	self:SetSkin(math.random(0,5))
 	if self.AdvancedStrain then
-		self:SetSuperStrain(100)
+		self:SetSuperStrain(120)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
-
+    if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD then
 		dmginfo:ScaleDamage(0.00)
 		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
 		local attacker = dmginfo:GetAttacker()
-		--if math.random(1,3) == 1 then
-			--dmginfo:ScaleDamage(0.60)
 			self.DamageSpark1 = ents.Create("env_spark")
 			self.DamageSpark1:SetKeyValue("Magnitude","1")
 			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
@@ -57,7 +55,11 @@ end
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
 		dmginfo:ScaleDamage(1)
 		
-		end
+end
+	if hitgroup == 1 && GetConVarNumber("vj_con_headshot") == 1 then
+		dmginfo:SetDamage(self:Health())
+		
+	    end		
 	end	
 end
 /*-----------------------------------------------
