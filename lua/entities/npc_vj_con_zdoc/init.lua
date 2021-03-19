@@ -7,8 +7,8 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasItemDropsOnDeath = true 
-ENT.ItemDropsOnDeathChance = 2
-ENT.ItemDropsOnDeath_EntityList = {"item_healthvial","item_healthkit"}
+ENT.ItemDropsOnDeathChance = 3
+ENT.ItemDropsOnDeath_EntityList = {"item_healthvial"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zdoc" then

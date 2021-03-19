@@ -401,8 +401,10 @@ function ENT:CustomOnChangeMovementType(movType)
 	if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled && self.AdvancedStrain then self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) end
 	if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled && self.AdvancedStrain then self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB)) end
 
+    if GetConVarNumber("vj_con_climbjump") == 0 then
 	if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
 	if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
+end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
@@ -455,7 +457,7 @@ end
 
 	//print(self:GetBlockingEntity())
 	// IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
-	if !self.Crippled && self.AdvancedStrain && self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
+	if self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
 		//print("-------------------------------------------------------------------------------------")
 		local anim = false
 		local finalpos = self:GetPos()

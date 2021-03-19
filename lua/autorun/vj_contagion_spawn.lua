@@ -84,6 +84,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_con_allowclimbing",0,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_headshot",0,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_infection",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_climbjump",0,{FCVAR_ARCHIVE})
 	
 	if CLIENT then
 		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
@@ -102,6 +103,7 @@ if VJExists == true then
 				Panel:ControlHelp("WARNING: Enabling climbing will cause heavy performance drops!")
 				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
 				Panel:AddControl("Checkbox", {Label = "Enable Infection System", Command = "vj_con_infection"})
+				Panel:AddControl("Checkbox", {Label = "Enable Climbing and Jumping For Normal Zombies", Command = "vj_con_climbjump"})
 			end, {})
 		end)
 	end	
