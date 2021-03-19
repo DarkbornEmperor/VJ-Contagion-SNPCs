@@ -4,7 +4,7 @@ VertexLitGeneric
     $bumpmap        "models/cpthazama/contagion/zombies/mia_zombie\mia_normal"
     $envmapmask        "models/cpthazama/contagion/zombies/mia_zombie\mia_s"
     $alphatest 1
-    // $normalmapalphaenvmapmask   "1"
+     $normalmapalphaenvmapmask   "1"
 
     $phong                      "1"
     //$envmap            env_cubemap

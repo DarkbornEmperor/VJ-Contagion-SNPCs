@@ -39,6 +39,7 @@ if VJExists == true then
 	VJ.AddNPC("Random Zombie","sent_vj_con_zom",vCat)
 	VJ.AddNPC("Random Zombie Spawner","sent_vj_con_sp",vCat)
 	VJ.AddNPC("Random Zombie Spawner (Single)","sent_vj_con_sinsp",vCat)
+	VJ.AddNPC("Zombie Map Spawner","sent_vj_con_mapspawner",vCat)
 	
 	-- Precache Models --
 	util.PrecacheModel("models/cpthazama/contagion/zombies/civillian_zombie.mdl")
@@ -82,6 +83,7 @@ if VJExists == true then
 		-- Menu --
 	VJ.AddConVar("vj_con_allowclimbing",0,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_headshot",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_infection",0,{FCVAR_ARCHIVE})
 	
 	if CLIENT then
 		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
@@ -99,9 +101,156 @@ if VJExists == true then
 				Panel:AddControl("Checkbox", {Label = "Enable Climbing", Command = "vj_con_allowclimbing"})
 				Panel:ControlHelp("WARNING: Enabling climbing will cause heavy performance drops!")
 				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
+				Panel:AddControl("Checkbox", {Label = "Enable Infection System", Command = "vj_con_infection"})
 			end, {})
 		end)
 	end	
+	
+hook.Add("OnNPCKilled","Contagion_Infection_NPC",function(victim,inflictor,attacker)
+if attacker.Con_VirusInfection == true && victim:LookupBone("ValveBiped.Bip01_Pelvis") then
+
+local Zombie = math.random(1,9)	
+
+if Zombie == 1 then
+            local npc = ents.Create("npc_vj_con_zcurtis") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 2 then
+            local npc = ents.Create("npc_vj_con_zeugene") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+			
+elseif Zombie == 3 then
+            local npc = ents.Create("npc_vj_con_zjessica")
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 4 then
+            local npc = ents.Create("npc_vj_con_zmanuel") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 5 then
+            local npc = ents.Create("npc_vj_con_zmarcus") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 6 then
+            local npc = ents.Create("npc_vj_con_zmia") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 7 then
+            local npc = ents.Create("npc_vj_con_znick") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+			
+elseif Zombie == 8 then
+            local npc = ents.Create("npc_vj_con_ztony") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 9 then
+            local npc = ents.Create("npc_vj_con_zyumi")
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()		
+end		
+		
+if victim.IsVJBaseSNPC == true then
+                victim.HasDeathRagdoll = false
+				
+            end
+			
+if victim:IsNPC() then
+				victim:Remove()
+									
+            end			
+
+   victim:Remove()
+
+end
+end)
+
+hook.Add("PlayerDeath","Contagion_Infection_Player",function(victim,inflictor,attacker)
+if attacker.Con_VirusInfection == true && victim:LookupBone("ValveBiped.Bip01_Pelvis") then
+ 	  
+local Zombie = math.random(1,9)
+
+if Zombie == 1 then
+            local npc = ents.Create("npc_vj_con_zcurtis") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 2 then
+            local npc = ents.Create("npc_vj_con_zeugene") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+			
+elseif Zombie == 3 then
+            local npc = ents.Create("npc_vj_con_zjessica")
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 4 then
+            local npc = ents.Create("npc_vj_con_zmanuel") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 5 then
+            local npc = ents.Create("npc_vj_con_zmarcus") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 6 then
+            local npc = ents.Create("npc_vj_con_zmia") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 7 then
+            local npc = ents.Create("npc_vj_con_znick") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+			
+elseif Zombie == 8 then
+            local npc = ents.Create("npc_vj_con_ztony") 
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+
+elseif Zombie == 9 then
+            local npc = ents.Create("npc_vj_con_zyumi")
+            npc:SetPos(victim:GetPos())
+            npc:SetAngles(victim:GetAngles())
+            npc:Spawn()				
+end	
+		
+if victim:IsPlayer() then
+				if IsValid(victim:GetRagdollEntity()) then
+					victim:GetRagdollEntity():Remove()
+				end				
+            end
+
+   victim:Remove()
+   
+end
+end)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

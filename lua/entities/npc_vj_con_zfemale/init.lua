@@ -63,21 +63,24 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {"npc/zombie/foot1.wav","npc/zombie/foot2.wav","npc/zombie/foot3.wav"}
-ENT.SoundTbl_Idle = {"contagion/female/idle01.mp3","contagion/female/idle02.mp3","contagion/female/idle03.mp3","contagion/female/idle04.mp3","contagion/female/idle05.mp3","contagion/female/idle06.mp3","contagion/female/idle07.mp3","contagion/female/idle08.mp3","contagion/female/idle09.mp3","contagion/female/idle10.mp3"}
-ENT.SoundTbl_Alert = {"contagion/female/alert11.wav","contagion/female/alert12.wav","contagion/female/alert13.wav","contagion/female/alert14.wav","contagion/female/alert_10.wav","contagion/female/alert01.mp3","contagion/female/alert02.mp3","contagion/female/alert03.mp3","contagion/female/alert04.mp3","contagion/female/alert05.mp3","contagion/female/alert06.mp3","contagion/female/alert07.mp3","contagion/female/alert08.mp3","contagion/female/alert09.mp3","contagion/female/alert10.mp3"}
-ENT.SoundTbl_CombatIdle = {"contagion/female/alert11.wav","contagion/female/alert12.wav","contagion/female/alert13.wav","contagion/female/alert14.wav","contagion/female/alert_10.wav","contagion/female/alert01.mp3","contagion/female/alert02.mp3","contagion/female/alert03.mp3","contagion/female/alert04.mp3","contagion/female/alert05.mp3","contagion/female/alert06.mp3","contagion/female/alert07.mp3","contagion/female/alert08.mp3","contagion/female/alert09.mp3","contagion/female/alert10.mp3"}
-ENT.SoundTbl_BeforeMeleeAttack = {"contagion/female/alert11.wav","contagion/female/alert12.wav","contagion/female/alert13.wav","contagion/female/alert14.wav","contagion/female/alert_10.wav","contagion/female/alert01.mp3","contagion/female/alert02.mp3","contagion/female/alert03.mp3","contagion/female/alert04.mp3","contagion/female/alert05.mp3","contagion/female/alert06.mp3","contagion/female/alert07.mp3","contagion/female/alert08.mp3","contagion/female/alert09.mp3","contagion/female/alert10.mp3"}
-ENT.SoundTbl_MeleeAttack = {"contagion/claw_strike1.mp3","contagion/claw_strike2.mp3","contagion/claw_strike3.mp3"}
-ENT.SoundTbl_MeleeAttackMiss = {"npc/zombie/claw_miss1.wav","npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"contagion/female/pain01.mp3","contagion/female/pain02.mp3","contagion/female/pain03.mp3","contagion/female/pain04.mp3","contagion/female/pain05.mp3"}
-ENT.SoundTbl_Death = {"contagion/female/pain01.mp3","contagion/female/pain02.mp3","contagion/female/pain03.mp3","contagion/female/pain04.mp3","contagion/female/pain05.mp3"}
+ENT.SoundTbl_Idle = {"contagion/female/taunt-01.wav","contagion/female/taunt-02.wav","contagion/female/taunt-03.wav","contagion/female/taunt-04.wav","contagion/female/taunt-05.wav","contagion/female/taunt-06.wav","contagion/female/taunt-07.wav","contagion/female/taunt-08.wav","contagion/female/taunt-09.wav","contagion/female/taunt-10.wav"}
+ENT.SoundTbl_Alert = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_CombatIdle = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"contagion/female/attack-01.wav","contagion/female/attack-02.wav","contagion/female/attack-03.wav","contagion/female/attack-04.wav","contagion/female/attack-05.wav","contagion/female/attack-06.wav"}
+ENT.SoundTbl_MeleeAttack = {"contagion/z_hit-01.wav","contagion/z_hit-02.wav","contagion/z_hit-03.wav","contagion/z_hit-04.wav","contagion/z_hit-05.wav","contagion/z_hit-06.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"contagion/z-swipe-1.wav","contagion/z-swipe-2.wav","contagion/z-swipe-3.wav","contagion/z-swipe-4.wav","contagion/z-swipe-5.wav","contagion/z-swipe-6.wav"}
+ENT.SoundTbl_Pain = {"contagion/female/pain-01.wav","contagion/female/pain-02.wav","contagion/female/pain-03.wav","contagion/female/pain-04.wav","contagion/female/pain-05.wav"}
+ENT.SoundTbl_Death = {"contagion/female/death-01.wav","contagion/female/death-02.wav","contagion/female/death-03.wav","contagion/female/death-04.wav","contagion/female/death-05.wav","contagion/female/death-06.wav","contagion/female/death-07.wav"}
+
+ENT.CombatIdleSoundPitch = VJ_Set(120, 130)
+ENT.AlertSoundPitch = VJ_Set(120, 130)
 
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
 ENT.Zombie_AllowClimbing = false
 ENT.Zombie_NextStumble = CurTime()
+ENT.Con_VirusInfection = false
 ENT.AdvancedStrain = false
 ENT.LegHealth = 28
 ENT.Crippled = false
@@ -292,12 +295,13 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(16,16,70),Vector(-16,-16,0))
+	self:SetCollisionBounds(Vector(13,13,70),Vector(-13,-13,0))
 	self:Zombie_CustomOnInitialize()
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]
 	
-if GetConVarNumber("vj_con_allowclimbing") == 1 then self.Zombie_AllowClimbing = true end	
+    if GetConVarNumber("vj_con_allowclimbing") == 1 then self.Zombie_AllowClimbing = true end
+	if GetConVarNumber("vj_con_infection") == 1 then self.Con_VirusInfection = true end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

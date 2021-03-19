@@ -63,25 +63,27 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"contagion/male/moan01.wav","contagion/male/breathing9.wav","contagion/male/breathing8.wav","contagion/male/breathing7.wav","contagion/male/breathing6.wav","contagion/male/breathing5.wav","contagion/male/breathing4.wav","contagion/male/breathing3.wav","contagion/male/breathing2.wav","contagion/male/breathing14.wav","contagion/male/breathing13.wav","contagion/male/breathing12.wav","contagion/male/breathing10.wav","contagion/male/breathing1.wav","contagion/male/idle8.wav","contagion/male/idle7.wav","contagion/male/idle6.wav","contagion/male/idle5.wav","contagion/male/idle4.wav","contagion/male/idle3.wav","contagion/male/idle2.wav","contagion/male/idle01.mp3","contagion/male/idle02.mp3","contagion/male/idle03.mp3","contagion/male/idle04.mp3","contagion/male/idle05.mp3","contagion/male/idle06.mp3","contagion/male/idle07.mp3","contagion/male/idle08.mp3","contagion/male/idle09.mp3","contagion/male/idle10.mp3"}
-ENT.SoundTbl_Alert = {"contagion/male/become_alert21.wav","contagion/male/become_alert19.wav","contagion/male/become_alert18.wav","contagion/male/become_alert17.wav","contagion/male/become_alert15.wav","contagion/male/alert9.wav","contagion/male/alert8.wav","contagion/male/alert7.wav","contagion/male/alert6.wav","contagion/male/alert4.wav","contagion/male/alert5.wav","contagion/male/alert3.wav","contagion/male/alert2.wav","contagion/male/alert15.wav","contagion/male/alert14.wav","contagion/male/alert13.wav","contagion/male/alert12.wav","contagion/male/alert11.wav","contagion/male/alert10.wav","contagion/male/alert1.wav","contagion/male/alert01.mp3","contagion/male/alert02.mp3","contagion/male/alert03.mp3","contagion/male/alert04.mp3","contagion/male/alert05.mp3","contagion/male/alert06.mp3","contagion/male/alert07.mp3","contagion/male/alert08.mp3","contagion/male/alert09.mp3","contagion/male/alert10.mp3"}
-ENT.SoundTbl_CombatIdle = {"contagion/male/become_enraged9.wav","contagion/male/become_enraged8.wav","contagion/male/become_enraged7.wav","contagion/male/become_enraged6.wav","contagion/male/become_enraged5.wav","contagion/male/become_enraged4.wav","contagion/male/become_enraged3.wav","contagion/male/become_enraged2.wav","contagion/male/become_enraged17.wav","contagion/male/become_enraged16.wav","contagion/male/become_enraged15.wav","contagion/male/become_enraged14.wav","contagion/male/become_enraged13.wav","contagion/male/become_enraged12.wav","contagion/male/become_enraged11.wav","contagion/male/become_enraged10.wav","contagion/male/become_enraged1.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"contagion/male/become_enraged9.wav","contagion/male/become_enraged8.wav","contagion/male/become_enraged7.wav","contagion/male/become_enraged6.wav","contagion/male/become_enraged5.wav","contagion/male/become_enraged4.wav","contagion/male/become_enraged3.wav","contagion/male/become_enraged2.wav","contagion/male/become_enraged17.wav","contagion/male/become_enraged16.wav","contagion/male/become_enraged15.wav","contagion/male/become_enraged14.wav","contagion/male/become_enraged13.wav","contagion/male/become_enraged12.wav","contagion/male/become_enraged11.wav","contagion/male/become_enraged10.wav","contagion/male/become_enraged1.wav"}
-ENT.SoundTbl_MeleeAttack = {"contagion/claw_strike1.mp3","contagion/claw_strike2.mp3","contagion/claw_strike3.mp3"}
-ENT.SoundTbl_MeleeAttackMiss = {"npc/zombie/claw_miss1.wav","npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"contagion/male/pain7.wav","contagion/male/pain6.wav","contagion/male/pain5.wav","contagion/male/pain4.wav","contagion/male/pain3.wav","contagion/male/pain2.wav","contagion/male/pain1.wav","contagion/male/pain7.wav","contagion/male/pain8.wav","contagion/male/pain01.mp3","contagion/male/pain02.mp3","contagion/male/pain03.mp3","contagion/male/pain04.mp3","contagion/male/pain05.mp3"}
-ENT.SoundTbl_Death = {"contagion/male/death9.wav","contagion/male/death8.wav","contagion/male/death7.wav","contagion/male/death6.wav","contagion/male/death5.wav","contagion/male/death4.wav","contagion/male/death3.wav","contagion/male/death2.wav","contagion/male/death10.wav","contagion/male/death1.wav","contagion/male/die01.mp3","contagion/male/die02.mp3","contagion/male/die03.mp3","contagion/male/die04.mp3","contagion/male/die05.mp3"}
+ENT.SoundTbl_Idle = {"contagion/male/zmale_taunt1.wav","contagion/male/zmale_taunt2.wav","contagion/male/zmale_taunt3.wav","contagion/male/zmale_taunt4.wav","contagion/male/zmale_taunt5.wav","contagion/male/zmale_taunt6.wav","contagion/male/zmale_taunt7.wav","contagion/male/zmale_taunt8.wav","contagion/male/zmale_taunt9.wav","contagion/male/zmale_taunt10.wav"}
+ENT.SoundTbl_Alert = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_CombatIdle = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"contagion/male/zmale_attack1.wav","contagion/male/zmale_attack2.wav","contagion/male/zmale_attack3.wav","contagion/male/zmale_attack4.wav","contagion/male/zmale_attack5.wav","contagion/male/zmale_attack6.wav","contagion/male/zmale_attack7.wav"}
+ENT.SoundTbl_MeleeAttack = {"contagion/z_hit-01.wav","contagion/z_hit-02.wav","contagion/z_hit-03.wav","contagion/z_hit-04.wav","contagion/z_hit-05.wav","contagion/z_hit-06.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"contagion/z-swipe-1.wav","contagion/z-swipe-2.wav","contagion/z-swipe-3.wav","contagion/z-swipe-4.wav","contagion/z-swipe-5.wav","contagion/z-swipe-6.wav"}
+ENT.SoundTbl_Pain = {"contagion/male/zmale_pain1.wav","contagion/male/zmale_pain2.wav","contagion/male/zmale_pain3.wav","contagion/male/zmale_pain4.wav","contagion/male/zmale_pain5.wav","contagion/male/zmale_pain6.wav"}
+ENT.SoundTbl_Death = {"contagion/male/zmale_death1.wav","contagion/male/zmale_death2.wav","contagion/male/zmale_death3.wav","contagion/male/zmale_death4.wav","contagion/male/zmale_death5.wav","contagion/male/zmale_death6.wav"}
 
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
 ENT.Zombie_AllowClimbing = false
 ENT.Zombie_NextStumble = CurTime()
+ENT.Con_VirusInfection = false
 ENT.AdvancedStrain = false
 ENT.LegHealth = 28
 ENT.Crippled = false
 ENT.Stumbled = true
 ENT.CanUseUnableAnim = true
+ENT.CanSit = false
 
 ENT.FootSteps = {
 	[MAT_ANTLION] = {
@@ -323,12 +325,26 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(16,16,70),Vector(-16,-16,0))
+	self:SetCollisionBounds(Vector(13,13,70),Vector(-13,-13,0))
 	self:Zombie_CustomOnInitialize()
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]	
 	
 if GetConVarNumber("vj_con_allowclimbing") == 1 then self.Zombie_AllowClimbing = true end	
+if GetConVarNumber("vj_con_infection") == 1 then self.Con_VirusInfection = true end
+
+--if math.random(1,5) == 1 then
+--self.CanSit = true
+--self.AnimTbl_IdleStand = {"sit1"}
+--self.IdleAlwaysWander = false 
+--self.DisableWandering = true
+--end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if self.CanSit == true then
+			self:VJ_ACT_PLAYACTIVITY("sit_to_idle1",true,1.6,true)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
