@@ -9,7 +9,7 @@ ENT.Model = {} -- The game will pick a random model from the table when the SNPC
 ENT.StartHealth = 60
 ENT.HasItemDropsOnDeath = true 
 ENT.ItemDropsOnDeathChance = 1
-ENT.ItemDropsOnDeath_EntityList = {"item_battery","item_ammo_smg1_grenade","weapon_frag","item_healthkit","item_ammo_pistol","item_ammo_357","item_ammo_smg1","item_box_buckshot","item_ammo_crossbow","item_ammo_357"}
+ENT.ItemDropsOnDeath_EntityList = {"item_battery","item_ammo_smg1_grenade","weapon_frag","item_healthkit","item_healthvial","item_ammo_pistol","item_ammo_357","item_ammo_smg1","item_box_buckshot","item_ammo_crossbow","item_ammo_357"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zlooter" then
