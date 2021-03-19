@@ -63,14 +63,14 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"contagion/female/taunt-01.wav","contagion/female/taunt-02.wav","contagion/female/taunt-03.wav","contagion/female/taunt-04.wav","contagion/female/taunt-05.wav","contagion/female/taunt-06.wav","contagion/female/taunt-07.wav","contagion/female/taunt-08.wav","contagion/female/taunt-09.wav","contagion/female/taunt-10.wav"}
-ENT.SoundTbl_Alert = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
-ENT.SoundTbl_CombatIdle = {"contagion/male/zmale_berserk-01.wav","contagion/male/zmale_berserk-02.wav","contagion/male/zmale_berserk-03.wav","contagion/male/zmale_berserk-04.wav","contagion/male/zmale_berserk-05.wav","contagion/male/zmale_berserk-06.wav","contagion/male/zmale_berserk-07.wav","contagion/male/zmale_berserk-08.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"contagion/female/attack-01.wav","contagion/female/attack-02.wav","contagion/female/attack-03.wav","contagion/female/attack-04.wav","contagion/female/attack-05.wav","contagion/female/attack-06.wav"}
-ENT.SoundTbl_MeleeAttack = {"contagion/z_hit-01.wav","contagion/z_hit-02.wav","contagion/z_hit-03.wav","contagion/z_hit-04.wav","contagion/z_hit-05.wav","contagion/z_hit-06.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"contagion/z-swipe-1.wav","contagion/z-swipe-2.wav","contagion/z-swipe-3.wav","contagion/z-swipe-4.wav","contagion/z-swipe-5.wav","contagion/z-swipe-6.wav"}
-ENT.SoundTbl_Pain = {"contagion/female/pain-01.wav","contagion/female/pain-02.wav","contagion/female/pain-03.wav","contagion/female/pain-04.wav","contagion/female/pain-05.wav"}
-ENT.SoundTbl_Death = {"contagion/female/death-01.wav","contagion/female/death-02.wav","contagion/female/death-03.wav","contagion/female/death-04.wav","contagion/female/death-05.wav","contagion/female/death-06.wav","contagion/female/death-07.wav"}
+ENT.SoundTbl_Idle = {"vj_contagion/female/taunt-01.wav","vj_contagion/female/taunt-02.wav","vj_contagion/female/taunt-03.wav","vj_contagion/female/taunt-04.wav","vj_contagion/female/taunt-05.wav","vj_contagion/female/taunt-06.wav","vj_contagion/female/taunt-07.wav","vj_contagion/female/taunt-08.wav","vj_contagion/female/taunt-09.wav","vj_contagion/female/taunt-10.wav"}
+ENT.SoundTbl_Alert = {"vj_contagion/male/zmale_berserk-01.wav","vj_contagion/male/zmale_berserk-02.wav","vj_contagion/male/zmale_berserk-03.wav","vj_contagion/male/zmale_berserk-04.wav","vj_contagion/male/zmale_berserk-05.wav","vj_contagion/male/zmale_berserk-06.wav","vj_contagion/male/zmale_berserk-07.wav","vj_contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_contagion/male/zmale_berserk-01.wav","vj_contagion/male/zmale_berserk-02.wav","vj_contagion/male/zmale_berserk-03.wav","vj_contagion/male/zmale_berserk-04.wav","vj_contagion/male/zmale_berserk-05.wav","vj_contagion/male/zmale_berserk-06.wav","vj_contagion/male/zmale_berserk-07.wav","vj_contagion/male/zmale_berserk-08.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_contagion/female/attack-01.wav","vj_contagion/female/attack-02.wav","vj_contagion/female/attack-03.wav","vj_contagion/female/attack-04.wav","vj_contagion/female/attack-05.wav","vj_contagion/female/attack-06.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_contagion/z_hit-01.wav","vj_contagion/z_hit-02.wav","vj_contagion/z_hit-03.wav","vj_contagion/z_hit-04.wav","vj_contagion/z_hit-05.wav","vj_contagion/z_hit-06.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_contagion/z-swipe-1.wav","vj_contagion/z-swipe-2.wav","vj_contagion/z-swipe-3.wav","vj_contagion/z-swipe-4.wav","vj_contagion/z-swipe-5.wav","vj_contagion/z-swipe-6.wav"}
+ENT.SoundTbl_Pain = {"vj_contagion/female/pain-01.wav","vj_contagion/female/pain-02.wav","vj_contagion/female/pain-03.wav","vj_contagion/female/pain-04.wav","vj_contagion/female/pain-05.wav"}
+ENT.SoundTbl_Death = {"vj_contagion/female/death-01.wav","vj_contagion/female/death-02.wav","vj_contagion/female/death-03.wav","vj_contagion/female/death-04.wav","vj_contagion/female/death-05.wav","vj_contagion/female/death-06.wav","vj_contagion/female/death-07.wav"}
 
 ENT.CombatIdleSoundPitch = VJ_Set(120, 130)
 ENT.AlertSoundPitch = VJ_Set(120, 130)
