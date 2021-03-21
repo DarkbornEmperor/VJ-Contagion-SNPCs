@@ -6,7 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zofficer" then
@@ -28,11 +27,17 @@ function ENT:Zombie_CustomOnInitialize()
 	--self:SetBodygroup(0,math.random(0,1))
 	self:SetSkin(math.random(0,5))
 	if self.AdvancedStrain then
-		self:SetSuperStrain(120)
+		self:SetSuperStrain(175)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if hitgroup == 1 && GetConVarNumber("vj_con_headshot") == 1 then
+		dmginfo:SetDamage(self:Health())		
+end		
+	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
+		dmginfo:ScaleDamage(1)		
+end
     if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD then
 		dmginfo:ScaleDamage(0.00)
@@ -50,16 +55,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 			self.DamageSpark1:Fire("StartSpark", "", 0)
 			self.DamageSpark1:Fire("StopSpark", "", 0.001)
 			self:DeleteOnRemove(self.DamageSpark1)		
-	--end
-end		
-	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
-		dmginfo:ScaleDamage(1)
-		
-end
-	if hitgroup == 1 && GetConVarNumber("vj_con_headshot") == 1 then
-		dmginfo:SetDamage(self:Health())
-		
-	    end		
+        end			
 	end	
 end
 /*-----------------------------------------------

@@ -6,7 +6,6 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zinmate" then
@@ -23,7 +22,7 @@ function ENT:Zombie_CustomOnInitialize()
 	self:SetBodygroup(0,math.random(0,3))
 	self:SetSkin(math.random(0,3))
 	if self.AdvancedStrain then
-		self:SetSuperStrain(120)
+		self:SetSuperStrain(175)
 	end
 end
 /*-----------------------------------------------

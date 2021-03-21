@@ -20,7 +20,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
 	if self.AdvancedStrain then
-		self:SetSuperStrain(100)
+		self:SetSuperStrain(175)
 	end
 end
 /*-----------------------------------------------

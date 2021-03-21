@@ -6,16 +6,14 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 50
+ENT.StartHealth = 175
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.HasBloodPool = false
 ENT.TurningSpeed = 5
+ENT.PoseParameterLooking_Names = {pitch={},yaw={"move_yaw"},roll={}} -- Custom pose parameters to use, can put as many as needed
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
-ENT.MeleeAttackDamage = 15
-ENT.MeleeAttackDistance = 35
-ENT.MeleeAttackDamageDistance = 70
---ENT.NextAnyAttackTime_Melee = 0.05
+ENT.MeleeAttackDamage = 10
 ENT.AnimTbl_MeleeAttack = {
 	"vjges_Melee2013_01",
 	"vjges_Melee2013_02",
@@ -42,11 +40,11 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Flinching Code ====== --
-//ENT.AnimTbl_Flinch = {"vjges_flinch_01"} -- If it uses normal based animation, use this
+//ENT.AnimTbl_Flinch = {""} -- If it uses normal based animation, use this
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.FlinchChance = 1.5 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.NextFlinchTime = 1.5
-ENT.NextMoveAfterFlinchTime = "LetBaseDecide" -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
+ENT.FlinchChance = 2 -- Chance of it flinching from 1 to x | 1 will make it always flinch
+ENT.NextFlinchTime = 2
+ENT.NextMoveAfterFlinchTime = false -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
 ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
 ENT.HitGroupFlinching_Values = {
@@ -63,17 +61,20 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"vj_contagion/female/taunt-01.wav","vj_contagion/female/taunt-02.wav","vj_contagion/female/taunt-03.wav","vj_contagion/female/taunt-04.wav","vj_contagion/female/taunt-05.wav","vj_contagion/female/taunt-06.wav","vj_contagion/female/taunt-07.wav","vj_contagion/female/taunt-08.wav","vj_contagion/female/taunt-09.wav","vj_contagion/female/taunt-10.wav"}
-ENT.SoundTbl_Alert = {"vj_contagion/male/zmale_berserk-01.wav","vj_contagion/male/zmale_berserk-02.wav","vj_contagion/male/zmale_berserk-03.wav","vj_contagion/male/zmale_berserk-04.wav","vj_contagion/male/zmale_berserk-05.wav","vj_contagion/male/zmale_berserk-06.wav","vj_contagion/male/zmale_berserk-07.wav","vj_contagion/male/zmale_berserk-08.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_contagion/male/zmale_berserk-01.wav","vj_contagion/male/zmale_berserk-02.wav","vj_contagion/male/zmale_berserk-03.wav","vj_contagion/male/zmale_berserk-04.wav","vj_contagion/male/zmale_berserk-05.wav","vj_contagion/male/zmale_berserk-06.wav","vj_contagion/male/zmale_berserk-07.wav","vj_contagion/male/zmale_berserk-08.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_contagion/female/attack-01.wav","vj_contagion/female/attack-02.wav","vj_contagion/female/attack-03.wav","vj_contagion/female/attack-04.wav","vj_contagion/female/attack-05.wav","vj_contagion/female/attack-06.wav"}
+ENT.SoundTbl_Idle = {"vj_contagion/Build2695/z_sham/idle/0128.wav","vj_contagion/Build2695/z_sham/idle/0123.wav","vj_contagion/Build2695/z_sham/idle/0122.wav","vj_contagion/Build2695/z_sham/idle/0121.wav","vj_contagion/Build2695/z_sham/idle/0120.wav","vj_contagion/Build2695/z_sham/idle/0119.wav","vj_contagion/Build2695/z_sham/idle/0118.wav","vj_contagion/Build2695/z_sham/idle/0117.wav","vj_contagion/Build2695/z_sham/idle/0116.wav","vj_contagion/Build2695/z_sham/idle/0115.wav","vj_contagion/Build2695/z_sham/idle/0114.wav","vj_contagion/Build2695/z_sham/idle/0113.wav","vj_contagion/Build2695/z_sham/idle/0112.wav","vj_contagion/Build2695/z_sham/idle/0111.wav","vj_contagion/Build2695/z_sham/idle/0110.wav","vj_contagion/Build2695/z_sham/idle/0109.wav","vj_contagion/Build2695/z_sham/idle/0108.wav","vj_contagion/Build2695/z_sham/idle/0107.wav","vj_contagion/Build2695/z_sham/idle/0106.wav","vj_contagion/Build2695/z_sham/idle/0105.wav","vj_contagion/Build2695/z_sham/idle/0104.wav","vj_contagion/Build2695/z_sham/idle/0103.wav","vj_contagion/Build2695/z_sham/idle/0102.wav","vj_contagion/Build2695/z_sham/idle/0101.wav","vj_contagion/Build2695/z_sham/idle/0100.wav","vj_contagion/Build2695/z_sham/idle/0099.wav","vj_contagion/Build2695/z_sham/idle/0098.wav","vj_contagion/Build2695/z_sham/idle/0097.wav","vj_contagion/Build2695/z_sham/idle/0096.wav","vj_contagion/Build2695/z_sham/idle/0095.wav","vj_contagion/Build2695/z_sham/idle/0094.wav","vj_contagion/Build2695/z_sham/idle/0093.wav","vj_contagion/Build2695/z_sham/idle/0092.wav","vj_contagion/Build2695/z_sham/idle/0091.wav","vj_contagion/Build2695/z_sham/idle/0090.wav","vj_contagion/Build2695/z_sham/idle/0089.wav","vj_contagion/Build2695/z_sham/idle/0088.wav","vj_contagion/Build2695/z_sham/idle/0087.wav","vj_contagion/Build2695/z_sham/idle/0086.wav","vj_contagion/Build2695/z_sham/idle/0085.wav","vj_contagion/Build2695/z_sham/idle/0084.wav","vj_contagion/Build2695/z_sham/idle/0083.wav","vj_contagion/Build2695/z_sham/idle/0082.wav","vj_contagion/Build2695/z_sham/idle/0081.wav","vj_contagion/Build2695/z_sham/idle/0080.wav","vj_contagion/Build2695/z_sham/idle/0079.wav","vj_contagion/Build2695/z_sham/idle/0077.wav","vj_contagion/Build2695/z_sham/idle/0076.wav","vj_contagion/Build2695/z_arne/idle/0219.wav","vj_contagion/Build2695/z_arne/idle/0220.wav","vj_contagion/Build2695/z_arne/idle/0221.wav","vj_contagion/Build2695/z_arne/idle/0243.wav","vj_contagion/Build2695/z_arne/idle/0246.wav","vj_contagion/Build2695/z_arne/idle/0247.wav","vj_contagion/Build2695/z_arne/idle/0248.wav","vj_contagion/Build2695/z_arne/idle/0249.wav","vj_contagion/Build2695/z_arne/idle/0250.wav","vj_contagion/Build2695/z_arne/idle/0251.wav","vj_contagion/Build2695/z_arne/idle/0252.wav","vj_contagion/Build2695/z_arne/idle/0253.wav","vj_contagion/Build2695/z_arne/idle/0254.wav","vj_contagion/Build2695/z_arne/idle/0255.wav"}
+ENT.SoundTbl_Alert = {"vj_contagion/Build2695/z_sham/spot_player/0178.wav","vj_contagion/Build2695/z_sham/spot_player/0173.wav","vj_contagion/Build2695/z_sham/spot_player/0159.wav","vj_contagion/Build2695/z_sham/spot_player/0158.wav","vj_contagion/Build2695/z_sham/spot_player/0157.wav","vj_contagion/Build2695/z_sham/spot_player/0156.wav","vj_contagion/Build2695/z_sham/spot_player/0155.wav","vj_contagion/Build2695/z_sham/spot_player/0153.wav","vj_contagion/Build2695/z_sham/spot_player/0145.wav","vj_contagion/Build2695/z_sham/spot_player/0134.wav","vj_contagion/Build2695/z_sham/spot_player/0059.wav","vj_contagion/Build2695/z_sham/spot_player/0055.wav","vj_contagion/Build2695/z_sham/spot_player/0054.wav","vj_contagion/Build2695/z_sham/spot_player/0018.wav","vj_contagion/Build2695/z_sham/spot_player/0017.wav","vj_contagion/Build2695/z_sham/spot_player/0016.wav","vj_contagion/Build2695/z_sham/spot_player/0015.wav","vj_contagion/Build2695/z_sham/spot_player/0014.wav","","vj_contagion/Build2695/z_sham/spot_player/0013.wav","vj_contagion/Build2695/z_sham/spot_player/0003.wav","vj_contagion/Build2695/z_sham/spot_player/0002.wav","vj_contagion/Build2695/z_sham/spot_player/0001.wav","vj_contagion/Build2695/z_sham/alert/0170.wav","vj_contagion/Build2695/z_sham/alert/0169.wav","vj_contagion/Build2695/z_sham/alert/0168.wav","vj_contagion/Build2695/z_sham/alert/0167.wav","vj_contagion/Build2695/z_sham/alert/0166.wav","vj_contagion/Build2695/z_sham/alert/0165.wav","vj_contagion/Build2695/z_sham/alert/0164.wav","vj_contagion/Build2695/z_sham/alert/0163.wav","vj_contagion/Build2695/z_sham/alert/0162.wav","vj_contagion/Build2695/z_sham/alert/0161.wav","vj_contagion/Build2695/z_sham/alert/0152.wav","vj_contagion/Build2695/z_sham/alert/0061.wav","vj_contagion/Build2695/z_sham/alert/0060.wav","vj_contagion/Build2695/z_sham/alert/0058.wav","vj_contagion/Build2695/z_sham/alert/0056.wav","vj_contagion/Build2695/z_sham/alert/0030.wav","vj_contagion/Build2695/z_sham/alert/0029.wav","vj_contagion/Build2695/z_sham/alert/0028.wav","vj_contagion/Build2695/z_sham/alert/0027.wav","vj_contagion/Build2695/z_sham/alert/0026.wav","vj_contagion/Build2695/z_sham/alert/0025.wav","vj_contagion/Build2695/z_sham/alert/0023.wav","vj_contagion/Build2695/z_sham/alert/0022.wav","vj_contagion/Build2695/z_sham/alert/0021.wav","vj_contagion/Build2695/z_arne/alert/0207.wav","vj_contagion/Build2695/z_arne/alert/0208.wav","vj_contagion/Build2695/z_arne/alert/0209.wav","vj_contagion/Build2695/z_arne/alert/0210.wav","vj_contagion/Build2695/z_arne/alert/0211.wav","vj_contagion/Build2695/z_arne/alert/0212.wav","vj_contagion/Build2695/z_arne/alert/0213.wav","vj_contagion/Build2695/z_arne/alert/0214.wav","vj_contagion/Build2695/z_arne/alert/0215.wav","vj_contagion/Build2695/z_arne/alert/0216.wav","vj_contagion/Build2695/z_arne/alert/0217.wav","vj_contagion/Build2695/z_arne/alert/0218.wav"}
+ENT.SoundTbl_CallForHelp = {"vj_contagion/Build2695/z_sham/roar/0075.wav","vj_contagion/Build2695/z_sham/roar/0074.wav","vj_contagion/Build2695/z_sham/roar/0073.wav","vj_contagion/Build2695/z_sham/roar/0072.wav","vj_contagion/Build2695/z_sham/roar/0071.wav","vj_contagion/Build2695/z_sham/roar/0070.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_contagion/Build2695/z_sham/shared/0245.wav","vj_contagion/Build2695/z_sham/shared/0244.wav","vj_contagion/Build2695/z_sham/shared/0187.wav","vj_contagion/Build2695/z_sham/shared/0186.wav","vj_contagion/Build2695/z_sham/shared/0185.wav","vj_contagion/Build2695/z_sham/shared/0184.wav","vj_contagion/Build2695/z_sham/shared/0183.wav","vj_contagion/Build2695/z_sham/shared/0182.wav","vj_contagion/Build2695/z_sham/shared/0181.wav","vj_contagion/Build2695/z_sham/shared/0180.wav","vj_contagion/Build2695/z_sham/shared/0179.wav","vj_contagion/Build2695/z_sham/shared/0177.wav","vj_contagion/Build2695/z_sham/shared/0176.wav","vj_contagion/Build2695/z_sham/shared/0175.wav","vj_contagion/Build2695/z_sham/shared/0174.wav","vj_contagion/Build2695/z_sham/roar/0075.wav","vj_contagion/Build2695/z_sham/roar/0074.wav","vj_contagion/Build2695/z_sham/roar/0073.wav","vj_contagion/Build2695/z_sham/roar/0072.wav","vj_contagion/Build2695/z_sham/roar/0071.wav","vj_contagion/Build2695/z_sham/roar/0070.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_contagion/Build2695/z_sham/attacking/0053.wav","vj_contagion/Build2695/z_sham/attacking/0052.wav","vj_contagion/Build2695/z_sham/attacking/0051.wav","vj_contagion/Build2695/z_sham/attacking/0050.wav","vj_contagion/Build2695/z_sham/attacking/0049.wav","vj_contagion/Build2695/z_sham/attacking/0048.wav","vj_contagion/Build2695/z_sham/attacking/0047.wav","vj_contagion/Build2695/z_sham/attacking/0045.wav","vj_contagion/Build2695/z_sham/attacking/0044.wav","vj_contagion/Build2695/z_sham/attacking/0043.wav","vj_contagion/Build2695/z_sham/attacking/0042.wav","vj_contagion/Build2695/z_sham/attacking/0041.wav","vj_contagion/Build2695/z_sham/attacking/0040.wav","vj_contagion/Build2695/z_sham/attacking/0039.wav","vj_contagion/Build2695/z_sham/attacking/0038.wav","vj_contagion/Build2695/z_sham/attacking/0037.wav","vj_contagion/Build2695/z_sham/attacking/0036.wav","vj_contagion/Build2695/z_sham/attacking/0034.wav","vj_contagion/Build2695/z_sham/attacking/0033.wav","vj_contagion/Build2695/z_arne/attack/0226.wav","vj_contagion/Build2695/z_arne/attack/0227.wav","vj_contagion/Build2695/z_arne/attack/0229.wav","vj_contagion/Build2695/z_arne/attack/0231.wav","vj_contagion/Build2695/z_arne/attack/0233.wav","vj_contagion/Build2695/z_arne/attack/0234.wav","vj_contagion/Build2695/z_arne/attack/0235.wav","vj_contagion/Build2695/z_arne/attack/0236.wav","vj_contagion/Build2695/z_arne/attack/0238.wav","vj_contagion/Build2695/z_arne/attack/0239.wav","vj_contagion/Build2695/z_arne/attack/0240.wav","vj_contagion/Build2695/z_arne/attack/0241.wav","vj_contagion/Build2695/z_arne/attack/0256.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_contagion/z_hit-01.wav","vj_contagion/z_hit-02.wav","vj_contagion/z_hit-03.wav","vj_contagion/z_hit-04.wav","vj_contagion/z_hit-05.wav","vj_contagion/z_hit-06.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_contagion/z-swipe-1.wav","vj_contagion/z-swipe-2.wav","vj_contagion/z-swipe-3.wav","vj_contagion/z-swipe-4.wav","vj_contagion/z-swipe-5.wav","vj_contagion/z-swipe-6.wav"}
-ENT.SoundTbl_Pain = {"vj_contagion/female/pain-01.wav","vj_contagion/female/pain-02.wav","vj_contagion/female/pain-03.wav","vj_contagion/female/pain-04.wav","vj_contagion/female/pain-05.wav"}
-ENT.SoundTbl_Death = {"vj_contagion/female/death-01.wav","vj_contagion/female/death-02.wav","vj_contagion/female/death-03.wav","vj_contagion/female/death-04.wav","vj_contagion/female/death-05.wav","vj_contagion/female/death-06.wav","vj_contagion/female/death-07.wav"}
+ENT.SoundTbl_Pain = {"vj_contagion/Build2695/z_sham/pain/0148.wav","vj_contagion/Build2695/z_sham/pain/0149.wav","vj_contagion/Build2695/z_sham/pain/0147.wav","vj_contagion/Build2695/z_sham/pain/0146.wav","vj_contagion/Build2695/z_sham/pain/0143.wav","vj_contagion/Build2695/z_sham/pain/0141.wav","vj_contagion/Build2695/z_sham/pain/0140.wav","vj_contagion/Build2695/z_sham/pain/0139.wav","vj_contagion/Build2695/z_sham/pain/0138.wav","vj_contagion/Build2695/z_sham/pain/0137.wav","vj_contagion/Build2695/z_sham/pain/0136.wav","vj_contagion/Build2695/z_sham/pain/0135.wav","vj_contagion/Build2695/z_sham/pain/0133.wav","vj_contagion/Build2695/z_sham/pain/0132.wav","vj_contagion/Build2695/z_sham/pain/0131.wav","vj_contagion/Build2695/z_sham/pain/0130.wav","vj_contagion/Build2695/z_sham/pain/0129.wav","vj_contagion/Build2695/z_sham/pain/0127.wav","vj_contagion/Build2695/z_sham/pain/0126.wav","vj_contagion/Build2695/z_sham/pain/0125.wav","vj_contagion/Build2695/z_sham/pain/0124.wav","vj_contagion/Build2695/z_sham/pain/0069.wav","vj_contagion/Build2695/z_sham/pain/0066.wav","vj_contagion/Build2695/z_sham/pain/0065.wav","vj_contagion/Build2695/z_sham/pain/0064.wav","vj_contagion/Build2695/z_sham/pain/0063.wav","vj_contagion/Build2695/z_sham/pain/0062.wav"}
+ENT.SoundTbl_Death = {"vj_contagion/Build2695/z_sham/death/0032.wav","vj_contagion/Build2695/z_arne/die/0222.wav","vj_contagion/Build2695/z_arne/die/0223.wav","vj_contagion/Build2695/z_arne/die/0224.wav","vj_contagion/Build2695/z_arne/die/0225.wav"}
 
-ENT.CombatIdleSoundPitch = VJ_Set(120, 130)
-ENT.AlertSoundPitch = VJ_Set(120, 130)
+ENT.GeneralSoundPitch1 = 120
+ENT.GeneralSoundPitch2 = 130
+ENT.MeleeAttackSoundPitch = VJ_Set(100, 100)
+ENT.MeleeAttackMissSoundPitch = VJ_Set(100, 100)
 
 -- Custom
 ENT.Zombie_Climbing = false
@@ -280,7 +281,7 @@ end
 		self:SetSkin(math.random(0,2))
 end
 	if self.AdvancedStrain then
-		self:SetSuperStrain(100)
+		self:SetSuperStrain(175)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -289,7 +290,7 @@ function ENT:SetSuperStrain(hp)
 	self:SetMaxHealth(hp)
 	self.AnimTbl_Walk = {ACT_WALK_AIM}
 	self.AnimTbl_Run = {ACT_RUN_AIM}
-	self.MeleeAttackDamage = self.MeleeAttackDamage +10
+	self.MeleeAttackDamage = self.MeleeAttackDamage +11
 	self.MaxJumpLegalDistance = VJ_Set(0,600)
 	self.LegHealth = hp /2
 end
@@ -302,6 +303,12 @@ function ENT:CustomOnInitialize()
 	
     if GetConVarNumber("vj_con_allowclimbing") == 1 then self.Zombie_AllowClimbing = true end
 	if GetConVarNumber("vj_con_infection") == 1 then self.Con_VirusInfection = true end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnCallForHelp(ally)
+	if !self.Crippled && self.AdvancedStrain then 
+		self:VJ_ACT_PLAYACTIVITY("zombie_grapple_roar1",true,2,true)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -323,10 +330,13 @@ function ENT:Cripple()
 	self.MaxJumpLegalDistance = VJ_Set(0,0)
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 	self.MeleeAttackAnimationAllowOtherTasks = false
+	self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP))
+	self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB))
 	self.Stumbled = false
 	self.CanFlinch = 0
 	self.HasDeathAnimation = false
 	self.CanUseUnableAnim = false
+	self.Zombie_AllowClimbing = false
     self.VJC_Data = {
 	CameraMode = 1, 
 	ThirdP_Offset = Vector(45, 20, -15), 
@@ -338,7 +348,10 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if hitgroup == 1 && GetConVarNumber("vj_con_headshot") == 1 then
 		dmginfo:SetDamage(self:Health())
-	end
+end
+	if self.AdvancedStrain then
+	   dmginfo:ScaleDamage(0.75)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
@@ -379,7 +392,7 @@ function ENT:Crouch(bCrouch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.VJ_IsBeingControlled == true && !self.Crippled && self.AdvancedStrain then
+	if self.VJ_IsBeingControlled == true && self.AdvancedStrain then
 		if self.VJ_TheController:KeyDown(IN_JUMP) then
 			if self:IsOnGround() then
 				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
@@ -404,7 +417,8 @@ function ENT:CustomOnChangeMovementType(movType)
     if GetConVarNumber("vj_con_climbjump") == 0 then
 	if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
 	if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled && self.AdvancedStrain == false then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
-end
+	
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
@@ -417,6 +431,8 @@ end
 function ENT:CustomOnThink_AIEnabled()
 		if IsValid(self:GetEnemy()) && self.CanUseUnableAnim == true then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
+		else
+		    self.AnimTbl_IdleStand = {ACT_IDLE}			
 end
 
 	if !self.Crippled && self.AdvancedStrain then
