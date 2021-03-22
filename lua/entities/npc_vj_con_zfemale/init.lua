@@ -296,7 +296,7 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(13,13,70),Vector(-13,-13,0))
+	self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
 	self:Zombie_CustomOnInitialize()
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]
@@ -424,6 +424,8 @@ end
 function ENT:Controller_IntMsg(ply)
 if !self.Crippled && self.AdvancedStrain then	
     ply:ChatPrint("SPACE: Jump")
+end	
+if !self.Crippled && self.AdvancedStrain or GetConVarNumber("vj_con_crouch") == 1 then	
 	ply:ChatPrint("C: Crouch")
 end
 end
@@ -435,7 +437,7 @@ function ENT:CustomOnThink_AIEnabled()
 		    self.AnimTbl_IdleStand = {ACT_IDLE}			
 end
 
-	if !self.Crippled && self.AdvancedStrain then
+	if !self.Crippled && self.AdvancedStrain or GetConVarNumber("vj_con_crouch") == 1  then
 		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() then
 			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
 				self:Crouch(true)
@@ -448,7 +450,7 @@ end
 		
 	if self.VJ_IsBeingControlled then
 	   if self.VJ_TheController:KeyDown(IN_DUCK) then	
-	      if !self.Crippled && self.AdvancedStrain then
+	      if !self.Crippled && self.AdvancedStrain or GetConVarNumber("vj_con_crouch") == 1 then
 				self:Crouch(true)
 self.VJC_Data = {
 	CameraMode = 1, 

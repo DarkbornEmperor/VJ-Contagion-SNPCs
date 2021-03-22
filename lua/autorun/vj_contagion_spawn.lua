@@ -85,6 +85,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_con_headshot",0,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_infection",0,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_climbjump",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_crouch",0,{FCVAR_ARCHIVE})
 	
 	if CLIENT then
 		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
@@ -104,6 +105,7 @@ if VJExists == true then
 				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
 				Panel:AddControl("Checkbox", {Label = "Enable Infection System", Command = "vj_con_infection"})
 				Panel:AddControl("Checkbox", {Label = "Enable Climbing and Jumping For Normal Zombies", Command = "vj_con_climbjump"})
+				Panel:AddControl("Checkbox", {Label = "Enable Crouching For Normal Zombies", Command = "vj_con_crouch"})
 			end, {})
 		end)
 	end	

@@ -1,9 +1,9 @@
 EyeRefract
 {
-    $ambientoccltexture     "models/survivors/shared/eyeball_shared_ao"
-    $envmap                 "shared/envmap_lighting"
+    $ambientoccltexture     "models\cpthazama\contagion\zombies\zombie_shared\eyeball_shared_ao"
+    $envmap                 "models\cpthazama\contagion\zombies\zombie_shared\envmap_lighting"
     $envmaptint             "[1 1 1]"
-    $corneatexture          "shared/eye_shape"
+    $corneatexture          "models\cpthazama\contagion\zombies\zombie_shared\eye_shape"
     $halflambert            "0"
     $nodecal                "1"
     $ambientocclusion       "1"
