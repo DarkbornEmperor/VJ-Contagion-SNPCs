@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/props_junk/popcan01a.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.EntitiesToSpawn = {
-	{EntityName = "NPC1",SpawnPosition = {vForward=50,vRight=0,vUp=0},Entities = {"npc_vj_con_zyumi","npc_vj_con_ztony","npc_vj_con_zriot","npc_vj_con_znick","npc_vj_con_zmia","npc_vj_con_zmarcus","npc_vj_con_zmanuel","npc_vj_con_zjessica","npc_vj_con_zeugene","npc_vj_con_zofficer","npc_vj_con_zlooter","npc_vj_con_zinmate","npc_vj_con_zcurtis","npc_vj_con_zdoc","npc_vj_con_zfemale","npc_vj_con_zcivi","npc_vj_con_zmale"}},
+	{EntityName = "NPC1",SpawnPosition = {vForward=50,vRight=0,vUp=0},Entities = {"npc_vj_con_zcarrier","npc_vj_con_zyumi","npc_vj_con_ztony","npc_vj_con_zriot","npc_vj_con_znick","npc_vj_con_zmia","npc_vj_con_zmarcus","npc_vj_con_zmanuel","npc_vj_con_zjessica","npc_vj_con_zeugene","npc_vj_con_zofficer","npc_vj_con_zlooter","npc_vj_con_zinmate","npc_vj_con_zcurtis","npc_vj_con_zdoc","npc_vj_con_zfemale","npc_vj_con_zcivi","npc_vj_con_zmale"}},
 
 }
 /*-----------------------------------------------

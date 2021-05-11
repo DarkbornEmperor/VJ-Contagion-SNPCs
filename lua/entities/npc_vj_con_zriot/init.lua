@@ -7,6 +7,15 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 225
+ENT.IdleSoundPitch = VJ_Set(80, 80)
+ENT.CombatIdleSoundPitch = VJ_Set(80, 80)
+ENT.AlertSoundPitch = VJ_Set(80, 80)
+ENT.CallForHelpSoundPitch = VJ_Set(80, 80)
+ENT.BeforeMeleeAttackSoundPitch = VJ_Set(80, 80)
+ENT.PainSoundPitch1 = 80
+ENT.PainSoundPitch2 = 80
+ENT.DeathSoundPitch1 = 80
+ENT.DeathSoundPitch2 = 80
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zriot" then

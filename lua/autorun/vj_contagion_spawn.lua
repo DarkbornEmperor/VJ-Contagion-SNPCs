@@ -25,6 +25,7 @@ if VJExists == true then
 	VJ.AddNPC("Inmate Zombie","npc_vj_con_zinmate",vCat)
 	VJ.AddNPC("Looter Zombie","npc_vj_con_zlooter",vCat)
 	VJ.AddNPC("Officer Zombie","npc_vj_con_zofficer",vCat)
+	VJ.AddNPC("Carrier","npc_vj_con_zcarrier",vCat)
 	VJ.AddNPC("Eugene (Zombie)","npc_vj_con_zeugene",vCat)
 	VJ.AddNPC("Jessica (Zombie)","npc_vj_con_zjessica",vCat)
 	VJ.AddNPC("Manuel (Zombie)","npc_vj_con_zmanuel",vCat)
@@ -82,10 +83,11 @@ if VJExists == true then
 	
 		-- Menu --
 	VJ.AddConVar("vj_con_allowclimbing",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_headshot",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_headshot",1,{FCVAR_ARCHIVE})
 	VJ.AddConVar("vj_con_infection",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_climbjump",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_crouch",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_climb",1,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_jump",0,{FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_con_crouch",1,{FCVAR_ARCHIVE})
 	
 	if CLIENT then
 		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
@@ -104,7 +106,8 @@ if VJExists == true then
 				Panel:ControlHelp("WARNING: Enabling climbing will cause heavy performance drops!")
 				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
 				Panel:AddControl("Checkbox", {Label = "Enable Infection System", Command = "vj_con_infection"})
-				Panel:AddControl("Checkbox", {Label = "Enable Climbing and Jumping For Normal Zombies", Command = "vj_con_climbjump"})
+				Panel:AddControl("Checkbox", {Label = "Enable Climbing For Normal Zombies", Command = "vj_con_climbjump"})
+				Panel:AddControl("Checkbox", {Label = "Enable Jumping For Normal Zombies", Command = "vj_con_climbjump"})
 				Panel:AddControl("Checkbox", {Label = "Enable Crouching For Normal Zombies", Command = "vj_con_crouch"})
 			end, {})
 		end)
