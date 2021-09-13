@@ -1,0 +1,44 @@
+VertexLitGeneric
+{
+    $basetexture                "models/cpthazama/contagion/zombies/w_gasmask\gasmask_diff"
+    $bumpmap                    "models/cpthazama/contagion/zombies/w_gasmask\gasmask_norm"
+    $normalmapalphaenvmapmask   "1"
+    
+    $nocull                     "1"
+    $phong                      "1"
+    $phongfresnelranges         "[1 1 1]"
+    $phongboost                 "0"
+    $phongexponent              "0"
+    $phongtint                  "[1 1 1]"
+    $selfillum                  "0"
+    $selfillummask              "white"
+    $selfillumtint              "[1 1 1]"
+    $outline                    "0.1"
+    $outline_alpha              "1"
+    $outline_colour             "[1 1 1]"
+    Proxies
+    {
+        OutlineItem
+        {
+            Disabled
+            {
+                "outline_alpha"     "0"
+                "phong_tint"        "1 .6 .5"
+                "phong_boost"       "0.3"
+                "phong_exponent"    "140"
+                "phong_fresnel"     "0.3 0.5 1"
+            }
+            Highlight
+            {
+                "outline"           "0.12"
+                "outline_alpha"     "0.5"
+                "outline_colour"    "1 0.7 0"
+                "outline_tint"      "4 1.5 0.5"
+                "phong_tint"        "4 3 0"
+                "phong_boost"       "2"
+                "phong_exponent"    "8"
+                "phong_fresnel"     "0.6 0.9 3"
+            }
+        }
+    }
+}

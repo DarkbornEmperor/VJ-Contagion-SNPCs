@@ -1,0 +1,9 @@
+DecalModulate
+{
+    $envmap              env_cubemap
+    $envmapmask          "vj_contagion\decals\blood_splatter\blood_splatter_envmask"
+    $envmaptint          "[0.8 0.35 0.35]"
+    $decalscale          "0.16"
+    $decalscalevariation "0.14"
+    $decal               "1"
+}

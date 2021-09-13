@@ -1,0 +1,8 @@
+Patch
+{
+    include             "materials/vj_contagion\decals\blood_splatter/blood_splatter_shared.vmt"
+    insert
+    {
+        $basetexture    "vj_contagion\decals\blood_splatter/blood_splatter_zombie03"
+    }
+}

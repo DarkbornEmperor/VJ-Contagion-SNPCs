@@ -1,572 +1,399 @@
+/* Note: All credits go to Cpt. Hazama. I take no credit for this. */
 AddCSLuaFile("shared.lua")
-include('shared.lua') 
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2015 by DrVj, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+include('shared.lua')
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
+local table_insert = table.insert
+local table_remove = table.remove
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-
-======================================================================================================================================
-
-  Knight: 
-
-  This is the spawner that I have thought about for a few days. Although not as good as it is ideal, but it is enough. 
-  After all, I spend most of my time designing other works. I think you can test this first. 
-  To make sure it works, by the way tell ZAKAL and ask him to help me look at the new design, 
-  I need more inspiration.
-
-	
-=======================================================================================================================================	
------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-	
------------------------------------------------*/
-ENT.Model = {"models/Gibs/HGIBS.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 1
-ENT.SightDistance = 99999999
-ENT.MovementType = VJ_MOVETYPE_STATIONARY
-ENT.HullType = HULL_HUMAN
-ENT.GodMode = true
+ENT.Zombie = {
+	{class="npc_vj_con_zmale",chance=1},
+	{class="npc_vj_con_zfemale",chance=1},
+	{class="npc_vj_con_zcivi",chance=4},
+	{class="npc_vj_con_zdoc",chance=8},	
+	{class="npc_vj_con_zinmate",chance=8},
+	{class="npc_vj_con_zlooter",chance=8},
+	{class="npc_vj_con_zofficer",chance=8},
+	{class="npc_vj_con_zcarrier",chance=20},
+	{class="npc_vj_con_zriot",chance=20},	
+	{class="npc_vj_con_zcurtis",chance=6},
+	{class="npc_vj_con_zeugene",chance=6}, 
+	{class="npc_vj_con_zjessica",chance=6},
+	{class="npc_vj_con_zmanuel",chance=6},
+	{class="npc_vj_con_zmarcus",chance=6},
+	{class="npc_vj_con_zmia",chance=6},	
+	{class="npc_vj_con_znick",chance=6},
+	{class="npc_vj_con_ztony",chance=6},
+	{class="npc_vj_con_zyumi",chance=6},
+	{class="npc_vj_con_zriotsol",chance=15},
+	{class="npc_vj_con_zriotbrute",chance=40},	
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
-ENT.BloodColor = ""
-ENT.ContagionControl = true
-ENT.Contagion = {"npc_vj_con_zcarrier","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zdoc","npc_vj_con_zdoc","npc_vj_con_zlooter","npc_vj_con_zlooter","npc_vj_con_zofficer","npc_vj_con_zofficer","npc_vj_con_zinmate","npc_vj_con_zinmate","npc_vj_con_zriot","npc_vj_con_zriot","npc_vj_con_zcurtis","npc_vj_con_zeugene","npc_vj_con_zjessica","npc_vj_con_zmanuel","npc_vj_con_zmarcus","npc_vj_con_zmia","npc_vj_con_znick","npc_vj_con_ztony","npc_vj_con_zyumi"}
-ENT.Contagion2 = {"npc_vj_con_zcarrier","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zdoc","npc_vj_con_zdoc","npc_vj_con_zlooter","npc_vj_con_zlooter","npc_vj_con_zofficer","npc_vj_con_zofficer","npc_vj_con_zinmate","npc_vj_con_zinmate","npc_vj_con_zriot","npc_vj_con_zriot","npc_vj_con_zcurtis","npc_vj_con_zeugene","npc_vj_con_zjessica","npc_vj_con_zmanuel","npc_vj_con_zmarcus","npc_vj_con_zmia","npc_vj_con_znick","npc_vj_con_ztony","npc_vj_con_zyumi"}
-ENT.Contagion3 = {"npc_vj_con_zcarrier","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zmale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zfemale","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zcivi","npc_vj_con_zdoc","npc_vj_con_zdoc","npc_vj_con_zlooter","npc_vj_con_zlooter","npc_vj_con_zofficer","npc_vj_con_zofficer","npc_vj_con_zinmate","npc_vj_con_zinmate","npc_vj_con_zriot","npc_vj_con_zriot","npc_vj_con_zcurtis","npc_vj_con_zeugene","npc_vj_con_zjessica","npc_vj_con_zmanuel","npc_vj_con_zmarcus","npc_vj_con_zmia","npc_vj_con_znick","npc_vj_con_ztony","npc_vj_con_zyumi"}
-ENT.RunAwayOnUnknownDamage = false
-ENT.HasMeleeAttack = false
-ENT.SAngle2 = 55
-ENT.FindEnemy_UseSphere = false 
-ENT.FindEnemy_CanSeeThroughWalls = false
-ENT.NUM = 0
-ENT.DisableMakingSelfEnemyToNPCs = true
-ENT.NUM2 = 0
-ENT.NUM3 = 0
-ENT.CREA = true
-ENT.CREA2 = true
-ENT.CREAd = true
-ENT.CREA2d = true
-ENT.CREAda = true
-ENT.CREA2da = true
+function ENT:Initialize()
+	local i = 0
+	for k, v in ipairs(ents.GetAll()) do
+		if v:GetClass() == "sent_vj_con_mapspawner" then
+			i = i + 1
+			if i > 1 then PrintMessage(HUD_PRINTTALK, "Only one Map Spawner is allowed on the map.") self.SkipOnRemove = true self:Remove() return end
+		end
+	end
 
-ENT.CREA3 = true
-ENT.Decrease = false
-ENT.HasDeathAnimation = false
-ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasDeathRagdoll = false
-ENT.MaxZombie = 0 
-ENT.cout = true
-ENT.cout2 = false
-ENT.cout3 = true
-ENT.time = 0.65
-ENT.time2 = 0.65
-ENT.time3 = 0.65
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_SoundTrack = {""}
-ENT.HasSoundTrack = false
--------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-for k,v in pairs(ents.GetAll()) do  
-if v:IsValid() && v != self && v.ContagionControl == true then 
-PrintMessage(HUD_PRINTTALK, "Only one Map Spawner is allowed.")
-self:Remove()
-end
+	self.nodePositions = {}
+	self.navAreas = {}
+	
+	for _,pos in pairs(VJ_CON_NODEPOS) do
+		if pos then table_insert(self.nodePositions,{Position = pos, Time = 0}) end
+	end
 
- --PrintMessage( HUD_PRINTTALK, "===============================================")
- --PrintMessage( HUD_PRINTTALK, "The Horde comes.....")
- -- PrintMessage( HUD_PRINTTALK, "===============================================")
---self:SetMaterial("hud/killicons/default")
-self:SetNoDraw(true)
-self.VJ_NoTarget = true
-self:SetCollisionBounds(Vector(0, 0, 0), -Vector(0, 0, 0))
-end 
-end			
-----------------------------------------
-function ENT:CustomOnThink_AIEnabled() 
-local max = math.max(60)
-if self.CREA == true && self.CREA2 == true then
-for k,v in pairs(player.GetAll()) do  
-if v:IsValid() && v != self && v:IsPlayer() && v:GetClass() != self:GetClass() && self.CREA == true && self.CREA2 == true && self.CREA3 == true && v:Health() > 0 &&  self.MaxZombie < max  then 
-local at = player.GetAll()
-local chce = at[math.random(1,#at)]
-local pos2 = chce:LocalToWorld(Vector(math.random(-1800,1800),math.random(-1800,1800),17))
-self.CREA = false	
-self.zombied = ents.Create(VJ_PICK(self.Contagion))
-self.zombied:SetPos(pos2) 
-self.zombied:SetAngles(self:GetAngles()) 
-self.zombied:Spawn()
-self.zombied.IdleAlwaysWander = false 
-self.zombied.DisableWandering = true
-self.zombied:SetNoDraw(false)
-self.zombied.HasAlertSounds = false
- 
-self.zombied:Activate() 
-self.zombied:SetOwner(self) 
-self.zombied.HasSounds = false
-self.zombied.FindEnemy_UseSphere = true 
-self.zombied.FindEnemy_CanSeeThroughWalls = true
-self.zombied.SightDistance = 9900000
-self:DeleteOnRemove(self.zombied)
-timer.Simple(0.55,function() if IsValid(self.zombied) then 
-self.zombied.HasSounds = true
-self.zombied.IdleAlwaysWander = true
-self.zombied.DisableWandering = false
-self.zombied:SetNoDraw(false)
-self.zombied.HasAlertSounds = true end end)	
-timer.Simple(self.time,function() if IsValid(self) then 
-self.CREA = true end end)
-local tr1 = {
-						start = self.zombied:GetPos(),
-						endpos = self.zombied:GetPos() + self.zombied:GetForward()*30 + self.zombied:GetUp()*30,
-						mins = self.zombied:OBBMins(),
-						maxs = self.zombied:OBBMaxs(),
-						filter = {self.zombied}
-					}
-					local tr = util.TraceHull(tr1)
-local tr12 = {
-						start = self.zombied:GetPos(),
-						endpos = self.zombied:GetPos() + self.zombied:GetForward()*-30 + self.zombied:GetUp()*30,
-						mins = self.zombied:OBBMins(),
-						maxs = self.zombied:OBBMaxs(),
-						filter = {self.zombied}
-					}
-					local tr2 = util.TraceHull(tr12)		
+	for _,nav in pairs(navmesh.GetAllNavAreas()) do
+		if nav then table_insert(self.navAreas,nav) end
+	end
 
-		local tr13 = {
-						start = self.zombied:GetPos(),
-						endpos = self.zombied:GetPos() + self.zombied:GetRight()*30 + self.zombied:GetUp()*30,
-						mins = self.zombied:OBBMins(),
-						maxs = self.zombied:OBBMaxs(),
-						filter = {self.zombied}
-					}
-					local tr3 = util.TraceHull(tr13)	
+	local count = #self.nodePositions +#self.navAreas
+	if count <= 50 then
+		local msg = "Low node/nav-area count detected! The Map Spawner may find it difficult to process with such low nodes/nav-areas...removing..."
+		if count <= 0 then
+			msg = "No nodes or nav-mesh detected! The Map Spawner relies on nodes/nav-areas for many things. Without any, the Map Spawner will not work! The Map Spawner will now remove itself..."
+		end
+		MsgN(msg)
+		if IsValid(self:GetCreator()) then
+			self:GetCreator():ChatPrint(msg)
+		end
+		SafeRemoveEntity(self)
+		return
+	end
 
-		local tr14 = {
-						start = self.zombied:GetPos(),
-						endpos = self.zombied:GetPos() + self.zombied:GetRight()*-30 + self.zombied:GetUp()*30,
-						mins = self.zombied:OBBMins(),
-						maxs = self.zombied:OBBMaxs(),
-						filter = {self.zombied}
-					}
-					local tr4 = util.TraceHull(tr14)
+	self:SetCollisionGroup(COLLISION_GROUP_NONE)
+	self:SetMoveType(MOVETYPE_NONE)
+	self:SetSolid(SOLID_NONE)
+	self:SetPos(Vector(0, 0, 0))
+	self:SetNoDraw(true)
+	self:DrawShadow(false)
+	
+	self.IsActivated = tobool(GetConVarNumber("VJ_CON_MapSpawner_Enabled"))
+	self.CON_SpawnDistance = GetConVarNumber("VJ_CON_MapSpawner_SpawnMax")
+	self.CON_SpawnDistanceClose = GetConVarNumber("VJ_CON_MapSpawner_SpawnMin")
+	self.CON_HordeChance = GetConVarNumber("VJ_CON_MapSpawner_HordeChance")
+	self.CON_HordeCooldownMin = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMin")
+	self.CON_HordeCooldownMax = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMax")
+	self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxMon")
+	self.CON_MaxHordeSpawn = GetConVarNumber("VJ_CON_MapSpawner_HordeCount")
+	self.tbl_SpawnedNPCs = {}
+	self.tbl_NPCsWithEnemies = {}
+	self.tbl_SpawnedSpecialZombie = {}
+	self.NextAICheckTime = CurTime() +5
+	self.NextZombieSpawnTime = CurTime() +1
+	self.NextHordeSpawnTime = CurTime() +math.Rand(self.CON_HordeCooldownMin,self.CON_HordeCooldownMax)
+	self.NextAIBossCheckTime = CurTime() +5
+	self.HordeSpawnRate = 0.19
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CheckVisibility(pos,ent,mdl)
+	local check = ents.Create("prop_vj_animatable")
+	check:SetModel(mdl or "models/cpthazama/contagion/zombies/carrier_zombie.mdl")
+	check:SetPos(pos)
+	check:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	check:Spawn()
+	check:SetNoDraw(true)
+	check:DrawShadow(false)
+	self:DeleteOnRemove(check)
+	timer.Simple(0,function()
+		SafeRemoveEntity(check)
+	end)
 
-			local tr15 = {
-						start = self.zombied:GetPos(),
-						endpos = self.zombied:GetPos() + self.zombied:GetUp()*80,
-						mins = self.zombied:OBBMins(),
-						maxs = self.zombied:OBBMaxs(),
-						filter = {self.zombied}
-					}
-					local tr5 = util.TraceHull(tr15)		
-					
-					
-if tr.Hit && tr.HitWorld && tr2.HitWorld && tr3.HitWorld && tr4.HitWorld && tr5.HitWorld then
+	return ent:Visible(check)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindCenterNavPoint(ent)
+	for _,v in RandomPairs(self.navAreas) do
+		local testPos = v:GetCenter()
+		local dist = testPos:Distance(ent:GetPos())
+		if dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent) then
+			return testPos
+		end
+	end
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindHiddenNavPoint(ent)
+	for _,v in RandomPairs(self.navAreas) do
+		local hidingSpots = v:GetHidingSpots()
+		if !hidingSpots then continue end
+		if #hidingSpots <= 0 then continue end
+		local testPos = VJ_PICK(hidingSpots)
+		local dist = testPos:Distance(ent:GetPos())
+		if dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent) then
+			return testPos
+		end
+	end
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindRandomNavPoint(ent)
+	for _,v in RandomPairs(self.navAreas) do
+		local testPos = v:GetRandomPoint()
+		local dist = testPos:Distance(ent:GetPos())
+		if dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent) then
+			return testPos
+		end
+	end
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetClosestNavPosition(ent,getHidden)
+	local pos = false
+	local closestDist = 999999999
+	for i,v in pairs(self.navAreas) do
+		local hidingSpots = getHidden && v:GetHidingSpots() or true
+		if !hidingSpots then continue end
+		if istable(hidingSpots) && #hidingSpots <= 0 then continue end
+		local testPos = getHidden && VJ_PICK(v:GetHidingSpots()) or v:GetRandomPoint()
+		local dist = ent:GetPos():Distance(testPos)
+		if dist < closestDist && (dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent)) then
+			closestDist = dist
+			pos = testPos
+		end
+	end
+	return pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetClosestNodePosition(ent)
+	local pos = false
+	local closestDist = 999999999
+	for i,v in pairs(self.nodePositions) do
+		if !self:IsNodeUsable(i) then continue end
+		local testPos = self:GetNodePosition(i)
+		local dist = ent:GetPos():Distance(testPos)
+		if dist < closestDist && (dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent)) then
+			closestDist = dist
+			pos = testPos
+		end
+	end
+	return pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindRandomNodePosition(ent)
+	for i,v in RandomPairs(self.nodePositions) do
+		if !self:IsNodeUsable(i) then continue end
+		local testPos = self:GetNodePosition(i)
+		local dist = ent && testPos:Distance(ent:GetPos()) or 0
+		if ent then
+			return testPos
+		else
+			if dist <= self.CON_SpawnDistance && dist >= self.CON_SpawnDistanceClose && !self:CheckVisibility(testPos,ent) then
+				return testPos
+			end
+		end
+	end
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindSpawnPosition(getClosest,findHidden)
+	local nodes = self.nodePositions
+	local navareas = self.navAreas
+	local useNav = (#nodes <= 0 && #navareas > 0) or (#navareas > 0 && #nodes > 0 && math.random(1,2) == 1) or false
+	local pos = false
+	
+	if useNav then
+		local getHidden = findHidden or math.random(1,3) == 1
+		local testEnt = self:GetRandomEnemy()
+		pos = getClosest && self:GetClosestNavPosition(testEnt,getHidden) or getHidden && self:FindHiddenNavPoint(testEnt) or self:FindRandomNavPoint(testEnt)
+	else
+		local testEnt = self:GetRandomEnemy()
+		pos = getClosest && self:GetClosestNodePosition(testEnt) or self:FindRandomNodePosition(testEnt)
+	end
+	return pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetNodePosition(i)
+	return self.nodePositions[i].Position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:IsNodeUsable(i)
+	return self.nodePositions[i].Time < CurTime()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FindEnemy()
+	local tbl = {}
+	for _,v in pairs(ents.GetAll()) do
+		if (v:IsPlayer() && GetConVarNumber("ai_ignoreplayers") == 0 || v:IsNPC()) && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ_HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") or true) then
+			table_insert(tbl,v)
+		end
+	end
+	return tbl
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetRandomEnemy()
+	return VJ_PICK(self:FindEnemy())
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetClosestEnemy(pos)
+	local ent = NULL
+	local closestDist = 999999999
+	for _,v in pairs(self:FindEnemy()) do
+		local dist = v:GetPos():Distance(pos)
+		if dist < closestDist then
+			closestDist = dist
+			ent = v
+		end
+	end
+	return ent
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CheckEnemyDistance(ent,remove)
+	local remove = remove or true
+	local closestDist = 999999999
+	local visible = false
+	for _,v in pairs(self:FindEnemy()) do
+		local dist = v:GetPos():Distance(ent:GetPos())
+		if dist < closestDist then
+			closestDist = dist
+		end
+		if v:Visible(ent) then
+			visible = true -- Visible to someone, don't bother removing
+		end
+	end
+	if closestDist >= GetConVarNumber("VJ_CON_MapSpawner_SpawnMax") +1000 && !visible && !remove then
+		SafeRemoveEntity(ent)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Think()
+	self.IsActivated = GetConVar("VJ_CON_MapSpawner_Enabled")
+	if self.IsActivated then 
+		-- Manage ConVar data
+	    self.CON_SpawnDistance = GetConVarNumber("VJ_CON_MapSpawner_SpawnMax")
+	    self.CON_SpawnDistanceClose = GetConVarNumber("VJ_CON_MapSpawner_SpawnMin")
+	    self.CON_HordeChance = GetConVarNumber("VJ_CON_MapSpawner_HordeChance")
+	    self.CON_HordeCooldownMin = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMin")
+	    self.CON_HordeCooldownMax = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMax")
+	    self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxMon")
+	    self.CON_MaxHordeSpawn = GetConVarNumber("VJ_CON_MapSpawner_HordeCount")
+		self.AI_RefreshTime = GetConVarNumber("VJ_CON_MapSpawner_RefreshRate") 
+		
+		-- Checks for inactive AI, this code is quite bulky and might be able to be optimized better
+		if CurTime() > self.NextAICheckTime then
+			if #self.tbl_SpawnedNPCs > 0 then
+				for i,v in ipairs(self.tbl_SpawnedNPCs) do
+					if IsValid(v) then
+						local enemy = v:GetEnemy()
+						self:CheckEnemyDistance(v)
+						if IsValid(enemy) && !VJ_HasValue(self.tbl_NPCsWithEnemies,v) then
+							table_insert(self.tbl_NPCsWithEnemies,v)
+						elseif !IsValid(enemy) then
+							if VJ_HasValue(self.tbl_NPCsWithEnemies,v) then
+								table_remove(self.tbl_NPCsWithEnemies,i)
+							end
+						end
+					else
+						table_remove(self.tbl_SpawnedNPCs,i)
+					end
+				end
+			end
+			if #self.tbl_SpawnedSpecialZombie > 0 then
+				for i,v in ipairs(self.tbl_SpawnedSpecialZombie) do
+					if IsValid(v) then
+						local enemy = v:GetEnemy()
+						self:CheckEnemyDistance(v)
+						if IsValid(enemy) && !VJ_HasValue(self.tbl_NPCsWithEnemies,v) then
+							table_insert(self.tbl_NPCsWithEnemies,v)
+						elseif !IsValid(enemy) then
+							if VJ_HasValue(self.tbl_NPCsWithEnemies,v) then
+								table_remove(self.tbl_NPCsWithEnemies,i)
+							end	
+						end
+					else
+						table_remove(self.tbl_SpawnedSpecialZombie,i)
+					end
+				end
+			end
+			self.NextAICheckTime = CurTime() +5
+		end
 
-self.zombied:Remove()
-
+		-- Spawns AI		
+		if CurTime() > self.NextZombieSpawnTime then
+			if #self.tbl_SpawnedNPCs >= self.CON_MaxZombie -self.CON_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
+			self:SpawnZombie(self:PickZombie(self.Zombie),self:FindSpawnPosition(false))
+			self.NextZombieSpawnTime = CurTime() +math.Rand(GetConVarNumber("VJ_CON_MapSpawner_DelayMin"),GetConVarNumber("VJ_CON_MapSpawner_DelayMax"))
 end
-for k,n in ipairs(ents.GetAll()) do
-if IsValid(self.zombied) && n.IsVJBaseSNPC == true && n:GetClass() == self.zombied:GetClass() && n != self && n != self.zombied && self.zombied:GetPos():Distance(n:GetPos()) <= 90 && (!v:Visible(self.zombied) or (!IsValid(seen.Entity))) and  ((chce:GetForward():Dot((self.zombied:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-n:Remove()
+	
+		-- Spawns Hordes
+		if CurTime() > self.NextHordeSpawnTime && math.random(1,self.CON_HordeChance) == 1 then
+			for i = 1,self.CON_MaxHordeSpawn do
+				timer.Simple(self.HordeSpawnRate *i,function() -- Help with lag when spawning
+					if IsValid(self) then
+						self:SpawnZombie(self:PickZombie(self.Zombie),self:FindSpawnPosition(true,true),true)			
+					end
+				end)
+			end
+			self.NextHordeSpawnTime = CurTime() +math.Rand(self.CON_HordeCooldownMin,self.CON_HordeCooldownMax)
+		end
+	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetBossCount(class)
+	local count = 0
+	for _,v in pairs(self.tbl_SpawnedSpecialZombie) do
+		if IsValid(v) && v:GetClass() == class then
+			count = count +1
+		end
+	end
+	return count
 end
-if IsValid(self.zombied) && self.zombied:GetPos():Distance(v:GetPos()) <= 300 then
-self.zombied:Remove()
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PickZombie(tbl)
+	local useMax = tbl == self.SpecialZombie
+	local ent = false
+	for _,v in RandomPairs(tbl) do
+		if !useMax then
+			if math.random(1,v.chance) == 1 then
+				ent = v.class
+				break
+			end
+		else
+			if self:GetBossCount(v.class) < v.max then
+				ent = v.class
+				break
+			end
+		end
+	end
+	return ent
 end
-if self.zombied:WaterLevel() == 3 && IsValid(self.zombied) then
-self.zombied:Remove()
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SpawnZombie(ent,pos,isMob)
+	if ent == false then return end
+	if pos == nil or pos == false then return end
+	if #self.tbl_SpawnedNPCs >= self.CON_MaxZombie then return end
+	local Zombie = ents.Create(ent)
+	Zombie:SetPos(pos)
+	Zombie:SetAngles(Angle(0,math.random(0,360),0))
+	Zombie:Spawn()
+	table_insert(self.tbl_SpawnedNPCs,Zombie)
+	if isMob then
+		Zombie.FindEnemy_UseSphere = true
+		Zombie.FindEnemy_CanSeeThroughWalls = true
+		Zombie:DrawShadow(false)
+		timer.Simple(0,function()
+			if IsValid(Zombie) then
+				Zombie:DrawShadow(false)
+			end
+		end)
+	end
+	Zombie.MapSpawner = self
+	Zombie.EntitiesToNoCollide = {}
+	for _,v in pairs(self.Zombie) do
+		table_insert(Zombie.EntitiesToNoCollide,v.class)
+    end	
 end
-if !self.zombied:IsInWorld() && IsValid(self.zombied) then
-self.zombied:Remove()
-end 
-timer.Simple(0.55,function() if !IsValid(self.zombied) then 
-self.time = 0.65
-end end)
-if IsValid(self.zombied) then
-timer.Simple(0.56,function() if IsValid(self.zombied) then 
-self.time = math.random(7,20)
-self.MaxZombie = (self.MaxZombie + 1)
-self.NUM = (self.NUM + 2)
-end end)
-end 
-
-if IsValid(self.zombied) then
-timer.Simple(0.55,function() if IsValid(self.zombied)  && !self.zombied:IsOnGround() then 
-self.zombied:Remove()
-end end)
-end 
-
-if IsValid(self.zombied) then
-timer.Simple(0.55,function() if IsValid(self.zombied)  && !self.zombied:IsMoving() then 
-self.zombied:Remove()
-end end)
-end  
-local seen = util.TraceLine({start = self.zombied:NearestPoint(self.zombied:GetPos() + self.zombied:OBBCenter()),endpos = v:EyePos()})
-if IsValid(self.zombied) && (IsValid(seen.Entity) == v:GetEyeTrace().Entity or v:Visible(self.zombied)) and  ((chce:GetForward():Dot((self.zombied:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-self.zombied:Remove()
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRemove()
+	for index,object in ipairs(self.tbl_SpawnedNPCs) do
+		if IsValid(object) then
+			object:Remove()
+		end
+	end
+	for index,object in ipairs(self.tbl_SpawnedSpecialZombie) do
+		if IsValid(object) then
+			object:Remove()
+		end
+	end
 end
-end
-end
-end
-if self.MaxZombie >= max then
-self.Decrease = true
-self.CREA2 = false
-end 
-if self.NUM >= 250  then
-self.CREA3 = false
-self.cout2 = true
-end
-if self.cout2 == true && self.cout3 == true then
-self.cout3 = false
-self.NUM = (self.NUM - 6)
-timer.Simple(math.random(1,3),function() if IsValid(self) then 
-self.cout3 = true end end)
-end
-
-if self.NUM <= 0 then
-self.cout2 = false
-self.CREA3 = true
-
-end
-
-if self.Decrease == true && self.cout == true then
-self.MaxZombie = (self.MaxZombie - 3)
-self.cout = false
-timer.Simple(math.random(1,3),function() if IsValid(self) then 
-self.cout = true end end)
-end
-if self.MaxZombie <= 0 then
-self.CREA2 = true
-self.Decrease = false
-end
-
-local max = math.max(60)
-if self.CREAd == true && self.CREA2d == true then
-for k,v in pairs(player.GetAll()) do  
-if v:IsValid() && v != self && v:IsPlayer() && v:GetClass() != self:GetClass() && self.CREAd == true && self.CREA2d == true && self.CREA3 == true && v:Health() > 0 &&  self.MaxZombie < max  then 
-local at = player.GetAll()
-local chce = at[math.random(1,#at)]
-local pos3 = chce:LocalToWorld(Vector(math.random(-1800,1800),math.random(-1800,1800),17))
-self.CREAd = false	
-self.zombied1 = ents.Create(VJ_PICK(self.Contagion2))
-self.zombied1:SetPos(pos3) 
-self.zombied1:SetAngles(self:GetAngles()) 
-self.zombied1:Spawn()
-self.zombied1.IdleAlwaysWander = false 
-self.zombied1.DisableWandering = true
-self.zombied1:SetNoDraw(false)
-self.zombied1.HasAlertSounds = false
- 
-self.zombied1:Activate() 
-self.zombied1:SetOwner(self) 
-self.zombied1.HasSounds = false
-self.zombied1.FindEnemy_UseSphere = true 
-self.zombied1.FindEnemy_CanSeeThroughWalls = true
-self.zombied1.SightDistance = 9900000
-self:DeleteOnRemove(self.zombied1)
-timer.Simple(0.55,function() if IsValid(self.zombied1) then 
-self.zombied1.HasSounds = true
-self.zombied1.IdleAlwaysWander = true
-self.zombied1.DisableWandering = false
-self.zombied1:SetNoDraw(false)
-self.zombied1.HasAlertSounds = true end end)	
-timer.Simple(self.time2,function() if IsValid(self) then 
-self.CREAd = true end end)
-local tr1 = {
-						start = self.zombied1:GetPos(),
-						endpos = self.zombied1:GetPos() + self.zombied1:GetForward()*30 + self.zombied1:GetUp()*30,
-						mins = self.zombied1:OBBMins(),
-						maxs = self.zombied1:OBBMaxs(),
-						filter = {self.zombied1}
-					}
-					local tr = util.TraceHull(tr1)
-local tr12 = {
-						start = self.zombied1:GetPos(),
-						endpos = self.zombied1:GetPos() + self.zombied1:GetForward()*-30 + self.zombied1:GetUp()*30,
-						mins = self.zombied1:OBBMins(),
-						maxs = self.zombied1:OBBMaxs(),
-						filter = {self.zombied1}
-					}
-					local tr2 = util.TraceHull(tr12)		
-
-		local tr13 = {
-						start = self.zombied1:GetPos(),
-						endpos = self.zombied1:GetPos() + self.zombied1:GetRight()*30 + self.zombied1:GetUp()*30,
-						mins = self.zombied1:OBBMins(),
-						maxs = self.zombied1:OBBMaxs(),
-						filter = {self.zombied1}
-					}
-					local tr3 = util.TraceHull(tr13)	
-
-		local tr14 = {
-						start = self.zombied1:GetPos(),
-						endpos = self.zombied1:GetPos() + self.zombied1:GetRight()*-30 + self.zombied1:GetUp()*30,
-						mins = self.zombied1:OBBMins(),
-						maxs = self.zombied1:OBBMaxs(),
-						filter = {self.zombied1}
-					}
-					local tr4 = util.TraceHull(tr14)
-
-			local tr15 = {
-						start = self.zombied1:GetPos(),
-						endpos = self.zombied1:GetPos() + self.zombied1:GetUp()*80,
-						mins = self.zombied1:OBBMins(),
-						maxs = self.zombied1:OBBMaxs(),
-						filter = {self.zombied1}
-					}
-					local tr5 = util.TraceHull(tr15)		
-					
-					
-if tr.Hit && tr.HitWorld && tr2.HitWorld && tr3.HitWorld && tr4.HitWorld && tr5.HitWorld then
-
-self.zombied1:Remove()
-
-end
-for k,n in ipairs(ents.GetAll()) do
-if IsValid(self.zombied1) && n.IsVJBaseSNPC == true && n:GetClass() == self.zombied1:GetClass() && n != self && n != self.zombied1 && self.zombied1:GetPos():Distance(n:GetPos()) <= 90 && (!v:Visible(self.zombied1) or (!IsValid(seen.Entity))) and  ((chce:GetForward():Dot((self.zombied1:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied1:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-n:Remove()
-end
-end
-if IsValid(self.zombied1) && self.zombied1:GetPos():Distance(v:GetPos()) <= 300 then
-self.zombied1:Remove()
-end
-if self.zombied1:WaterLevel() == 3 && IsValid(self.zombied1) then
-self.zombied1:Remove() 
-end
-if !self.zombied1:IsInWorld() && IsValid(self.zombied1) then
-self.zombied1:Remove()
-end 
-timer.Simple(0.55,function() if !IsValid(self.zombied1) then 
-self.time2 = 0.65
-end end)
-
-if IsValid(self.zombied1) then
-timer.Simple(0.56,function() if IsValid(self.zombied1) then 
-self.time2 = math.random(7,20)
-self.MaxZombie = (self.MaxZombie + 1)
-self.NUM = (self.NUM + 2)
-end end)
-end 
-
-if IsValid(self.zombied1) then
-timer.Simple(0.55,function() if IsValid(self.zombied1)  && !self.zombied1:IsOnGround() then 
-self.zombied1:Remove()
-end end)
-end 
-
-if IsValid(self.zombied1) then
-timer.Simple(0.55,function() if IsValid(self.zombied1)  && !self.zombied1:IsMoving() then 
-self.zombied1:Remove()
-end end)
-end  
-local seen = util.TraceLine({start = self.zombied1:NearestPoint(self.zombied1:GetPos() + self.zombied1:OBBCenter()),endpos = v:EyePos()})
-if IsValid(self.zombied1) && (IsValid(seen.Entity) == v:GetEyeTrace().Entity or v:Visible(self.zombied1)) and  ((chce:GetForward():Dot((self.zombied1:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied1:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-self.zombied1:Remove()
-end
-end
-end
-end
-if self.MaxZombie >= max then
-self.Decrease = true
-self.CREA2d = false
-end 
-if self.NUM >= 250  then
-self.CREA3 = false
-self.cout2 = true
-end
-if self.cout2 == true && self.cout3 == true then
-self.cout3 = false
-self.NUM = (self.NUM - 4)
-timer.Simple(math.random(1.3,3),function() if IsValid(self) then 
-self.cout3 = true end end)
-end
-
-if self.NUM <= 0 then
-self.cout2 = false
-self.CREA3 = true
-
-end
-
-if self.Decrease == true && self.cout == true then
-self.MaxZombie = (self.MaxZombie - 3)
-self.cout = false
-timer.Simple(math.random(1,3),function() if IsValid(self) then 
-self.cout = true end end)
-end
-if self.MaxZombie <= 0 then
-self.CREA2d = true
-self.Decrease = false
-end
-
-local max = math.max(60)
-if self.CREAda == true && self.CREA2da == true then
-for k,v in pairs(player.GetAll()) do  
-if v:IsValid() && v != self && v:IsPlayer() && v:GetClass() != self:GetClass() && self.CREAda == true && self.CREA2da == true && self.CREA3 == true && v:Health() > 0 &&  self.MaxZombie < max  then 
-local at = player.GetAll()
-local chce = at[math.random(1,#at)]
-local pos4 = chce:LocalToWorld(Vector(math.random(-1800,1800),math.random(-1800,1800),17))
-self.CREAda = false	
-self.zombied1a = ents.Create(VJ_PICK(self.Contagion3))
-self.zombied1a:SetPos(pos4) 
-self.zombied1a:SetAngles(self:GetAngles()) 
-self.zombied1a:Spawn()
-self.zombied1a.IdleAlwaysWander = false 
-self.zombied1a.DisableWandering = true
-self.zombied1a:SetNoDraw(false)
-self.zombied1a.HasAlertSounds = false
- 
-self.zombied1a:Activate() 
-self.zombied1a:SetOwner(self) 
-self.zombied1a.HasSounds = false
-self.zombied1a.FindEnemy_UseSphere = true 
-self.zombied1a.FindEnemy_CanSeeThroughWalls = true
-self.zombied1a.SightDistance = 9900000
-self:DeleteOnRemove(self.zombied1a)
-timer.Simple(0.55,function() if IsValid(self.zombied1a) then 
-self.zombied1a.HasSounds = true
-self.zombied1a.IdleAlwaysWander = true
-self.zombied1a.DisableWandering = false
-self.zombied1a:SetNoDraw(false)
-self.zombied1a.HasAlertSounds = true end end)	
-timer.Simple(self.time3,function() if IsValid(self) then 
-self.CREAda = true end end)
-local tr1 = {
-						start = self.zombied1a:GetPos(),
-						endpos = self.zombied1a:GetPos() + self.zombied1a:GetForward()*30 + self.zombied1a:GetUp()*30,
-						mins = self.zombied1a:OBBMins(),
-						maxs = self.zombied1a:OBBMaxs(),
-						filter = {self.zombied1a}
-					}
-					local tr = util.TraceHull(tr1)
-local tr12 = {
-						start = self.zombied1a:GetPos(),
-						endpos = self.zombied1a:GetPos() + self.zombied1a:GetForward()*-30 + self.zombied1a:GetUp()*30,
-						mins = self.zombied1a:OBBMins(),
-						maxs = self.zombied1a:OBBMaxs(),
-						filter = {self.zombied1a}
-					}
-					local tr2 = util.TraceHull(tr12)		
-
-		local tr13 = {
-						start = self.zombied1a:GetPos(),
-						endpos = self.zombied1a:GetPos() + self.zombied1a:GetRight()*30 + self.zombied1a:GetUp()*30,
-						mins = self.zombied1a:OBBMins(),
-						maxs = self.zombied1a:OBBMaxs(),
-						filter = {self.zombied1a}
-					}
-					local tr3 = util.TraceHull(tr13)	
-
-		local tr14 = {
-						start = self.zombied1a:GetPos(),
-						endpos = self.zombied1a:GetPos() + self.zombied1a:GetRight()*-30 + self.zombied1a:GetUp()*30,
-						mins = self.zombied1a:OBBMins(),
-						maxs = self.zombied1a:OBBMaxs(),
-						filter = {self.zombied1a}
-					}
-					local tr4 = util.TraceHull(tr14)
-
-			local tr15 = {
-						start = self.zombied1a:GetPos(),
-						endpos = self.zombied1a:GetPos() + self.zombied1a:GetUp()*80,
-						mins = self.zombied1a:OBBMins(),
-						maxs = self.zombied1a:OBBMaxs(),
-						filter = {self.zombied1a}
-					}
-					local tr5 = util.TraceHull(tr15)		
-					
-					
-if tr.Hit && tr.HitWorld && tr2.HitWorld && tr3.HitWorld && tr4.HitWorld && tr5.HitWorld then
-
-self.zombied1a:Remove()
-
-end
-for k,n in ipairs(ents.GetAll()) do
-if IsValid(self.zombied1a) && n.IsVJBaseSNPC == true && n:GetClass() == self.zombied1a:GetClass() && n != self && n != self.zombied1a && self.zombied1a:GetPos():Distance(n:GetPos()) <= 90 && (!v:Visible(self.zombied1a) or (!IsValid(seen.Entity))) and  ((chce:GetForward():Dot((self.zombied1a:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied1a:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-n:Remove()
-end
-end
-if IsValid(self.zombied1a) && self.zombied1a:GetPos():Distance(v:GetPos()) <= 300 then
-self.zombied1a:Remove()
-end
-if self.zombied1a:WaterLevel() == 3  && IsValid(self.zombied1a) then
-self.zombied1a:Remove() 
-end
-if !self.zombied1a:IsInWorld() && IsValid(self.zombied1a) then
-self.zombied1a:Remove()
-end 
-
-timer.Simple(0.55,function() if !IsValid(self.zombied1a) then 
-self.time3 = 0.65
-end end)
-
-if IsValid(self.zombied1a) then
-timer.Simple(0.56,function() if IsValid(self.zombied1a) then 
-self.time3 = math.random(7,20)
-self.MaxZombie = (self.MaxZombie + 1)
-self.NUM = (self.NUM + 2)
-end end)
-end 
-
-if IsValid(self.zombied1a) then
-timer.Simple(0.55,function() if IsValid(self.zombied1a)  && !self.zombied1a:IsOnGround() then 
-self.zombied1a:Remove()
-end end)
-end 
-
-if IsValid(self.zombied1a) then
-timer.Simple(0.55,function() if IsValid(self.zombied1a)  && !self.zombied1a:IsMoving() then 
-self.zombied1a:Remove()
-end end)
-end  
-local seen = util.TraceLine({start = self.zombied1a:NearestPoint(self.zombied1a:GetPos() + self.zombied1a:OBBCenter()),endpos = v:EyePos()})
-if IsValid(self.zombied1a) && (IsValid(seen.Entity) == v:GetEyeTrace().Entity or v:Visible(self.zombied1a)) and  ((chce:GetForward():Dot((self.zombied1a:GetPos() -chce:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2))) or (v:GetForward():Dot((self.zombied1a:GetPos() -v:GetPos()):GetNormalized()) >= math.cos(math.rad(self.SAngle2)))) then
-self.zombied1a:Remove()
-end
-end
-end
-end
-if self.MaxZombie >= max then
-self.Decrease = true
-self.CREA2da = false
-end 
-if self.NUM >= 250  then
-self.CREA3 = false
-self.cout2 = true
-end
-if self.cout2 == true && self.cout3 == true then
-self.cout3 = false
-self.NUM = (self.NUM - 4)
-timer.Simple(math.random(1.3,3),function() if IsValid(self) then 
-self.cout3 = true end end)
-end
-
-if self.NUM <= 0 then
-self.cout2 = false
-self.CREA3 = true
-
-end
-
-if self.Decrease == true && self.cout == true then
-self.MaxZombie = (self.MaxZombie - 3)
-self.cout = false
-timer.Simple(math.random(1,3),function() if IsValid(self) then 
-self.cout = true end end)
-end
-if self.MaxZombie <= 0 then
-self.CREA2da = true
-self.Decrease = false
-end
-end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2015 by DrVj, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

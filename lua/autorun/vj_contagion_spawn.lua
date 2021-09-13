@@ -1,6 +1,6 @@
 /*--------------------------------------------------
 	=============== Autorun File ===============
-	*** Copyright (c) 2012-2019 by Cpt. Hazama, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by Cpt. Hazama, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -31,18 +31,25 @@ if VJExists == true then
 	VJ.AddNPC("Manuel (Zombie)","npc_vj_con_zmanuel",vCat)
 	VJ.AddNPC("Marcus (Zombie)","npc_vj_con_zmarcus",vCat)
 	VJ.AddNPC("Mia (Zombie)","npc_vj_con_zmia",vCat)
+	--VJ.AddNPC("Mike (Zombie)","npc_vj_con_zmike",vCat)
 	VJ.AddNPC("Nick (Zombie)","npc_vj_con_znick",vCat)
 	VJ.AddNPC("Riot Zombie","npc_vj_con_zriot",vCat)
+	VJ.AddNPC("Riot Brute Zombie","npc_vj_con_zriotbrute",vCat)
+	VJ.AddNPC("Riot Soldier Zombie","npc_vj_con_zriotsol",vCat)
 	VJ.AddNPC("Tony (Zombie)","npc_vj_con_ztony",vCat)
 	VJ.AddNPC("Yumi (Zombie)","npc_vj_con_zyumi",vCat)
 	
--- Spawners and Random	
+    -- Spawners and Random	
 	VJ.AddNPC("Random Zombie","sent_vj_con_zom",vCat)
 	VJ.AddNPC("Random Zombie Spawner","sent_vj_con_sp",vCat)
 	VJ.AddNPC("Random Zombie Spawner (Single)","sent_vj_con_sinsp",vCat)
 	VJ.AddNPC("Zombie Map Spawner","sent_vj_con_mapspawner",vCat)
+
+    -- Decals --
+    game.AddDecal("VJ_CON_Blood",{"vj_contagion/decals/blood_splatter/blood_splatter_zombie01","vj_contagion/decals/blood_splatter/blood_splatter_zombie02","vj_contagion/decals/blood_splatter/blood_splatter_zombie03","vj_contagion/decals/blood_splatter/blood_splatter_zombie04","vj_contagion/decals/blood_splatter/blood_splatter_zombie05","vj_contagion/decals/blood_splatter/blood_splatter_zombie06"})
 	
 	-- Precache Models --
+	util.PrecacheModel("models/cpthazama/contagion/zombies/carrier_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/civillian_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/common_zombie_a_c.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/common_zombie_a_f.mdl")
@@ -68,6 +75,7 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/manuel_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/marcus_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/mia_zombie.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/mike_zombie.mdl")	
 	util.PrecacheModel("models/cpthazama/contagion/zombies/nick_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/officer_alt.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/officer_alt2.mdl")	
@@ -75,188 +83,120 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/officer_alt4.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/officer_armor.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/officer_zombie.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/police_shield.mdl")	
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")	
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_brute_zombie.mdl") 
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_soldier.mdl")	
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/tony_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/yumi_zombie.mdl")	
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie_female.mdl")	
-	
-		-- Menu --
-	VJ.AddConVar("vj_con_allowclimbing",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_headshot",1,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_infection",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_climb",1,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_jump",0,{FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_con_crouch",1,{FCVAR_ARCHIVE})
-	
-	if CLIENT then
-		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CONTAGION", function()		
-			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion", "Contagion", "", "", function(Panel)
-				if !game.SinglePlayer() then
-				if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-					Panel:AddControl( "Label", {Text = "You are not an admin!"})
-					Panel:ControlHelp("Notice: Only admins can change this settings")
-					return
-					end
-				end
-				Panel:AddControl("Label", {Text = "Notice: Only admins can change this settings."})
-				Panel:AddControl( "Label", {Text = "WARNING: Only future spawned SNPCs will be affected!"})
-				Panel:AddControl("Button",{Text = "Reset Everything", Command = "vj_con_allowclimbing 0"})
-				Panel:AddControl("Checkbox", {Label = "Enable Climbing", Command = "vj_con_allowclimbing"})
-				Panel:ControlHelp("WARNING: Enabling climbing will cause heavy performance drops!")
-				Panel:AddControl("Checkbox", {Label = "Enable Instant Headshot Death", Command = "vj_con_headshot"})
-				Panel:AddControl("Checkbox", {Label = "Enable Infection System", Command = "vj_con_infection"})
-				Panel:AddControl("Checkbox", {Label = "Enable Climbing For Normal Zombies", Command = "vj_con_climbjump"})
-				Panel:AddControl("Checkbox", {Label = "Enable Jumping For Normal Zombies", Command = "vj_con_climbjump"})
-				Panel:AddControl("Checkbox", {Label = "Enable Crouching For Normal Zombies", Command = "vj_con_crouch"})
-			end, {})
-		end)
-	end	
-	
-hook.Add("OnNPCKilled","Contagion_Infection_NPC",function(victim,inflictor,attacker)
-if attacker.Con_VirusInfection == true && victim:LookupBone("ValveBiped.Bip01_Pelvis") then
-
-local Zombie = math.random(1,9)	
-
-if Zombie == 1 then
-            local npc = ents.Create("npc_vj_con_zcurtis") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 2 then
-            local npc = ents.Create("npc_vj_con_zeugene") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-			
-elseif Zombie == 3 then
-            local npc = ents.Create("npc_vj_con_zjessica")
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 4 then
-            local npc = ents.Create("npc_vj_con_zmanuel") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 5 then
-            local npc = ents.Create("npc_vj_con_zmarcus") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 6 then
-            local npc = ents.Create("npc_vj_con_zmia") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 7 then
-            local npc = ents.Create("npc_vj_con_znick") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-			
-elseif Zombie == 8 then
-            local npc = ents.Create("npc_vj_con_ztony") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 9 then
-            local npc = ents.Create("npc_vj_con_zyumi")
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()		
-end		
 		
-if victim.IsVJBaseSNPC == true then
-                victim.HasDeathRagdoll = false
-				
-            end
-			
-if victim:IsNPC() then
-				victim:Remove()
-									
-            end			
-
-   victim:Remove()
+	-- ConVars --
+	local AddConvars = {}
+	AddConvars["VJ_CON_AllowClimbing"] = 0
+	AddConvars["VJ_CON_Headshot"] = 1
+	
+    -- Map Spawner ConVars --
+    --AddConvars["VJ_CON_MapSpawner_Music"] = 1
+	AddConvars["VJ_CON_MapSpawner_Enabled"] = 1
+	AddConvars["VJ_CON_MapSpawner_Boss"] = 0
+	AddConvars["VJ_CON_MapSpawner_MaxMon"] = 80
+	AddConvars["VJ_CON_MapSpawner_HordeCount"] = 35
+	AddConvars["VJ_CON_MapSpawner_SpawnMax"] = 2000
+	AddConvars["VJ_CON_MapSpawner_SpawnMin"] = 650
+	AddConvars["VJ_CON_MapSpawner_HordeChance"] = 100
+	AddConvars["VJ_CON_MapSpawner_HordeCooldownMin"] = 120
+	AddConvars["VJ_CON_MapSpawner_HordeCooldownMax"] = 180
+	AddConvars["VJ_CON_MapSpawner_DelayMin"] = 0.85
+	AddConvars["VJ_CON_MapSpawner_DelayMax"] = 3		
+	
+		for k, v in pairs(AddConvars) do
+		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
+end
+	
+if (CLIENT) then
+local function VJ_CON_MAIN(Panel)
+			if !game.SinglePlayer() then
+			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
+				Panel:AddControl( "Label", {Text = "You are not an admin!"})
+				Panel:ControlHelp("Note: Only admins can change these settings!")
+        return
+	end
+end
+			Panel:AddControl( "Label", {Text = "Note: Only admins can change these settings!"})
+			local vj_conreset = {Options = {}, CVars = {}, Label = "Reset everything:", MenuButton = "0"}
+			vj_conreset.Options["#vjbase.menugeneral.default"] = { 
+				VJ_CON_AllowClimbing = "0",
+				VJ_CON_Headshot = "1",				
+}
+            Panel:AddControl("ComboBox", vj_conreset)
+            Panel:ControlHelp("NOTE: Only future SNPCs will be affected!")
+            Panel:AddControl("Checkbox", {Label ="Enable prop climbing?", Command ="VJ_CON_AllowClimbing"})		
+            Panel:ControlHelp("Warning: May cause performance drops.")
+            Panel:AddControl("Checkbox", {Label ="Enable instant headshot death?", Command ="VJ_CON_Headshot"})			
+            Panel:AddPanel(typebox)
 
 end
-end)
-
-hook.Add("PlayerDeath","Contagion_Infection_Player",function(victim,inflictor,attacker)
-if attacker.Con_VirusInfection == true && victim:LookupBone("ValveBiped.Bip01_Pelvis") then
- 	  
-local Zombie = math.random(1,9)
-
-if Zombie == 1 then
-            local npc = ents.Create("npc_vj_con_zcurtis") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 2 then
-            local npc = ents.Create("npc_vj_con_zeugene") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-			
-elseif Zombie == 3 then
-            local npc = ents.Create("npc_vj_con_zjessica")
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 4 then
-            local npc = ents.Create("npc_vj_con_zmanuel") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 5 then
-            local npc = ents.Create("npc_vj_con_zmarcus") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 6 then
-            local npc = ents.Create("npc_vj_con_zmia") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 7 then
-            local npc = ents.Create("npc_vj_con_znick") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-			
-elseif Zombie == 8 then
-            local npc = ents.Create("npc_vj_con_ztony") 
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-
-elseif Zombie == 9 then
-            local npc = ents.Create("npc_vj_con_zyumi")
-            npc:SetPos(victim:GetPos())
-            npc:SetAngles(victim:GetAngles())
-            npc:Spawn()				
-end	
-		
-if victim:IsPlayer() then
-				if IsValid(victim:GetRagdollEntity()) then
-					victim:GetRagdollEntity():Remove()
-				end				
-            end
-
-   victim:Remove()
-   
+	function VJ_ADDTOMENU_CON(Panel)
+		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","Contagion (Main)","Contagion (Main)","","", VJ_CON_MAIN, {} )
 end
+		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_CON", VJ_ADDTOMENU_CON )
+
+local function VJ_CON_MAPSPAWNER(Panel)
+			if !game.SinglePlayer() then
+			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
+				Panel:AddControl( "Label", {Text = "You are not an admin!"})
+				Panel:ControlHelp("Note: Only admins can change these settings!")
+        return
+	end
+end
+			Panel:AddControl( "Label", {Text = "Note: Only admins can change these settings!"})
+			local vj_conreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset everything:", MenuButton = "0"}
+			vj_conreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
+			    --VJ_CON_MapSpawner_Music = "1",
+				VJ_CON_MapSpawner_Enabled = "1",
+				VJ_CON_MapSpawner_Boss = "0",
+				VJ_CON_MapSpawner_MaxMon = "80",	
+				VJ_CON_MapSpawner_HordeCount = "35",	
+				VJ_CON_MapSpawner_SpawnMax = "2000",	
+				VJ_CON_MapSpawner_SpawnMin = "650",	
+				VJ_CON_MapSpawner_HordeChance = "100",	
+				VJ_CON_MapSpawner_HordeCooldownMin = "120",	
+				VJ_CON_MapSpawner_HordeCooldownMax = "180",	
+				VJ_CON_MapSpawner_DelayMin = "0.85",
+                VJ_CON_MapSpawner_DelayMax = "3",						
+
+}
+            Panel:AddControl("ComboBox", vj_conreset_mapspawner)
+            Panel:ControlHelp("NOTE: Only enable if you have the specific addon installed!")
+            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})			
+            Panel:AddControl("Slider", { Label 	= "Max Zombies", Command = "VJ_CON_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
+            Panel:AddControl("Slider", { Label 	= "Min time between spawns", Command = "VJ_CON_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
+            Panel:AddControl("Slider", { Label 	= "Max time between spawns", Command = "VJ_CON_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
+            Panel:AddControl("Slider", { Label 	= "Max Zombie horde", Command = "VJ_CON_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
+            Panel:AddControl("Slider", { Label 	= "Chance that a horde will appear", Command = "VJ_CON_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
+            Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
+            Panel:AddPanel(typebox)
+end
+	function VJ_ADDTOMENU_CON_MAPSPAWNER(Panel)
+		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","Contagion (MapSp)","Contagion (MapSp)","","", VJ_CON_MAPSPAWNER, {} )
+end
+		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_CON_MAPSPAWNER", VJ_ADDTOMENU_CON_MAPSPAWNER )
+end
+
+	VJ_CON_NODEPOS = {}
+	hook.Add("EntityRemoved","VJ_CON_AddNodes",function(ent)
+		if ent:GetClass() == "info_node" then
+			table.insert(VJ_CON_NODEPOS,ent:GetPos())
+	end
 end)
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------

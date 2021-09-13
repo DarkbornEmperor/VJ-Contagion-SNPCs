@@ -1,0 +1,8 @@
+"Subrect"
+{
+	"$Material"	"vj_contagion\decals\blood_splatter/contagion_hit_decals"
+	"$Pos"		"0 640"
+	"$Size"		"128 128"
+	"$decalscale" 	0.25
+	"$modelmaterial" "vj_contagion\decals\blood_splatter/blood_splatter01"
+}
