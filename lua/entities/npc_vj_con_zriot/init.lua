@@ -57,13 +57,12 @@ end
 		self:DeleteOnRemove(self.DamageSpark1)
     else
         self.Bleeds = true
-		dmginfo:ScaleDamage(0.50)
 end		
     if math.random(1,50) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
            self.Riot_Helmet = false	
 		   self.Bleeds = true
            self:SetBodygroup(1,1)	
-		   dmginfo:ScaleDamage(1.0)	
+		   //dmginfo:ScaleDamage(1.0)	
 	if IsValid(self.DamageSpark1) then self.DamageSpark1:Remove() end
            self:BreakHelmet()
    return
@@ -71,6 +70,7 @@ end
 	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	if math.random(1,5) == 1 then
+	    dmginfo:ScaleDamage(0.50)
 		self.DamageSpark1 = ents.Create("env_spark")
 		self.DamageSpark1:SetKeyValue("Magnitude","1")
 		self.DamageSpark1:SetKeyValue("Spark Trail Length","1")

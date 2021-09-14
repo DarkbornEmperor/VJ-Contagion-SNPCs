@@ -52,15 +52,27 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_MeleeAttack = {"vj_contagion/z_hit-01.wav","vj_contagion/z_hit-02.wav","vj_contagion/z_hit-03.wav","vj_contagion/z_hit-04.wav","vj_contagion/z_hit-05.wav","vj_contagion/z_hit-06.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_contagion/z-swipe-1.wav","vj_contagion/z-swipe-2.wav","vj_contagion/z-swipe-3.wav","vj_contagion/z-swipe-4.wav","vj_contagion/z-swipe-5.wav","vj_contagion/z-swipe-6.wav"}
+ENT.SoundTbl_MeleeAttack = {
+"vj_contagion/z_hit-01.wav",
+"vj_contagion/z_hit-02.wav",
+"vj_contagion/z_hit-03.wav",
+"vj_contagion/z_hit-04.wav",
+"vj_contagion/z_hit-05.wav",
+"vj_contagion/z_hit-06.wav"
+}
+ENT.SoundTbl_MeleeAttackMiss = {
+"vj_contagion/z-swipe-1.wav",
+"vj_contagion/z-swipe-2.wav",
+"vj_contagion/z-swipe-3.wav",
+"vj_contagion/z-swipe-4.wav",
+"vj_contagion/z-swipe-5.wav",
+"vj_contagion/z-swipe-6.wav"
+}
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
 ENT.Zombie_AllowClimbing = false
 ENT.Zombie_NextStumble = 0
-ENT.Zombie_NextStumble2 = 0
-ENT.Zombie_NextStumble3 = 0
 ENT.AdvancedStrain = false
 ENT.LegHealth = 28
 ENT.Crippled = false
@@ -349,7 +361,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
-	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self.IdleAnim = self.AnimTbl_IdleStand[1]
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]
 	
@@ -458,7 +470,7 @@ end
     if self.VJ_IsBeingControlled && !self.Crippled then	
 	   self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 	elseif self.VJ_IsBeingControlled && !self.Crippled then 
-	   self.AnimTbl_IdleStand = {ACT_IDLE}
+	   self.AnimTbl_IdleStand = {self.IdleAnim}
 	end   
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -468,7 +480,7 @@ function ENT:CustomOnThink_AIEnabled()
 		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.MeleeAttacking then
 			self.AnimTbl_IdleStand = {"melee_cont_01"}
 	    elseif !self.Crippled && !self.VJ_IsBeingControlled then
-		    self.AnimTbl_IdleStand = {ACT_IDLE}			
+		    self.AnimTbl_IdleStand = {self.IdleAnim}			
 end
 	if self:IsOnFire() && !self.Crippled && !self.AdvancedStrain then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
@@ -623,28 +635,32 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-     if math.random (1,16) == 1 && self.Stumbled == true then
+     if math.random (1,16) == 1 && self.Stumbled == true && !self.Crippled then
 		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("shoved_forward_heavy",true,3.4,false)
 			self.Zombie_NextStumble = CurTime() + 10	
 	end
 end
+/*
      if math.random (1,16) == 1 && self.Stumbled == true then
 		 if self.Zombie_NextStumble2 < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("stumble01",true,3.3,false)
 			self.Zombie_NextStumble2 = CurTime() + 10	
 	end
 end
+*/
+/*
      if math.random (1,16) == 1 && self.Stumbled == true then
 		 if self.Zombie_NextStumble3 < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("stumble02",true,3.6,false)
 			self.Zombie_NextStumble3 = CurTime() + 10	
 	    end
-	end		
+	end	
+*/	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	return self:GetSequence() != self:LookupSequence("shoved_forward_heavy","stumble01","stumble02") -- If we are stumbling then DO NOT flinch!
+	return self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are stumbling then DO NOT flinch!
 end -- Return false to disallow the flinch from playing
 -------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
