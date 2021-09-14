@@ -11,7 +11,7 @@ ENT.BloodColor = "Red"
 ENT.CustomBlood_Decal = {"VJ_CON_Blood"} 
 ENT.HasBloodPool = false
 //ENT.TurningSpeed = 5
-ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={}} 
+ENT.PoseParameterLooking_Names = {pitch={"body_pitch","move_x"}, yaw={"body_yaw","move_y"}, roll={}} 
 ENT.HasMeleeAttack = true 
 //ENT.MeleeAttackDistance = 40
 //ENT.MeleeAttackDamageDistance = 65
@@ -73,6 +73,8 @@ ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
 ENT.Zombie_AllowClimbing = false
 ENT.Zombie_NextStumble = 0
+ENT.Zombie_CurAnims = -1 -- 0 = Normal | 1 = Blended
+ENT.Zombie_ControllerAnim = 0
 ENT.AdvancedStrain = false
 ENT.LegHealth = 28
 ENT.Crippled = false
@@ -289,8 +291,10 @@ function ENT:Zombie_CustomOnInitialize()
 	    self:SetSkin(math.random(0,5))
         self:SetHealth(200)		
 end
-	if self.AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier.mdl" then
+	if self.AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
 		self:SetSuperStrain(200)
+	elseif self.AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier.mdl" then
+	    self:SetSuperStrain(200)
 	elseif self.AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then	
 	    self:SetSuperStrain(225)
 	elseif self.AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then	
@@ -350,6 +354,7 @@ end
 function ENT:SetSuperStrain(hp)
 	self:SetHealth(hp)
 	self:SetMaxHealth(hp)
+	self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 	self.AnimTbl_Walk = {ACT_WALK_AIM}
 	self.AnimTbl_Run = {ACT_RUN_AIM}
 	self.MeleeAttackDamage = self.MeleeAttackDamage +11
@@ -358,12 +363,12 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+	self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
 	self.IdleAnim = self.AnimTbl_IdleStand[1]
 	self.WalkAnim = self.AnimTbl_Walk[1]
-	self.RunAnim = self.AnimTbl_Run[1]
+	self.RunAnim = self.AnimTbl_Run[1]   
 	
 	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
 /*	
@@ -377,15 +382,18 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-    if self.VJ_IsBeingControlled then return end
-    if math.random(1,5) == 1 then
-	    self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,math.Rand(1.5,3),true)
+    if self.VJ_IsBeingControlled or self.Crippled or self.AdvancedStrain then return end
+	local AlertAnim = math.random(1,2)
+    if AlertAnim == 1 && math.random(1,3) == 1 then
+	    self:VJ_ACT_PLAYACTIVITY("idle2013_facearound_01",true,math.Rand(1.5,3),true)
+    elseif AlertAnim == 2 && math.random(1,3) == 1 then
+	    self:VJ_ACT_PLAYACTIVITY("idle2013_facearound_02",true,math.Rand(1.5,3),true)		
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
-    if self.VJ_IsBeingControlled then return end
-	if !self.Crippled && self.AdvancedStrain then
+    if self.VJ_IsBeingControlled or self.Crippled then return end
+	if self.AdvancedStrain then
 		self:VJ_ACT_PLAYACTIVITY("zombie_grapple_roar1",true,false,true)
 	end
 end
@@ -403,13 +411,13 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks() 
-   if !self.Crippled && self.AdvancedStrain then
+   if !self.Crippled && self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
        self.AnimTbl_MeleeAttack = {
 	   "vjges_melee2020_player_01",
 	   "vjges_melee2020_player_02",
 	   "vjges_melee2020_player_03",
 }           
-    elseif !self.Crippled && !self.AdvancedStrain then   
+    elseif !self.Crippled && !self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then   
        self.AnimTbl_MeleeAttack = {
 	   "vjges_Melee2013_01",
 	   "vjges_Melee2013_02",
@@ -436,56 +444,82 @@ function ENT:Crouch(bCrouch)
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 	else
 		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+		self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnChangeMovementType(movType)	
-	   if self.VJ_IsBeingControlled && !self.Crippled then
-	   if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
-	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
-   elseif !self.VJ_IsBeingControlled && !self.Crippled then
-          self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) 
-          self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB))    
+function ENT:Jump()
+	if self.VJ_IsBeingControlled then
+		if self.VJ_TheController:KeyDown(IN_JUMP) then
+			if self:IsOnGround() then
+				self:SetVelocity(self:GetUp()*200 + self:GetForward()*400)
+				self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)
+			end	
+        end				
 	end
+end	
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+  if self.Crippled then  
+	   self.Zombie_ControllerAnim = -1
+   else
+       self.Zombie_ControllerAnim = 0 
+   end	   
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
-  if !self.Crippled then	
-      ply:ChatPrint("SPACE: Jump")	
-  elseif !self.Crippled then	
-	  ply:ChatPrint("C: Crouch")
-   end
+    if self.Crippled then return end
+      ply:ChatPrint("RELOAD: Toggle Blend")
+	  ply:ChatPrint("C: Crouch")	  
+      ply:ChatPrint("SPACE: Jump")		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.VJ_IsBeingControlled && !self.Crippled then
-		if self.VJ_TheController:KeyDown(IN_JUMP) then
-			if self:IsOnGround() then
-				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
-				self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)	   
-        end			
+    if self.VJ_IsBeingControlled then
+	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end 
+	   self:Jump()   
+end	
+    if self.Crippled or self.AdvancedStrain then return end
+	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
+		if self.Zombie_ControllerAnim == 0 then
+			self.Zombie_ControllerAnim = 1
+			self.VJ_TheController:ChatPrint("Blend Activated")
+		else
+			self.Zombie_ControllerAnim = 0
+			self.VJ_TheController:ChatPrint("Blend Deactivated")
 	end
 end
-    if self.VJ_IsBeingControlled && !self.Crippled then	
-	   self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
-	elseif self.VJ_IsBeingControlled && !self.Crippled then 
-	   self.AnimTbl_IdleStand = {self.IdleAnim}
-	end   
+	if self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
+		if self.Zombie_CurAnims != 1 then
+			self.Zombie_CurAnims = 1
+			self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+			self.AnimTbl_Walk = {ACT_WALK_AIM}
+			self.AnimTbl_Run = {ACT_RUN_AIM} 			
+    end
+end
+	    if self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then
+		if self.Zombie_CurAnims != 0 then
+			self.Zombie_CurAnims = 0
+	        self.AnimTbl_IdleStand = {self.IdleAnim}
+		    self.AnimTbl_Walk = {self.WalkAnim}
+		    self.AnimTbl_Run = {self.RunAnim} 			
+        end			
+    end   
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()	
-		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
+		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking && !self.AdvancedStrain then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
 		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.MeleeAttacking then
 			self.AnimTbl_IdleStand = {"melee_cont_01"}
-	    elseif !self.Crippled && !self.VJ_IsBeingControlled then
-		    self.AnimTbl_IdleStand = {self.IdleAnim}			
+	    elseif !self.Crippled && !self.VJ_IsBeingControlled && !self.AdvancedStrain then
+		    self.AnimTbl_IdleStand = {self.IdleAnim}		
 end
-	if self:IsOnFire() && !self.Crippled && !self.AdvancedStrain then 
+	if self:IsOnFire() && !self.Crippled && !self.AdvancedStrain && !self.VJ_IsBeingControlled then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
 		self.AnimTbl_Run = {ACT_RUN_AIM}
-	elseif !self.Crippled then
+	elseif !self.Crippled && !self.VJ_IsBeingControlled then
 		self.AnimTbl_Walk = {self.WalkAnim}
 		self.AnimTbl_Run = {self.RunAnim}		
 end
@@ -602,10 +636,12 @@ function ENT:Cripple()
 	FirstP_Bone = "ValveBiped.Bip01_Head1", 
 	FirstP_Offset = Vector(10, 0, -30), 
 }
+	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
+	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
 		dmginfo:SetDamage(self:Health())
 end
 	if self.AdvancedStrain then
@@ -637,7 +673,7 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-     if math.random (1,16) == 1 && self.Stumbled == true && !self.Crippled then
+     if math.random (1,16) == 1 && self.Stumbled == true then
 		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("shoved_forward_heavy",true,3.4,false)
 			self.Zombie_NextStumble = CurTime() + 10	
@@ -645,17 +681,17 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 end
 /*
      if math.random (1,16) == 1 && self.Stumbled == true then
-		 if self.Zombie_NextStumble2 < CurTime() && self:IsMoving() then
+		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("stumble01",true,3.3,false)
-			self.Zombie_NextStumble2 = CurTime() + 10	
+			self.Zombie_NextStumble = CurTime() + 10	
 	end
 end
 */
 /*
      if math.random (1,16) == 1 && self.Stumbled == true then
-		 if self.Zombie_NextStumble3 < CurTime() && self:IsMoving() then
+		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("stumble02",true,3.6,false)
-			self.Zombie_NextStumble3 = CurTime() + 10	
+			self.Zombie_NextStumble = CurTime() + 10	
 	    end
 	end	
 */	

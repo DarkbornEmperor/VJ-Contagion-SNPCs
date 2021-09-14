@@ -45,13 +45,23 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+	self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
-    self.AnimTbl_IdleStand = {ACT_IDLE}
+    self.IdleAnim = self.AnimTbl_IdleStand[1]
     self.AnimTbl_Walk = {ACT_WALK_AGITATED}
 
 	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+		if IsValid(self:GetEnemy()) && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
+			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
+		elseif IsValid(self:GetEnemy()) && !self.Crippled && self.MeleeAttacking then
+			self.AnimTbl_IdleStand = {"melee_cont_01"}
+	    elseif !self.Crippled then
+		    self.AnimTbl_IdleStand = {self.IdleAnim}   			
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
@@ -148,26 +158,6 @@ function ENT:BreakHelmet()
 	SafeRemoveEntityDelayed(prop4,30)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Cripple()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Crouch(bCrouch)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-		if IsValid(self:GetEnemy()) && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-		elseif IsValid(self:GetEnemy()) && !self.Crippled && self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"melee_cont_01"}
-	    elseif !self.Crippled then
-		    self.AnimTbl_IdleStand = {ACT_IDLE}
-    			
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 GetCorpse.BloodEffect = self.CustomBlood_Particle
 	local hookName = "VJ_CON_CorpseBlood_" .. GetCorpse:EntIndex()
@@ -193,6 +183,21 @@ function ENT:CustomOnRemove()
     if !IsValid(self.Corpse) && IsValid(self.ShieldModel) then
         self.ShieldModel:Remove()
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Cripple()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Crouch(bCrouch)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)	  		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()  
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
