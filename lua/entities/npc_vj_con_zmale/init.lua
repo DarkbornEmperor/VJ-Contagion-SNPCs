@@ -5,25 +5,23 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 175
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Decal = {"VJ_CON_Blood"} -- Decals to spawn when it's damaged
+ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} 
+ENT.BloodColor = "Red" 
+ENT.CustomBlood_Decal = {"VJ_CON_Blood"} 
 ENT.HasBloodPool = false
 //ENT.TurningSpeed = 5
-ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={}} -- Custom pose parameters to use, can put as many as needed
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
-ENT.MeleeAttackDistance = 30
-ENT.MeleeAttackDamageDistance = 60
+ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={}} 
+ENT.HasMeleeAttack = true 
+//ENT.MeleeAttackDistance = 40
+//ENT.MeleeAttackDamageDistance = 65
 ENT.MeleeAttackDamage = 10
-ENT.MeleeAttackAnimationAllowOtherTasks = true -- If set to true, the animation will not stop other tasks from playing, such as chasing | Useful for gesture attacks!
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.SlowPlayerOnMeleeAttack = true -- If true, then the player will slow down
-ENT.SlowPlayerOnMeleeAttackTime = 0.5 -- How much time until player's Speed resets
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
---ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-ENT.HasMeleeAttackSlowPlayerSound = false -- Does it have a sound when it slows down the player?
+ENT.MeleeAttackAnimationAllowOtherTasks = true 
+ENT.TimeUntilMeleeAttackDamage = false 
+ENT.SlowPlayerOnMeleeAttack = true 
+ENT.SlowPlayerOnMeleeAttackTime = 0.5 
+ENT.DisableFootStepSoundTimer = true 
+ENT.HasMeleeAttackSlowPlayerSound = false 
 //ENT.MaxJumpLegalDistance = VJ_Set(0,300)
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
@@ -33,12 +31,12 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Flinching Code ====== --
-//ENT.AnimTbl_Flinch = {} -- If it uses normal based animation, use this
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.FlinchChance = 12 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.NextMoveAfterFlinchTime = false -- How much time until it can move, attack, etc. | Use this for schedules or else the base will set the time 0.6 if it sees it's a schedule!
-ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
-ENT.HitGroupFlinching_DefaultWhenNotHit = false -- If it uses hitgroup flinching, should it do the regular flinch if it doesn't hit any of the specified hitgroups?
+//ENT.AnimTbl_Flinch = {}
+ENT.CanFlinch = 1 
+ENT.FlinchChance = 12
+ENT.NextMoveAfterFlinchTime = false 
+ENT.HasHitGroupFlinching = true
+ENT.HitGroupFlinching_DefaultWhenNotHit = false 
 ENT.HitGroupFlinching_Values = {
 {HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2020_01","vjges_injured_head2020_02","vjges_injured_head2020_03","vjges_injured_head2020_04"}},
 {HitGroup = {HITGROUP_CHEST}, Animation = {"shoved_forward1","shoved_backwards1","shoved_backwards2","shoved_backwards3"}},
@@ -68,173 +66,7 @@ ENT.LegHealth = 28
 ENT.Crippled = false
 ENT.Stumbled = true
 ENT.CanUseUnableAnim = true
-ENT.CanSit = false
-
-ENT.FootSteps = {
-	[MAT_ANTLION] = {
-		"physics/flesh/flesh_impact_hard1.wav",
-		"physics/flesh/flesh_impact_hard2.wav",
-		"physics/flesh/flesh_impact_hard3.wav",
-		"physics/flesh/flesh_impact_hard4.wav",
-		"physics/flesh/flesh_impact_hard5.wav",
-		"physics/flesh/flesh_impact_hard6.wav",
-	},
-	[MAT_BLOODYFLESH] = {
-		"physics/flesh/flesh_impact_hard1.wav",
-		"physics/flesh/flesh_impact_hard2.wav",
-		"physics/flesh/flesh_impact_hard3.wav",
-		"physics/flesh/flesh_impact_hard4.wav",
-		"physics/flesh/flesh_impact_hard5.wav",
-		"physics/flesh/flesh_impact_hard6.wav",
-	},
-	[MAT_CONCRETE] = {
-		"player/footsteps/concrete1.wav",
-		"player/footsteps/concrete2.wav",
-		"player/footsteps/concrete3.wav",
-		"player/footsteps/concrete4.wav",
-	},
-	[MAT_DIRT] = {
-		"player/footsteps/dirt1.wav",
-		"player/footsteps/dirt2.wav",
-		"player/footsteps/dirt3.wav",
-		"player/footsteps/dirt4.wav",
-	},
-	[MAT_FLESH] = {
-		"physics/flesh/flesh_impact_hard1.wav",
-		"physics/flesh/flesh_impact_hard2.wav",
-		"physics/flesh/flesh_impact_hard3.wav",
-		"physics/flesh/flesh_impact_hard4.wav",
-		"physics/flesh/flesh_impact_hard5.wav",
-		"physics/flesh/flesh_impact_hard6.wav",
-	},
-	[MAT_GRATE] = {
-		"player/footsteps/metalgrate1.wav",
-		"player/footsteps/metalgrate2.wav",
-		"player/footsteps/metalgrate3.wav",
-		"player/footsteps/metalgrate4.wav",
-	},
-	[MAT_ALIENFLESH] = {
-		"physics/flesh/flesh_impact_hard1.wav",
-		"physics/flesh/flesh_impact_hard2.wav",
-		"physics/flesh/flesh_impact_hard3.wav",
-		"physics/flesh/flesh_impact_hard4.wav",
-		"physics/flesh/flesh_impact_hard5.wav",
-		"physics/flesh/flesh_impact_hard6.wav",
-	},
-	[74] = { -- Snow
-		"player/footsteps/sand1.wav",
-		"player/footsteps/sand2.wav",
-		"player/footsteps/sand3.wav",
-		"player/footsteps/sand4.wav",
-	},
-	[MAT_PLASTIC] = {
-		"physics/plaster/drywall_footstep1.wav",
-		"physics/plaster/drywall_footstep2.wav",
-		"physics/plaster/drywall_footstep3.wav",
-		"physics/plaster/drywall_footstep4.wav",
-	},
-	[MAT_METAL] = {
-		"player/footsteps/metal1.wav",
-		"player/footsteps/metal2.wav",
-		"player/footsteps/metal3.wav",
-		"player/footsteps/metal4.wav",
-	},
-	[MAT_SAND] = {
-		"player/footsteps/sand1.wav",
-		"player/footsteps/sand2.wav",
-		"player/footsteps/sand3.wav",
-		"player/footsteps/sand4.wav",
-	},
-	[MAT_FOLIAGE] = {
-		"player/footsteps/grass1.wav",
-		"player/footsteps/grass2.wav",
-		"player/footsteps/grass3.wav",
-		"player/footsteps/grass4.wav",
-	},
-	[MAT_COMPUTER] = {
-		"physics/plaster/drywall_footstep1.wav",
-		"physics/plaster/drywall_footstep2.wav",
-		"physics/plaster/drywall_footstep3.wav",
-		"physics/plaster/drywall_footstep4.wav",
-	},
-	[MAT_SLOSH] = {
-		"player/footsteps/slosh1.wav",
-		"player/footsteps/slosh2.wav",
-		"player/footsteps/slosh3.wav",
-		"player/footsteps/slosh4.wav",
-	},
-	[MAT_TILE] = {
-		"player/footsteps/tile1.wav",
-		"player/footsteps/tile2.wav",
-		"player/footsteps/tile3.wav",
-		"player/footsteps/tile4.wav",
-	},
-	[85] = { -- Grass
-		"player/footsteps/grass1.wav",
-		"player/footsteps/grass2.wav",
-		"player/footsteps/grass3.wav",
-		"player/footsteps/grass4.wav",
-	},
-	[MAT_VENT] = {
-		"player/footsteps/duct1.wav",
-		"player/footsteps/duct2.wav",
-		"player/footsteps/duct3.wav",
-		"player/footsteps/duct4.wav",
-	},
-	[MAT_WOOD] = {
-		"player/footsteps/wood1.wav",
-		"player/footsteps/wood2.wav",
-		"player/footsteps/wood3.wav",
-		"player/footsteps/wood4.wav",
-		"player/footsteps/woodpanel1.wav",
-		"player/footsteps/woodpanel2.wav",
-		"player/footsteps/woodpanel3.wav",
-		"player/footsteps/woodpanel4.wav",
-	},
-	[MAT_GLASS] = {
-		"physics/glass/glass_sheet_step1.wav",
-		"physics/glass/glass_sheet_step2.wav",
-		"physics/glass/glass_sheet_step3.wav",
-		"physics/glass/glass_sheet_step4.wav",
-	}
-}
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
-	if !self:IsOnGround() then return end
-	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() +Vector(0,0,-150),
-		filter = {self}
-	})
-	if tr.Hit && self.FootSteps[tr.MatType] then
-		VJ_EmitSound(self,VJ_PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
-	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-		VJ_EmitSound(self,"player/footsteps/wade" .. math.random(1,8) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:FootStepSoundCode(CustomTbl)
-	if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
-	if self:IsOnGround() && self:GetGroundEntity() != NULL then
-		if self.DisableFootStepSoundTimer == true then
-			self:CustomOnFootStepSound()
-			return
-		elseif self:IsMoving() && CurTime() > self.FootStepT then
-			self:CustomOnFootStepSound()
-			local CurSched = self.CurrentSchedule
-			if self.DisableFootStepOnRun == false && ((VJ_HasValue(self.AnimTbl_Run,self:GetMovementActivity())) or (CurSched != nil  && CurSched.IsMovingTask_Run == true)) /*(VJ_HasValue(VJ_RunActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomRunActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Run()
-				self.FootStepT = CurTime() + self.FootStepTimeRun
-				return
-			elseif self.DisableFootStepOnWalk == false && (VJ_HasValue(self.AnimTbl_Walk,self:GetMovementActivity()) or (CurSched != nil  && CurSched.IsMovingTask_Walk == true)) /*(VJ_HasValue(VJ_WalkActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomWalkActivites,self:GetMovementActivity()))*/ then
-				self:CustomOnFootStepSound_Walk()
-				self.FootStepT = CurTime() + self.FootStepTimeWalk
-				return
-			end
-		end
-	end
-end
+//ENT.CanSit = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zmale" then
@@ -458,7 +290,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieSounds()
 local voice = math.random(1,5)
-
 if voice == 1 then
    self.SoundTbl_Idle = {"vj_contagion/Build2695/z_sham/idle/0128.wav","vj_contagion/Build2695/z_sham/idle/0123.wav","vj_contagion/Build2695/z_sham/idle/0122.wav","vj_contagion/Build2695/z_sham/idle/0121.wav","vj_contagion/Build2695/z_sham/idle/0120.wav","vj_contagion/Build2695/z_sham/idle/0119.wav","vj_contagion/Build2695/z_sham/idle/0118.wav","vj_contagion/Build2695/z_sham/idle/0117.wav","vj_contagion/Build2695/z_sham/idle/0116.wav","vj_contagion/Build2695/z_sham/idle/0115.wav","vj_contagion/Build2695/z_sham/idle/0114.wav","vj_contagion/Build2695/z_sham/idle/0113.wav","vj_contagion/Build2695/z_sham/idle/0112.wav","vj_contagion/Build2695/z_sham/idle/0111.wav","vj_contagion/Build2695/z_sham/idle/0110.wav","vj_contagion/Build2695/z_sham/idle/0109.wav","vj_contagion/Build2695/z_sham/idle/0108.wav","vj_contagion/Build2695/z_sham/idle/0107.wav","vj_contagion/Build2695/z_sham/idle/0106.wav","vj_contagion/Build2695/z_sham/idle/0105.wav","vj_contagion/Build2695/z_sham/idle/0104.wav","vj_contagion/Build2695/z_sham/idle/0103.wav","vj_contagion/Build2695/z_sham/idle/0102.wav","vj_contagion/Build2695/z_sham/idle/0101.wav","vj_contagion/Build2695/z_sham/idle/0100.wav","vj_contagion/Build2695/z_sham/idle/0099.wav","vj_contagion/Build2695/z_sham/idle/0098.wav","vj_contagion/Build2695/z_sham/idle/0097.wav","vj_contagion/Build2695/z_sham/idle/0096.wav","vj_contagion/Build2695/z_sham/idle/0095.wav","vj_contagion/Build2695/z_sham/idle/0094.wav","vj_contagion/Build2695/z_sham/idle/0093.wav","vj_contagion/Build2695/z_sham/idle/0092.wav","vj_contagion/Build2695/z_sham/idle/0091.wav","vj_contagion/Build2695/z_sham/idle/0090.wav","vj_contagion/Build2695/z_sham/idle/0089.wav","vj_contagion/Build2695/z_sham/idle/0088.wav","vj_contagion/Build2695/z_sham/idle/0087.wav","vj_contagion/Build2695/z_sham/idle/0086.wav","vj_contagion/Build2695/z_sham/idle/0085.wav","vj_contagion/Build2695/z_sham/idle/0084.wav","vj_contagion/Build2695/z_sham/idle/0083.wav","vj_contagion/Build2695/z_sham/idle/0082.wav","vj_contagion/Build2695/z_sham/idle/0081.wav","vj_contagion/Build2695/z_sham/idle/0080.wav","vj_contagion/Build2695/z_sham/idle/0079.wav","vj_contagion/Build2695/z_sham/idle/0077.wav","vj_contagion/Build2695/z_sham/idle/0076.wav"}
    self.SoundTbl_Alert = {"vj_contagion/Build2695/z_sham/spot_player/0178.wav","vj_contagion/Build2695/z_sham/spot_player/0173.wav","vj_contagion/Build2695/z_sham/spot_player/0159.wav","vj_contagion/Build2695/z_sham/spot_player/0158.wav","vj_contagion/Build2695/z_sham/spot_player/0157.wav","vj_contagion/Build2695/z_sham/spot_player/0156.wav","vj_contagion/Build2695/z_sham/spot_player/0155.wav","vj_contagion/Build2695/z_sham/spot_player/0153.wav","vj_contagion/Build2695/z_sham/spot_player/0145.wav","vj_contagion/Build2695/z_sham/spot_player/0134.wav","vj_contagion/Build2695/z_sham/spot_player/0059.wav","vj_contagion/Build2695/z_sham/spot_player/0055.wav","vj_contagion/Build2695/z_sham/spot_player/0054.wav","vj_contagion/Build2695/z_sham/spot_player/0018.wav","vj_contagion/Build2695/z_sham/spot_player/0017.wav","vj_contagion/Build2695/z_sham/spot_player/0016.wav","vj_contagion/Build2695/z_sham/spot_player/0015.wav","vj_contagion/Build2695/z_sham/spot_player/0014.wav","","vj_contagion/Build2695/z_sham/spot_player/0013.wav","vj_contagion/Build2695/z_sham/spot_player/0003.wav","vj_contagion/Build2695/z_sham/spot_player/0002.wav","vj_contagion/Build2695/z_sham/spot_player/0001.wav","vj_contagion/Build2695/z_sham/alert/0170.wav","vj_contagion/Build2695/z_sham/alert/0169.wav","vj_contagion/Build2695/z_sham/alert/0168.wav","vj_contagion/Build2695/z_sham/alert/0167.wav","vj_contagion/Build2695/z_sham/alert/0166.wav","vj_contagion/Build2695/z_sham/alert/0165.wav","vj_contagion/Build2695/z_sham/alert/0164.wav","vj_contagion/Build2695/z_sham/alert/0163.wav","vj_contagion/Build2695/z_sham/alert/0162.wav","vj_contagion/Build2695/z_sham/alert/0161.wav","vj_contagion/Build2695/z_sham/alert/0152.wav","vj_contagion/Build2695/z_sham/alert/0061.wav","vj_contagion/Build2695/z_sham/alert/0060.wav","vj_contagion/Build2695/z_sham/alert/0058.wav","vj_contagion/Build2695/z_sham/alert/0056.wav","vj_contagion/Build2695/z_sham/alert/0030.wav","vj_contagion/Build2695/z_sham/alert/0029.wav","vj_contagion/Build2695/z_sham/alert/0028.wav","vj_contagion/Build2695/z_sham/alert/0027.wav","vj_contagion/Build2695/z_sham/alert/0026.wav","vj_contagion/Build2695/z_sham/alert/0025.wav","vj_contagion/Build2695/z_sham/alert/0023.wav","vj_contagion/Build2695/z_sham/alert/0022.wav","vj_contagion/Build2695/z_sham/alert/0021.wav","vj_contagion/Build2695/z_arne/alert/0207.wav"}
@@ -521,7 +352,7 @@ function ENT:CustomOnInitialize()
 	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self.WalkAnim = self.AnimTbl_Walk[1]
 	self.RunAnim = self.AnimTbl_Run[1]
-
+	
 	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
 /*	
   if math.random(1,5) == 1 then
@@ -580,6 +411,165 @@ function ENT:MultipleMeleeAttacks()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetSightDirection()
+	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Crouch(bCrouch)
+	if bCrouch then
+		self:SetHullType(HULL_TINY)
+		self:SetCollisionBounds(Vector(12,12,35),Vector(-16,-16,0))
+		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
+		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
+		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
+	else
+		self:SetHullType(HULL_HUMAN)
+		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnChangeMovementType(movType)	
+	   if self.VJ_IsBeingControlled && !self.Crippled then
+	   if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
+   elseif !self.VJ_IsBeingControlled && !self.Crippled then
+          self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) 
+          self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB))    
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+  if !self.Crippled then	
+      ply:ChatPrint("SPACE: Jump")	
+  elseif !self.Crippled then	
+	  ply:ChatPrint("C: Crouch")
+   end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.VJ_IsBeingControlled && !self.Crippled then
+		if self.VJ_TheController:KeyDown(IN_JUMP) then
+			if self:IsOnGround() then
+				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
+				self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)	   
+        end			
+	end
+end
+    if self.VJ_IsBeingControlled && !self.Crippled then	
+	   self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+	elseif self.VJ_IsBeingControlled && !self.Crippled then 
+	   self.AnimTbl_IdleStand = {ACT_IDLE}
+	end   
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()	
+		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
+			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
+		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.MeleeAttacking then
+			self.AnimTbl_IdleStand = {"melee_cont_01"}
+	    elseif !self.Crippled && !self.VJ_IsBeingControlled then
+		    self.AnimTbl_IdleStand = {ACT_IDLE}			
+end
+	if self:IsOnFire() && !self.Crippled && !self.AdvancedStrain then 
+		self.AnimTbl_Walk = {ACT_RUN_AIM}
+		self.AnimTbl_Run = {ACT_RUN_AIM}
+	elseif !self.Crippled then
+		self.AnimTbl_Walk = {self.WalkAnim}
+		self.AnimTbl_Run = {self.RunAnim}		
+end
+	if !self.Crippled then
+		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() then
+			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
+				self:Crouch(true)
+			else
+				self:Crouch(false)
+		end		
+	end
+end		
+	if self.VJ_IsBeingControlled then
+	   if self.VJ_TheController:KeyDown(IN_DUCK) then	
+	      if !self.Crippled then
+				self:Crouch(true)
+                self.VJC_Data = {
+	            CameraMode = 1, 
+	            ThirdP_Offset = Vector(45, 25, -15), 
+	            FirstP_Bone = "ValveBiped.Bip01_Head1", 
+	            FirstP_Offset = Vector(10, -3, -25), 
+}
+        end
+    end  
+end
+	if self.VJ_IsBeingControlled then
+	   if !self.VJ_TheController:KeyDown(IN_DUCK) then	
+	      if !self.Crippled then
+				self:Crouch(false)
+                self.VJC_Data = {
+	            CameraMode = 1, 
+	            ThirdP_Offset = Vector(40, 25, -50), 
+	            FirstP_Bone = "ValveBiped.Bip01_Head1",
+	            FirstP_Offset = Vector(0, 0, 5), 				
+}			
+		end
+	end
+end
+	//print(self:GetBlockingEntity())
+	// IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
+	if self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
+		//print("-------------------------------------------------------------------------------------")
+		local anim = false
+		local finalpos = self:GetPos()
+		local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
+		local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
+		local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
+		local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
+		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
+		local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
+				
+		//VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
+		//VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
+		//PrintTable(tr2)
+		if !IsValid(tru.Entity) then
+			if IsValid(tr5.Entity) then
+				local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
+				if !IsValid(tr5b.Entity) then
+					anim = VJ_PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
+					finalpos = tr5.HitPos
+end
+			elseif IsValid(tr4.Entity) then
+				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+				finalpos = tr4.HitPos
+			elseif IsValid(tr3.Entity) then
+				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+				finalpos = tr3.HitPos
+			elseif IsValid(tr2.Entity) then
+				anim = VJ_PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
+				finalpos = tr2.HitPos
+			elseif IsValid(tr1.Entity) then
+				anim = VJ_PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
+				finalpos = tr1.HitPos
+end		
+			if anim != false then
+				//print(anim)
+				self:SetGroundEntity(NULL)
+				self.Zombie_Climbing = true
+				timer.Simple(0.4,function()
+					if IsValid(self) then
+						self:SetPos(finalpos)
+	end
+end)
+				self:VJ_ACT_PLAYACTIVITY(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
+					vsched.RunCode_OnFinish = function()
+						//self:SetGroundEntity(NULL)
+						//self:SetPos(finalpos)
+						self.Zombie_Climbing = false
+					end
+				end)
+			end
+			self.Zombie_NextClimb = CurTime() + 0.1 //5
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Cripple()
 	self:SetHullType(HULL_TINY)
 	self:SetCollisionBounds(Vector(16,16,20),Vector(-16,-16,0))
@@ -632,172 +622,6 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Crouch(bCrouch)
-	if bCrouch then
-		self:SetHullType(HULL_TINY)
-		self:SetCollisionBounds(Vector(12,12,35),Vector(-16,-16,0))
-		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
-		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-	else
-		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
-		--self.AnimTbl_IdleStand = {ACT_IDLE}
-		--self.AnimTbl_Walk = {self.WalkAnim}
-		--self.AnimTbl_Run = {self.RunAnim}
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnChangeMovementType(movType)	
-	   if self.VJ_IsBeingControlled && !self.Crippled then
-	   if VJ_AnimationExists(self,ACT_JUMP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
-	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true && !self.Crippled then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
-   elseif !self.VJ_IsBeingControlled && !self.Crippled then
-          self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) 
-          self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB))    
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
-  if !self.Crippled then	
-      ply:ChatPrint("SPACE: Jump")
-end	
-  if !self.Crippled then	
-	  ply:ChatPrint("C: Crouch")
-   end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if self.VJ_IsBeingControlled && !self.Crippled then
-		if self.VJ_TheController:KeyDown(IN_JUMP) then
-			if self:IsOnGround() then
-				self:SetVelocity(self:GetUp()*200 + self:GetForward()*650)
-				self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)	   
-        end			
-	end
-end
-    if self.VJ_IsBeingControlled && !self.Crippled then	
-	   self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
-	elseif self.VJ_IsBeingControlled && !self.Crippled then 
-	   self.AnimTbl_IdleStand = {ACT_IDLE}
-	end   
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()	
-		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"melee_cont_01"}
-	    elseif !self.Crippled && !self.VJ_IsBeingControlled then
-		    self.AnimTbl_IdleStand = {ACT_IDLE}			
-end
-
-	if self:IsOnFire() && !self.Crippled && !self.AdvancedStrain then 
-		self.AnimTbl_Walk = {ACT_RUN_AIM}
-		self.AnimTbl_Run = {ACT_RUN_AIM}
-	elseif !self.Crippled then
-		self.AnimTbl_Walk = {self.WalkAnim}
-		self.AnimTbl_Run = {self.RunAnim}		
-end
-
-	if !self.Crippled then
-		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() then
-			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
-				self:Crouch(true)
-			else
-				self:Crouch(false)
-			end
-		else
-			self:Crouch(false)
-		end
-		
-	if self.VJ_IsBeingControlled then
-	   if self.VJ_TheController:KeyDown(IN_DUCK) then	
-	      if !self.Crippled then
-				self:Crouch(true)
-self.VJC_Data = {
-	CameraMode = 1, 
-	ThirdP_Offset = Vector(45, 25, -15), 
-	FirstP_Bone = "ValveBiped.Bip01_Head1", 
-	FirstP_Offset = Vector(10, -3, -25), 
-}
-			else
-				self:Crouch(false)
-			end
-		else
-			self:Crouch(false)
-self.VJC_Data = {
-	CameraMode = 1, 
-	ThirdP_Offset = Vector(40, 25, -50), 
-	FirstP_Bone = "ValveBiped.Bip01_Head1",
-	FirstP_Offset = Vector(0, 0, 5), 
-}			
-		end
-	end
-end
-	//print(self:GetBlockingEntity())
-	// IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
-	if self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
-		//print("-------------------------------------------------------------------------------------")
-		local anim = false
-		local finalpos = self:GetPos()
-		local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
-		local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
-		local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
-		local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
-		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
-		local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
-				
-		//VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
-		//VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
-		//PrintTable(tr2)
-		if !IsValid(tru.Entity) then
-			if IsValid(tr5.Entity) then
-				local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
-				if !IsValid(tr5b.Entity) then
-					anim = VJ_PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
-					finalpos = tr5.HitPos
-				end
-			elseif IsValid(tr4.Entity) then
-				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-				finalpos = tr4.HitPos
-			elseif IsValid(tr3.Entity) then
-				anim = VJ_PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-				finalpos = tr3.HitPos
-			elseif IsValid(tr2.Entity) then
-				anim = VJ_PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
-				finalpos = tr2.HitPos
-			elseif IsValid(tr1.Entity) then
-				anim = VJ_PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
-				finalpos = tr1.HitPos
-			end
-		
-			if anim != false then
-				//print(anim)
-				self:SetGroundEntity(NULL)
-				self.Zombie_Climbing = true
-				timer.Simple(0.4,function()
-					if IsValid(self) then
-						self:SetPos(finalpos)
-					end
-				end)
-				self:VJ_ACT_PLAYACTIVITY(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
-					vsched.RunCode_OnFinish = function()
-						//self:SetGroundEntity(NULL)
-						//self:SetPos(finalpos)
-						self.Zombie_Climbing = false
-					end
-				end)
-			end
-			self.Zombie_NextClimb = CurTime() + 0.1 //5
-		end
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetSightDirection()
-	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
      if math.random (1,16) == 1 && self.Stumbled == true then
 		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
@@ -822,6 +646,16 @@ end
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	return self:GetSequence() != self:LookupSequence("shoved_forward_heavy","stumble01","stumble02") -- If we are stumbling then DO NOT flinch!
 end -- Return false to disallow the flinch from playing
+-------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self:IsMoving() then -- When moving
+	   self.AnimTbl_Death = {"vjseq_death2012_run2","vjseq_death2013_run_06","vjseq_death2013_run_07"}	
+	   self.DeathAnimationDecreaseLengthAmount = 0.05
+end
+    if dmginfo:GetDamageForce():Length() > 10000 or dmginfo:IsDamageType(DMG_BUCKSHOT) then -- When killed by shotgun damage
+       self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward"}	
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)	
 GetCorpse.BloodEffect = self.CustomBlood_Particle
@@ -841,15 +675,171 @@ end
 		end
 	end)
 end	
--------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	if self:IsMoving() then -- When moving
-	   self.AnimTbl_Death = {"vjseq_death2012_run2","vjseq_death2013_run_06","vjseq_death2013_run_07"}	
-	   self.DeathAnimationDecreaseLengthAmount = 0.05
+---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.FootSteps = {
+	[MAT_ANTLION] = {
+		"physics/flesh/flesh_impact_hard1.wav",
+		"physics/flesh/flesh_impact_hard2.wav",
+		"physics/flesh/flesh_impact_hard3.wav",
+		"physics/flesh/flesh_impact_hard4.wav",
+		"physics/flesh/flesh_impact_hard5.wav",
+		"physics/flesh/flesh_impact_hard6.wav",
+	},
+	[MAT_BLOODYFLESH] = {
+		"physics/flesh/flesh_impact_hard1.wav",
+		"physics/flesh/flesh_impact_hard2.wav",
+		"physics/flesh/flesh_impact_hard3.wav",
+		"physics/flesh/flesh_impact_hard4.wav",
+		"physics/flesh/flesh_impact_hard5.wav",
+		"physics/flesh/flesh_impact_hard6.wav",
+	},
+	[MAT_CONCRETE] = {
+		"player/footsteps/concrete1.wav",
+		"player/footsteps/concrete2.wav",
+		"player/footsteps/concrete3.wav",
+		"player/footsteps/concrete4.wav",
+	},
+	[MAT_DIRT] = {
+		"player/footsteps/dirt1.wav",
+		"player/footsteps/dirt2.wav",
+		"player/footsteps/dirt3.wav",
+		"player/footsteps/dirt4.wav",
+	},
+	[MAT_FLESH] = {
+		"physics/flesh/flesh_impact_hard1.wav",
+		"physics/flesh/flesh_impact_hard2.wav",
+		"physics/flesh/flesh_impact_hard3.wav",
+		"physics/flesh/flesh_impact_hard4.wav",
+		"physics/flesh/flesh_impact_hard5.wav",
+		"physics/flesh/flesh_impact_hard6.wav",
+	},
+	[MAT_GRATE] = {
+		"player/footsteps/metalgrate1.wav",
+		"player/footsteps/metalgrate2.wav",
+		"player/footsteps/metalgrate3.wav",
+		"player/footsteps/metalgrate4.wav",
+	},
+	[MAT_ALIENFLESH] = {
+		"physics/flesh/flesh_impact_hard1.wav",
+		"physics/flesh/flesh_impact_hard2.wav",
+		"physics/flesh/flesh_impact_hard3.wav",
+		"physics/flesh/flesh_impact_hard4.wav",
+		"physics/flesh/flesh_impact_hard5.wav",
+		"physics/flesh/flesh_impact_hard6.wav",
+	},
+	[74] = { -- Snow
+		"player/footsteps/sand1.wav",
+		"player/footsteps/sand2.wav",
+		"player/footsteps/sand3.wav",
+		"player/footsteps/sand4.wav",
+	},
+	[MAT_PLASTIC] = {
+		"physics/plaster/drywall_footstep1.wav",
+		"physics/plaster/drywall_footstep2.wav",
+		"physics/plaster/drywall_footstep3.wav",
+		"physics/plaster/drywall_footstep4.wav",
+	},
+	[MAT_METAL] = {
+		"player/footsteps/metal1.wav",
+		"player/footsteps/metal2.wav",
+		"player/footsteps/metal3.wav",
+		"player/footsteps/metal4.wav",
+	},
+	[MAT_SAND] = {
+		"player/footsteps/sand1.wav",
+		"player/footsteps/sand2.wav",
+		"player/footsteps/sand3.wav",
+		"player/footsteps/sand4.wav",
+	},
+	[MAT_FOLIAGE] = {
+		"player/footsteps/grass1.wav",
+		"player/footsteps/grass2.wav",
+		"player/footsteps/grass3.wav",
+		"player/footsteps/grass4.wav",
+	},
+	[MAT_COMPUTER] = {
+		"physics/plaster/drywall_footstep1.wav",
+		"physics/plaster/drywall_footstep2.wav",
+		"physics/plaster/drywall_footstep3.wav",
+		"physics/plaster/drywall_footstep4.wav",
+	},
+	[MAT_SLOSH] = {
+		"player/footsteps/slosh1.wav",
+		"player/footsteps/slosh2.wav",
+		"player/footsteps/slosh3.wav",
+		"player/footsteps/slosh4.wav",
+	},
+	[MAT_TILE] = {
+		"player/footsteps/tile1.wav",
+		"player/footsteps/tile2.wav",
+		"player/footsteps/tile3.wav",
+		"player/footsteps/tile4.wav",
+	},
+	[85] = { -- Grass
+		"player/footsteps/grass1.wav",
+		"player/footsteps/grass2.wav",
+		"player/footsteps/grass3.wav",
+		"player/footsteps/grass4.wav",
+	},
+	[MAT_VENT] = {
+		"player/footsteps/duct1.wav",
+		"player/footsteps/duct2.wav",
+		"player/footsteps/duct3.wav",
+		"player/footsteps/duct4.wav",
+	},
+	[MAT_WOOD] = {
+		"player/footsteps/wood1.wav",
+		"player/footsteps/wood2.wav",
+		"player/footsteps/wood3.wav",
+		"player/footsteps/wood4.wav",
+		"player/footsteps/woodpanel1.wav",
+		"player/footsteps/woodpanel2.wav",
+		"player/footsteps/woodpanel3.wav",
+		"player/footsteps/woodpanel4.wav",
+	},
+	[MAT_GLASS] = {
+		"physics/glass/glass_sheet_step1.wav",
+		"physics/glass/glass_sheet_step2.wav",
+		"physics/glass/glass_sheet_step3.wav",
+		"physics/glass/glass_sheet_step4.wav",
+	}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFootStepSound()
+	if !self:IsOnGround() then return end
+	local tr = util.TraceLine({
+		start = self:GetPos(),
+		endpos = self:GetPos() +Vector(0,0,-150),
+		filter = {self}
+	})
+	if tr.Hit && self.FootSteps[tr.MatType] then
+		VJ_EmitSound(self,VJ_PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
+	if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
+		VJ_EmitSound(self,"player/footsteps/wade" .. math.random(1,8) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+	end
 end
-    if dmginfo:GetDamageForce():Length() > 10000 or dmginfo:IsDamageType(DMG_BUCKSHOT) then -- When killed by shotgun damage
-       self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward"}	
-    end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:FootStepSoundCode(CustomTbl)
+	if self.HasSounds == false or self.HasFootStepSound == false or self.MovementType == VJ_MOVETYPE_STATIONARY then return end
+	if self:IsOnGround() && self:GetGroundEntity() != NULL then
+		if self.DisableFootStepSoundTimer == true then
+			self:CustomOnFootStepSound()
+			return
+		elseif self:IsMoving() && CurTime() > self.FootStepT then
+			self:CustomOnFootStepSound()
+			local CurSched = self.CurrentSchedule
+			if self.DisableFootStepOnRun == false && ((VJ_HasValue(self.AnimTbl_Run,self:GetMovementActivity())) or (CurSched != nil  && CurSched.IsMovingTask_Run == true)) /*(VJ_HasValue(VJ_RunActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomRunActivites,self:GetMovementActivity()))*/ then
+				self:CustomOnFootStepSound_Run()
+				self.FootStepT = CurTime() + self.FootStepTimeRun
+				return
+			elseif self.DisableFootStepOnWalk == false && (VJ_HasValue(self.AnimTbl_Walk,self:GetMovementActivity()) or (CurSched != nil  && CurSched.IsMovingTask_Walk == true)) /*(VJ_HasValue(VJ_WalkActivites,self:GetMovementActivity()) or VJ_HasValue(self.CustomWalkActivites,self:GetMovementActivity()))*/ then
+				self:CustomOnFootStepSound_Walk()
+				self.FootStepT = CurTime() + self.FootStepTimeWalk
+				return
+			end
+		end
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

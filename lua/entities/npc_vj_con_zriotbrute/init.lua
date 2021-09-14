@@ -184,6 +184,13 @@ end
 	end)
 	self:CreateExtraDeathCorpse("prop_physics","models/cpthazama/contagion/zombies/police_shield.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_larmr")).Pos + self:GetUp()*-20})
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    -- If no corpse spawned, make sure to remove the mask!
+    if !IsValid(self.Corpse) && IsValid(self.ShieldModel) then
+        self.ShieldModel:Remove()
+    end
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
