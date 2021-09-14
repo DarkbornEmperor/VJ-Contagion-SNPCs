@@ -605,11 +605,13 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 then
+	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
 		dmginfo:SetDamage(self:Health())
 end
 	if self.AdvancedStrain then
 	   dmginfo:ScaleDamage(0.75)
+	elseif self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
+	   dmginfo:ScaleDamage(0.05)	   
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -43,18 +43,17 @@ end
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	    self.Bleeds = false
 		dmginfo:ScaleDamage(0.00)
-		self.DamageSpark1 = ents.Create("env_spark")
-		self.DamageSpark1:SetKeyValue("Magnitude","1")
-		self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
-		self.DamageSpark1:SetPos(dmginfo:GetDamagePosition())
-		self.DamageSpark1:SetAngles(self:GetAngles())
-		//self.DamageSpark1:Fire("LightColor", "255 255 255")
-		self.DamageSpark1:SetParent(self)
-		self.DamageSpark1:Spawn()
-		self.DamageSpark1:Activate()
-		self.DamageSpark1:Fire("StartSpark", "", 0)
-		self.DamageSpark1:Fire("StopSpark", "", 0.001)
-		self:DeleteOnRemove(self.DamageSpark1)
+		local spark = ents.Create("env_spark")
+		spark:SetKeyValue("Magnitude","1")
+		spark:SetKeyValue("Spark Trail Length","1")
+		spark:SetPos(dmginfo:GetDamagePosition())
+		spark:SetAngles(self:GetAngles())
+		spark:SetParent(self)
+		spark:Spawn()
+		spark:Activate()
+	    spark:Fire("StartSpark", "", 0)
+		spark:Fire("StopSpark", "", 0.001)
+		self:DeleteOnRemove(spark)
     else
         self.Bleeds = true
 end		
@@ -63,26 +62,27 @@ end
 		   self.Bleeds = true
            self:SetBodygroup(1,1)	
 		   //dmginfo:ScaleDamage(1.0)	
-	if IsValid(self.DamageSpark1) then self.DamageSpark1:Remove() end
+	if IsValid(spark) then spark:Remove() end
            self:BreakHelmet()
    return
 end
 	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
-	if math.random(1,5) == 1 then
-	    dmginfo:ScaleDamage(0.50)
-		self.DamageSpark1 = ents.Create("env_spark")
-		self.DamageSpark1:SetKeyValue("Magnitude","1")
-		self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
-		self.DamageSpark1:SetPos(dmginfo:GetDamagePosition())
-		self.DamageSpark1:SetAngles(self:GetAngles())
-		//self.DamageSpark1:Fire("LightColor", "255 255 255")
-		self.DamageSpark1:SetParent(self)
-		self.DamageSpark1:Spawn()
-		self.DamageSpark1:Activate()
-		self.DamageSpark1:Fire("StartSpark", "", 0)
-		self.DamageSpark1:Fire("StopSpark", "", 0.001)
-		self:DeleteOnRemove(self.DamageSpark1)
+	if math.random(1,3) == 1 then
+	    dmginfo:ScaleDamage(0.20)
+		local spark = ents.Create("env_spark")
+		spark:SetKeyValue("Magnitude","1")
+		spark:SetKeyValue("Spark Trail Length","1")
+		spark:SetPos(dmginfo:GetDamagePosition())
+		spark:SetAngles(self:GetAngles())
+		spark:SetParent(self)
+		spark:Spawn()
+		spark:Activate()
+	    spark:Fire("StartSpark", "", 0)
+		spark:Fire("StopSpark", "", 0.001)
+		self:DeleteOnRemove(spark)
+	else
+	        dmginfo:ScaleDamage(0.60)
         end		
     end		
 end	
