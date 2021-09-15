@@ -392,13 +392,14 @@ function ENT:CustomOnCallForHelp(ally)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-     if !self.Zombie_Crippled && !self.Zombie_AdvancedStrain && !self:IsMoving() && !self.VJ_IsBeingControlled then 
+     if self.Zombie_Crippled then return end
+     if !self.Zombie_AdvancedStrain && !self:IsMoving() && !self.VJ_IsBeingControlled then 
        self.MeleeAttackDistance = 35
        self.MeleeAttackDamageDistance = 60  	 
        self.AnimTbl_MeleeAttack = {
 	   "vjseq_melee_cont_01"
 }   
-   elseif !self.Zombie_Crippled && self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
+   elseif self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
        self.MeleeAttackDistance = 50
        self.MeleeAttackDamageDistance = 75    
        self.AnimTbl_MeleeAttack = {
@@ -406,7 +407,7 @@ function ENT:MultipleMeleeAttacks()
 	   "vjges_melee2020_player_02",
 	   "vjges_melee2020_player_03",
 }           
-    elseif !self.Zombie_Crippled && !self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then 
+    elseif !self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then 
        self.MeleeAttackDistance = 50
        self.MeleeAttackDamageDistance = 75    	
        self.AnimTbl_MeleeAttack = {
@@ -438,9 +439,21 @@ function ENT:Crouch(bCrouch)
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-	else
+	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && self.Zombie_ControllerAnim == 0 or !self.VJ_IsBeingControlled then	
 		self:SetHullType(HULL_HUMAN)
 		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
+	    self.AnimTbl_IdleStand = {self.IdleAnim}
+		self.AnimTbl_Walk = {self.WalkAnim}
+		self.AnimTbl_Run = {self.RunAnim}
+	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 1 && self.Zombie_ControllerAnim == 1 or !self.VJ_IsBeingControlled then 
+		self:SetHullType(HULL_HUMAN)
+		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
+		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+		self.AnimTbl_Walk = {ACT_WALK_AIM}
+		self.AnimTbl_Run = {ACT_RUN_AIM} 
+   else	
+ 		self:SetHullType(HULL_HUMAN)
+		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))  
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -502,10 +515,10 @@ end
 			self.Zombie_CurAnims = 0
 	        self.AnimTbl_IdleStand = {self.IdleAnim}
 		    self.AnimTbl_Walk = {self.WalkAnim}
-		    self.AnimTbl_Run = {self.RunAnim} 			
-        end			
-    end   
-end
+		    self.AnimTbl_Run = {self.RunAnim}
+        end 			
+    end			
+end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
     if self.Zombie_Crippled then return end	
@@ -514,7 +527,7 @@ function ENT:CustomOnThink_AIEnabled()
 	    elseif !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain then
 		    self.AnimTbl_IdleStand = {self.IdleAnim}		
 end
-	if self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then 
+	if self:IsOnFire() && !self.Zombie_AdvancedStrain then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
 		self.AnimTbl_Run = {ACT_RUN_AIM}
 	elseif !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then
@@ -527,7 +540,7 @@ end
 			else
 				self:Crouch(false)	
 	end
-end		
+end	
 	if self.VJ_IsBeingControlled then
 	   if self.VJ_TheController:KeyDown(IN_DUCK) then	
 				self:Crouch(true)
@@ -536,11 +549,8 @@ end
 	            ThirdP_Offset = Vector(45, 25, -15), 
 	            FirstP_Bone = "ValveBiped.Bip01_Head1", 
 	            FirstP_Offset = Vector(10, -3, -25), 
-}
-    end
-end  
-	if self.VJ_IsBeingControlled then
-	   if !self.VJ_TheController:KeyDown(IN_DUCK) then	
+} 
+	   elseif !self.VJ_TheController:KeyDown(IN_DUCK) then	
 				self:Crouch(false)
                 self.VJC_Data = {
 	            CameraMode = 1, 
@@ -548,8 +558,8 @@ end
 	            FirstP_Bone = "ValveBiped.Bip01_Head1",
 	            FirstP_Offset = Vector(0, 0, 5), 				
 }			
-	end
-end
+    end	
+end	
 	//print(self:GetBlockingEntity())
 	// IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
 	if self.Zombie_AllowClimbing == true && self.Dead == false && self.Zombie_Climbing == false && CurTime() > self.Zombie_NextClimb then
@@ -621,7 +631,6 @@ function ENT:Cripple()
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 	self.MeleeAttackAnimationAllowOtherTasks = false	
 	self.CanFlinch = 0
-	self.HasDeathAnimation = false
     self.VJC_Data = {
 	CameraMode = 1, 
 	ThirdP_Offset = Vector(45, 20, -15), 
@@ -678,7 +687,7 @@ end -- Return false to disallow the flinch from playing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self.DeathAnimationChance = 1
-	if self.Zombie_IsClimbing == true or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") then self.HasDeathAnimation = false end
+	if self.Zombie_IsClimbing == true or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") then self.HasDeathAnimation = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
