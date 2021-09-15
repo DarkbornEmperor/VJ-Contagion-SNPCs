@@ -13,11 +13,10 @@ ENT.HasBloodPool = false
 //ENT.TurningSpeed = 5
 ENT.PoseParameterLooking_Names = {pitch={"body_pitch","move_x"}, yaw={"body_yaw","move_y"}, roll={}} 
 ENT.HasMeleeAttack = true 
-//ENT.MeleeAttackDistance = 40
-//ENT.MeleeAttackDamageDistance = 65
 ENT.MeleeAttackDamage = 10
 ENT.MeleeAttackAnimationAllowOtherTasks = true 
 ENT.TimeUntilMeleeAttackDamage = false 
+ENT.HasExtraMeleeAttackSounds = true
 ENT.SlowPlayerOnMeleeAttack = true 
 ENT.SlowPlayerOnMeleeAttackTime = 0.5 
 ENT.DisableFootStepSoundTimer = true 
@@ -52,7 +51,7 @@ ENT.DeathAnimationChance = 2
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"} 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_MeleeAttack = {
+ENT.SoundTbl_MeleeAttackExtra = {
 "vj_contagion/z_hit-01.wav",
 "vj_contagion/z_hit-02.wav",
 "vj_contagion/z_hit-03.wav",
@@ -363,22 +362,29 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end
 	self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
 	self.IdleAnim = self.AnimTbl_IdleStand[1]
 	self.WalkAnim = self.AnimTbl_Walk[1]
-	self.RunAnim = self.AnimTbl_Run[1]   
-	
-	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
-/*	
-  if math.random(1,5) == 1 then
-        self.CanSit = true
-        self.AnimTbl_IdleStand = {"sit1"}
-        self.IdleAlwaysWander = false 
-        self.DisableWandering = true
-    end
-*/	
+	self.RunAnim = self.AnimTbl_Run[1]   		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	if key == "step" then
+		self:FootStepSoundCode()
+end
+	if key == "melee" then
+		self:MeleeAttackCode()
+end
+	if key == "body_hit" then
+		VJ_EmitSound(self, "physics/flesh/flesh_impact_hard"..math.random(1,5)..".wav", 70, 100)
+	end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetSightDirection()
+	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
@@ -394,30 +400,28 @@ end
 function ENT:CustomOnCallForHelp(ally)
     if self.VJ_IsBeingControlled or self.Crippled then return end
 	if self.AdvancedStrain then
-		self:VJ_ACT_PLAYACTIVITY("zombie_grapple_roar1",true,false,true)
+		self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	if key == "step" then
-		self:FootStepSoundCode()
-end
-	if key == "melee" then
-		self:MeleeAttackCode()
-end
-	if key == "body_hit" then
-		VJ_EmitSound(self, "physics/flesh/flesh_impact_hard"..math.random(1,5)..".wav", 70, 100)
-	end	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks() 
-   if !self.Crippled && self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
+function ENT:MultipleMeleeAttacks()
+     if !self.Crippled && !self.AdvancedStrain && !self:IsMoving() && !self.VJ_IsBeingControlled then 
+       self.MeleeAttackDistance = 35
+       self.MeleeAttackDamageDistance = 60  	 
+       self.AnimTbl_MeleeAttack = {
+	   "vjseq_melee_cont_01"
+}   
+   elseif !self.Crippled && self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
+       self.MeleeAttackDistance = 50
+       self.MeleeAttackDamageDistance = 75    
        self.AnimTbl_MeleeAttack = {
 	   "vjges_melee2020_player_01",
 	   "vjges_melee2020_player_02",
 	   "vjges_melee2020_player_03",
 }           
-    elseif !self.Crippled && !self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then   
+    elseif !self.Crippled && !self.AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then 
+       self.MeleeAttackDistance = 50
+       self.MeleeAttackDamageDistance = 75    	
        self.AnimTbl_MeleeAttack = {
 	   "vjges_Melee2013_01",
 	   "vjges_Melee2013_02",
@@ -427,12 +431,17 @@ function ENT:MultipleMeleeAttacks()
 	   "vjges_Melee2013_06",
 	   "vjges_Melee2013_07",
 	   "vjges_Melee2013_08",
-}      
+} 	    
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetSightDirection()
-	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
+function ENT:CustomOnMeleeAttack_Miss()
+    if self.Crippled or self.AdvancedStrain then return end 
+    if self.MeleeAttacking == true && !self:IsMoving() then
+	   self.vACT_StopAttacks = true
+	   self.PlayingAttackAnimation = false
+	   self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.4,true)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Crouch(bCrouch)
@@ -477,8 +486,11 @@ end
 function ENT:CustomOnThink()
     if self.VJ_IsBeingControlled then
 	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
-	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end 
-	   self:Jump()   
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
+	   self:Jump()
+    elseif !self.VJ_IsBeingControlled then
+	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB)) end	   
 end	
     if self.Crippled or self.AdvancedStrain then return end
 	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
@@ -509,10 +521,8 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()	
-		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking && !self.AdvancedStrain then
+		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.CanUseUnableAnim == true && !self.AdvancedStrain then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Crippled && self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"melee_cont_01"}
 	    elseif !self.Crippled && !self.VJ_IsBeingControlled && !self.AdvancedStrain then
 		    self.AnimTbl_IdleStand = {self.IdleAnim}		
 end
@@ -623,6 +633,8 @@ function ENT:Cripple()
 	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
 	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
 	self.MeleeAttackDamage = self.MeleeAttackDamage /2
+	self.MeleeAttackDistance = 30
+	self.MeleeAttackDamageDistance = 60
 	self.MaxJumpLegalDistance = VJ_Set(0,0)
 	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 	self.MeleeAttackAnimationAllowOtherTasks = false	
@@ -677,24 +689,8 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
 			self:VJ_ACT_PLAYACTIVITY("shoved_forward_heavy",true,3.4,false)
 			self.Zombie_NextStumble = CurTime() + 10	
-	end
-end
-/*
-     if math.random (1,16) == 1 && self.Stumbled == true then
-		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
-			self:VJ_ACT_PLAYACTIVITY("stumble01",true,3.3,false)
-			self.Zombie_NextStumble = CurTime() + 10	
-	end
-end
-*/
-/*
-     if math.random (1,16) == 1 && self.Stumbled == true then
-		 if self.Zombie_NextStumble < CurTime() && self:IsMoving() then
-			self:VJ_ACT_PLAYACTIVITY("stumble02",true,3.6,false)
-			self.Zombie_NextStumble = CurTime() + 10	
 	    end
-	end	
-*/	
+    end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)

@@ -32,7 +32,7 @@ end
     else
         self.Bleeds = true		
 end		
-    if math.random(1,50) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+    if math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
            self.Riot_Helmet = false	
 		   self.Bleeds = true
            self:SetBodygroup(2,1)		   
