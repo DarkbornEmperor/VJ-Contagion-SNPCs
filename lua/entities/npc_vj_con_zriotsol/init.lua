@@ -11,10 +11,10 @@ ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
+	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
 		dmginfo:SetDamage(self:Health())		
 end	
-	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	    self.Bleeds = false
 		dmginfo:ScaleDamage(0.00)
@@ -32,7 +32,7 @@ end
     else
         self.Bleeds = true		
 end		
-    if math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+    if dmginfo:IsBulletDamage() && math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
            self.Riot_Helmet = false	
 		   self.Bleeds = true
            self:SetBodygroup(2,1)		   
@@ -41,7 +41,7 @@ end
            self:BreakHelmet()
     return			
 end		
-	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH then
+	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	if math.random(1,3) == 1 then
 	    dmginfo:ScaleDamage(0.50)

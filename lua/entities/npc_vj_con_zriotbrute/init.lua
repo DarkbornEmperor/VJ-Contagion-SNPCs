@@ -6,6 +6,8 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.StartHealth = 300
+ENT.TurningSpeed = 8
+ENT.AnimTbl_Walk = {ACT_WALK_AGITATED}
 ENT.AnimTbl_Run = {ACT_WALK_AGITATED}
 ENT.IdleSoundPitch = VJ_Set(85, 85)
 ENT.CombatIdleSoundPitch = VJ_Set(85, 85)
@@ -30,7 +32,7 @@ function ENT:Zombie_CustomOnInitialize()
 	    self.ShieldModel:SetSolid(SOLID_NONE)
 	    self.ShieldModel:AddEffects(EF_BONEMERGE)
 		
-	if self.AdvancedStrain then
+	if self.Zombie_AdvancedStrain then
 		self:SetSuperStrain(300)
     end	
 end
@@ -38,6 +40,8 @@ end
 function ENT:SetSuperStrain(hp)
 	self:SetHealth(hp)
 	self:SetMaxHealth(hp)
+	self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+	self.AnimTbl_Walk = {ACT_RUN_AGITATED}
 	self.AnimTbl_Run = {ACT_RUN_AGITATED}
 	self.MeleeAttackDamage = self.MeleeAttackDamage +11
 	//self.MaxJumpLegalDistance = VJ_Set(0,600)
@@ -45,31 +49,80 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
 	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
     self.IdleAnim = self.AnimTbl_IdleStand[1]
-    self.AnimTbl_Walk = {ACT_WALK_AGITATED}
-
-	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+    if self.Zombie_Crippled then return end
+      ply:ChatPrint("RELOAD: Toggle Charge")	  
+      ply:ChatPrint("SPACE: Jump")		
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+    if self.VJ_IsBeingControlled then
+	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end
+	   self:Jump()
+    elseif !self.VJ_IsBeingControlled then
+	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesAdd(bit.bor(CAP_MOVE_JUMP)) end
+	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesAdd(bit.bor(CAP_MOVE_CLIMB)) end	   
+end	
+    if self.Zombie_AdvancedStrain then return end
+	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
+		if self.Zombie_ControllerAnim == 0 then
+			self.Zombie_ControllerAnim = 1
+			self.VJ_TheController:ChatPrint("Charge Activated")
+		else
+			self.Zombie_ControllerAnim = 0
+			self.VJ_TheController:ChatPrint("Charge Deactivated")
+	end
+end
+	if self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
+		if self.Zombie_CurAnims != 1 then
+			self.Zombie_CurAnims = 1
+			self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
+			self.AnimTbl_Walk = {ACT_RUN_AGITATED}
+			self.AnimTbl_Run = {ACT_RUN_AGITATED} 			
+    end
+end
+	if self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then
+		if self.Zombie_CurAnims != 0 then
+			self.Zombie_CurAnims = 0
+	        self.AnimTbl_IdleStand = {self.IdleAnim}
+		    self.AnimTbl_Walk = {ACT_WALK_AGITATED}
+		    self.AnimTbl_Run = {ACT_WALK_AGITATED} 			
+        end			
+    end   
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-		if IsValid(self:GetEnemy()) && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
+    if self.Zombie_AdvancedStrain then return end
+		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-	    elseif !self.Crippled then
-		    self.AnimTbl_IdleStand = {self.IdleAnim}   			
-    end
+	    elseif !self.VJ_IsBeingControlled then
+		    self.AnimTbl_IdleStand = {self.IdleAnim}		
+end
+	if self:IsOnFire() && !self.VJ_IsBeingControlled then 
+		self.AnimTbl_Walk = {ACT_RUN_AGITATED}
+		self.AnimTbl_Run = {ACT_RUN_AGITATED}
+	elseif !self.VJ_IsBeingControlled then
+		self.AnimTbl_Walk = {ACT_WALK_AGITATED}
+		self.AnimTbl_Run = {ACT_WALK_AGITATED}
+    end		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
+	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
 		dmginfo:SetDamage(self:Health())		
 end	
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD && self.Riot_Helmet or hitgroup == 9 then
 		dmginfo:ScaleDamage(0.00)	
 end	
-	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	    self.Bleeds = false
 		dmginfo:ScaleDamage(0.00)
@@ -87,7 +140,7 @@ end
     else
         self.Bleeds = true	
 end		
-    if math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+    if dmginfo:IsBulletDamage() && math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
            self.Riot_Helmet = false	
 		   self.Bleeds = true
            self:SetBodygroup(1,1)	
@@ -96,7 +149,7 @@ end
            self:BreakHelmet()
     return
 end
- 	if self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
+ 	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	if math.random(1,3) == 1 then
 	    dmginfo:ScaleDamage(0.20)
@@ -177,25 +230,19 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    -- If no corpse spawned, make sure to remove the mask!
+    -- If no corpse spawned, make sure to remove the shield!
     if !IsValid(self.Corpse) && IsValid(self.ShieldModel) then
         self.ShieldModel:Remove()
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Crouch(bCrouch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Crouch(bCrouch)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)	  		
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()  
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
