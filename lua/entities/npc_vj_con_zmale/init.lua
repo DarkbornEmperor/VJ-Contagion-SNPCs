@@ -527,7 +527,7 @@ function ENT:CustomOnThink_AIEnabled()
 	    elseif !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain then
 		    self.AnimTbl_IdleStand = {self.IdleAnim}		
 end
-	if self:IsOnFire() && !self.Zombie_AdvancedStrain then 
+	if self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
 		self.AnimTbl_Run = {ACT_RUN_AIM}
 	elseif !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then
