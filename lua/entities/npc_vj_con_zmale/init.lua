@@ -67,6 +67,7 @@ ENT.SoundTbl_MeleeAttackMiss = {
 "vj_contagion/z-swipe-5.wav",
 "vj_contagion/z-swipe-6.wav"
 }
+ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_NextClimb = 0
@@ -363,7 +364,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end
-	self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
+	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
 	self.IdleAnim = self.AnimTbl_IdleStand[1]
@@ -453,7 +454,7 @@ function ENT:Crouch(bCrouch)
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 	else
 		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
+		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

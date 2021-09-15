@@ -16,24 +16,7 @@ ENT.DeathSoundPitch = VJ_Set(85, 85)
 -- Custom 
 ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200
-ENT.LegHealth = 35
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
-	if self:GetClass() == "npc_vj_con_zriot" then
-		self.Model = {
-			"models/cpthazama/contagion/zombies/riot_zombie.mdl"
-		}
-		if math.random(1,10) == 1 then
-			self.AdvancedStrain = true
-		end
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_CustomOnInitialize()
-	 if self.AdvancedStrain then	
-	    self:SetSuperStrain(225)
-	end	
-end
+ENT.LegHealth = 50
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
@@ -82,7 +65,7 @@ end
 		spark:Fire("StopSpark", "", 0.001)
 		self:DeleteOnRemove(spark)
 	else
-	        dmginfo:ScaleDamage(0.60)
+	        dmginfo:ScaleDamage(0.40)
         end		
     end		
 end	

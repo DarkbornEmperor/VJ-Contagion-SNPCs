@@ -45,7 +45,7 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(16,16,74),Vector(-16,-16,0))
+	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
     self.IdleAnim = self.AnimTbl_IdleStand[1]
@@ -57,8 +57,6 @@ end
 function ENT:CustomOnThink_AIEnabled()
 		if IsValid(self:GetEnemy()) && !self.Crippled && self.CanUseUnableAnim == true && !self.MeleeAttacking then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-		elseif IsValid(self:GetEnemy()) && !self.Crippled && self.MeleeAttacking then
-			self.AnimTbl_IdleStand = {"melee_cont_01"}
 	    elseif !self.Crippled then
 		    self.AnimTbl_IdleStand = {self.IdleAnim}   			
     end
@@ -114,7 +112,7 @@ end
 		spark:Fire("StopSpark", "", 0.001)
 		self:DeleteOnRemove(spark)
 	else
-	        dmginfo:ScaleDamage(0.60)
+	        dmginfo:ScaleDamage(0.40)
         end		
     end		
 end	  	
