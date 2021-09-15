@@ -445,7 +445,7 @@ function ENT:Crouch(bCrouch)
 	    self.AnimTbl_IdleStand = {self.IdleAnim}
 		self.AnimTbl_Walk = {self.WalkAnim}
 		self.AnimTbl_Run = {self.RunAnim}
-	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 1 && self.Zombie_ControllerAnim == 1 or !self.VJ_IsBeingControlled then 
+	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 1 && self.Zombie_ControllerAnim == 1 or !self.VJ_IsBeingControlled or self.Zombie_AdvancedStrain then 
 		self:SetHullType(HULL_HUMAN)
 		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
