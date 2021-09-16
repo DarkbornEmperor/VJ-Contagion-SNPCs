@@ -436,7 +436,7 @@ end
 function ENT:Crouch(bCrouch)
 	if bCrouch then
 		self:SetHullType(HULL_TINY)
-		self:SetCollisionBounds(Vector(12,12,35),Vector(-16,-16,0))
+		self:SetCollisionBounds(Vector(14,14,35),Vector(-14,-14,0))
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
@@ -621,7 +621,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Cripple()
 	self:SetHullType(HULL_TINY)
-	self:SetCollisionBounds(Vector(16,16,20),Vector(-16,-16,0))
+	self:SetCollisionBounds(Vector(14,14,20),Vector(-14,-14,0))
 	self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
 	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
@@ -654,7 +654,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-	if !self.Zombie_Crippled then
+	if !self.Zombie_Crippled && !self.Flinching or self:GetSequence() != self:LookupSequence("shoved_forward_heavy") then
 		local legs = {6,7,10,11}
 		if VJ_HasValue(legs,hitgroup) then
 			self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
