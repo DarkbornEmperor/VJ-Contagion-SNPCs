@@ -688,7 +688,7 @@ end -- Return false to disallow the flinch from playing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self.DeathAnimationChance = 1
-	if self.Zombie_IsClimbing == true or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") then self.HasDeathAnimation = false end
+	if self.Zombie_IsClimbing == true or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
