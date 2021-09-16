@@ -48,8 +48,7 @@ function ENT:SetSuperStrain(hp)
 	//self.LegHealth = hp /2
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
+function ENT:CustomOnInitialize()	
 	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()

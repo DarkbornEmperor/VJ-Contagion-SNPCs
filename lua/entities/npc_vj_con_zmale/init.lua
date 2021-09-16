@@ -286,7 +286,9 @@ end
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then	
 	    self:SetSuperStrain(380)
 	elseif self.Zombie_AdvancedStrain then
-		self:SetSuperStrain(175)		
+		self:SetSuperStrain(175)
+		
+	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end		
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -349,7 +351,6 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end
 	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
