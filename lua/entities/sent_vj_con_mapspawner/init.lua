@@ -13,7 +13,7 @@ ENT.Zombie = {
 	{class="npc_vj_con_zinmate",chance=8},
 	{class="npc_vj_con_zlooter",chance=8},
 	{class="npc_vj_con_zofficer",chance=8},
-	{class="npc_vj_con_zcarrier",chance=20},
+	{class="npc_vj_con_zcarrier",chance=40},
 	{class="npc_vj_con_zriot",chance=20},	
 	{class="npc_vj_con_zcurtis",chance=6},
 	{class="npc_vj_con_zeugene",chance=6}, 
