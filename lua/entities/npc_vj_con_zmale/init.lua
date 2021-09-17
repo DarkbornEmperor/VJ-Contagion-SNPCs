@@ -204,7 +204,12 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
-	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
+	 if self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_c.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,7))
+
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
+	    self:SetHealth(200)	 	 
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,7))
 
@@ -213,20 +218,26 @@ function ENT:Zombie_CustomOnInitialize()
 		self:SetBodygroup(1,math.random(0,4))
 		self:SetSkin(math.random(0,7))
 
-	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" then
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
-
-	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
-	    self:SetBodygroup(1,math.random(0,3))
-		self:SetSkin(math.random(0,9))
+		
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
+	    self:SetHealth(200)	 
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,9))		
 
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_t.mdl" then
 	    self:SetBodygroup(0,math.random(0,3))
 		self:SetBodygroup(1,math.random(0,4))
 		self:SetSkin(math.random(0,9))
 
-	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_c.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_c.mdl" then
+	    self:SetBodygroup(1,math.random(0,2))
+		self:SetSkin(math.random(0,9))
+
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
+	    self:SetHealth(200)
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
 
@@ -278,7 +289,12 @@ function ENT:Zombie_CustomOnInitialize()
 	    self:SetBodygroup(1,math.random(0,1))		
 end
 	if self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
+	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
+		self:SetSuperStrain(200)	
+    elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
 		self:SetSuperStrain(200)
+    elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
+		self:SetSuperStrain(200)		
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier.mdl" then
 	    self:SetSuperStrain(200)
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then	
@@ -440,7 +456,7 @@ function ENT:Crouch(bCrouch)
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && self.Zombie_ControllerAnim == 0 or !self.VJ_IsBeingControlled then	
+	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && !self:IsOnFire() && self.Zombie_ControllerAnim == 0 or !self.VJ_IsBeingControlled then	
 		self:SetHullType(HULL_HUMAN)
 		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	    self.AnimTbl_IdleStand = {self.IdleAnim}
@@ -522,6 +538,9 @@ end
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	self:SetPoseParameter("move_x", 1)
+    self:SetPoseParameter("move_y", 1) 	
+
     if self.Zombie_Crippled then return end	
 		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
@@ -531,11 +550,11 @@ end
 	if self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
 		self.AnimTbl_Run = {ACT_RUN_AIM}
-	elseif !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then
+	elseif !self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled then
 		self.AnimTbl_Walk = {self.WalkAnim}
 		self.AnimTbl_Run = {self.RunAnim}		
 end
-		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() then
+		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() then
 			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
 				self:Crouch(true)
 			else
@@ -693,7 +712,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if self.Zombie_Gender == 0 && self:IsMoving() then -- Male death anims when running
-	   self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07"}	
+	   self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}	
 	   //self.DeathAnimationDecreaseLengthAmount = 0.05
 	elseif self.Zombie_Gender == 1 && self:IsMoving() then -- Female death anims when running
 	   self.AnimTbl_Death = {"vjseq_death2013_run_01","vjseq_death2013_run_02","vjseq_death2013_run_03"}	
