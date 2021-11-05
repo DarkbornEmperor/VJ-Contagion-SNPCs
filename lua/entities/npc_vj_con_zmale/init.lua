@@ -132,7 +132,11 @@ function ENT:CustomOnPreInitialize()
         self.Zombie_Gender = 1	
 		self.Model = {
 			"models/cpthazama/contagion/zombies/jessica_zombie.mdl"			
-}		
+}
+	elseif self:GetClass() == "npc_vj_con_zlawrence" then		
+		self.Model = {
+			"models/cpthazama/contagion/zombies/lawrence_zombie.mdl"
+}			
 	elseif self:GetClass() == "npc_vj_con_zlooter" then
 		self.Model = {
 			"models/cpthazama/contagion/zombies/looter_zombie.mdl"
@@ -157,7 +161,12 @@ function ENT:CustomOnPreInitialize()
 	elseif self:GetClass() == "npc_vj_con_znick" then
 		self.Model = {
 			"models/cpthazama/contagion/zombies/nick_zombie.mdl"
-}	
+}
+	elseif self:GetClass() == "npc_vj_con_znicole" then
+        self.Zombie_Gender = 1		
+		self.Model = {
+			"models/cpthazama/contagion/zombies/nicole_zombie.mdl"
+}		
 	elseif self:GetClass() == "npc_vj_con_zofficer" then
 		self.Model = {
 			"models/cpthazama/contagion/zombies/officer_alt.mdl",
@@ -179,6 +188,10 @@ function ENT:CustomOnPreInitialize()
 		self.Model = {
 			"models/cpthazama/contagion/zombies/riot_soldier.mdl"
 }
+	elseif self:GetClass() == "npc_vj_con_zryan" then
+		self.Model = {
+			"models/cpthazama/contagion/zombies/ryan_zombie.mdl"
+}	
 	elseif self:GetClass() == "npc_vj_con_ztony" then
 		self.Model = {
 			"models/cpthazama/contagion/zombies/tony_zombie.mdl"
@@ -385,7 +398,7 @@ end
 		self:MeleeAttackCode()
 end
 	if key == "body_hit" then
-		VJ_EmitSound(self, "physics/flesh/flesh_impact_hard"..math.random(1,5)..".wav", 70, 100)
+		VJ_EmitSound(self, "physics/body/body_medium_impact_soft"..math.random(1,7)..".wav", 75, 100)
 	end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -407,6 +420,9 @@ function ENT:CustomOnCallForHelp(ally)
     if self.VJ_IsBeingControlled or self.Zombie_Crippled then return end
 	if self.Zombie_AdvancedStrain then
 		self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
+	if math.random(1,3) == 1 then	
+		   ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -447,7 +463,7 @@ function ENT:CustomOnMeleeAttack_Miss()
     if self.MeleeAttacking == true && !self:IsMoving() then
 	   self.vACT_StopAttacks = true
 	   self.PlayingAttackAnimation = false
-	   self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.4,true)
+	   self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.25,true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -496,10 +512,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
-    if self.Zombie_Crippled then return end
-      ply:ChatPrint("RELOAD: Toggle Blend")
 	  ply:ChatPrint("C: Crouch")	  
-      ply:ChatPrint("SPACE: Jump")		
+      ply:ChatPrint("SPACE: Jump")
+    if self.Zombie_Crippled then return end
+      ply:ChatPrint("RELOAD: Toggle Blend")		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -540,9 +556,6 @@ end
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	self:SetPoseParameter("move_x", 1)
-    self:SetPoseParameter("move_y", 1) 	
-
     if self.Zombie_Crippled then return end	
 		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain then
 			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
@@ -675,7 +688,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-	if !self.Zombie_Crippled && !self.Flinching or self:GetSequence() != self:LookupSequence("shoved_forward_heavy") then
+	if !self.Zombie_Crippled && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") then
 		local legs = {6,7,10,11}
 		if VJ_HasValue(legs,hitgroup) then
 			self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()

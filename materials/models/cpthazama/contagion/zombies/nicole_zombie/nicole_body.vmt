@@ -1,0 +1,24 @@
+VertexLitGeneric
+{
+    $basetexture                "models\survivors\nicole\nicole_body_diff"
+    $bumpmap                    "models\survivors\nicole\nicole_body_norm"
+    $normalmapalphaenvmapmask   "1"
+    $halflambert                "1"
+    $alphatest                  "1"
+    $envmap                     env_cubemap
+    $envmaptint                 "[.05 .05 .05]"
+    $phong                      "1"
+    $phongexponent              "2"
+    $phongboost                 "2"
+    $phongfresnelranges         "[.05 0.5 1]"
+    $phongalbedotint            "1"
+    $phongtint                  "[.75 .5 .5]"
+    $ambientocclusion           "0"
+    
+    Proxies
+    {
+        ZombieVisionEntity
+        {
+        }
+    }
+}

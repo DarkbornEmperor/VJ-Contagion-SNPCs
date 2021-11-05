@@ -1,0 +1,30 @@
+VertexLitGeneric
+{
+	$basetexture                "models/cpthazama/contagion/zombies/worker_zombie/MaleCorporateEngDiff"
+	$bumpmap                    "models/cpthazama/contagion/zombies/worker_zombie/MaleCorporateEngNorm"
+	$normalmapalphaenvmapmask   "1"
+	$envmap                     env_cubemap
+	$envmaptint                 "[.02 .02 .02]"
+	$phong                      "1"
+	$phongexponenttexture       "models/cpthazama/contagion/zombies/worker_zombie/MaleCorporateEngExp"
+	$phongboost                 "6"
+	$phongfresnelranges         "[.05 0.5 1]"
+	$halflambert                "1"
+
+	$damaged                    1
+	$damagethreshold            "0.4"
+	$damagebloodcolor           "[0.41 0 0]"
+	$damagetexture1             "black"
+	$damagetexture2             "black"
+	$damagetexture3             "black"
+	$damagetexture4             "black"
+	Proxies
+	{
+		"ZombieTestProxy"
+		{
+		}
+		ZombieVisionEntity
+		{
+		}
+	}
+}

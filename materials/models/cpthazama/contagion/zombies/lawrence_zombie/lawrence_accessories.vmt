@@ -1,0 +1,18 @@
+VertexLitGeneric
+{
+    $basetexture                "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_accD"
+    $bumpmap                    "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_accN"
+    $normalmapalphaenvmapmask   "1"
+    $phong                      "1"
+    $phongexponenttexture       "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_accE"
+    $phongboost                 "2"
+    $phongfresnelranges         "[.05 0.5 1]"
+    $halflambert                "1"
+    
+    Proxies
+    {
+        ZombieVisionEntity
+        {
+        }
+    }
+}

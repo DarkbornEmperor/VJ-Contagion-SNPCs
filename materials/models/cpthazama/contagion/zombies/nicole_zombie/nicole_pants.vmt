@@ -16,6 +16,11 @@ VertexLitGeneric
     $rimlightexponent ".15"
     $rimlightboost ".15"
     $ambientocclusion           0
-
-    $alphatest "1"
+    
+    Proxies
+    {
+        ZombieVisionEntity
+        {
+        }
+    }
 }

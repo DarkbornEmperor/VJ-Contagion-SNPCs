@@ -37,8 +37,12 @@ local entsList = {
 	"npc_vj_con_zmia:6",
 	"npc_vj_con_znick:6",
 	"npc_vj_con_zriot:20",
-    "npc_vj_con_ztony:15",
+    "npc_vj_con_ztony:6",
     "npc_vj_con_zyumi:6",
+	"npc_vj_con_zmike:6",
+	"npc_vj_con_znicole:6",
+	"npc_vj_con_zryan:6",
+	"npc_vj_con_zlawrence:6",	
 	"npc_vj_con_zriotbrute:40",
 	"npc_vj_con_zriotsol:15"
 }

@@ -24,6 +24,10 @@ ENT.Zombie = {
 	{class="npc_vj_con_znick",chance=6},
 	{class="npc_vj_con_ztony",chance=6},
 	{class="npc_vj_con_zyumi",chance=6},
+	{class="npc_vj_con_zmike",chance=6},	
+	{class="npc_vj_con_znicole",chance=6},
+	{class="npc_vj_con_zryan",chance=6},
+	{class="npc_vj_con_zlawrence",chance=6},	
 	{class="npc_vj_con_zriotsol",chance=15},
 	{class="npc_vj_con_zriotbrute",chance=40},	
 }
