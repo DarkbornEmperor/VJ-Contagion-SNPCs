@@ -16,7 +16,7 @@ ENT.DeathSoundPitch = VJ_Set(85, 85)
 -- Custom 
 ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200
-ENT.LegHealth = 50
+ENT.Zombie_LegHealth = 50
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then

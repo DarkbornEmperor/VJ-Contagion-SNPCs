@@ -12,7 +12,7 @@ ENT.MeleeAttackBleedEnemyDamage = 200
 ENT.MeleeAttackBleedEnemyTime = 15
 ENT.MeleeAttackBleedEnemyReps = 1
 -- Custom
-ENT.LegHealth = 80
+ENT.Zombie_LegHealth = 75
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

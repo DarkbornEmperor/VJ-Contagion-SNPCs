@@ -376,9 +376,9 @@ function ENT:SetSuperStrain(hp)
 	self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 	self.AnimTbl_Walk = {ACT_WALK_AIM}
 	self.AnimTbl_Run = {ACT_RUN_AIM}
-	self.MeleeAttackDamage = self.MeleeAttackDamage +11
+	//self.MeleeAttackDamage = self.MeleeAttackDamage +11
 	//self.MaxJumpLegalDistance = VJ_Set(0,600)
-	self.Zombie_LegHealth = hp /2
+	//self.Zombie_LegHealth = hp /2
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -659,7 +659,7 @@ function ENT:Cripple()
 	self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
 	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
-	self.MeleeAttackDamage = self.MeleeAttackDamage /2
+	//self.MeleeAttackDamage = self.MeleeAttackDamage /2
 	self.MeleeAttackDistance = 30
 	self.MeleeAttackDamageDistance = 60
 	self.MaxJumpLegalDistance = VJ_Set(0,0)
@@ -681,7 +681,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		dmginfo:SetDamage(self:Health())
 end
 	if self.Zombie_AdvancedStrain then
-	   dmginfo:ScaleDamage(0.75)
+	   //dmginfo:ScaleDamage(0.75)
 	elseif self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
 	   dmginfo:ScaleDamage(0.05)	   
     end
