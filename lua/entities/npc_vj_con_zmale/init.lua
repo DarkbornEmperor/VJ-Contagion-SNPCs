@@ -677,7 +677,7 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" or self:GetModel() != "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then
+	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" && self:GetModel() != "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then
 		dmginfo:SetDamage(self:Health())
 end
 	if self.Zombie_AdvancedStrain then
