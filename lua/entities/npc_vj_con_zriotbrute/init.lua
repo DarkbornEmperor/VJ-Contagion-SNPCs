@@ -5,8 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = 300
-ENT.TurningSpeed = 8
+ENT.StartHealth = 600
 ENT.AnimTbl_Walk = {ACT_WALK_AGITATED}
 ENT.AnimTbl_Run = {ACT_WALK_AGITATED}
 ENT.IdleSoundPitch = VJ_Set(85, 85)
@@ -33,7 +32,7 @@ function ENT:Zombie_CustomOnInitialize()
 	    self.ShieldModel:AddEffects(EF_BONEMERGE)
 		
 	if self.Zombie_AdvancedStrain then
-		self:SetSuperStrain(300)
+		self:SetSuperStrain(600)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,9 +114,6 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
-		dmginfo:SetDamage(self:Health())		
-end	
 	if (dmginfo:IsBulletDamage()) && hitgroup == HITGROUP_HEAD && self.Riot_Helmet or hitgroup == 9 then
 		dmginfo:ScaleDamage(0.00)	
 end	
@@ -151,7 +147,7 @@ end
  	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	if math.random(1,3) == 1 then
-	    dmginfo:ScaleDamage(0.20)
+	    dmginfo:ScaleDamage(0.05)
 		local spark = ents.Create("env_spark")
 		spark:SetKeyValue("Magnitude","1")
 		spark:SetKeyValue("Spark Trail Length","1")
@@ -164,7 +160,7 @@ end
 		spark:Fire("StopSpark", "", 0.001)
 		self:DeleteOnRemove(spark)
 	else
-	        dmginfo:ScaleDamage(0.40)
+	        dmginfo:ScaleDamage(0.15)
         end		
     end		
 end	  	

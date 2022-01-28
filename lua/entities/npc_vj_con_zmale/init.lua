@@ -186,7 +186,7 @@ function ENT:CustomOnPreInitialize()
 }	
 	elseif self:GetClass() == "npc_vj_con_zriotsol" then
 		self.Model = {
-			"models/cpthazama/contagion/zombies/riot_soldier.mdl"
+			"models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl"
 }
 	elseif self:GetClass() == "npc_vj_con_zryan" then
 		self.Model = {
@@ -315,9 +315,9 @@ end
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl" then	
 	    self:SetSuperStrain(225)
 	elseif self:GetModel() == "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then	
-	    self:SetSuperStrain(300)		
+	    self:SetSuperStrain(600)		
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then	
-	    self:SetSuperStrain(380)
+	    self:SetSuperStrain(520)
 	elseif self.Zombie_AdvancedStrain then
 		self:SetSuperStrain(175)
 		
@@ -514,7 +514,7 @@ end
 function ENT:Controller_IntMsg(ply)
 	  ply:ChatPrint("C: Crouch")	  
       ply:ChatPrint("SPACE: Jump")
-    if self.Zombie_Crippled then return end
+    if self.Zombie_Crippled or self.Zombie_AdvancedStrain then return end
       ply:ChatPrint("RELOAD: Toggle Blend")		
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -677,13 +677,13 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
+	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" or self:GetModel() != "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then
 		dmginfo:SetDamage(self:Health())
 end
 	if self.Zombie_AdvancedStrain then
 	   //dmginfo:ScaleDamage(0.75)
 	elseif self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
-	   dmginfo:ScaleDamage(0.05)	   
+	   dmginfo:ScaleDamage(0.15)	   
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -738,7 +738,8 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)	
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+       if GetConVarNumber("VJ_CON_CorpseBleed") == 0 then return end	
 GetCorpse.BloodEffect = self.CustomBlood_Particle
 	local hookName = "VJ_CON_CorpseBlood_" .. GetCorpse:EntIndex()
 	hook.Add("EntityTakeDamage",hookName,function(ent,dmginfo)

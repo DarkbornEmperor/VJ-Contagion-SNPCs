@@ -26,7 +26,7 @@ if VJExists == true then
 	VJ.AddNPC("Lawrence (Zombie)","npc_vj_con_zlawrence",vCat)
 	VJ.AddNPC("Looter Zombie","npc_vj_con_zlooter",vCat)
 	VJ.AddNPC("Officer Zombie","npc_vj_con_zofficer",vCat)
-	VJ.AddNPC("Carrier","npc_vj_con_zcarrier",vCat)
+	VJ.AddNPC("Carrier Zombie","npc_vj_con_zcarrier",vCat)
 	VJ.AddNPC("Eugene (Zombie)","npc_vj_con_zeugene",vCat)
 	VJ.AddNPC("Jessica (Zombie)","npc_vj_con_zjessica",vCat)
 	VJ.AddNPC("Manuel (Zombie)","npc_vj_con_zmanuel",vCat)
@@ -94,7 +94,7 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")	
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_brute_zombie.mdl") 
-	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_soldier.mdl")	
+	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl")	
 	util.PrecacheModel("models/cpthazama/contagion/zombies/riot_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/ryan_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/tony_zombie.mdl")
@@ -106,6 +106,7 @@ if VJExists == true then
 	local AddConvars = {}
 	AddConvars["VJ_CON_AllowClimbing"] = 0
 	AddConvars["VJ_CON_Headshot"] = 1
+	AddConvars["VJ_CON_CorpseBleed"] = 1
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_CON_MapSpawner_Music"] = 1
@@ -138,13 +139,15 @@ end
 			local vj_conreset = {Options = {}, CVars = {}, Label = "Reset everything:", MenuButton = "0"}
 			vj_conreset.Options["#vjbase.menugeneral.default"] = { 
 				VJ_CON_AllowClimbing = "0",
-				VJ_CON_Headshot = "1",				
+				VJ_CON_Headshot = "1",
+				VJ_CON_CorpseBleed = "1",					
 }
             Panel:AddControl("ComboBox", vj_conreset)
             Panel:ControlHelp("NOTE: Only future SNPCs will be affected!")
             Panel:AddControl("Checkbox", {Label ="Enable prop climbing?", Command ="VJ_CON_AllowClimbing"})		
             Panel:ControlHelp("Warning: May cause performance drops.")
-            Panel:AddControl("Checkbox", {Label ="Enable instant headshot death?", Command ="VJ_CON_Headshot"})			
+            Panel:AddControl("Checkbox", {Label ="Enable instant headshot death?", Command ="VJ_CON_Headshot"})	
+            Panel:AddControl("Checkbox", {Label ="Enable bleeding to corpses?", Command ="VJ_CON_CorpseBleed"})				
             Panel:AddPanel(typebox)
 
 end
