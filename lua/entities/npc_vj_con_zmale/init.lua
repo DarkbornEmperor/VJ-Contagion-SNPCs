@@ -290,7 +290,7 @@ function ENT:Zombie_CustomOnInitialize()
 	    self:SetSkin(math.random(0,5))
         self:SetHealth(200)
 		
-	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier.mdl" then
+	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl" then
 	    self:SetBodygroup(1,math.random(0,1))		
 end
 	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end
@@ -303,8 +303,8 @@ end
 		self:SetSuperStrain(200)
     elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
 		self:SetSuperStrain(200)		
-	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier.mdl" then
-	    self:SetSuperStrain(200)
+	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl" then
+	    self:SetSuperStrain(225)
 	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl" then	
 	    self:SetSuperStrain(225)		
 	elseif self.Zombie_AdvancedStrain then

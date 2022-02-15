@@ -6,13 +6,13 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.StartHealth = 225
-ENT.IdleSoundPitch = VJ_Set(80, 80)
-ENT.CombatIdleSoundPitch = VJ_Set(80, 80)
-ENT.AlertSoundPitch = VJ_Set(80, 80)
-ENT.CallForHelpSoundPitch = VJ_Set(80, 80)
-ENT.BeforeMeleeAttackSoundPitch = VJ_Set(80, 80)
-ENT.PainSoundPitch = VJ_Set(80, 80)
-ENT.DeathSoundPitch = VJ_Set(80, 80)
+ENT.IdleSoundPitch = VJ_Set(85, 85)
+ENT.CombatIdleSoundPitch = VJ_Set(85, 85)
+ENT.AlertSoundPitch = VJ_Set(85, 85)
+ENT.CallForHelpSoundPitch = VJ_Set(85, 85)
+ENT.BeforeMeleeAttackSoundPitch = VJ_Set(85, 85)
+ENT.PainSoundPitch = VJ_Set(85, 85)
+ENT.DeathSoundPitch = VJ_Set(85, 85)
 -- Custom 
 ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200

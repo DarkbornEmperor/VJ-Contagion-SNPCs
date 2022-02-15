@@ -17,13 +17,13 @@ ENT.MeleeAttackKnockBack_Up1 = 100
 ENT.MeleeAttackKnockBack_Up2 = 100 
 ENT.HasCallForHelpAnimation = false
 ENT.CanFlinch = 0
-ENT.IdleSoundPitch = VJ_Set(80, 80)
-ENT.CombatIdleSoundPitch = VJ_Set(80, 80)
-ENT.AlertSoundPitch = VJ_Set(80, 80)
-ENT.CallForHelpSoundPitch = VJ_Set(80, 80)
-ENT.BeforeMeleeAttackSoundPitch = VJ_Set(80, 80)
-ENT.PainSoundPitch = VJ_Set(80, 80)
-ENT.DeathSoundPitch = VJ_Set(80, 80)
+ENT.IdleSoundPitch = VJ_Set(85, 85)
+ENT.CombatIdleSoundPitch = VJ_Set(85, 85)
+ENT.AlertSoundPitch = VJ_Set(85, 85)
+ENT.CallForHelpSoundPitch = VJ_Set(85, 85)
+ENT.BeforeMeleeAttackSoundPitch = VJ_Set(85, 85)
+ENT.PainSoundPitch = VJ_Set(85, 85)
+ENT.DeathSoundPitch = VJ_Set(85, 85)
 -- Custom 
 ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200
@@ -240,7 +240,7 @@ end)
 	if hasEnemy && !self.Zombie_Crouching && !self.Zombie_Climbing then
 		if ((controlled && self.VJ_TheController:KeyDown(IN_ATTACK2)) or !controlled) && ent:GetPos():Distance(self:GetPos()) <= 2500 && !self:BusyWithActivity() && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
 			self:VJ_ACT_PLAYACTIVITY("brute_charge_begin",true,false,true,{SequenceInterruptible=false})
-			VJ_CreateSound(self,{"vj_contagion/build2695/z_sham/roar/0070.wav","vj_contagion/build2695/z_sham/roar/0071.wav","vj_contagion/build2695/z_sham/roar/0072.wav","vj_contagion/build2695/z_sham/roar/0073.wav","vj_contagion/build2695/z_sham/roar/0074.wav","vj_contagion/build2695/z_sham/roar/0075.wav"},75,80)
+			VJ_CreateSound(self,{"vj_contagion/build2695/z_sham/roar/0070.wav","vj_contagion/build2695/z_sham/roar/0071.wav","vj_contagion/build2695/z_sham/roar/0072.wav","vj_contagion/build2695/z_sham/roar/0073.wav","vj_contagion/build2695/z_sham/roar/0074.wav","vj_contagion/build2695/z_sham/roar/0075.wav"},75,85)
 			timer.Simple(self:SequenceDuration(self:LookupSequence("brute_charge_begin")),function()
 				if IsValid(self) && !self.Zombie_Climbing && !self.Zombie_Crouching then
 				    self.HasMeleeAttackKnockBack = true

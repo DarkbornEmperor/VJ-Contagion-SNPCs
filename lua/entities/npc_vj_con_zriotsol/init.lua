@@ -5,10 +5,18 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = 200
+ENT.StartHealth = 225
+ENT.IdleSoundPitch = VJ_Set(85, 85)
+ENT.CombatIdleSoundPitch = VJ_Set(85, 85)
+ENT.AlertSoundPitch = VJ_Set(85, 85)
+ENT.CallForHelpSoundPitch = VJ_Set(85, 85)
+ENT.BeforeMeleeAttackSoundPitch = VJ_Set(85, 85)
+ENT.PainSoundPitch = VJ_Set(85, 85)
+ENT.DeathSoundPitch = VJ_Set(85, 85)
 -- Custom 
 ENT.Riot_Helmet = true
 //ENT.Riot_HelmetHP = 200
+ENT.Zombie_LegHealth = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
