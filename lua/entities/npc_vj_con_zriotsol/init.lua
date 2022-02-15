@@ -32,11 +32,11 @@ end
     else
         self.Bleeds = true		
 end		
-    if dmginfo:IsBulletDamage() && math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+    if dmginfo:IsBulletDamage() && math.random(5,80) == 5 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
            self.Riot_Helmet = false	
 		   self.Bleeds = true
            self:SetBodygroup(2,1)		   
-		   dmginfo:ScaleDamage(1.0)	
+		   //dmginfo:ScaleDamage(1.0)	
 	if IsValid(spark) then spark:Remove() end
            self:BreakHelmet()
     return			

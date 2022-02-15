@@ -8,7 +8,7 @@ VertexLitGeneric
 	$phongexponent "10"
 	$phongtint "[1 1.2 1.8]"
 	$phongfresnelranges   "[1 3 5]"
-	$envmap env_cubemap
+	$envmap "env_cubemap"
 	$envmaptint "[.2 .2 .2]"
 	$translucent 1
 }

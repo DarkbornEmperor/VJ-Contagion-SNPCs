@@ -2,23 +2,8 @@ VertexLitGeneric
 {
 	$basetexture "models\cpthazama\contagion\zombies\inmate\inmate_shoe_diff"
 	$bumpmap "models\cpthazama\contagion\zombies\inmate\inmate_shoe_nrm"
-	$phong 1
-	$phongexponent 400
-	$phongboost 2
-	$nocull                     1
-	$damaged                    1
-	$damagethreshold            "0.4"
-	$damagebloodcolor           "[0.41 0 0]"
-	$damagetexture1             "black"
-	$damagetexture2             "black"
-	$damagetexture3             "black"
-	$damagetexture4             "black"
-	Proxies
-	{
-		"ZombieTestProxy"
-		{
-			"0"		"black"		// DF_NONE
-            "32"	"white"		// DF_LEG_L
-		}
-	}
+	$phong "1"
+	$phongexponent "400"
+	$phongboost "2"
+	$nocull                     "1"
 }

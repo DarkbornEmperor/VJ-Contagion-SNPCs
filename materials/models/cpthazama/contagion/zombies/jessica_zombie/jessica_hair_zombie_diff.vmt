@@ -7,20 +7,4 @@ VertexLitGeneric
     $phongexponent              "5"
     $phongboost                 "6"
     $phongfresnelranges         "[.05 0.5 1]"
-    
-    $damaged                    1
-    $damagetexture1             "black"
-    $damagetexture2             "black"
-    $damagetexture3             "black"
-    $damagetexture4             "black"
-
-    Proxies
-    {
-        "ZombieTestProxy"
-        {
-            "0"         "black"         // DF_NONE
-            
-            "32768"     "white"         // DF_DECAP
-        }
-    }
 }

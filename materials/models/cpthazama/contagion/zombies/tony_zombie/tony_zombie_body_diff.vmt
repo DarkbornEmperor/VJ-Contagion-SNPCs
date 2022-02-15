@@ -7,46 +7,6 @@ VertexLitGeneric
     $phong                      "1"
     $phongexponenttexture       "models/cpthazama/contagion/zombies/tony_zombie\tony_zombie_body_exp"
     $phongboost                 "16"
-    $phongfresnelranges         "[.05 0.5 1]"
-    
+    $phongfresnelranges         "[.05 0.5 1]" 
     //$nocull                     "1"
-    
-    $damaged                    "1"
-    $damagethreshold            "0.4"
-    $damagebloodcolor           "[0.21 0 0]"
-    $damagetexture1             "black"
-    $damagetexture2             "black"
-    $damagetexture3             "black"
-    $damagetexture4             "black"
-
-    Proxies
-    {
-        "ZombieTestProxy"
-        {
-            "0"         "black"                                             // DF_NONE
-
-            "1"         "models/cpthazama/contagion/zombies/tony_zombie\damage_arml"            // DF_ARM_L
-            "2"         "models/cpthazama/contagion/zombies/tony_zombie\damage_armr"            // DF_ARM_R
-
-            "4"         "models/cpthazama/contagion/zombies/tony_zombie\damage_larml"           // DF_ARM_LLOWER
-            "8"         "models/cpthazama/contagion/zombies/tony_zombie\damage_larmr"           // DF_ARM_RLOWER
-
-            "16"        "models/cpthazama/contagion/zombies/tony_zombie\damage_legr"            // DF_LEG_R
-            "32"        "models/cpthazama/contagion/zombies/tony_zombie\damage_legl"            // DF_LEG_L
-
-            //"64"        "black"                                           // DF_HEAD_1
-            //"128"       "black"                                           // DF_HEAD_2
-
-            //"256"       "black"                                           // DF_HEAD_FACE1
-            //"512"       "black"                                           // DF_HEAD_FACE2
-
-            "1024"      "models/cpthazama/contagion/zombies/tony_zombie\damage_bodyf"           // DF_BODY_1
-            "2048"      "models/cpthazama/contagion/zombies/tony_zombie\damage_lbodyf"          // DF_BODY_2
-
-            "4096"      "models/cpthazama/contagion/zombies/tony_zombie\damage_lbodyl"          // DF_BODY_LOWER1
-            "8192"      "models/cpthazama/contagion/zombies/tony_zombie\damage_lbodyr"          // DF_BODY_LOWER2
-
-            "16384"     "models/cpthazama/contagion/zombies/tony_zombie\damage_bodyb"           // DF_BODY_BACK
-        }
-    }
 }

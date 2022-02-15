@@ -106,12 +106,14 @@ if VJExists == true then
 	local AddConvars = {}
 	AddConvars["VJ_CON_AllowClimbing"] = 0
 	AddConvars["VJ_CON_Headshot"] = 1
+	AddConvars["VJ_CON_CarrierInfection"] = 0	
 	AddConvars["VJ_CON_CorpseBleed"] = 1
+	AddConvars["VJ_CON_AllRunners"] = 0	
 	
     -- Map Spawner ConVars --
     --AddConvars["VJ_CON_MapSpawner_Music"] = 1
 	AddConvars["VJ_CON_MapSpawner_Enabled"] = 1
-	AddConvars["VJ_CON_MapSpawner_Boss"] = 0
+	AddConvars["VJ_CON_MapSpawner_Boss"] = 1
 	AddConvars["VJ_CON_MapSpawner_MaxMon"] = 80
 	AddConvars["VJ_CON_MapSpawner_HordeCount"] = 35
 	AddConvars["VJ_CON_MapSpawner_SpawnMax"] = 2000
@@ -140,14 +142,18 @@ end
 			vj_conreset.Options["#vjbase.menugeneral.default"] = { 
 				VJ_CON_AllowClimbing = "0",
 				VJ_CON_Headshot = "1",
-				VJ_CON_CorpseBleed = "1",					
+				VJ_CON_CarrierInfection = "0",				
+				VJ_CON_CorpseBleed = "1",
+				VJ_CON_AllRunners = "0",				
 }
             Panel:AddControl("ComboBox", vj_conreset)
             Panel:ControlHelp("NOTE: Only future SNPCs will be affected!")
             Panel:AddControl("Checkbox", {Label ="Enable prop climbing?", Command ="VJ_CON_AllowClimbing"})		
             Panel:ControlHelp("Warning: May cause performance drops.")
             Panel:AddControl("Checkbox", {Label ="Enable instant headshot death?", Command ="VJ_CON_Headshot"})	
-            Panel:AddControl("Checkbox", {Label ="Enable bleeding to corpses?", Command ="VJ_CON_CorpseBleed"})				
+            Panel:AddControl("Checkbox", {Label ="Enable infection damage for Carrier?", Command ="VJ_CON_CarrierInfection"})
+            Panel:AddControl("Checkbox", {Label ="Enable Zombies being runners only?", Command ="VJ_CON_AllRunners"})			
+            Panel:AddControl("Checkbox", {Label ="Enable bleeding for corpses?", Command ="VJ_CON_CorpseBleed"})				
             Panel:AddPanel(typebox)
 
 end
@@ -169,7 +175,7 @@ end
 			vj_conreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
 			    --VJ_CON_MapSpawner_Music = "1",
 				VJ_CON_MapSpawner_Enabled = "1",
-				VJ_CON_MapSpawner_Boss = "0",
+				VJ_CON_MapSpawner_Boss = "1",
 				VJ_CON_MapSpawner_MaxMon = "80",	
 				VJ_CON_MapSpawner_HordeCount = "35",	
 				VJ_CON_MapSpawner_SpawnMax = "2000",	
@@ -183,7 +189,8 @@ end
 }
             Panel:AddControl("ComboBox", vj_conreset_mapspawner)
             Panel:ControlHelp("NOTE: Only enable if you have the specific addon installed!")
-            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})			
+            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})	
+            Panel:AddControl("Checkbox", {Label = "Enable Bosses?", Command = "VJ_CON_MapSpawner_Boss"})			
             Panel:AddControl("Slider", { Label 	= "Max Zombies", Command = "VJ_CON_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
             Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
             Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})

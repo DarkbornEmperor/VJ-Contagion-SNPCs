@@ -6,7 +6,7 @@ VertexLitGeneric
     $bumpmap "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_skin_zombie_norm"
     $normalmapalphaenvmapmask "1"
     $halflambert "1"
-    $envmap env_cubemap
+    //$envmap "env_cubemap"
     $envmaptint "[.15 .15 .15]"
     $phong "1"
     $phongexponenttexture "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_skin_zombie_exp"

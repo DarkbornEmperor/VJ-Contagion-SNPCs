@@ -2,8 +2,8 @@ VertexLitGeneric
 {
     $basetexture "models/cpthazama/contagion/zombies/eugene_zombie\eugene_hand_zombie"
     $bumpmap "models/cpthazama/contagion/zombies/eugene_zombie\eugene_hand_zombie_normals"
-    $normalmapalphaenvmapmask 1
-    $envmap env_cubemap
+    $normalmapalphaenvmapmask "1"
+    //$envmap "env_cubemap"
     $envmaptint "[.1 .1 .1]"
     $halflambert "1"
     $phong "1"
@@ -13,21 +13,4 @@ VertexLitGeneric
     $rimlight "1"
     $rimlightexponent "1"
     $rimlightboost ".005"
-
-    $damaged                    1
-    $damagethreshold            "0.4"
-    $damagetexture1             "black"
-    $damagetexture2             "black"
-    $damagetexture3             "black"
-    $damagetexture4             "black"
-
-    Proxies
-    {
-        "ZombieTestProxy"
-        {
-            "0"         "black"               // DF_NONE
-            "2"         "white"               // DF_ARM_R
-            "8"         "white"               // DF_ARM_RLOWER
-        }
-    }
 }

@@ -7,33 +7,4 @@ VertexLitGeneric
     $phongexponent              "5"
     $phongboost                 "1"
     $phongfresnelranges         "[.005 .5 1]"
-    $damaged                    1
-    $damagethreshold            "0.4"
-    $damagebloodcolor           "[0.5 0 0]"
-    $damagetexture1             "black"
-    $damagetexture2             "black"
-    $damagetexture3             "black"
-    $damagetexture4             "black"
-
-    Proxies
-    {
-        "ZombieTestProxy"
-        {
-            "0"         "black"                                             // DF_NONE
-
-            "4"         "models/cpthazama/contagion/zombies/jessica_zombie\damage_larmr"        // DF_ARM_LLOWER
-            "8"         "models/cpthazama/contagion/zombies/jessica_zombie\damage_larml"        // DF_ARM_RLOWER
-
-            "16"        "models/cpthazama/contagion/zombies/jessica_zombie\damage_legr"         // DF_LEG_R
-            "32"        "models/cpthazama/contagion/zombies/jessica_zombie\damage_legl"         // DF_LEG_L
-
-            //"1024"      "models/cpthazama/contagion/zombies/tony_zombie\woundtest_bodycenter" // DF_BODY_1
-            //"2048"      "black"                                           // DF_BODY_2
-
-            //"4096"      "black"                                           // DF_BODY_LOWER1
-            //"8192"      "black"                                           // DF_BODY_LOWER2
-
-            //"16384"     "black"                                           // DF_BODY_BACK
-        }
-    }
 }

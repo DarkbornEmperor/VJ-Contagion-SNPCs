@@ -13,7 +13,6 @@ ENT.Zombie = {
 	{class="npc_vj_con_zinmate",chance=8},
 	{class="npc_vj_con_zlooter",chance=8},
 	{class="npc_vj_con_zofficer",chance=8},
-	{class="npc_vj_con_zcarrier",chance=40},
 	{class="npc_vj_con_zriot",chance=20},	
 	{class="npc_vj_con_zcurtis",chance=6},
 	{class="npc_vj_con_zeugene",chance=6}, 
@@ -29,7 +28,11 @@ ENT.Zombie = {
 	{class="npc_vj_con_zryan",chance=6},
 	{class="npc_vj_con_zlawrence",chance=6},	
 	{class="npc_vj_con_zriotsol",chance=15},
-	{class="npc_vj_con_zriotbrute",chance=40},	
+}
+
+ENT.BossZombie = {
+	{class="npc_vj_con_zcarrier",max=1},
+	{class="npc_vj_con_zriotbrute",max=1},	
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
@@ -83,12 +86,15 @@ function ENT:Initialize()
 	self.CON_MaxHordeSpawn = GetConVarNumber("VJ_CON_MapSpawner_HordeCount")
 	self.tbl_SpawnedNPCs = {}
 	self.tbl_NPCsWithEnemies = {}
-	self.tbl_SpawnedSpecialZombie = {}
+	self.tbl_SpawnedBossZombie = {}
 	self.NextAICheckTime = CurTime() +5
 	self.NextZombieSpawnTime = CurTime() +1
+	self.NextBossZombieSpawnTime = CurTime() +math.random(4,20)	
 	self.NextHordeSpawnTime = CurTime() +math.Rand(self.CON_HordeCooldownMin,self.CON_HordeCooldownMax)
 	self.NextAIBossCheckTime = CurTime() +5
 	self.HordeSpawnRate = 0.19
+	self.MaxBossZombie = 1
+	self.CanSpawnBossZombie = false 	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos,ent,mdl)
@@ -293,8 +299,8 @@ function ENT:Think()
 					end
 				end
 			end
-			if #self.tbl_SpawnedSpecialZombie > 0 then
-				for i,v in ipairs(self.tbl_SpawnedSpecialZombie) do
+			if #self.tbl_SpawnedBossZombie > 0 then
+				for i,v in ipairs(self.tbl_SpawnedBossZombie) do
 					if IsValid(v) then
 						local enemy = v:GetEnemy()
 						self:CheckEnemyDistance(v)
@@ -306,7 +312,7 @@ function ENT:Think()
 							end	
 						end
 					else
-						table_remove(self.tbl_SpawnedSpecialZombie,i)
+						table_remove(self.tbl_SpawnedBossZombie,i)
 					end
 				end
 			end
@@ -319,7 +325,14 @@ function ENT:Think()
 			self:SpawnZombie(self:PickZombie(self.Zombie),self:FindSpawnPosition(false))
 			self.NextZombieSpawnTime = CurTime() +math.Rand(GetConVarNumber("VJ_CON_MapSpawner_DelayMin"),GetConVarNumber("VJ_CON_MapSpawner_DelayMax"))
 end
-	
+
+		if GetConVarNumber("VJ_CON_MapSpawner_Boss") == 1 then
+		    self.CanSpawnBossZombie = true
+			if CurTime() > self.NextBossZombieSpawnTime then
+				self:SpawnBossZombie(self:PickZombie(self.BossZombie),self:FindSpawnPosition(true))
+				self.NextBossZombieSpawnTime = CurTime() +math.Rand(4,20)
+			end
+		end	
 		-- Spawns Hordes
 		if CurTime() > self.NextHordeSpawnTime && math.random(1,self.CON_HordeChance) == 1 then
 			for i = 1,self.CON_MaxHordeSpawn do
@@ -336,7 +349,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetBossCount(class)
 	local count = 0
-	for _,v in pairs(self.tbl_SpawnedSpecialZombie) do
+	for _,v in pairs(self.tbl_SpawnedBossZombie) do
 		if IsValid(v) && v:GetClass() == class then
 			count = count +1
 		end
@@ -345,7 +358,7 @@ function ENT:GetBossCount(class)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PickZombie(tbl)
-	local useMax = tbl == self.SpecialZombie
+	local useMax = tbl == self.BossZombie
 	local ent = false
 	for _,v in RandomPairs(tbl) do
 		if !useMax then
@@ -389,13 +402,32 @@ function ENT:SpawnZombie(ent,pos,isMob)
     end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SpawnBossZombie(ent,pos)
+	if ent == false then return end
+	if pos == nil or pos == false then return end
+	if #self.tbl_SpawnedBossZombie >= self.MaxBossZombie then return end
+
+	local Boss = ents.Create(ent)
+	Boss:SetPos(pos)
+	Boss:SetAngles(Angle(0,math.random(0,360),0))
+	Boss:Spawn()
+	Boss.FindEnemy_UseSphere = true
+	Boss.FindEnemy_CanSeeThroughWalls = true
+	table_insert(self.tbl_SpawnedBossZombie,Boss)
+	Boss.MapSpawner = self
+	Boss.EntitiesToNoCollide = {}
+	for _,v in pairs(self.BossZombie) do
+		table_insert(Boss.EntitiesToNoCollide,v.class)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
 	for index,object in ipairs(self.tbl_SpawnedNPCs) do
 		if IsValid(object) then
 			object:Remove()
 		end
 	end
-	for index,object in ipairs(self.tbl_SpawnedSpecialZombie) do
+	for index,object in ipairs(self.tbl_SpawnedBossZombie) do
 		if IsValid(object) then
 			object:Remove()
 		end

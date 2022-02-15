@@ -6,24 +6,4 @@ VertexLitGeneric
 	$phong						"1"
 	$phongboost					"2"
 	$phongfresnelranges			"[.45 0.65 1]"
-
-	$damaged                    "1"
-	$damagebloodcolor           "[0.26 0 0]"
-	$damagetexture1             "black"
-	$damagetexture2             "black"
-	$damagetexture3             "black"
-	$damagetexture4             "black"
-
-	Proxies
-	{
-		"ZombieTestProxy"
-		{
-			"0"			"black"														// DF_NONE
-
-			"4"			"models/cpthazama/contagion/zombies/doctor_zombie/damages/damage_skin_larml"	// DF_ARM_LLOWER
-			"8"			"models/cpthazama/contagion/zombies/doctor_zombie/damages/damage_skin_larmr"	// DF_ARM_RLOWER
-
-			"32768"		"models/cpthazama/contagion/zombies/doctor_zombie/damages/damage_skin_decap"	// DF_DECAP
-		}
-	}
 }

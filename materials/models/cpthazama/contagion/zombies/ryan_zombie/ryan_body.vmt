@@ -3,7 +3,7 @@ VertexLitGeneric
     $basetexture                "models/cpthazama/contagion/zombies/ryan_zombie\ryan_body_zombie_diff"
     $bumpmap                    "models/cpthazama/contagion/zombies/ryan_zombie\ryan_body_zombie_norm"
     $normalmapalphaenvmapmask   "1"
-    $envmap                     env_cubemap
+    //$envmap                     "env_cubemap"
     $envmaptint                 "[.1 .1 .1]"
     $phong                      "1"
     $phongexponenttexture       "models/cpthazama/contagion/zombies/ryan_zombie\ryan_body_zombie_exp"
@@ -11,11 +11,4 @@ VertexLitGeneric
     $phongfresnelranges         "[.05 0.5 1]"
     $phongalbedotint            "1"
     $phongtint                  "[.75 .75 1]"
-    
-    Proxies
-    {
-        ZombieVisionEntity
-        {
-        }
-    }
 }

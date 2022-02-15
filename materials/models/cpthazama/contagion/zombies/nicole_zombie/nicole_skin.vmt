@@ -4,7 +4,7 @@ VertexLitGeneric
     $bumpmap "models/cpthazama/contagion/zombies/nicole_zombie\nicole_zombie_norm"
     $normalmapalphaenvmapmask "1"
     $halflambert "1"
-    $envmap env_cubemap
+    //$envmap "env_cubemap"
     $envmaptint "[.05 .05 .085]"
     $phong "1"
 
@@ -20,11 +20,4 @@ VertexLitGeneric
     $alphatest  "1"
     $nocull "1"
     $allowalphatocoverage "1"
-    
-    Proxies
-    {
-        ZombieVisionEntity
-        {
-        }
-    }
 }

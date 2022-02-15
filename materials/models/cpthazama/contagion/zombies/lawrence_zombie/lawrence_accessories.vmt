@@ -8,11 +8,4 @@ VertexLitGeneric
     $phongboost                 "2"
     $phongfresnelranges         "[.05 0.5 1]"
     $halflambert                "1"
-    
-    Proxies
-    {
-        ZombieVisionEntity
-        {
-        }
-    }
 }

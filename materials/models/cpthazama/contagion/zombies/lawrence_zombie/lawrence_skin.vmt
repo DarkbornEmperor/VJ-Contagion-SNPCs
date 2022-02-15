@@ -3,7 +3,7 @@ VertexLitGeneric
     $basetexture "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_skin_zombie_diff"
     $bumpmap "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_skin_zombie_norm"
     $normalmapalphaenvmapmask   "1"
-    $envmap env_cubemap
+    //$envmap "env_cubemap"
     $envmaptint "[.15 .15 .15]"
     $phong                      "1"
     $phongexponenttexture "models/cpthazama/contagion/zombies/lawrence_zombie\lawrence_skin_zombie_exp"
@@ -17,11 +17,4 @@ VertexLitGeneric
     $rimlight "1"
     $rimlightexponent ".5"
     $rimlightboost ".15"
-    
-    Proxies
-    {
-        ZombieVisionEntity
-        {
-        }
-    }
 }

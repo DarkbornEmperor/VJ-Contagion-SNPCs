@@ -8,7 +8,7 @@ VertexLitGeneric
     $halflambert                     "1"
     
     
-    $envmap                          env_cubemap
+    //$envmap                          "env_cubemap"
     $envmaptint                      "[.085 .085 .085]"
     
     
@@ -23,11 +23,4 @@ VertexLitGeneric
     $rimlight                        "1"
     $rimlightexponent                ".5"
     $rimlightboost                   ".15"
-    
-    Proxies
-    {
-        ZombieVisionEntity
-        {
-        }
-    }
 }
