@@ -2,8 +2,12 @@ VertexLitGeneric
 {
 	$basetexture "models\cpthazama\contagion\zombies\inmate\inmate_body_diff"
 	$bumpmap "models\cpthazama\contagion\zombies\inmate\\inmate_body_nrm"
-	$phong "1"
-	$phongexponent "400"
-	$phongboost "2"
+                $phong                      "1"
+                $phongboost                 "0.3"
+                $phongexponent              "15"
+                $phongfresnelranges         "[.15 .35 .65]"
 	$nocull                     "1"
+                $rimlight "1"
+                $rimlightexponent "1"
+                $rimlightboost ".005"
 }

@@ -13,4 +13,7 @@ VertexLitGeneric
     $phongboost                 "1"
     $phongfresnelranges         "[0.01 0.02 0.01]"
     $halflambert                "1"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
 }

@@ -7,4 +7,7 @@ VertexLitGeneric
     $phongexponenttexture "models/cpthazama/contagion/zombies/nick_zombie\nick_head_zombie_exp"
     $phongboost "2"
     $phongfresnelranges "[.45 0.65 1]"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
 }

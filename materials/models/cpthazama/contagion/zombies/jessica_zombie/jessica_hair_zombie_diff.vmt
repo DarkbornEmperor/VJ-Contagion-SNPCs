@@ -7,4 +7,7 @@ VertexLitGeneric
     $phongexponent              "5"
     $phongboost                 "6"
     $phongfresnelranges         "[.05 0.5 1]"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
 }
