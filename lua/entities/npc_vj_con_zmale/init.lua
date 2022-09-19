@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -15,7 +15,7 @@ ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60 
-ENT.MeleeAttackDamage = 10
+ENT.MeleeAttackDamage = math.Rand(10,15)
 ENT.MeleeAttackAnimationAllowOtherTasks = true 
 ENT.TimeUntilMeleeAttackDamage = false 
 ENT.HasExtraMeleeAttackSounds = true
@@ -25,9 +25,9 @@ ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackSlowPlayerSound = false 
 	-- ====== Controller Data ====== --
 ENT.VJC_Data = {
-	CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+	CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
 	ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "ValveBiped.Bip01_Head1", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
 	-- ====== Flinching Code ====== --
@@ -62,13 +62,17 @@ ENT.Zombie_Climbing = false
 ENT.Zombie_Crouching = false
 ENT.Zombie_NextClimb = 0
 ENT.Zombie_AllowClimbing = false
+ENT.Zombie_NextJumpT = 0
 ENT.Zombie_NextStumbleT = 0
 ENT.Zombie_CurAnims = -1 -- 0 = Normal | 1 = Blended
 ENT.Zombie_ControllerAnim = 0
 ENT.Zombie_AdvancedStrain = false
 ENT.Zombie_LegHealth = 28
 ENT.Zombie_Crippled = false
+ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 0 -- 0 = Male | 1 = Female
+
+util.AddNetworkString("vj_con_zombie_hud")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self:GetClass() == "npc_vj_con_zmale" then
@@ -204,7 +208,9 @@ end
 		if math.random(1,10) == 1 && GetConVarNumber("VJ_CON_AllRunners") == 0 then
 			self.Zombie_AdvancedStrain = true
 end
-        if GetConVarNumber("VJ_CON_AllRunners") == 1 then self.Zombie_AdvancedStrain = true end	
+        if GetConVarNumber("VJ_CON_AllRunners") == 1 then self.Zombie_AdvancedStrain = true end
+		
+		if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
@@ -213,7 +219,7 @@ function ENT:Zombie_CustomOnInitialize()
 		self:SetSkin(math.random(0,7))
 
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
-	    self:SetHealth(200)	 	 
+	    self.StartHealth = 200 	 
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,7))
 
@@ -227,7 +233,7 @@ function ENT:Zombie_CustomOnInitialize()
 		self:SetSkin(math.random(0,9))
 		
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
-	    self:SetHealth(200)	 
+	    self.StartHealth = 200
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))		
 
@@ -241,7 +247,7 @@ function ENT:Zombie_CustomOnInitialize()
 		self:SetSkin(math.random(0,9))
 
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
-	    self:SetHealth(200)
+	    self.StartHealth = 200
 	    self:SetBodygroup(1,math.random(0,2))
 		self:SetSkin(math.random(0,9))
 
@@ -287,33 +293,26 @@ function ENT:Zombie_CustomOnInitialize()
 	    self:SetSkin(math.random(0,5))
 		
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
+	    self.StartHealth = 200
 	    self:SetSkin(math.random(0,5))
-        self:SetHealth(200)
 		
 	 elseif self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl" then
 	    self:SetBodygroup(1,math.random(0,1))		
 end
-	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end
-	
-	if self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
-		self:SetSuperStrain(200)
-	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" then
-		self:SetSuperStrain(200)	
-    elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" then
-		self:SetSuperStrain(200)
-    elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl" then
+    if self.Zombie_AdvancedStrain then	
+	if (self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_a_f.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_b_f.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/common_zombie_c_f.mdl") then
 		self:SetSuperStrain(200)		
-	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl" then
-	    self:SetSuperStrain(225)
-	elseif self.Zombie_AdvancedStrain && self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl" then	
+	elseif (self:GetModel() == "models/cpthazama/contagion/zombies/riot_soldier_zombie.mdl" or self:GetModel() == "models/cpthazama/contagion/zombies/riot_zombie.mdl") then
 	    self:SetSuperStrain(225)		
-	elseif self.Zombie_AdvancedStrain then
-		self:SetSuperStrain(175)		
-	end
+	else
+		self:SetSuperStrain(175)
+    end		
+end
+	self:SetHealth(self.StartHealth)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieSounds()
-   local voice = math.random(1,5)
+    local voice = math.random(1,5)
     if voice == 1 then
        self.SoundTbl_Idle = {"vj_contagion/build2695/z_sham/shared/0245.wav","vj_contagion/build2695/z_sham/shared/0244.wav","vj_contagion/Build2695/z_sham/idle/0128.wav","vj_contagion/Build2695/z_sham/idle/0123.wav","vj_contagion/Build2695/z_sham/idle/0122.wav","vj_contagion/Build2695/z_sham/idle/0121.wav","vj_contagion/Build2695/z_sham/idle/0120.wav","vj_contagion/Build2695/z_sham/idle/0119.wav","vj_contagion/Build2695/z_sham/idle/0118.wav","vj_contagion/Build2695/z_sham/idle/0117.wav","vj_contagion/Build2695/z_sham/idle/0116.wav","vj_contagion/Build2695/z_sham/idle/0115.wav","vj_contagion/Build2695/z_sham/idle/0114.wav","vj_contagion/Build2695/z_sham/idle/0113.wav","vj_contagion/Build2695/z_sham/idle/0112.wav","vj_contagion/Build2695/z_sham/idle/0111.wav","vj_contagion/Build2695/z_sham/idle/0110.wav","vj_contagion/Build2695/z_sham/idle/0109.wav","vj_contagion/Build2695/z_sham/idle/0108.wav","vj_contagion/Build2695/z_sham/idle/0107.wav","vj_contagion/Build2695/z_sham/idle/0106.wav","vj_contagion/Build2695/z_sham/idle/0105.wav","vj_contagion/Build2695/z_sham/idle/0104.wav","vj_contagion/Build2695/z_sham/idle/0103.wav","vj_contagion/Build2695/z_sham/idle/0102.wav","vj_contagion/Build2695/z_sham/idle/0101.wav","vj_contagion/Build2695/z_sham/idle/0100.wav","vj_contagion/Build2695/z_sham/idle/0099.wav","vj_contagion/Build2695/z_sham/idle/0098.wav","vj_contagion/Build2695/z_sham/idle/0097.wav","vj_contagion/Build2695/z_sham/idle/0096.wav","vj_contagion/Build2695/z_sham/idle/0095.wav","vj_contagion/Build2695/z_sham/idle/0094.wav","vj_contagion/Build2695/z_sham/idle/0093.wav","vj_contagion/Build2695/z_sham/idle/0092.wav","vj_contagion/Build2695/z_sham/idle/0091.wav","vj_contagion/Build2695/z_sham/idle/0090.wav","vj_contagion/Build2695/z_sham/idle/0089.wav","vj_contagion/Build2695/z_sham/idle/0088.wav","vj_contagion/Build2695/z_sham/idle/0087.wav","vj_contagion/Build2695/z_sham/idle/0086.wav","vj_contagion/Build2695/z_sham/idle/0085.wav","vj_contagion/Build2695/z_sham/idle/0084.wav","vj_contagion/Build2695/z_sham/idle/0083.wav","vj_contagion/Build2695/z_sham/idle/0082.wav","vj_contagion/Build2695/z_sham/idle/0081.wav","vj_contagion/Build2695/z_sham/idle/0080.wav","vj_contagion/Build2695/z_sham/idle/0079.wav","vj_contagion/Build2695/z_sham/idle/0077.wav","vj_contagion/Build2695/z_sham/idle/0076.wav"}
        self.SoundTbl_Alert = {"vj_contagion/Build2695/z_sham/alert/0170.wav","vj_contagion/Build2695/z_sham/alert/0169.wav","vj_contagion/Build2695/z_sham/alert/0168.wav","vj_contagion/Build2695/z_sham/alert/0167.wav","vj_contagion/Build2695/z_sham/alert/0166.wav","vj_contagion/Build2695/z_sham/alert/0165.wav","vj_contagion/Build2695/z_sham/alert/0164.wav","vj_contagion/Build2695/z_sham/alert/0163.wav","vj_contagion/Build2695/z_sham/alert/0162.wav","vj_contagion/Build2695/z_sham/alert/0161.wav","vj_contagion/Build2695/z_sham/alert/0152.wav","vj_contagion/Build2695/z_sham/alert/0061.wav","vj_contagion/Build2695/z_sham/alert/0060.wav","vj_contagion/Build2695/z_sham/alert/0058.wav","vj_contagion/Build2695/z_sham/alert/0056.wav","vj_contagion/Build2695/z_sham/alert/0030.wav","vj_contagion/Build2695/z_sham/alert/0029.wav","vj_contagion/Build2695/z_sham/alert/0028.wav","vj_contagion/Build2695/z_sham/alert/0027.wav","vj_contagion/Build2695/z_sham/alert/0026.wav","vj_contagion/Build2695/z_sham/alert/0025.wav","vj_contagion/Build2695/z_sham/alert/0023.wav","vj_contagion/Build2695/z_sham/alert/0022.wav","vj_contagion/Build2695/z_sham/alert/0021.wav","vj_contagion/Build2695/z_arne/alert/0207.wav"}
@@ -323,7 +322,7 @@ function ENT:ZombieSounds()
        self.SoundTbl_Pain = {"vj_contagion/build2695/z_sham/shared/0187.wav","vj_contagion/build2695/z_sham/shared/0186.wav","vj_contagion/build2695/z_sham/shared/0185.wav","vj_contagion/build2695/z_sham/shared/0184.wav","vj_contagion/build2695/z_sham/shared/0183.wav","vj_contagion/build2695/z_sham/shared/0182.wav","vj_contagion/build2695/z_sham/shared/0181.wav","vj_contagion/build2695/z_sham/shared/0180.wav","vj_contagion/build2695/z_sham/shared/0179.wav","vj_contagion/build2695/z_sham/shared/0177.wav","vj_contagion/build2695/z_sham/shared/0176.wav","vj_contagion/build2695/z_sham/shared/0175.wav","vj_contagion/build2695/z_sham/shared/0174.wav","vj_contagion/build2695/z_sham/shared/0174.wav"}
        self.SoundTbl_Death = {"vj_contagion/Build2695/z_sham/death/0032.wav"}
 
-  elseif voice == 2 then
+    elseif voice == 2 then
        self.SoundTbl_Idle = {"vj_contagion/Build2695/z_arne/idle/0219.wav","vj_contagion/Build2695/z_arne/idle/0220.wav","vj_contagion/Build2695/z_arne/idle/0221.wav","vj_contagion/Build2695/z_arne/idle/0243.wav","vj_contagion/Build2695/z_arne/idle/0246.wav","vj_contagion/Build2695/z_arne/idle/0247.wav","vj_contagion/Build2695/z_arne/idle/0248.wav","vj_contagion/Build2695/z_arne/idle/0249.wav","vj_contagion/Build2695/z_arne/idle/0250.wav","vj_contagion/Build2695/z_arne/idle/0251.wav","vj_contagion/Build2695/z_arne/idle/0252.wav","vj_contagion/Build2695/z_arne/idle/0253.wav","vj_contagion/Build2695/z_arne/idle/0254.wav","vj_contagion/Build2695/z_arne/idle/0255.wav"}
        self.SoundTbl_Alert = {"vj_contagion/Build2695/z_arne/alert/0208.wav","vj_contagion/Build2695/z_arne/alert/0209.wav","vj_contagion/Build2695/z_arne/alert/0210.wav","vj_contagion/Build2695/z_arne/alert/0211.wav","vj_contagion/Build2695/z_arne/alert/0212.wav","vj_contagion/Build2695/z_arne/alert/0213.wav","vj_contagion/Build2695/z_arne/alert/0214.wav","vj_contagion/Build2695/z_arne/alert/0215.wav","vj_contagion/Build2695/z_arne/alert/0216.wav","vj_contagion/Build2695/z_arne/alert/0217.wav","vj_contagion/Build2695/z_arne/alert/0218.wav"}
        self.SoundTbl_CallForHelp = {"vj_contagion/Build2695/z_arne/alert/0208.wav","vj_contagion/Build2695/z_arne/alert/0209.wav","vj_contagion/Build2695/z_arne/alert/0210.wav","vj_contagion/Build2695/z_arne/alert/0211.wav","vj_contagion/Build2695/z_arne/alert/0212.wav","vj_contagion/Build2695/z_arne/alert/0213.wav","vj_contagion/Build2695/z_arne/alert/0214.wav","vj_contagion/Build2695/z_arne/alert/0215.wav","vj_contagion/Build2695/z_arne/alert/0216.wav","vj_contagion/Build2695/z_arne/alert/0217.wav","vj_contagion/Build2695/z_arne/alert/0218.wav"}
@@ -331,7 +330,7 @@ function ENT:ZombieSounds()
        self.SoundTbl_Pain = {"vj_contagion/Build2695/z_sham/pain/0148.wav","vj_contagion/Build2695/z_sham/pain/0149.wav","vj_contagion/Build2695/z_sham/pain/0147.wav","vj_contagion/Build2695/z_sham/pain/0146.wav","vj_contagion/Build2695/z_sham/pain/0143.wav","vj_contagion/Build2695/z_sham/pain/0141.wav","vj_contagion/Build2695/z_sham/pain/0140.wav","vj_contagion/Build2695/z_sham/pain/0139.wav","vj_contagion/Build2695/z_sham/pain/0138.wav","vj_contagion/Build2695/z_sham/pain/0137.wav","vj_contagion/Build2695/z_sham/pain/0136.wav","vj_contagion/Build2695/z_sham/pain/0135.wav","vj_contagion/Build2695/z_sham/pain/0133.wav","vj_contagion/Build2695/z_sham/pain/0132.wav","vj_contagion/Build2695/z_sham/pain/0131.wav","vj_contagion/Build2695/z_sham/pain/0130.wav","vj_contagion/Build2695/z_sham/pain/0129.wav","vj_contagion/Build2695/z_sham/pain/0127.wav","vj_contagion/Build2695/z_sham/pain/0126.wav","vj_contagion/Build2695/z_sham/pain/0125.wav","vj_contagion/Build2695/z_sham/pain/0124.wav","vj_contagion/Build2695/z_sham/pain/0069.wav","vj_contagion/Build2695/z_sham/pain/0066.wav","vj_contagion/Build2695/z_sham/pain/0065.wav","vj_contagion/Build2695/z_sham/pain/0064.wav","vj_contagion/Build2695/z_sham/pain/0063.wav","vj_contagion/Build2695/z_sham/pain/0062.wav"}
        self.SoundTbl_Death = {"vj_contagion/Build2695/z_arne/die/0223.wav","vj_contagion/Build2695/z_arne/die/0224.wav","vj_contagion/Build2695/z_arne/die/0225.wav"}
 
-  elseif voice == 3 then
+    elseif voice == 3 then
        self.SoundTbl_Idle = {"vj_contagion/contagionvr/growler/zombie_voice_shared-1.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-10.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-12.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-13.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-14.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-2.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-3.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-4.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-5.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-6.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-7.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-8.wav","vj_contagion/contagionvr/growler/zombie_voice_shared-9.wav"}
        self.SoundTbl_Alert = {"vj_contagion/contagionvr/growler/zombie_voice_alert-1.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-2.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-3.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-4.wav"}
        self.SoundTbl_CallForHelp = {"vj_contagion/contagionvr/growler/zombie_voice_alert-1.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-2.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-3.wav","vj_contagion/contagionvr/growler/zombie_voice_alert-4.wav"}
@@ -339,7 +338,7 @@ function ENT:ZombieSounds()
        self.SoundTbl_Pain = {"vj_contagion/Build2695/z_sham/pain/0148.wav","vj_contagion/Build2695/z_sham/pain/0149.wav","vj_contagion/Build2695/z_sham/pain/0147.wav","vj_contagion/Build2695/z_sham/pain/0146.wav","vj_contagion/Build2695/z_sham/pain/0143.wav","vj_contagion/Build2695/z_sham/pain/0141.wav","vj_contagion/Build2695/z_sham/pain/0140.wav","vj_contagion/Build2695/z_sham/pain/0139.wav","vj_contagion/Build2695/z_sham/pain/0138.wav","vj_contagion/Build2695/z_sham/pain/0137.wav","vj_contagion/Build2695/z_sham/pain/0136.wav","vj_contagion/Build2695/z_sham/pain/0135.wav","vj_contagion/Build2695/z_sham/pain/0133.wav","vj_contagion/Build2695/z_sham/pain/0132.wav","vj_contagion/Build2695/z_sham/pain/0131.wav","vj_contagion/Build2695/z_sham/pain/0130.wav","vj_contagion/Build2695/z_sham/pain/0129.wav","vj_contagion/Build2695/z_sham/pain/0127.wav","vj_contagion/Build2695/z_sham/pain/0126.wav","vj_contagion/Build2695/z_sham/pain/0125.wav","vj_contagion/Build2695/z_sham/pain/0124.wav","vj_contagion/Build2695/z_sham/pain/0069.wav","vj_contagion/Build2695/z_sham/pain/0066.wav","vj_contagion/Build2695/z_sham/pain/0065.wav","vj_contagion/Build2695/z_sham/pain/0064.wav","vj_contagion/Build2695/z_sham/pain/0063.wav","vj_contagion/Build2695/z_sham/pain/0062.wav"}
        self.SoundTbl_Death = {"vj_contagion/Build2695/z_arne/die/0223.wav","vj_contagion/Build2695/z_arne/die/0224.wav","vj_contagion/Build2695/z_arne/die/0225.wav"}
 
-  elseif voice == 4 then
+    elseif voice == 4 then
        self.SoundTbl_Idle = {"vj_contagion/contagionvr/oldman/zombie_voice_shared-1.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-2.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-3.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-4.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-5.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-6.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-7.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-8.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-9.wav"}
        self.SoundTbl_Alert = {"vj_contagion/contagionvr/oldman/zombie_voice_shared-1.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-2.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-3.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-4.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-5.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-6.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-7.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-8.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-9.wav"}
        self.SoundTbl_CallForHelp = {"vj_contagion/contagionvr/oldman/zombie_voice_shared-1.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-2.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-3.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-4.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-5.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-6.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-7.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-8.wav","vj_contagion/contagionvr/oldman/zombie_voice_shared-9.wav"}
@@ -347,7 +346,7 @@ function ENT:ZombieSounds()
        self.SoundTbl_Pain = {"vj_contagion/Build2695/z_sham/pain/0148.wav","vj_contagion/Build2695/z_sham/pain/0149.wav","vj_contagion/Build2695/z_sham/pain/0147.wav","vj_contagion/Build2695/z_sham/pain/0146.wav","vj_contagion/Build2695/z_sham/pain/0143.wav","vj_contagion/Build2695/z_sham/pain/0141.wav","vj_contagion/Build2695/z_sham/pain/0140.wav","vj_contagion/Build2695/z_sham/pain/0139.wav","vj_contagion/Build2695/z_sham/pain/0138.wav","vj_contagion/Build2695/z_sham/pain/0137.wav","vj_contagion/Build2695/z_sham/pain/0136.wav","vj_contagion/Build2695/z_sham/pain/0135.wav","vj_contagion/Build2695/z_sham/pain/0133.wav","vj_contagion/Build2695/z_sham/pain/0132.wav","vj_contagion/Build2695/z_sham/pain/0131.wav","vj_contagion/Build2695/z_sham/pain/0130.wav","vj_contagion/Build2695/z_sham/pain/0129.wav","vj_contagion/Build2695/z_sham/pain/0127.wav","vj_contagion/Build2695/z_sham/pain/0126.wav","vj_contagion/Build2695/z_sham/pain/0125.wav","vj_contagion/Build2695/z_sham/pain/0124.wav","vj_contagion/Build2695/z_sham/pain/0069.wav","vj_contagion/Build2695/z_sham/pain/0066.wav","vj_contagion/Build2695/z_sham/pain/0065.wav","vj_contagion/Build2695/z_sham/pain/0064.wav","vj_contagion/Build2695/z_sham/pain/0063.wav","vj_contagion/Build2695/z_sham/pain/0062.wav"}
        self.SoundTbl_Death = {"vj_contagion/Build2695/z_arne/die/0222.wav","vj_contagion/Build2695/z_arne/die/0223.wav","vj_contagion/Build2695/z_arne/die/0224.wav","vj_contagion/Build2695/z_arne/die/0225.wav"}
 
-  elseif voice == 5 then
+    elseif voice == 5 then
        self.SoundTbl_Idle = {"vj_contagion/contagionvr/screamer/idle-1.wav","vj_contagion/contagionvr/screamer/idle-1.wav","vj_contagion/contagionvr/screamer/idle-1.wav","vj_contagion/contagionvr/screamer/idle-3.wav","vj_contagion/contagionvr/screamer/idle-3.wav","vj_contagion/contagionvr/screamer/idle-3.wav","vj_contagion/contagionvr/screamer/idle-2.wav"}
        self.SoundTbl_Alert = {"vj_contagion/contagionvr/screamer/alert-1.wav","vj_contagion/contagionvr/screamer/alert-2.wav"}
        self.SoundTbl_CallForHelp = {"vj_contagion/contagionvr/screamer/idle-2.wav"}
@@ -358,6 +357,7 @@ function ENT:ZombieSounds()
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetSuperStrain(hp)
+ if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
 	self:SetHealth(hp)
 	self:SetMaxHealth(hp)
 	self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
@@ -369,12 +369,12 @@ function ENT:SetSuperStrain(hp)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
 	self:Zombie_CustomOnInitialize()
 	self:ZombieSounds()
 	self.IdleAnim = self.AnimTbl_IdleStand[1]
 	self.WalkAnim = self.AnimTbl_Walk[1]
-	self.RunAnim = self.AnimTbl_Run[1]   		
+	self.RunAnim = self.AnimTbl_Run[1]
+	if GetConVarNumber("VJ_CON_AllowClimbing") == 1 then self.Zombie_AllowClimbing = true end	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -385,15 +385,40 @@ end
 		self:MeleeAttackCode()
 end
 	if key == "body_hit" then
-		VJ_EmitSound(self, "physics/body/body_medium_impact_soft"..math.random(1,7)..".wav", 75, 100)
-	end	
+		VJ_EmitSound(self, "physics/body/body_medium_impact_soft"..math.random(1,7)..".wav",75,100)
+end	
+	if key == "break_door" then
+		if IsValid(self.Zombie_DoorToBreak) then
+		VJ_CreateSound(self,self.SoundTbl_BeforeMeleeAttack,self.BeforeMeleeAttackSoundLevel,self:VJ_DecideSoundPitch(self.BeforeMeleeAttackSoundPitch.a, self.BeforeMeleeAttackSoundPitch.b))
+		VJ_EmitSound(self,"physics/wood/wood_panel_impact_hard1.wav",75,100)
+		local doorDmg = self.MeleeAttackDamage
+		local door = self.Zombie_DoorToBreak
+		if door.DoorHealth == nil then
+			door.DoorHealth = 200 - doorDmg
+		else
+			door.DoorHealth = door.DoorHealth - doorDmg
+end
+		if door.DoorHealth <= 0 then
+			door:EmitSound("physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
+			ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
+			ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
+			door:Remove()
+            local doorgibs = ents.Create("prop_dynamic")
+            doorgibs:SetPos(door:GetPos())
+            doorgibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
+            doorgibs:Spawn()
+            doorgibs:TakeDamage(9999)
+            doorgibs:Fire("break")
+			end
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetSightDirection()
 	return self:GetAttachment(self:LookupAttachment("eyes")).Ang:Forward() 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
     if !self.VJ_IsBeingControlled && !self.Zombie_Crippled && !self.Zombie_AdvancedStrain && !self:IsBusy() && !self:IsMoving() && !self.Zombie_Crouching then 
 	local AlertAnim = math.random(1,2)
     if AlertAnim == 1 && math.random(1,3) == 1 then
@@ -405,29 +430,33 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
-    if !self.VJ_IsBeingControlled && !self.Zombie_Crippled && !self:IsBusy() && !self.Zombie_Crouching then 
-	 if self.Zombie_AdvancedStrain then
+    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching then return end
+	 if self.Zombie_AdvancedStrain && !self:IsBusy() then
 		self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
 	    if math.random(1,3) == 1 then	
-		      ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
-		   end
+		    ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-     if self.Zombie_Crippled then return end
-     if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then  	 
+   if self.Zombie_Crippled then  
+       self.AnimTbl_MeleeAttack = {
+	   "vjseq_crawl_melee2013_1",
+	   "vjseq_crawl_melee2013_2"
+}	   
+return end
+   if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then  	 
        self.AnimTbl_MeleeAttack = {
 	   "vjseq_melee_cont_01"
 }   
-   elseif self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then 
+   elseif self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then 
        self.AnimTbl_MeleeAttack = {
 	   "vjges_melee2020_player_01",
 	   "vjges_melee2020_player_02",
-	   "vjges_melee2020_player_03",
+	   "vjges_melee2020_player_03"
 }           
-    elseif !self.Zombie_AdvancedStrain or self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0 then    	
+   elseif !self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then    	
        self.AnimTbl_MeleeAttack = {
 	   "vjges_Melee2013_01",
 	   "vjges_Melee2013_02",
@@ -436,64 +465,73 @@ function ENT:MultipleMeleeAttacks()
 	   "vjges_Melee2013_05",
 	   "vjges_Melee2013_06",
 	   "vjges_Melee2013_07",
-	   "vjges_Melee2013_08",
+	   "vjges_Melee2013_08"
 } 	    
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_Miss()
-    if !self.Zombie_Crippled && !self.Zombie_Crouching && !self.VJ_IsBeingControlled then 
-    if self.MeleeAttacking == true && !self:IsMoving() && self:GetSequence() == self:LookupSequence("melee_cont_01") then
-	       self.vACT_StopAttacks = true
-	       self.PlayingAttackAnimation = false
-	       self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.0001,true)
-	    end
+    if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_IsBeingControlled then return end
+    if self.MeleeAttacking && !self:IsMoving() && self:GetSequence() == self:LookupSequence("melee_cont_01") then
+	    self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.1,true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Crouch(bCrouch)
 	if bCrouch then
 		self:SetHullType(HULL_TINY)
-		self:SetCollisionBounds(Vector(14,14,35),Vector(-14,-14,0))
+		self:SetCollisionBounds(Vector(13,13,35),Vector(-13,-13,0))
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
-	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && !self:IsOnFire() && self.Zombie_ControllerAnim == 0 then	
-		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
+		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")} 
+   else	
+ 		self:SetHullType(HULL_HUMAN)
+		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))  
+	if self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && self.Zombie_ControllerAnim == 0 && !self:IsOnFire() then	
 	    self.AnimTbl_IdleStand = {self.IdleAnim}
 		self.AnimTbl_Walk = {self.WalkAnim}
 		self.AnimTbl_Run = {self.RunAnim}
-	elseif self.VJ_IsBeingControlled && self.Zombie_CurAnims == 1 && self.Zombie_ControllerAnim == 1 or self.Zombie_AdvancedStrain then
-		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))
+end
+	if (self.VJ_IsBeingControlled && self.Zombie_CurAnims == 1 && self.Zombie_ControllerAnim == 1) or self.Zombie_AdvancedStrain then
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.AnimTbl_Walk = {ACT_WALK_AIM}
-		self.AnimTbl_Run = {ACT_RUN_AIM} 
-   else	
- 		self:SetHullType(HULL_HUMAN)
-		self:SetCollisionBounds(Vector(14,14,72),Vector(-14,-14,0))  
+		self.AnimTbl_Run = {ACT_RUN_AIM}
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Jump()
   if self.Zombie_Crippled then return end
-	if self.VJ_IsBeingControlled then
-		if self.VJ_TheController:KeyDown(IN_JUMP) then
-			if self:IsOnGround() then
-				self:SetVelocity(self:GetUp()*200 + self:GetForward()*400)
-				self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)
-			end	
+	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+		if self:IsOnGround() && self:GetVelocity():Length() <= 0 && CurTime() > self.Zombie_NextJumpT && self:GetActivity() != ACT_JUMP then
+		self:SetVelocity(self:GetUp()*200)
+		if self.VJ_TheController:KeyDown(IN_FORWARD) then self:SetVelocity(self:GetUp()*200 + self:GetForward()*350)
+		elseif self.VJ_TheController:KeyDown(IN_BACK) then self:SetVelocity(self:GetUp()*200 + self:GetForward()*-350)
+		elseif self.VJ_TheController:KeyDown(IN_MOVELEFT) then self:SetVelocity(self:GetUp()*200 + self:GetRight()*-350)
+		elseif self.VJ_TheController:KeyDown(IN_MOVERIGHT) then self:SetVelocity(self:GetUp()*200 + self:GetRight()*350) end
+			self:VJ_ACT_PLAYACTIVITY("jump",true,false,false)
+			self.Zombie_NextJumpT = CurTime() + 0.8
         end				
 	end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply, controlEnt)
+function ENT:Controller_Initialize(ply)
+    net.Start("vj_con_zombie_hud")
+		net.WriteBool(false)
+		net.WriteEntity(self)
+    net.Send(ply)
+
+	function self.VJ_TheControllerEntity:CustomOnStopControlling()
+		net.Start("vj_con_zombie_hud")
+			net.WriteBool(true)
+			net.WriteEntity(self)
+		net.Send(ply)
+end	
   if self.Zombie_Crippled then  
 	   self.Zombie_ControllerAnim = -1
    else
        self.Zombie_ControllerAnim = 0 
-   end	   
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
@@ -504,17 +542,49 @@ function ENT:Controller_IntMsg(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-    if self.VJ_IsBeingControlled && !self.Zombie_Crippled && !self.Zombie_Crouching then
-	   self:Jump()   
+ if self.VJ_IsBeingControlled && !self.Zombie_Crippled && !self.Zombie_Crouching then
+	self:Jump()   
+end
+ if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then
+ if self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.Dead or self.DeathAnimationCodeRan then self.Zombie_DoorToBreak = NULL return end
+    if VJ_AnimationExists(self,ACT_OPEN_DOOR) then
+		if !IsValid(self.Zombie_DoorToBreak) then
+		  if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD))) then
+			for _,v in pairs(ents.FindInSphere(self:GetPos(),25)) do
+			  if v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
+			 	if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
+					local anim = string.lower(v:GetSequenceName(v:GetSequence()))
+					if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
+						self.Zombie_DoorToBreak = v
+		        break
+			end
+		end
+	end
+end
+		else
+		    //local dist = self:VJ_GetNearestPointToEntityDistance(self.Zombie_DoorToBreak)
+		    if self.PlayingAttackAnimation or !self.Zombie_DoorToBreak:Visible(self) /*or (self:GetActivity() == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_DoorToBreak = NULL return end
+			if self:GetActivity() != ACT_OPEN_DOOR then
+				local ang = self:GetAngles()
+				self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
+				self:VJ_ACT_PLAYACTIVITY(ACT_OPEN_DOOR,true,false,false)
+				self:SetState(VJ_STATE_ONLY_ANIMATION)
+				self:StopMoving()
+		end
+	end
+end
+		if !IsValid(self.Zombie_DoorToBreak) then
+			self:SetState()
+	end
 end	
   if self.Zombie_Crippled or self.Zombie_AdvancedStrain then return end
-	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
+	 if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
 		if self.Zombie_ControllerAnim == 0 then
 			self.Zombie_ControllerAnim = 1
-			self.VJ_TheController:ChatPrint("Blend Activated")
+			self.VJ_TheController:ChatPrint("Blend Deactivated")
 		else
 			self.Zombie_ControllerAnim = 0
-			self.VJ_TheController:ChatPrint("Blend Deactivated")
+			self.VJ_TheController:ChatPrint("Blend Activated")
 	end
 end
 	if self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 then
@@ -532,55 +602,43 @@ end
 		    self.AnimTbl_Walk = {self.WalkAnim}
 		    self.AnimTbl_Run = {self.RunAnim}
         end 			
-    end			
+    end	
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-    if self.Zombie_Crippled then return end	
-		if IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain && !self.Zombie_Crouching then
-			self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
-	    elseif !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain && !self.Zombie_Crouching then
-		    self.AnimTbl_IdleStand = {self.IdleAnim}		
+if self.Zombie_Crippled then return end
+  if !self.VJ_IsBeingControlled && !self.Zombie_AdvancedStrain && !self.Zombie_Crouching then 
+    if IsValid(self:GetEnemy()) then
+	    self.AnimTbl_IdleStand = {"idle_unable_to_reach_01","idle_unable_to_reach_02"}
+	else
+	    self.AnimTbl_IdleStand = {self.IdleAnim}
+    end	   
 end
-	if self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then 
+ if !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then 
+	if self:IsOnFire() then 
 		self.AnimTbl_Walk = {ACT_RUN_AIM}
 		self.AnimTbl_Run = {ACT_RUN_AIM}
-	elseif !self:IsOnFire() && !self.Zombie_AdvancedStrain && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
+	else
 		self.AnimTbl_Walk = {self.WalkAnim}
-		self.AnimTbl_Run = {self.RunAnim}		
+		self.AnimTbl_Run = {self.RunAnim}
+    end		
 end
-		if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching then
-			if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
-				self:Crouch(true)
-				self.Zombie_Crouching = true
-				self.CanFlinch = 0				
-			else
-				self:Crouch(false)	
-				self.Zombie_Crouching = false
-				self.CanFlinch = 1				
+  if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching then
+	 if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
+		self:Crouch(true)
+		self.Zombie_Crouching = true				
+	else
+		self:Crouch(false)	
+		self.Zombie_Crouching = false			
 	end
 end	
-	if self.VJ_IsBeingControlled then
-	   if self.VJ_TheController:KeyDown(IN_DUCK) then	
-				self:Crouch(true)
-				self.Zombie_Crouching = true
-				self.CanFlinch = 0				
-                self.VJC_Data = {
-	            CameraMode = 1, 
-	            ThirdP_Offset = Vector(45, 25, -15), 
-	            FirstP_Bone = "ValveBiped.Bip01_Head1", 
-	            FirstP_Offset = Vector(10, -3, -25), 
-} 
-	   elseif !self.VJ_TheController:KeyDown(IN_DUCK) then	
-				self:Crouch(false)
-				self.Zombie_Crouching = false
-				self.CanFlinch = 1
-                self.VJC_Data = {
-	            CameraMode = 1, 
-	            ThirdP_Offset = Vector(40, 25, -50), 
-	            FirstP_Bone = "ValveBiped.Bip01_Head1",
-	            FirstP_Offset = Vector(0, 0, 5), 				
-}			
+  if self.VJ_IsBeingControlled then
+	 if self.VJ_TheController:KeyDown(IN_DUCK) then	
+		self:Crouch(true)
+		self.Zombie_Crouching = true
+    else	
+		self:Crouch(false)
+		self.Zombie_Crouching = false			
     end	
 end	
 	//print(self:GetBlockingEntity())
@@ -641,63 +699,60 @@ end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.LandAnims = {"vjseq_zombie_climb_land","vjseq_zombie_climb_land_hard"}
+local LandAnims = {"vjseq_zombie_climb_land","vjseq_zombie_climb_land_hard"}
 function ENT:CustomOnChangeActivity(newAct)
-	if newAct == ACT_LAND then
-	    self:SetState()
-		self:VJ_ACT_PLAYACTIVITY(self.LandAnims,true,false,false)
-	end
+ if newAct == ACT_LAND then
+	self:SetState()
+	self:VJ_ACT_PLAYACTIVITY(LandAnims,true,false,false)
+end
+    if self.Zombie_Crippled or self.Zombie_Crouching then self.NextIdleStandTime = 0 end 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Cripple()
 	self:SetHullType(HULL_TINY)
-	self:SetCollisionBounds(Vector(14,14,20),Vector(-14,-14,0))
+	self:SetCollisionBounds(Vector(13,13,25),Vector(-13,-13,0))
 	self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
 	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
 	//self.MeleeAttackDamage = self.MeleeAttackDamage /2
-	self.MeleeAttackDistance = 30
-	self.MeleeAttackDamageDistance = 60
-	self.MaxJumpLegalDistance = VJ_Set(0,0)
-	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-	self.MeleeAttackAnimationAllowOtherTasks = false	
-	self.CanFlinch = 0
+	self.MeleeAttackDistance = 25
+	self.MeleeAttackDamageDistance = 45
+	self.MeleeAttackAnimationAllowOtherTasks = false
     self.VJC_Data = {
 	CameraMode = 1, 
 	ThirdP_Offset = Vector(45, 20, -15), 
 	FirstP_Bone = "ValveBiped.Bip01_Head1", 
 	FirstP_Offset = Vector(10, 0, -30), 
 }
-	   if VJ_AnimationExists(self,ACT_JUMP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP)) end
-	   if VJ_AnimationExists(self,ACT_CLIMB_UP) == true then self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) end 
+	self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP))
+    self:CapabilitiesRemove(bit.bor(CAP_MOVE_CLIMB)) 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetModel() != "models/cpthazama/contagion/zombies/carrier_zombie.mdl" && self:GetModel() != "models/cpthazama/contagion/zombies/riot_brute_zombie.mdl" then
+	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" then
 		dmginfo:SetDamage(self:Health())
 end
-	if self.Zombie_AdvancedStrain then
-	   //dmginfo:ScaleDamage(0.75)
-	elseif self:GetModel() == "models/cpthazama/contagion/zombies/carrier_zombie.mdl" then
-	   dmginfo:ScaleDamage(0.10)	   
+	if self:GetClass() == "npc_vj_con_zcarrier" then
+	    dmginfo:ScaleDamage(0.10)	   
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
-	if !self.Zombie_Crippled && !self.Flinching && !self.Zombie_Crouching then
+ if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
+	if !self.Zombie_Crippled && !self.Flinching && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") then
 		local legs = {6,7,10,11}
 		if VJ_HasValue(legs,hitgroup) then
 			self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
 			if self.Zombie_LegHealth <= 0 then
 				self.Zombie_Crippled = true
-				local anim = ACT_FLINCH_CHEST
+				local anim = "vjseq_gib_legboth"
 				if hitgroup == 6 || hitgroup == 10 then
-					anim = ACT_FLINCH_LEFTLEG
+					anim = "vjseq_gib_legl"
 				elseif hitgroup == 7 || hitgroup == 11 then
-					anim = ACT_FLINCH_RIGHTLEG
+					anim = "vjseq_gib_legr"
 end
-				if math.random(1,4) == 1 then anim = ACT_FLINCH_CHEST end
-				self:VJ_ACT_PLAYACTIVITY(anim,true,false,true)
+				if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
+				self:VJ_ACT_PLAYACTIVITY(anim,true,false,false)
 				self:Cripple()
 			end
 		end
@@ -706,31 +761,31 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
     if self.Zombie_Crippled then return end
-    if !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1, 16) == 1 then
-		self:VJ_ACT_PLAYACTIVITY(ACT_FLINCH_STOMACH,true,false,false)
+    if !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 then
+		self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
 		self.Zombie_NextStumbleT = CurTime() + 10	
     end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}	
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+	if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) or dmginfo:IsExplosionDamage() then
+		self.AnimTbl_Flinch = {"vjseq_shoved_backwards_heavy"}	
 	else
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_forward1","vjseq_shoved_forward2"}
 end
-    return self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are stumbling then DO NOT flinch!	
+    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are doing certaina activities then DO NOT flinch!	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self.DeathAnimationChance = 1
-	if self.Zombie_IsClimbing == true or self.Zombie_Crouching or self.Zombie_Crippled or self.Flinching or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
+	if self:GetActivity() == ACT_JUMP && self:GetActivity() == ACT_GLIDE && self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self.Flinching or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	if self.Zombie_Gender == 0 && self:IsMoving() then -- Male death anims when running
+	if self.Zombie_Gender == 0 && self:IsMoving() then -- Male death anims when moving
 	   self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}	
 	   //self.DeathAnimationDecreaseLengthAmount = 0.05
-	elseif self.Zombie_Gender == 1 && self:IsMoving() then -- Female death anims when running
+	elseif self.Zombie_Gender == 1 && self:IsMoving() then -- Female death anims when moving
 	   self.AnimTbl_Death = {"vjseq_death2013_run_01","vjseq_death2013_run_02","vjseq_death2013_run_03"}	
 	   //self.DeathAnimationDecreaseLengthAmount = 0.05	   
 end   
@@ -739,24 +794,8 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-       if GetConVarNumber("VJ_CON_CorpseBleed") == 0 then return end	
-GetCorpse.BloodEffect = self.CustomBlood_Particle
-	local hookName = "VJ_CON_CorpseBlood_" .. GetCorpse:EntIndex()
-	hook.Add("EntityTakeDamage",hookName,function(ent,dmginfo)
-		if !IsValid(GetCorpse) then
-			hook.Remove("EntityTakeDamage",hookName)
-end
-		if ent == GetCorpse then
-			local attacker = dmginfo:GetAttacker()
-			if GetCorpse.BloodEffect then
-				for _,i in ipairs(GetCorpse.BloodEffect) do
-					sound.Play("physics/flesh/flesh_impact_bullet"..math.random(1,3)..".wav",dmginfo:GetDamagePosition(),60,100)
-					ParticleEffect(i,dmginfo:GetDamagePosition(),Angle(math.random(0,360),math.random(0,360),math.random(0,360)),nil)
-				end
-			end
-		end
-	end)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+    VJ_CON_ApplyCorpseEffects(self,corpseEnt)
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
@@ -925,7 +964,7 @@ function ENT:FootStepSoundCode(CustomTbl)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

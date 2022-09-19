@@ -82,7 +82,7 @@ function ENT:Initialize()
 	self.CON_HordeChance = GetConVarNumber("VJ_CON_MapSpawner_HordeChance")
 	self.CON_HordeCooldownMin = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMin")
 	self.CON_HordeCooldownMax = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMax")
-	self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxMon")
+	self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxZom")
 	self.CON_MaxHordeSpawn = GetConVarNumber("VJ_CON_MapSpawner_HordeCount")
 	self.tbl_SpawnedNPCs = {}
 	self.tbl_NPCsWithEnemies = {}
@@ -225,7 +225,7 @@ end
 function ENT:FindEnemy()
 	local tbl = {}
 	for _,v in pairs(ents.GetAll()) do
-		if (v:IsPlayer() && GetConVarNumber("ai_ignoreplayers") == 0 || v:IsNPC()) && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ_HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") or true) then
+		if (v:IsPlayer() || v:IsNPC()) && v:Health() > 0 && !v:IsFlagSet(65536) && (v.VJ_NPC_Class && !VJ_HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") or true) then
 			table_insert(tbl,v)
 		end
 	end
@@ -276,7 +276,7 @@ function ENT:Think()
 	    self.CON_HordeChance = GetConVarNumber("VJ_CON_MapSpawner_HordeChance")
 	    self.CON_HordeCooldownMin = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMin")
 	    self.CON_HordeCooldownMax = GetConVarNumber("VJ_CON_MapSpawner_HordeCooldownMax")
-	    self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxMon")
+	    self.CON_MaxZombie = GetConVarNumber("VJ_CON_MapSpawner_MaxZom")
 	    self.CON_MaxHordeSpawn = GetConVarNumber("VJ_CON_MapSpawner_HordeCount")
 		self.AI_RefreshTime = GetConVarNumber("VJ_CON_MapSpawner_RefreshRate") 
 		
@@ -385,6 +385,7 @@ function ENT:SpawnZombie(ent,pos,isMob)
 	Zombie:SetAngles(Angle(0,math.random(0,360),0))
 	Zombie:Spawn()
 	table_insert(self.tbl_SpawnedNPCs,Zombie)
+/*
 	if isMob then
 		Zombie.FindEnemy_UseSphere = true
 		Zombie.FindEnemy_CanSeeThroughWalls = true
@@ -395,6 +396,7 @@ function ENT:SpawnZombie(ent,pos,isMob)
 			end
 		end)
 	end
+*/
 	Zombie.MapSpawner = self
 	Zombie.EntitiesToNoCollide = {}
 	for _,v in pairs(self.Zombie) do
@@ -411,8 +413,8 @@ function ENT:SpawnBossZombie(ent,pos)
 	Boss:SetPos(pos)
 	Boss:SetAngles(Angle(0,math.random(0,360),0))
 	Boss:Spawn()
-	Boss.FindEnemy_UseSphere = true
-	Boss.FindEnemy_CanSeeThroughWalls = true
+	//Boss.FindEnemy_UseSphere = true
+	//Boss.FindEnemy_CanSeeThroughWalls = true
 	table_insert(self.tbl_SpawnedBossZombie,Boss)
 	Boss.MapSpawner = self
 	Boss.EntitiesToNoCollide = {}

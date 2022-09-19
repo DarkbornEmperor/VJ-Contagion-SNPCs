@@ -1,23 +1,23 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 -- Custom 
 ENT.Riot_Helmet = true
-//ENT.Riot_HelmetHP = 200
+ENT.Riot_HelmetHP = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
-		dmginfo:SetDamage(self:Health())		
+ if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
+	dmginfo:SetDamage(self:Health())		
 end
-    if self:GetModel() == "models/cpthazama/contagion/zombies/officer_armor.mdl" then
-	if dmginfo:IsBulletDamage() && self.HasSounds == true && self.HasImpactSounds == true && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+    if self:GetModel() != "models/cpthazama/contagion/zombies/officer_armor.mdl" then return end	
+	if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	    self.Bleeds = false
-		dmginfo:ScaleDamage(0.00)
+		dmginfo:ScaleDamage(0.10)
 		local spark = ents.Create("env_spark")
 		spark:SetKeyValue("Magnitude","1")
 		spark:SetKeyValue("Spark Trail Length","1")
@@ -30,60 +30,61 @@ end
 		spark:Fire("StopSpark", "", 0.001)
 		self:DeleteOnRemove(spark)
     else
-        self.Bleeds = true	
+        self.Bleeds = true		
 end		
-    if dmginfo:IsBulletDamage() && math.random(1,80) == 1 && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
-           self.Riot_Helmet = false	
-		   self.Bleeds = true
-           self:SetBodygroup(1,1)	
-		   dmginfo:ScaleDamage(1.0)	
-	if IsValid(spark) then spark:Remove() end
-           self:BreakHelmet()
-         return
-	  end
-   end			
+    if hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+    self.Riot_HelmetHP = self.Riot_HelmetHP -dmginfo:GetDamage()	
+	if self.Riot_HelmetHP <= 0 then
+	if IsValid(spark) then SafeRemoveEntity(spark) end
+	    self.Riot_Helmet = false
+		self.Bleeds = true
+        self:SetBodygroup(1,1)
+		self:RemoveAllDecals()
+        self:BreakHelmet()
+	    end
+    end	
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BreakHelmet()	
-	local prop = ents.Create("prop_physics")
-	prop:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl")
-	prop:SetPos(self:GetAttachment(self:LookupAttachment("particle_neck")).Pos)
-	prop:SetAngles(self:GetAttachment(self:LookupAttachment("particle_neck")).Ang)
-	prop:SetCollisionGroup(COLLISION_GROUP_WEAPON)	
-	prop:Spawn()
-	prop:Activate()
-	SafeRemoveEntityDelayed(prop,30)
+	local HelmetGib = ents.Create("prop_physics")
+	HelmetGib:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl")
+	HelmetGib:SetPos(self:GetAttachment(self:LookupAttachment("particle_neck")).Pos)
+	HelmetGib:SetAngles(self:GetAttachment(self:LookupAttachment("particle_neck")).Ang)
+	HelmetGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
+	HelmetGib:Spawn()
+	HelmetGib:Activate()
+	SafeRemoveEntityDelayed(HelmetGib,30)
 	
-	local prop2 = ents.Create("prop_physics")
-	prop2:SetPos(self:LocalToWorld(Vector(0,0,-100)))
-	prop2:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl")
-	prop2:SetPos(self:GetAttachment(self:LookupAttachment("particle_headr")).Pos)
-	prop2:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headr")).Ang)
-	prop2:SetCollisionGroup(COLLISION_GROUP_WEAPON)	
-	prop2:Spawn()
-	prop2:Activate()
-	SafeRemoveEntityDelayed(prop2,30)	
+	local HelmetGib2 = ents.Create("prop_physics")
+	HelmetGib2:SetPos(self:LocalToWorld(Vector(0,0,-100)))
+	HelmetGib2:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl")
+	HelmetGib2:SetPos(self:GetAttachment(self:LookupAttachment("particle_headr")).Pos)
+	HelmetGib2:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headr")).Ang)
+	HelmetGib2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
+	HelmetGib2:Spawn()
+	HelmetGib2:Activate()
+	SafeRemoveEntityDelayed(HelmetGib2,30)	
 	
-	local prop3 = ents.Create("prop_physics")
-	prop3:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
-	prop3:SetPos(self:GetAttachment(self:LookupAttachment("particle_headl")).Pos)
-	prop3:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headl")).Ang)
-	prop3:SetCollisionGroup(COLLISION_GROUP_WEAPON)	
-	prop3:Spawn()
-	prop3:Activate()
-	SafeRemoveEntityDelayed(prop3,30)
+	local HelmetGib3 = ents.Create("prop_physics")
+	HelmetGib3:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
+	HelmetGib3:SetPos(self:GetAttachment(self:LookupAttachment("particle_headl")).Pos)
+	HelmetGib3:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headl")).Ang)
+	HelmetGib3:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
+	HelmetGib3:Spawn()
+	HelmetGib3:Activate()
+	SafeRemoveEntityDelayed(HelmetGib3,30)
 
-	local prop4 = ents.Create("prop_physics")
-	prop4:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")
-	prop4:SetPos(self:GetAttachment(self:LookupAttachment("forward")).Pos)
-	prop4:SetAngles(self:GetAttachment(self:LookupAttachment("forward")).Ang)
-	prop4:SetCollisionGroup(COLLISION_GROUP_WEAPON)	
-	prop4:Spawn()
-	prop4:Activate()
-	SafeRemoveEntityDelayed(prop4,30)
+	local HelmetGib4 = ents.Create("prop_physics")
+	HelmetGib4:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")
+	HelmetGib4:SetPos(self:GetAttachment(self:LookupAttachment("forward")).Pos)
+	HelmetGib4:SetAngles(self:GetAttachment(self:LookupAttachment("forward")).Ang)
+	HelmetGib4:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
+	HelmetGib4:Spawn()
+	HelmetGib4:Activate()
+	SafeRemoveEntityDelayed(HelmetGib4,30)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

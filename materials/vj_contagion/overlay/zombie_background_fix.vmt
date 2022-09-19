@@ -1,0 +1,9 @@
+UnlitGeneric
+{
+    $basetexture                "vj_contagion\overlay\zombie_background_fix"
+    $vertexcolor                "1"
+    $additive                   "1"
+    $vertexalpha                "1"
+    $ignorez                    "1"
+    $no_fullbright              "1"
+}

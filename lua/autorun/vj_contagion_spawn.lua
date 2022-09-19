@@ -1,6 +1,6 @@
 /*--------------------------------------------------
 	=============== Autorun File ===============
-	*** Copyright (c) 2012-2021 by Cpt. Hazama, All rights reserved. ***
+	*** Copyright (c) 2012-2022 by Cpt. Hazama, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -102,81 +102,74 @@ if VJExists == true then
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie.mdl")
 	util.PrecacheModel("models/cpthazama/contagion/zombies/contagion_shared_zombie_female.mdl")	
 		
-	-- ConVars --
-	local AddConvars = {}
-	AddConvars["VJ_CON_AllowClimbing"] = 0
-	AddConvars["VJ_CON_Headshot"] = 1
-	AddConvars["VJ_CON_CarrierInfection"] = 0	
-	AddConvars["VJ_CON_CorpseBleed"] = 1
-	AddConvars["VJ_CON_AllRunners"] = 0	
+	-- ConVars --	
+	VJ.AddConVar("VJ_CON_AllowClimbing", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_AllRunners", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_BreakDoors", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_Headshot", 0, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_CorpseEffects", 1, {FCVAR_ARCHIVE})
+    VJ.AddClientConVar("VJ_CON_ZombieOverlay", 1, {FCVAR_ARCHIVE})
+    VJ.AddClientConVar("VJ_CON_OldOverlay", 0, {FCVAR_ARCHIVE})
 	
-    -- Map Spawner ConVars --
-    --AddConvars["VJ_CON_MapSpawner_Music"] = 1
-	AddConvars["VJ_CON_MapSpawner_Enabled"] = 1
-	AddConvars["VJ_CON_MapSpawner_Boss"] = 1
-	AddConvars["VJ_CON_MapSpawner_MaxMon"] = 80
-	AddConvars["VJ_CON_MapSpawner_HordeCount"] = 35
-	AddConvars["VJ_CON_MapSpawner_SpawnMax"] = 2000
-	AddConvars["VJ_CON_MapSpawner_SpawnMin"] = 650
-	AddConvars["VJ_CON_MapSpawner_HordeChance"] = 100
-	AddConvars["VJ_CON_MapSpawner_HordeCooldownMin"] = 120
-	AddConvars["VJ_CON_MapSpawner_HordeCooldownMax"] = 180
-	AddConvars["VJ_CON_MapSpawner_DelayMin"] = 0.85
-	AddConvars["VJ_CON_MapSpawner_DelayMax"] = 3		
+    -- Map Spawner ConVars --	
+	VJ.AddConVar("VJ_CON_MapSpawner_Enabled", 1, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_MaxZom", 80, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_HordeCount", 35, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_SpawnMax", 2000, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_SpawnMin", 650, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_HordeChance", 100, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_HordeCooldownMin", 120, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_HordeCooldownMax", 180, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_DelayMin", 0.85, {FCVAR_ARCHIVE})
+	VJ.AddConVar("VJ_CON_MapSpawner_DelayMax", 3, {FCVAR_ARCHIVE})	
 	
-		for k, v in pairs(AddConvars) do
-		if !ConVarExists( k ) then CreateConVar( k, v, {FCVAR_ARCHIVE} ) end
-end
-	
-if (CLIENT) then
-local function VJ_CON_MAIN(Panel)
-			if !game.SinglePlayer() then
-			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You are not an admin!"})
-				Panel:ControlHelp("Note: Only admins can change these settings!")
-        return
-	end
-end
-			Panel:AddControl( "Label", {Text = "Note: Only admins can change these settings!"})
-			local vj_conreset = {Options = {}, CVars = {}, Label = "Reset everything:", MenuButton = "0"}
-			vj_conreset.Options["#vjbase.menugeneral.default"] = { 
-				VJ_CON_AllowClimbing = "0",
-				VJ_CON_Headshot = "1",
-				VJ_CON_CarrierInfection = "0",				
-				VJ_CON_CorpseBleed = "1",
-				VJ_CON_AllRunners = "0",				
+      if CLIENT then
+         hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CON", function()
+		 spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Main)", "Contagion (Main)", "", "", function(Panel)
+			local vj_conreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
+			vj_conreset_cs.Options["#vjbase.menugeneral.default"] = { 
+				VJ_CON_ZombieOverlay = "1",
+				VJ_CON_OldOverlay = "0",					
 }
-            Panel:AddControl("ComboBox", vj_conreset)
-            Panel:ControlHelp("NOTE: Only future SNPCs will be affected!")
-            Panel:AddControl("Checkbox", {Label ="Enable prop climbing?", Command ="VJ_CON_AllowClimbing"})		
-            Panel:ControlHelp("Warning: May cause performance drops.")
-            Panel:AddControl("Checkbox", {Label ="Enable instant headshot death?", Command ="VJ_CON_Headshot"})	
-            Panel:AddControl("Checkbox", {Label ="Enable infection damage for Carrier?", Command ="VJ_CON_CarrierInfection"})
-            Panel:AddControl("Checkbox", {Label ="Enable Zombies being runners only?", Command ="VJ_CON_AllRunners"})			
-            Panel:AddControl("Checkbox", {Label ="Enable bleeding for corpses?", Command ="VJ_CON_CorpseBleed"})				
-            Panel:AddPanel(typebox)
-
+                Panel:AddControl("ComboBox", vj_conreset_cs)
+		 		Panel:AddControl( "Label", {Text = "Client-Side Options:"})
+			    Panel:AddControl("Checkbox", {Label ="Enable Screen Overlay When Controlling Zombies?", Command ="VJ_CON_ZombieOverlay"})
+			    Panel:AddControl("Checkbox", {Label ="Enable Old Screen Overlay?", Command ="VJ_CON_OldOverlay"})
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+    return
 end
-	function VJ_ADDTOMENU_CON(Panel)
-		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","Contagion (Main)","Contagion (Main)","","", VJ_CON_MAIN, {} )
+			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+			local vj_conreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
+			vj_conreset.Options["#vjbase.menugeneral.default"] = { 			
+				VJ_CON_AllowClimbing = "0",
+				VJ_CON_AllRunners = "0",
+				VJ_CON_BreakDoors = "1",
+				VJ_CON_Headshot = "0",
+				VJ_CON_CorpseEffects = "1",			
+}
+            Panel:AddControl("ComboBox", vj_conreset)		
+            Panel:ControlHelp("Note: Only future spawned SNPCs will be affected.")
+			Panel:AddControl( "Label", {Text = "Options:"})
+            Panel:AddControl("Checkbox", {Label ="Enable Prop Climbing?", Command ="VJ_CON_AllowClimbing"})
+            Panel:ControlHelp("Warning: Can cause performance issues.")
+            Panel:AddControl("Checkbox", {Label ="Enable Sprinters Only?", Command ="VJ_CON_AllRunners"})
+            Panel:AddControl("Checkbox", {Label ="Enable Zombies Breaking Doors?", Command ="VJ_CON_BreakDoors"})
+            Panel:AddControl("Checkbox", {Label ="Enable Instant Headshot Death?", Command ="VJ_CON_Headshot"})
+            Panel:AddControl("Checkbox", {Label ="Enable Corpse Effects & Decals?", Command ="VJ_CON_CorpseEffects"})
+end)
+		 spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Map Spawner)", "Contagion (Map Spawner)", "", "", function(Panel)					
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+    return
 end
-		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_CON", VJ_ADDTOMENU_CON )
-
-local function VJ_CON_MAPSPAWNER(Panel)
-			if !game.SinglePlayer() then
-			if !LocalPlayer():IsAdmin() or !LocalPlayer():IsSuperAdmin() then
-				Panel:AddControl( "Label", {Text = "You are not an admin!"})
-				Panel:ControlHelp("Note: Only admins can change these settings!")
-        return
-	end
-end
-			Panel:AddControl( "Label", {Text = "Note: Only admins can change these settings!"})
-			local vj_conreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset everything:", MenuButton = "0"}
-			vj_conreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 
-			    --VJ_CON_MapSpawner_Music = "1",
+			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+			local vj_conreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
+			vj_conreset_mapspawner.Options["#vjbase.menugeneral.default"] = { 				
 				VJ_CON_MapSpawner_Enabled = "1",
-				VJ_CON_MapSpawner_Boss = "1",
-				VJ_CON_MapSpawner_MaxMon = "80",	
+				VJ_CON_MapSpawner_MaxZom = "80",	
 				VJ_CON_MapSpawner_HordeCount = "35",	
 				VJ_CON_MapSpawner_SpawnMax = "2000",	
 				VJ_CON_MapSpawner_SpawnMin = "650",	
@@ -184,14 +177,13 @@ end
 				VJ_CON_MapSpawner_HordeCooldownMin = "120",	
 				VJ_CON_MapSpawner_HordeCooldownMax = "180",	
 				VJ_CON_MapSpawner_DelayMin = "0.85",
-                VJ_CON_MapSpawner_DelayMax = "3",						
-
+                VJ_CON_MapSpawner_DelayMax = "3",								
 }
             Panel:AddControl("ComboBox", vj_conreset_mapspawner)
-            Panel:ControlHelp("NOTE: Only enable if you have the specific addon installed!")
-            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})	
-            Panel:AddControl("Checkbox", {Label = "Enable Bosses?", Command = "VJ_CON_MapSpawner_Boss"})			
-            Panel:AddControl("Slider", { Label 	= "Max Zombies", Command = "VJ_CON_MapSpawner_MaxMon", Type = "Float", Min = "5", Max = "400"})
+			Panel:AddControl( "Label", {Text = "Options:"})		
+            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})			
+			Panel:AddControl( "Label", {Text = "Modifiers:"})			
+            Panel:AddControl("Slider", { Label 	= "Max Zombies", Command = "VJ_CON_MapSpawner_MaxZom", Type = "Float", Min = "5", Max = "400"})
             Panel:AddControl("Slider", { Label 	= "Min Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
             Panel:AddControl("Slider", { Label 	= "Max Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
             Panel:AddControl("Slider", { Label 	= "Min time between spawns", Command = "VJ_CON_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
@@ -200,20 +192,99 @@ end
             Panel:AddControl("Slider", { Label 	= "Chance that a horde will appear", Command = "VJ_CON_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
             Panel:AddControl("Slider", { Label 	= "Min cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
             Panel:AddControl("Slider", { Label 	= "Max cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
-            Panel:AddPanel(typebox)
+		end)	
+    end)
 end
-	function VJ_ADDTOMENU_CON_MAPSPAWNER(Panel)
-		spawnmenu.AddToolMenuOption("DrVrej","SNPC Configures","Contagion (MapSp)","Contagion (MapSp)","","", VJ_CON_MAPSPAWNER, {} )
-end
-		hook.Add("PopulateToolMenu","VJ_ADDTOMENU_CON_MAPSPAWNER", VJ_ADDTOMENU_CON_MAPSPAWNER )
-end
-
 	VJ_CON_NODEPOS = {}
 	hook.Add("EntityRemoved","VJ_CON_AddNodes",function(ent)
 		if ent:GetClass() == "info_node" then
-			table.insert(VJ_CON_NODEPOS,ent:GetPos())
+			table.insert(VJ_CON_NODEPOS,ent:GetPos())	
 	end
 end)
+
+if CLIENT then
+	net.Receive("vj_con_zombie_hud",function(len,pl)
+		local delete = net.ReadBool()
+		local ent = net.ReadEntity()
+		if !IsValid(ent) then delete = true end
+
+     if GetConVar("VJ_CON_ZombieOverlay"):GetInt() == 1 then
+		hook.Add("RenderScreenspaceEffects","VJ_CON_ZombieHUD_Overlay",function(zom)
+            local threshold = 0.30
+		 if GetConVar("VJ_CON_OldOverlay"):GetInt() == 1 then
+            DrawMaterialOverlay("vj_contagion/overlay/zombie_back",threshold)		 
+		 else
+            DrawMaterialOverlay("vj_contagion/overlay/zombie_background_fix",threshold)
+		end
+    end)
+end
+		if delete then hook.Remove("RenderScreenspaceEffects","VJ_CON_ZombieHUD_Overlay") end
+
+		hook.Add("PreDrawHalos","VJ_CON_ZombieHUD_Halo",function(zom)
+            if IsValid(ent) then
+			    //local tbInf = {}
+			    local tbEne = {}
+                local tbFri = {}
+			    local tbCar = {}
+				//local colInf = Color(33,255,0,255)
+				local colEne = Color(255,0,0)
+				local colFri = Color(0,127,31,255)
+				local colCar = Color(255,191,0,255)
+                for _,v in pairs(ents.GetAll()) do
+                    if (v:IsNPC() && v:GetClass() != "obj_vj_bullseye" or v:IsPlayer()) && !v:IsFlagSet(FL_NOTARGET) then
+                        if (v.IsContagionZombie && v:GetClass() != "npc_vj_con_zcarrier" && v:GetClass() != "npc_vj_con_zriotbrute") then
+						   table.insert(tbFri,v)
+                        elseif v:GetClass() == "npc_vj_con_zcarrier" or v:GetClass() == "npc_vj_con_zriotbrute" then
+						   table.insert(tbCar,v)
+					    /*elseif v.CON_InfectedVictim then
+						   table.insert(tbInf,v)*/
+						else
+						   table.insert(tbEne,v)
+		end
+    end
+end
+                //halo.Add(tbInf,colInf,4,4,3,true,true)
+                halo.Add(tbEne,colEne,4,4,3,true,true)
+				halo.Add(tbFri,colFri,4,4,3,true,true)
+				halo.Add(tbCar,colCar,4,4,3,true,true)
+    end
+end)
+		if delete then hook.Remove("PreDrawHalos","VJ_CON_ZombieHUD_Halo") end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function VJ_CON_ApplyCorpseEffects(ent,corpse)
+ if GetConVar("VJ_CON_CorpseEffects"):GetInt() == 0 or GetConVar("vj_npc_nobleed"):GetInt() == 1 then return end
+ if IsValid(corpse) then 
+ 	corpse.CON_Corpse = true
+    if ent.HasBloodParticle then corpse.BleedParticle = ent.CustomBlood_Particle or "" end
+	corpse.BleedDecal = ent.HasBloodDecal and VJ_PICK(ent.CustomBlood_Decal) or ""
+	corpse.CON_Corpse_StartT = CurTime() + 1
+	hook.Add("EntityTakeDamage","VJ_CON_CorpseBleed",function(target,dmginfo)
+	if target.CON_Corpse && !target.Dead && CurTime() > target.CON_Corpse_StartT && target:GetColor().a > 50 then
+			local dmgForce = dmginfo:GetDamageForce()
+				//sound.Play("physics/flesh/flesh_impact_bullet"..math.random(1,3)..".wav",dmginfo:GetDamagePosition(),60,100)
+				local pos = dmginfo:GetDamagePosition()
+				if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
+				local part = VJ_PICK(target.BleedParticle)
+				if part then
+					local particle = ents.Create("info_particle_system")
+					particle:SetKeyValue("effect_name",part)
+					particle:SetPos(pos)
+					particle:Spawn()
+					particle:Activate()
+					particle:Fire("Start")
+					particle:Fire("Kill","",0.1)
+end
+				local decal = VJ_PICK(target.BleedDecal)
+				if decal then
+					local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormal() * math.Clamp(dmgForce:Length() * 10, 100, 150), filter = target})
+					util.Decal(decal, tr.HitPos + tr.HitNormal + Vector(math.random(-30, 30), math.random(-30, 30), 0), tr.HitPos - tr.HitNormal, target)
+			    end
+		    end
+	    end)
+    end
+end
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
