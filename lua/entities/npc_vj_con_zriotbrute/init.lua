@@ -52,7 +52,6 @@ function ENT:CustomOnInitialize()
 	self.RiotBrute_NextChargeT = CurTime() +5
 	self.RiotBrute_StopChargingT = CurTime()
 	self.RiotBrute_Charging = false	
-	self.FlinchAnim = {ACT_SMALL_FLINCH,ACT_BIG_FLINCH,ACT_FLINCH_STOMACH}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply)
@@ -363,7 +362,7 @@ end
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
   if self.RiotBrute_Charging then return end
     if self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,50) == 1 then
-		self:VJ_ACT_PLAYACTIVITY(self.FlinchAnim,true,false,false)
+		self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
 		self.Zombie_NextStumbleT = CurTime() + 10		
     end
 end	

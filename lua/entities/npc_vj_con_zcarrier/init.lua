@@ -31,7 +31,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
     if !self.Flinching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,30) == 1 then
-		self:VJ_ACT_PLAYACTIVITY(ACT_FLINCH_STOMACH,true,false,false)
+		self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
 		self.Zombie_NextStumbleT = CurTime() + 10	
     end
 end
