@@ -419,63 +419,77 @@ function ENT:GetSightDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-    if !self.VJ_IsBeingControlled && !self.Zombie_Crippled && !self.Zombie_AdvancedStrain && !self:IsBusy() && !self:IsMoving() && !self.Zombie_Crouching then 
-	local AlertAnim = math.random(1,2)
-    if AlertAnim == 1 && math.random(1,3) == 1 then
-	    self:VJ_ACT_PLAYACTIVITY("idle2013_facearound_01",true,math.Rand(1.5,3),true)
-    elseif AlertAnim == 2 && math.random(1,3) == 1 then
-	       self:VJ_ACT_PLAYACTIVITY("idle2013_facearound_02",true,math.Rand(1.5,3),true)
-        end		
+ if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_AdvancedStrain or self.Zombie_Crouching then return end
+    if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
+	    self:VJ_ACT_PLAYACTIVITY({"idle2013_facearound_01","idle2013_facearound_02"},true,math.Rand(1.5,3),true)	
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
-    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching then return end
-	 if self.Zombie_AdvancedStrain && !self:IsBusy() then
+  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching then return end
+	 if math.random(1,3) == 1 && !self:IsBusy() then
 		self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
-	    if math.random(1,3) == 1 then	
+	    if math.random(1,3) == 1 && !ally:IsBusy() then	
 		    ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
-   if self.Zombie_Crippled then  
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed) 
+   if self.Zombie_Crippled then
+	   self.MeleeAttackDistance = 25
+	   self.MeleeAttackDamageDistance = 45
+	   self.MeleeAttackAnimationAllowOtherTasks = false
+       self.NextAnyAttackTime_Melee = false    
        self.AnimTbl_MeleeAttack = {
 	   "vjseq_crawl_melee2013_1",
 	   "vjseq_crawl_melee2013_2"
 }	   
 return end
-   if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then  	 
+/*
+   --if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
+	   self.MeleeAttackAnimationAllowOtherTasks = false
+       self.NextAnyAttackTime_Melee = false    
        self.AnimTbl_MeleeAttack = {
 	   "vjseq_melee_cont_01"
-}   
-   elseif self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then 
+} 
+*/ 
+   if self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
+       self.MeleeAttackAnimationAllowOtherTasks = true
+       self.NextAnyAttackTime_Melee = 1.12   
        self.AnimTbl_MeleeAttack = {
 	   "vjges_melee2020_player_01",
 	   "vjges_melee2020_player_02",
 	   "vjges_melee2020_player_03"
 }           
-   elseif !self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then    	
+   elseif !self.Zombie_AdvancedStrain or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
+       self.MeleeAttackAnimationAllowOtherTasks = true
+       self.NextAnyAttackTime_Melee = 2.5    
        self.AnimTbl_MeleeAttack = {
-	   "vjges_Melee2013_01",
-	   "vjges_Melee2013_02",
-	   "vjges_Melee2013_03",
-	   "vjges_Melee2013_04",
-	   "vjges_Melee2013_05",
-	   "vjges_Melee2013_06",
-	   "vjges_Melee2013_07",
-	   "vjges_Melee2013_08"
+	   "vjges_melee2013_01",
+	   "vjges_melee2013_02",
+	   "vjges_melee2013_03",
+	   "vjges_melee2013_04",
+	   "vjges_melee2013_05",
+	   "vjges_melee2013_06",
+	   "vjges_melee2013_07",
+	   "vjges_melee2013_08"
 } 	    
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+/*
 function ENT:CustomOnMeleeAttack_Miss()
     if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_IsBeingControlled then return end
-    if self.MeleeAttacking && !self:IsMoving() && self:GetSequence() == self:LookupSequence("melee_cont_01") then
-	    self:VJ_ACT_PLAYACTIVITY("idle2013_01",true,0.1,true)
+    if self.MeleeAttacking && self:GetSequence() == self:LookupSequence("melee_cont_01") then
+	   self:VJ_ACT_PLAYACTIVITY("idle2013_facearound_01",true,0.1,true)
+	   self:StopAttacks(true)
+	   self.MeleeAttacking = false
+	   self.PlayingAttackAnimation = false
+	   self:DoChaseAnimation()
 	end
 end
+*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Crouch(bCrouch)
 	if bCrouch then
@@ -484,7 +498,7 @@ function ENT:Crouch(bCrouch)
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")} 
-   else	
+    else	
  		self:SetHullType(HULL_HUMAN)
 		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))  
 	if self.VJ_IsBeingControlled && self.Zombie_CurAnims == 0 && self.Zombie_ControllerAnim == 0 && !self:IsOnFire() then	
@@ -715,9 +729,6 @@ function ENT:Cripple()
 	self.AnimTbl_Walk = {ACT_WALK_STIMULATED}
 	self.AnimTbl_Run = {ACT_WALK_STIMULATED}
 	//self.MeleeAttackDamage = self.MeleeAttackDamage /2
-	self.MeleeAttackDistance = 25
-	self.MeleeAttackDamageDistance = 45
-	self.MeleeAttackAnimationAllowOtherTasks = false
     self.VJC_Data = {
 	CameraMode = 1, 
 	ThirdP_Offset = Vector(45, 20, -15), 
@@ -773,7 +784,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	else
 		self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_forward1","vjseq_shoved_forward2"}
 end
-    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are doing certaina activities then DO NOT flinch!	
+    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are doing certaina activities then DO NOT flinch!	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)

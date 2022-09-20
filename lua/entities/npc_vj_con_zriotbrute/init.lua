@@ -15,8 +15,7 @@ ENT.MeleeAttackKnockBack_Forward1 = 60
 ENT.MeleeAttackKnockBack_Forward2 = 80 
 ENT.MeleeAttackKnockBack_Up1 = 100 
 ENT.MeleeAttackKnockBack_Up2 = 100 
-ENT.HasCallForHelpAnimation = false
-ENT.CanFlinch = 0
+ENT.FlinchChance = 50
 ENT.IdleSoundPitch = VJ_Set(85, 85)
 ENT.CombatIdleSoundPitch = VJ_Set(85, 85)
 ENT.AlertSoundPitch = VJ_Set(85, 85)
@@ -29,7 +28,7 @@ ENT.Riot_Helmet = true
 ENT.Riot_HelmetHP = 100
 ENT.ChargePercentage = 0.65
 ENT.ChargeDistance = 1500
-ENT.MinChargeDistance = 500
+ENT.MinChargeDistance = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()		
 	self.ShieldModel = ents.Create("prop_vj_animatable")
@@ -49,7 +48,7 @@ function ENT:CustomOnInitialize()
 	self:ZombieSounds()
 	self.Zombie_AdvancedStrain = true
 	self.ChargeAnim = VJ_SequenceToActivity(self, "brute_charge")
-	self.RiotBrute_NextChargeT = CurTime() +5
+	//self.RiotBrute_NextChargeT = CurTime() +5
 	self.RiotBrute_StopChargingT = CurTime()
 	self.RiotBrute_Charging = false	
 end
@@ -66,24 +65,23 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
- if self.RiotBrute_Charging or self.VJ_IsBeingControlled then return end
-    if !self:IsBusy() then
-	   self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
-	if math.random(1,3) == 1 then	
-		   ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
+  if self.VJ_IsBeingControlled or self.RiotBrute_Charging or self.Zombie_Crouching then return end
+	 if math.random(1,3) == 1 && !self:IsBusy() then
+	    self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
+	    if math.random(1,3) == 1 && !ally:IsBusy() then	
+		    ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
 		end
 	end	   
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Crouch(bCrouch)
- if self:IsBusy() or self.RiotBrute_Charging then return end
 	if bCrouch then
 		self:SetHullType(HULL_TINY)
 		self:SetCollisionBounds(Vector(13,13,35),Vector(-13,-13,0))
 		self.AnimTbl_IdleStand = {VJ_SequenceToActivity(self,"crouch_idle2013")}
 		self.AnimTbl_Walk = {VJ_SequenceToActivity(self,"crouch_walk_2013")}
 		self.AnimTbl_Run = {VJ_SequenceToActivity(self,"crouch_walk_2013")} 
-   else	
+    else	
  		self:SetHullType(HULL_HUMAN)
 		self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))  
 	if self.VJ_IsBeingControlled or self.Zombie_AdvancedStrain then
@@ -99,11 +97,11 @@ function ENT:CustomOnThink()
     if self.VJ_IsBeingControlled then
 	    self:Jump()	   	 
 end
- if self.Dead or self.DeathAnimationCodeRan then self.Zombie_DoorToBreak = NULL return end
+ if self.Dead or self.DeathAnimationCodeRan or self.RiotBrute_Charging then self.Zombie_DoorToBreak = NULL return end
     if VJ_AnimationExists(self,ACT_OPEN_DOOR) then
 		if !IsValid(self.Zombie_DoorToBreak) then
 		  if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD))) then
-			for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
+			for _,v in pairs(ents.FindInSphere(self:GetPos(),25)) do
 			  if v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
 			 	if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
 					local anim = string.lower(v:GetSequenceName(v:GetSequence()))
@@ -132,8 +130,8 @@ end
 end 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-  if !self.VJ_IsBeingControlled && !self.RiotBrute_Charging && !self.Zombie_Crouching then
-	 if IsValid(self:GetEnemy()) then
+ if !self.VJ_IsBeingControlled && !self.RiotBrute_Charging && !self.Zombie_Crouching then
+	if IsValid(self:GetEnemy()) then
 	    self.AnimTbl_IdleStand = {ACT_IDLE_AIM_AGITATED}
 	else
 		self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
@@ -227,7 +225,7 @@ end)
 		self:FaceCertainEntity(self:GetEnemy(),true)
 		local tr = util.TraceHull({
 			start = self:GetPos() + self:OBBCenter(),
-			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*50 + self:GetUp()*30,
+			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*30,
 			mins = Vector(self:OBBMins()),
 			maxs = Vector(15, 15, 50),
 			filter = {self}
@@ -296,7 +294,7 @@ function ENT:StopCharging(crash)
 	self.RiotBrute_StopChargingT = CurTime()
 	self.RiotBrute_NextChargeT = CurTime() +math.Rand(10,15)
 	if crash then
-		util.ScreenShake(self:GetPos(),16,100,2,150)
+		util.ScreenShake(self:GetPos(),16,100,1,150)
 	    VJ_CreateSound(self,{"physics/metal/metal_sheet_impact_hard2.wav","physics/metal/metal_sheet_impact_hard6.wav","physics/metal/metal_sheet_impact_hard7.wav","physics/metal/metal_sheet_impact_hard8.wav"},75)
 	    self:VJ_ACT_PLAYACTIVITY(crash && "vjseq_shoved_backwards_heavy",true,false,false)		
 end	
@@ -306,13 +304,13 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+ dmginfo:ScaleDamage(0.10)
  if hitgroup == 9 then
 	dmginfo:ScaleDamage(0.00)	
 end
 	if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
 	VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70)
 	    self.Bleeds = false
-		dmginfo:ScaleDamage(0.10)
 		local spark = ents.Create("env_spark")
 		spark:SetKeyValue("Magnitude","1")
 		spark:SetKeyValue("Spark Trail Length","1")
@@ -367,43 +365,11 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
     end
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BreakHelmet()	
-	local HelmetGib = ents.Create("prop_physics")
-	HelmetGib:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl")
-	HelmetGib:SetPos(self:GetAttachment(self:LookupAttachment("particle_neck")).Pos)
-	HelmetGib:SetAngles(self:GetAttachment(self:LookupAttachment("particle_neck")).Ang)
-	HelmetGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib:Spawn()
-	HelmetGib:Activate()
-	SafeRemoveEntityDelayed(HelmetGib,30)
-	
-	local HelmetGib2 = ents.Create("prop_physics")
-	HelmetGib2:SetPos(self:LocalToWorld(Vector(0,0,-100)))
-	HelmetGib2:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl")
-	HelmetGib2:SetPos(self:GetAttachment(self:LookupAttachment("particle_headr")).Pos)
-	HelmetGib2:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headr")).Ang)
-	HelmetGib2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib2:Spawn()
-	HelmetGib2:Activate()
-	SafeRemoveEntityDelayed(HelmetGib2,30)	
-	
-	local HelmetGib3 = ents.Create("prop_physics")
-	HelmetGib3:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
-	HelmetGib3:SetPos(self:GetAttachment(self:LookupAttachment("particle_headl")).Pos)
-	HelmetGib3:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headl")).Ang)
-	HelmetGib3:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib3:Spawn()
-	HelmetGib3:Activate()
-	SafeRemoveEntityDelayed(HelmetGib3,30)
-
-	local HelmetGib4 = ents.Create("prop_physics")
-	HelmetGib4:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")
-	HelmetGib4:SetPos(self:GetAttachment(self:LookupAttachment("forward")).Pos)
-	HelmetGib4:SetAngles(self:GetAttachment(self:LookupAttachment("forward")).Ang)
-	HelmetGib4:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib4:Spawn()
-	HelmetGib4:Activate()
-	SafeRemoveEntityDelayed(HelmetGib4,30)
+function ENT:BreakHelmet()
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_neck")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_headr")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_headl")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl",{Pos=self:GetAttachment(self:LookupAttachment("forward")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)

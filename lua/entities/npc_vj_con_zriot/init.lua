@@ -72,43 +72,11 @@ end
     end		
 end	
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BreakHelmet()	
-	local HelmetGib = ents.Create("prop_physics")
-	HelmetGib:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl")
-	HelmetGib:SetPos(self:GetAttachment(self:LookupAttachment("particle_neck")).Pos)
-	HelmetGib:SetAngles(self:GetAttachment(self:LookupAttachment("particle_neck")).Ang)
-	HelmetGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib:Spawn()
-	HelmetGib:Activate()
-	SafeRemoveEntityDelayed(HelmetGib,30)
-	
-	local HelmetGib2 = ents.Create("prop_physics")
-	HelmetGib2:SetPos(self:LocalToWorld(Vector(0,0,-100)))
-	HelmetGib2:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl")
-	HelmetGib2:SetPos(self:GetAttachment(self:LookupAttachment("particle_headr")).Pos)
-	HelmetGib2:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headr")).Ang)
-	HelmetGib2:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib2:Spawn()
-	HelmetGib2:Activate()
-	SafeRemoveEntityDelayed(HelmetGib2,30)	
-	
-	local HelmetGib3 = ents.Create("prop_physics")
-	HelmetGib3:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl")
-	HelmetGib3:SetPos(self:GetAttachment(self:LookupAttachment("particle_headl")).Pos)
-	HelmetGib3:SetAngles(self:GetAttachment(self:LookupAttachment("particle_headl")).Ang)
-	HelmetGib3:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib3:Spawn()
-	HelmetGib3:Activate()
-	SafeRemoveEntityDelayed(HelmetGib3,30)
-
-	local HelmetGib4 = ents.Create("prop_physics")
-	HelmetGib4:SetModel("models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl")
-	HelmetGib4:SetPos(self:GetAttachment(self:LookupAttachment("forward")).Pos)
-	HelmetGib4:SetAngles(self:GetAttachment(self:LookupAttachment("forward")).Ang)
-	HelmetGib4:SetCollisionGroup(COLLISION_GROUP_DEBRIS)	
-	HelmetGib4:Spawn()
-	HelmetGib4:Activate()
-	SafeRemoveEntityDelayed(HelmetGib4,30)
+function ENT:BreakHelmet()
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib01.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_neck")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib02.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_headr")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib03.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_headl")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
+    self:CreateGibEntity("prop_physics","models/cpthazama/contagion/zombies/riot_helmet_gib04.mdl",{Pos=self:GetAttachment(self:LookupAttachment("forward")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
