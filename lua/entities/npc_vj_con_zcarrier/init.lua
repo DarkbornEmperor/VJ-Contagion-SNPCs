@@ -8,9 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 520
 ENT.FlinchChance = 30
-ENT.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
-ENT.AnimTbl_Walk = {ACT_WALK_AIM}
-ENT.AnimTbl_Run = {ACT_RUN_AIM}
 ENT.MeleeAttackDamage = 20
 /*ENT.IdleSoundPitch = VJ.SET(85, 85)
 ENT.CombatIdleSoundPitch = VJ.SET(85, 85)
@@ -29,7 +26,12 @@ function ENT:CustomOnInitialize()
     -- Getting up animation
     if VJ_CVAR_AI_ENABLED && math.random(1,2) == 1 then
         timer.Simple(0, function()
-            self:VJ_ACT_PLAYACTIVITY("sit_to_idle1",true,false)
+            self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
+            self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+end)
+        timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
+            self:SetState()
+            end
         end)
     end
 end

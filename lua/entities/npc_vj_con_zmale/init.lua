@@ -391,7 +391,7 @@ function ENT:CustomOnInitialize()
     -- Getting up animation
     if VJ_CVAR_AI_ENABLED && math.random(1,2) == 1 then
         timer.Simple(0, function()
-            self:VJ_ACT_PLAYACTIVITY("sit_to_idle1",true,false)
+            self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
             self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 end)
         timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
