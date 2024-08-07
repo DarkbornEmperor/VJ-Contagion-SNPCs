@@ -1,0 +1,10 @@
+VertexLitGeneric
+{
+    $basetexture                "models\vj_contagion\zombies\ryan_zombie\ryan_hair_diff"
+    $alphatest                  "1"
+    $allowalphatocoverage       "1"
+    $nocull                     "1"
+    $bumpmap                    "models/vj_contagion/zombies/nicole_zombie/generic_norm"
+    $phong                      "1"
+    $phongfresnelranges         "[.05 .5 1]"
+}

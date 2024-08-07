@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+//    "$basetexture" "particle/SmokeStackFallback"
+    "$basetexture" "particle/vj_con/bloodtrail/bloodtrail"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+    "$translucent" "1"
+}

@@ -1,0 +1,6 @@
+"spritecard"
+{
+    $basetexture "particle/vj_con/droplets/droplets"
+    $translucent 1
+    $DEPTHBLEND 1
+}

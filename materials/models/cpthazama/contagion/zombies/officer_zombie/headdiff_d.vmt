@@ -1,9 +1,0 @@
-Patch
-{
-    include "materials/models/cpthazama/contagion/zombies/marcus_zombie\marcus_head_zombie_diff.vmt"
-    insert
-    {
-        $basetexture "models/cpthazama/contagion/zombies/officer_zombie\headdiff_d"
-        $bumpmap "models/cpthazama/contagion/zombies/officer_zombie\headdiff_d_nrm"
-    }
-}

@@ -1,0 +1,9 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\worker_zombie\male_corporate_engineer.vmt"
+    insert
+    {
+        $basetexture    "models\vj_contagion\zombies\worker_zombie\male_corporate_engineerz"
+        $bumpmap        "models\vj_contagion\zombies\worker_zombie\MaleCorporateEngNorm"
+    }
+}

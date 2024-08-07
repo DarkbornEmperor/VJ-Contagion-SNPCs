@@ -1,0 +1,9 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\doctor_zombie\male01_skin.vmt"
+    insert
+    {
+        $basetexture    "models\vj_contagion\zombies\doctor_zombie\male03_skin_diff"
+        $bumpmap        "models\vj_contagion\zombies\doctor_zombie\male03_skin_norm"
+    }
+}

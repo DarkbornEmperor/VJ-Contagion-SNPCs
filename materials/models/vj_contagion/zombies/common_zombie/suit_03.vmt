@@ -1,0 +1,9 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\common_zombie\common_zombie_shared.vmt"
+    insert
+    {
+        $basetexture    "models\vj_contagion\zombies\common_zombie\suit_03"
+        $bumpmap        "models\vj_contagion\zombies\common_zombie\suit_01_bump"
+    }
+}

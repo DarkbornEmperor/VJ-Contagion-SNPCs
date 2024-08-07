@@ -1,0 +1,9 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\marcus_zombie\marcus_head_zombie_diff.vmt"
+    insert
+    {
+        $basetexture "models\vj_contagion\zombies\officer_zombie\headdiff_e"
+        $bumpmap "models\vj_contagion\zombies\officer_zombie\headdiff_e_nrm"
+    }
+}

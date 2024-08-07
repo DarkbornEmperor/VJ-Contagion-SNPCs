@@ -1,9 +1,0 @@
-Patch
-{
-    include "materials/models/cpthazama/contagion/zombies/marcus_zombie/marcus_body_zombie_diff.vmt"
-    insert
-    {
-        $basetexture "models/cpthazama/contagion/zombies/officer_zombie\body02"
-        $phongexponenttexture "models/cpthazama/contagion/zombies/marcus_zombie/marcus_bodye"
-    }
-}

@@ -1,0 +1,18 @@
+EyeRefract
+{
+    $ambientoccltexture     "models/vj_contagion/zombies/zombie_shared/eyeball_shared_ao"
+    $envmap                 "models/vj_contagion/zombies/zombie_shared/envmap_lighting"
+    $envmaptint             "[1 1 1]"
+    $corneatexture          "models/vj_contagion/zombies/zombie_shared/eye_shape"
+    $halflambert            "0"
+    $nodecal                "1"
+    $ambientocclusion       "1"
+    $raytracesphere         "1"
+    $spheretexkillcombo     "0"
+    $eyeballradius          ".5"
+    $ambientocclcolor       "[.69 .30 .26]"
+    //$ambientocclcolor       "[.4 .3 .27]"
+    $dilation               ".5"
+    $parallaxstrength       ".35"
+    $corneabumpstrength     ".4"
+}

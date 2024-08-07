@@ -1,9 +1,0 @@
-Patch
-{
-    include "materials\models/cpthazama/contagion/zombies/common_zombie\common_zombie_skin_shared.vmt"
-    insert
-    {    
-        $basetexture    "models/cpthazama/contagion/zombies/common_zombie\skin_c_02"
-        $bumpmap        "models/cpthazama/contagion/zombies/common_zombie\skin_c_02_bump"
-    }
-}

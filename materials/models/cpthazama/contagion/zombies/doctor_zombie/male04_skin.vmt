@@ -1,9 +1,0 @@
-Patch
-{
-    include "materials/models/cpthazama/contagion/zombies/doctor_zombie\male01_skin.vmt"
-    insert
-    {    
-        $basetexture    "models/cpthazama/contagion/zombies/doctor_zombie\male04_skin_diff"
-        $bumpmap        "models/cpthazama/contagion/zombies/doctor_zombie\male04_skin_norm"
-    }
-}

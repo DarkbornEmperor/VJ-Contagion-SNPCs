@@ -1,0 +1,11 @@
+VertexLitGeneric
+{
+	$basetexture				"models\vj_contagion\zombies\looter_zombie\looter_jacket_03"
+	$bumpmap					"models\vj_contagion\zombies\looter_zombie\looter_jacket_01_norm"
+	$normalmapalphaenvmapmask	"1"
+	$halflambert				"1"
+	$phong						"1"
+	$phongboost					"2"
+	$phongexponent				"3"
+	$phongfresnelranges			"[.05 0.5 1]"
+}

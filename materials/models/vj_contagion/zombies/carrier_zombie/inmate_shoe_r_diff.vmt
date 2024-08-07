@@ -1,0 +1,4 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\carrier_zombie\inmate_shoe_diff.vmt"
+}

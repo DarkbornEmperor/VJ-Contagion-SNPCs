@@ -1,0 +1,37 @@
+VertexLitGeneric
+{
+    $basetexture        "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_diffuse_alpha"
+    $bumpmap        "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_n"
+    $envmapmask        "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_s"
+    $alphatest 1
+
+    $phong                      "1"
+    $phongexponenttexture       "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_g"
+    $phongboost                 "1"
+    $phongfresnelranges         "[0.02 0.03 0.05]"
+    $halflambert                "1"
+	$normalmapalphaenvmapmask   "1"
+
+    $damaged					1
+    $damagethreshold			"0.4"
+    $damagebloodcolor			"[0.47 0 0]"
+    $damagetexture1				"black"
+    $damagetexture2				"black"
+    $damagetexture3				"black"
+    $damagetexture4				"black"
+	Proxies
+	{
+		"ZombieTestProxy"
+		{
+			"0"				"black"			// DF_NONE
+
+			"4"				"models\vj_contagion\zombies\yumi_zombie\damages\damage_larml"			// DF_ARM_LLOWER
+			"8"				"models\vj_contagion\zombies\yumi_zombie\damages\damage_larmr"			// DF_ARM_RLOWER
+
+			"16"			"models\vj_contagion\zombies\yumi_zombie\damages\damage_legr"			// DF_LEG_R
+			"32"			"models\vj_contagion\zombies\yumi_zombie\damages\damage_legl"			// DF_LEG_L
+
+			"32768"			"models\vj_contagion\zombies\yumi_zombie\damages\damage_decap"			// DF_DECAP
+		}
+	}
+}

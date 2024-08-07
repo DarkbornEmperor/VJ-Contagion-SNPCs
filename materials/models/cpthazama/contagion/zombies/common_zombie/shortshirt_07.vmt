@@ -1,9 +1,0 @@
-Patch
-{
-    include "materials\models/cpthazama/contagion/zombies/common_zombie\common_zombie_shared.vmt"
-    insert
-    {    
-        $basetexture    "models/cpthazama/contagion/zombies/common_zombie\shortshirt_07"
-        $bumpmap        "models/cpthazama/contagion/zombies/common_zombie\shortshirt_01_bump"
-    }
-}

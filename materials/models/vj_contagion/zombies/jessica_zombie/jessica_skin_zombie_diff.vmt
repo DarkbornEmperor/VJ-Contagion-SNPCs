@@ -1,0 +1,11 @@
+VertexLitGeneric
+{
+    $basetexture                "models\vj_contagion\zombies\jessica_zombie\jessica_skin_zombie_diff"
+    $bumpmap                    "models\vj_contagion\zombies\jessica_zombie\jessica_skin_zombie_norm"
+    $phong                      "1"
+    $phongexponenttexture       "models\vj_contagion\zombies\jessica_zombie\jessica_skin_zombie_exp"
+    $phongboost                 "8"
+    $phongfresnelranges         "[.05 0.5 1]"
+    $phongalbedotint            "1"
+    $phongtint                  "[.75 .75 1]"
+}

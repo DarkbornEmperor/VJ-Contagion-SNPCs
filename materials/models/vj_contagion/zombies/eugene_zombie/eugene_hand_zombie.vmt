@@ -1,0 +1,16 @@
+VertexLitGeneric
+{
+    $basetexture "models\vj_contagion\zombies\eugene_zombie\eugene_hand_zombie"
+    $bumpmap "models\vj_contagion\zombies\eugene_zombie\eugene_hand_zombie_normals"
+    $normalmapalphaenvmapmask 1
+    $envmap env_cubemap
+    $envmaptint "[.1 .1 .1]"
+    $halflambert "1"
+    $phong "1"
+    $phongexponenttexture "models\vj_contagion\zombies\eugene_zombie\eugene_hand_zombie_exp"
+    $phongboost "2"
+    $phongfresnelranges "[.45 .65 1]"
+    $rimlight "1"
+    $rimlightexponent "1"
+    $rimlightboost ".005"
+}
