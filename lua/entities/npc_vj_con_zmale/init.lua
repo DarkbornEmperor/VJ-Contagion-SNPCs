@@ -805,7 +805,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
         dmginfo:SetDamage(self:Health())
 end
     if self:GetClass() == "npc_vj_con_zcarrier" then
-        dmginfo:ScaleDamage(0.10)
+        dmginfo:ScaleDamage(0.45)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

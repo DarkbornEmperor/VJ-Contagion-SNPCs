@@ -237,9 +237,9 @@ end
                 local colCar = Color(255,191,0,255)
                 for _,v in pairs(ents.GetAll()) do
                     if (v:IsNPC() && v:GetClass() != "obj_vj_bullseye" or v:IsPlayer()) && !v:IsFlagSet(FL_NOTARGET) then
-                        if string.find(v:GetClass(),"npc_vj_con_z") && v:GetClass() != "npc_vj_con_zcarrier" && v:GetClass() != "npc_vj_con_zriotbrute" then
+                        if string.find(v:GetClass(),"npc_vj_con_z") && v:GetClass() != "npc_vj_con_zcarrier" && v:GetClass() != "npc_vj_con_zriotbrute" && v:GetClass() != "npc_vj_con_zscreamer" then
                            table.insert(tbFri,v)
-                        elseif v:GetClass() == "npc_vj_con_zcarrier" or v:GetClass() == "npc_vj_con_zriotbrute" then
+                        elseif v:GetClass() == "npc_vj_con_zcarrier" or v:GetClass() == "npc_vj_con_zriotbrute" or v:GetClass() == "npc_vj_con_zscreamer" then
                            table.insert(tbCar,v)
                         /*elseif v.CON_InfectedVictim then
                            table.insert(tbInf,v)*/
