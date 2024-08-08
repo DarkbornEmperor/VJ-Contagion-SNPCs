@@ -4,7 +4,7 @@ VertexLitGeneric
     $bumpmap        "models\vj_contagion\zombies\mia_zombie\mia_normal"
     $envmapmask        "models\vj_contagion\zombies\mia_zombie\mia_s"
     $alphatest 1
-	$normalmapalphaenvmapmask   "1"
+    $normalmapalphaenvmapmask   "1"
 
     $phong                      "1"
     $phongexponenttexture       "models\vj_contagion\zombies\mia_zombie\mia_g"

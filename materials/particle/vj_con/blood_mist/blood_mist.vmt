@@ -1,6 +1,12 @@
 "spritecard"
 {
-    $basetexture "particle/vj_con/blood_mist/blood_mist"
+    $basetexture "particle/vj_con/blood_mist/blood_mist.vtf"
     $translucent 1
-    $DEPTHBLEND 0
+    $DEPTHBLEND 1
+    $NOCULL 1
+
+//    "SpriteCard_HDR_dx9"
+//    {
+//    $basetexture "particle/vj_con/blood_mist/blood_mist_hdr.vtf"
+//    }
 }

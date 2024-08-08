@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-    "$basetexture" "particle/vj_con/bloodsplash/blood_core"
-    "$vertexcolor" "1"
-    "$vertexalpha" "1"
-    "$translucent" "1"
-}

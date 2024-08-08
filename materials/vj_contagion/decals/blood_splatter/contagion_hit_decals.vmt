@@ -1,6 +1,0 @@
-"DecalModulate"
-{
-	"$basetexture" "vj_contagion\decals\blood_splatter/contagion_hit_decals"
-	"$decal" 1
-	"$translucent" 1
-}

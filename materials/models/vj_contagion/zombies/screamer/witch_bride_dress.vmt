@@ -1,8 +1,8 @@
 VertexLitGeneric
 {
-	$basetexture "models\vj_contagion\zombies\screamer\witch_bride_dress"
-	$allowdiffusemodulation 0
-	$nocull 1
+    $basetexture "models\vj_contagion\zombies\screamer\witch_bride_dress"
+    $allowdiffusemodulation 0
+    $nocull 1
     $halflambert                "1"
     $phong                      "1"
     $phongboost                 "0.3"

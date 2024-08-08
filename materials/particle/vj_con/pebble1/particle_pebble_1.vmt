@@ -1,0 +1,6 @@
+"spritecard"
+{
+    "$basetexture" "particle\vj_con\pebble1\particle_pebble_1"
+    "$blendframes" "0"
+    "$depthblend" "0"
+}

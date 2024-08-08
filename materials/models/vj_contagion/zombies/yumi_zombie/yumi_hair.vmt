@@ -11,5 +11,5 @@ VertexLitGeneric
     $phongboost                 "1"
     $phongfresnelranges         "[0.02 0.03 0.05]"
     $halflambert                "1"
-	$normalmapalphaenvmapmask   "1"
+    $normalmapalphaenvmapmask   "1"
 }

@@ -1,0 +1,12 @@
+"UnlitGeneric"
+{
+    "$basetexture" "effects/vj_con/blood_core"
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+    "$translucent" "1"
+
+    "UnlitGeneric_HDR_dx9"
+    {
+    $basetexture "effects/vj_con/blood_core_hdr.vtf"
+    }
+}
