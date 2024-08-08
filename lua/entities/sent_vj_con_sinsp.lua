@@ -28,13 +28,14 @@ local entsList = {
     "npc_vj_con_zinmate:8",
     "npc_vj_con_zlooter:10",
     "npc_vj_con_zofficer:8",
-    "npc_vj_con_zcarrier:20",
+    "npc_vj_con_zcarrier:40",
     "npc_vj_con_zeugene:6",
     "npc_vj_con_zjessica:6",
     "npc_vj_con_zmanuel:6",
     "npc_vj_con_zmarcus:6",
     "npc_vj_con_zmia:6",
     "npc_vj_con_znick:6",
+    "npc_vj_con_zdiego:6",
     "npc_vj_con_zriot:20",
     "npc_vj_con_ztony:6",
     "npc_vj_con_zyumi:6",
@@ -42,8 +43,10 @@ local entsList = {
     "npc_vj_con_znicole:6",
     "npc_vj_con_zryan:6",
     "npc_vj_con_zlawrence:6",
+    "npc_vj_con_zworker:10",
     "npc_vj_con_zriotbrute:40",
-    "npc_vj_con_zriotsol:15"
+    "npc_vj_con_zscreamer:40",
+    "npc_vj_con_zriotsol:20"
 }
 ENT.EntitiesToSpawn = {
     {SpawnPosition = Vector(0, 0, 0), Entities = entsList},
