@@ -37,9 +37,18 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-    if !self.Flinching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,30) == 1 then
+    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
+    if self.RiotBrute_Charging then return end
+    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,50) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
+    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
+        self:RemoveGesture(self.CurrentAttackAnimation)
+end*/
         self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + 10
+    else
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
+        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
+        end
     end
 end
 /*-----------------------------------------------

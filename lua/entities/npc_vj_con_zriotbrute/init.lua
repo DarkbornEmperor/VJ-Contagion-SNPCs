@@ -390,8 +390,8 @@ end*/
     else
         self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
+        end
     end
-end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BreakHelmet()
