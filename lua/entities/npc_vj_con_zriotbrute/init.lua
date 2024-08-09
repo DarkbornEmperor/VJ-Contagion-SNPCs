@@ -106,10 +106,10 @@ end
         return self.ChargeAnim
 end
     elseif self.Zombie_Crouching && !self.RiotBrute_Charging then
-    if act == ACT_IDLE then
-        return {VJ.SequenceToActivity(self,"crouch_idle2013")}
+    if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+        return ACT_IDLE_STEALTH
     elseif act == ACT_WALK or act == ACT_RUN then
-        return {VJ.SequenceToActivity(self,"crouch_walk_2013")}
+        return ACT_WALK_STEALTH
 end
     elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching && !self.RiotBrute_Charging then
         return ACT_IDLE_AIM_AGITATED

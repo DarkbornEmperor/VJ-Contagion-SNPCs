@@ -466,16 +466,16 @@ end
 function ENT:CustomOnAlert(ent)
  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_idle2013_facearound_01","vjseq_idle2013_facearound_02"},true,math.Rand(0.5,1),true)
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_idle2013_facearound_01","vjseq_idle2013_facearound_02"},"LetAttacks",math.Rand(0.5,1),true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
   if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching then return end
      if math.random(1,3) == 1 && !self:IsBusy() then
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},"LetAttacks",false,true)
         if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
+            ally:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},"LetAttacks",false,true)
         end
     end
 end
@@ -630,9 +630,9 @@ function ENT:CustomOnThink_AIEnabled()
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_WALK) then
         self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_CallForHelp)
     if !self.Zombie_Crippled && !self:IsBusy() then
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},"LetAttacks",false,false)
     elseif !v.Zombie_Crippled && !v:IsBusy() then
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},"LetAttacks",false,false)
 end
         v:PlaySoundSystem("GeneralSpeech",v.SoundTbl_CallForHelp)
         v:Follow(self,true)
@@ -809,9 +809,22 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
+    if self.Zombie_Crippled then return end
+    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
+    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
+        self:RemoveGesture(self.CurrentAttackAnimation)
+end*/
+        self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
+    else
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
+        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
+    end
+end
  if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
-    if !self.Zombie_Crippled && !self.Flinching && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND then
+    if self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND then
         local legs = {6,7,10,11}
         if VJ.HasValue(legs,hitgroup) then
             self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
@@ -831,26 +844,10 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
-    if self.Zombie_Crippled then return end
-    if !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 then
-    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
-        self:RemoveGesture(self.CurrentAttackAnimation)
-end*/
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward_heavy"},true,false,false)
-    else
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-        self.AnimTbl_Flinch = {"vjseq_shoved_backwards_heavy"}
+        self.AnimTbl_Flinch = "vjseq_shoved_backwards_heavy"
         self.NextFlinchTime = 5
     elseif dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
         self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3"}
@@ -868,7 +865,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-    self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
+    //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
     if self:IsMoving() then -- Death anims when moving
        self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}
 end
@@ -2596,7 +2593,7 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1539 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1540 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1541 andyfield_zombie_pain.wav",
-        "vj_contagion/zombies/andyfield/1542 andyfield_zombie_pain.wav",
+        "vj_contagion/zombies/andyfield/1542 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1543 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1544 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1545 andyfield_zombie_pain.wav",
@@ -2645,7 +2642,6 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1331 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1332 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1333 andyfield_zombie_die.wav",
-        "vj_contagion/zombies/andyfield/1334 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1334 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1335 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1336 andyfield_zombie_die.wav",

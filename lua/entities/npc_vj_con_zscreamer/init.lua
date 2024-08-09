@@ -152,7 +152,8 @@ function ENT:CustomOnPreInitialize()
         self.Model = {
         "models/vj_contagion/zombies/screamer.mdl"
 }
-    end
+end
+    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
@@ -169,7 +170,8 @@ function ENT:ZombieVoices()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetSightDirection()
-    return self:GetAttachment(self:LookupAttachment("forward")).Ang:Forward()
+    local att = self:LookupAttachment("eyes") -- Not all models have it, must check for validity
+    return att != 0 && self:GetAttachment(att).Ang:Forward() or self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnChangeActivity(newAct)
@@ -182,17 +184,17 @@ end
 function ENT:CustomOnAlert(ent)
  if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
-        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire",true,false,true)
+        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire","LetAttacks",false,true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
   if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
      if math.random(1,3) == 1 && !self:IsBusy() then
-        VJ.CreateSound(self,{"vj_contagion/zombies/screamer/Banshee Scream 004.wav","vj_contagion/zombies/screamer/Banshee Scream 007.wav","vj_contagion/zombies/screamer/Banshee Scream 008.wav"})
-        self:VJ_ACT_PLAYACTIVITY("vjseq_agitated_02",true,math.Rand(1.5,3),true)
+        VJ.EmitSound(self,{"vj_contagion/zombies/screamer/Banshee Scream 004.wav","vj_contagion/zombies/screamer/Banshee Scream 007.wav","vj_contagion/zombies/screamer/Banshee Scream 008.wav"})
+        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire","LetAttacks",math.Rand(1.5,3),true)
         if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
+            ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2","LetAttacks",false,true)
         end
     end
 end
@@ -222,7 +224,7 @@ function ENT:TranslateActivity(act)
         return ACT_WALK_STEALTH
 end
     elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching then
-        return ACT_IDLE_ANGRY
+        return VJ.SequenceToActivity(self, "agitated_02") //ACT_IDLE_ANGRY
 
     elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Crouching then
         return ACT_RUN_ON_FIRE
@@ -315,20 +317,20 @@ end
             if IsValid(tr5.Entity) then
                 local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
                 if !IsValid(tr5b.Entity) then
-                    anim = VJ.PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
+                    anim = VJ.PICK({"vjseq_climb144_03_inplace"})
                     finalpos = tr5.HitPos
 end
             elseif IsValid(tr4.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+                anim = VJ.PICK({"vjseq_climb120_00_inplace"})
                 finalpos = tr4.HitPos
             elseif IsValid(tr3.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+                anim = VJ.PICK({"vjseq_climb96_04a_inplace"})
                 finalpos = tr3.HitPos
             elseif IsValid(tr2.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
+                anim = VJ.PICK({"vjseq_climb72_04_inplace"})
                 finalpos = tr2.HitPos
             elseif IsValid(tr1.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
+                anim = VJ.PICK({"vjseq_climb48_01_inplace"})
                 finalpos = tr1.HitPos
 end
             if anim != false then
@@ -361,7 +363,7 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-    if !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 then
+    if !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 && self:GetSequence() != self:LookupSequence("shoved_backward_03") then
         self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_01",true,false,false)
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
     end
@@ -375,11 +377,11 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
         self.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
         self.NextFlinchTime = 1
 end
-    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && !self.Zombie_Crouching && !self.Zombie_Climbing && !self.RiotBrute_Charging && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") -- If we are doing certaina activities then DO NOT flinch!
+    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && !self.Zombie_Crouching && !self.Zombie_Climbing && self:GetSequence() != self:LookupSequence("shoved_forward_01") -- If we are doing certaina activities then DO NOT flinch!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    if self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Flinching or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
+    if self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self:GetSequence() == self:LookupSequence("shoved_forward_01") or self:GetSequence() == self:LookupSequence("shoved_backward_03") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
