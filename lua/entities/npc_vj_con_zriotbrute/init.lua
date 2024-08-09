@@ -51,16 +51,20 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_CustomOnInitialize()
-    self.ShieldModel = ents.Create("prop_vj_animatable")
-    self.ShieldModel:SetModel("models/vj_contagion/zombies/police_shield.mdl")
-    self.ShieldModel:SetLocalPos(self:GetPos())
-    self.ShieldModel:SetOwner(self)
-    self.ShieldModel:SetParent(self)
-    self.ShieldModel:SetCollisionGroup(COLLISION_GROUP_WEAPON)
-    self.ShieldModel:Spawn()
-    self.ShieldModel:Activate()
-    self.ShieldModel:SetSolid(SOLID_NONE)
-    self.ShieldModel:AddEffects(EF_BONEMERGE)
+    timer.Simple(0, function()
+    local shield = ents.Create("prop_vj_animatable")
+    shield:SetModel("models/vj_contagion/zombies/police_shield.mdl")
+    shield:SetLocalPos(self:GetPos())
+    shield:SetOwner(self)
+    shield:SetParent(self)
+    shield:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+    shield:Spawn()
+    shield:Activate()
+    //shield:SetSolid(SOLID_NONE)
+    shield:AddEffects(EF_BONEMERGE)
+    shield.VJTag_IsAttackable = false
+    self.Shield = shield
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoices()
@@ -245,11 +249,11 @@ end)
             endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*30,
             mins = Vector(self:OBBMins()),
             maxs = Vector(15, 15, 50),
-            filter = {self}
+            filter = {self,self.Shield}
         })
         local hitEnt = NULL
             if IsValid(tr.Entity) && tr.Entity != self && (tr.Entity != self.VJ_TheController && tr.Entity != self.VJ_TheControllerBullseye) then
-              if self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute" then
+              if self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute" && IsValid(self.Shield) && tr.Entity != self.Shield then
                     hitEnt = tr.Entity
                     VJ.CreateSound(self,"physics/metal/metal_sheet_impact_hard8.wav",75)
                     local dmginfo = DamageInfo()
@@ -279,7 +283,7 @@ end
         end
     end
 end
-        if CurTime() > self.RiotBrute_StopChargingT or tr.HitWorld or (IsValid(tr.Entity) && tr.Entity:GetClass() != "prop_physics" && self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute") then
+        if CurTime() > self.RiotBrute_StopChargingT or tr.HitWorld or (IsValid(tr.Entity) && tr.Entity:GetClass() != "prop_physics" && self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute" && IsValid(self.Shield) && tr.Entity != self.Shield) then
             self:StopCharging(tr && tr.HitWorld)
     end
 end
@@ -375,11 +379,19 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-  if self.RiotBrute_Charging then return end
-    if self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,50) == 1 then
+    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
+    if self.RiotBrute_Charging then return end
+    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,50) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
+    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
+        self:RemoveGesture(self.CurrentAttackAnimation)
+end*/
         self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + 10
+    else
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
+        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
     end
+end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BreakHelmet()
