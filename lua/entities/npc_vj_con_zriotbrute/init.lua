@@ -32,7 +32,7 @@ ENT.MinChargeDistance = 200
 function ENT:CustomOnInitialize()
     self:Zombie_CustomOnInitialize()
     self:ZombieVoices()
-    self.Zombie_AdvancedStrain = true
+    self.Zombie_Sprinter = true
     self.ChargeAnim = VJ.SequenceToActivity(self, "brute_charge")
     self.RiotBrute_NextChargeT = CurTime() + math.Rand(15,25)
     self.RiotBrute_StopChargingT = CurTime()

@@ -18,7 +18,7 @@ ENT.BeforeMeleeAttackSoundPitch = VJ.SET(85, 85)
 ENT.PainSoundPitch = VJ.SET(85, 85)
 ENT.DeathSoundPitch = VJ.SET(85, 85)*/
 -- Custom
-ENT.Zombie_AdvancedStrain = true
+ENT.Zombie_Sprinter = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
     self:Zombie_CustomOnInitialize()
