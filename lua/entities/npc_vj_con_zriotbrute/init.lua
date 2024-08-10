@@ -175,7 +175,7 @@ end
     local dist = self:GetPos():Distance(ent:GetPos())
         if ((controlled && self.VJ_TheController:KeyDown(IN_SPEED)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:BusyWithActivity() && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
             self:VJ_ACT_PLAYACTIVITY("brute_charge_begin",true,false,true)
-            self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_CallForHelp)
+            self:PlaySoundSystem("Alert",self.SoundTbl_CallForHelp)
             timer.Simple(self:SequenceDuration(self:LookupSequence("brute_charge_begin")),function()
                 if IsValid(self) then
                     self.HasMeleeAttack = false
