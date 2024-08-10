@@ -200,7 +200,7 @@ function ENT:StopCharging(crash)
     self.RiotBrute_NextChargeT = CurTime() +math.Rand(10,15)
     if crash then
         util.ScreenShake(self:GetPos(),16,100,1,150)
-        VJ.CreateSound(self,{"physics/metal/metal_sheet_impact_hard2.wav","physics/metal/metal_sheet_impact_hard6.wav","physics/metal/metal_sheet_impact_hard7.wav","physics/metal/metal_sheet_impact_hard8.wav"},75)
+        VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Metal0"..math.random(1,4)..".wav",75,100)
         self:VJ_ACT_PLAYACTIVITY(crash && "vjseq_shoved_backwards_heavy",true,false,false)
     end
 end

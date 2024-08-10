@@ -103,7 +103,7 @@ end
     if key == "break_door" then
         if IsValid(self.Zombie_DoorToBreak) then
         self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
-        VJ.EmitSound(self,{"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood1.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood2.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood3.wav"},75,100)
+        VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood0"..math.random(1,4)..".wav",75,100)
         local doorDmg = self.MeleeAttackDamage
         local door = self.Zombie_DoorToBreak
         if door.doorHP == nil then
