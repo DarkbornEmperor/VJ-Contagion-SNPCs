@@ -72,28 +72,23 @@ function ENT:ZombieVoices()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply)
-    ply:ChatPrint("ATTACK2: Charge Attack")
-    ply:ChatPrint("JUMP: Jump")
-    ply:ChatPrint("DUCK: Crouch")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnCallForHelp(ally)
-  if self.VJ_IsBeingControlled or self.RiotBrute_Charging or self.Zombie_Crouching then return end
-     if math.random(1,3) == 1 && !self:IsBusy() then
-        self:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar1",true,false,true)
-        if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Crouch(bCrouch)
-    if bCrouch then
-        self:SetHullType(HULL_TINY)
-        self:SetCollisionBounds(Vector(13,13,35),Vector(-13,-13,0))
-    else
-        self:SetHullType(HULL_HUMAN)
-        self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+  ply:ChatPrint("DUCK: Crouch")
+  ply:ChatPrint("JUMP: Jump")
+  ply:ChatPrint("RELOAD: Roar")
+  ply:ChatPrint("USE: Break Door")
+  ply:ChatPrint("ATTACK2: Command")
+  ply:ChatPrint("SPEED: Charge")
+
+    net.Start("vj_con_zombie_hud")
+        net.WriteBool(false)
+        net.WriteEntity(self)
+    net.Send(ply)
+
+    function self.VJ_TheControllerEntity:CustomOnStopControlling()
+        net.Start("vj_con_zombie_hud")
+            net.WriteBool(true)
+            net.WriteEntity(self)
+        net.Send(ply)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,118 +116,7 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
- if self:IsBusy() or self.RiotBrute_Charging or self.Zombie_Crouching then return end
-    if self.VJ_IsBeingControlled then
-        self:Jump()
-end
- if self.Dead or self.DeathAnimationCodeRan or self.RiotBrute_Charging then self.Zombie_DoorToBreak = NULL return end
-    if VJ.AnimExists(self,ACT_OPEN_DOOR) then
-        if !IsValid(self.Zombie_DoorToBreak) then
-          if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD))) then
-            for _,v in pairs(ents.FindInSphere(self:GetPos(),25)) do
-              if v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
-                 if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
-                    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
-                    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
-                        self.Zombie_DoorToBreak = v
-                break
-            end
-        end
-    end
-end
-        else
-            //local dist = self:VJ_GetNearestPointToEntityDistance(self.Zombie_DoorToBreak)
-            if self.PlayingAttackAnimation or !self.Zombie_DoorToBreak:Visible(self) /*or (self:GetActivity() == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_DoorToBreak = NULL return end
-            if self:GetActivity() != ACT_OPEN_DOOR then
-                local ang = self:GetAngles()
-                self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
-                self:VJ_ACT_PLAYACTIVITY(ACT_OPEN_DOOR,true,false,false)
-                self:SetState(VJ_STATE_ONLY_ANIMATION)
-                self:StopMoving()
-        end
-    end
-end
-        if !IsValid(self.Zombie_DoorToBreak) then
-            self:SetState()
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-  if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self.RiotBrute_Charging then
-     if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
-        self:Crouch(true)
-        self.Zombie_Crouching = true
-    else
-        self:Crouch(false)
-        self.Zombie_Crouching = false
-    end
-end
-  if self.VJ_IsBeingControlled && !self.RiotBrute_Charging then
-     if self.VJ_TheController:KeyDown(IN_DUCK) then
-        self:Crouch(true)
-        self.Zombie_Crouching = true
-    else
-        self:Crouch(false)
-        self.Zombie_Crouching = false
-    end
-end
-    //print(self:GetBlockingEntity())
-    // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
-    if !self.RiotBrute_Charging && !self.Zombie_Crouching && self.Zombie_AllowClimbing && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb && !self.RiotBrute_Charging then
-        //print("-------------------------------------------------------------------------------------")
-        local anim = false
-        local finalpos = self:GetPos()
-        local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
-        local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
-        local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
-        local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
-        local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
-        local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
-
-        //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
-        //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
-        //PrintTable(tr2)
-        if !IsValid(tru.Entity) then
-            if IsValid(tr5.Entity) then
-                local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
-                if !IsValid(tr5b.Entity) then
-                    anim = VJ.PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
-                    finalpos = tr5.HitPos
-end
-            elseif IsValid(tr4.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-                finalpos = tr4.HitPos
-            elseif IsValid(tr3.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-                finalpos = tr3.HitPos
-            elseif IsValid(tr2.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
-                finalpos = tr2.HitPos
-            elseif IsValid(tr1.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
-                finalpos = tr1.HitPos
-end
-            if anim != false then
-                //print(anim)
-                self:SetGroundEntity(NULL)
-                self.Zombie_Climbing = true
-                timer.Simple(0.4,function()
-                    if IsValid(self) then
-                        self:SetPos(finalpos)
-    end
-end)
-                self:VJ_ACT_PLAYACTIVITY(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
-                    vsched.RunCode_OnFinish = function()
-                        //self:SetGroundEntity(NULL)
-                        //self:SetPos(finalpos)
-                        self.Zombie_Climbing = false
-                    end
-                end)
-            end
-            self.Zombie_NextClimb = CurTime() + 0.1 //5
-        end
-    end
+function ENT:Zombie_CustomOnThink_AIEnabled()
     if self.Zombie_Crouching or self.Zombie_Climbing then return end
     local ent = self:GetEnemy()
     local hasEnemy = IsValid(ent)
@@ -289,7 +173,7 @@ end
 end
     if hasEnemy && !self.Zombie_Crouching && !self.Zombie_Climbing then
     local dist = self:GetPos():Distance(ent:GetPos())
-        if ((controlled && self.VJ_TheController:KeyDown(IN_ATTACK2)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:BusyWithActivity() && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
+        if ((controlled && self.VJ_TheController:KeyDown(IN_SPEED)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:BusyWithActivity() && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
             self:VJ_ACT_PLAYACTIVITY("brute_charge_begin",true,false,true)
             self:PlaySoundSystem("GeneralSpeech",self.SoundTbl_CallForHelp)
             timer.Simple(self:SequenceDuration(self:LookupSequence("brute_charge_begin")),function()
