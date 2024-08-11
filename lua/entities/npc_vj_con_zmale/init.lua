@@ -464,7 +464,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnCallForHelp(ally)
-  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.Zombie_Crouching then return end
+  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
      if math.random(1,3) == 1 && !self:IsBusy() then
         self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
         if math.random(1,3) == 1 && !ally:IsBusy() then
@@ -535,7 +535,8 @@ end
         return ACT_WALK_HURT
 end
     elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-        return ACT_IDLE_ANGRY
+        //return ACT_IDLE_ANGRY
+        return self:ResolveAnimation({ACT_IDLE_ANGRY})
 
     elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
         return ACT_RUN_STIMULATED
