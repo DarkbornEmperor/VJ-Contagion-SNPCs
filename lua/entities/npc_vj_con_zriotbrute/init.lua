@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = 600
+ENT.StartHealth = 600 // 200
 ENT.MeleeAttackDamage = 20
 ENT.HasMeleeAttackKnockBack = false
 ENT.MeleeAttackKnockBack_Forward1 = 60

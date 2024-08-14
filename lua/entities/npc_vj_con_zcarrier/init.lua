@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = 520
+ENT.StartHealth = 520 // 220
 ENT.FlinchChance = 30
 ENT.MeleeAttackDamage = 20
 /*ENT.IdleSoundPitch = VJ.SET(85, 85)

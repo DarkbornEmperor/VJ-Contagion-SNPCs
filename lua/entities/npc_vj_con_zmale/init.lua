@@ -16,7 +16,7 @@ ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackDamage = 10
+ENT.MeleeAttackDamage = 10 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.SlowPlayerOnMeleeAttack = true
@@ -68,8 +68,8 @@ ENT.SoundTbl_Impact = {
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_06.wav",
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
 }
-ENT.NextSoundTime_Idle = VJ.SET(3, 5)
-ENT.NextSoundTime_Investigate = VJ.SET(3, 5)
+ENT.NextSoundTime_Idle = VJ.SET(3,5)
+ENT.NextSoundTime_Investigate = VJ.SET(3,5)
 ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Zombie_Climbing = false
@@ -626,7 +626,7 @@ function ENT:CustomOnThink_AIEnabled()
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
     if !self.Zombie_Crippled && !self:BusyWithActivity() && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") then
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false)
     elseif !v.Zombie_Crippled && !v:BusyWithActivity() && v:GetSequence() != v:LookupSequence("shoved_forward_01") && self:GetSequence() != self:LookupSequence("shoved_backward_03") && v:GetSequenceName(v:GetSequence()) != "brute_charge_begin" && v:GetSequenceName(v:GetSequence()) != "shoved_backwards_wall1" && v:GetSequence() != v:LookupSequence("shoved_forward_heavy") && v:GetSequence() != v:LookupSequence("shoved_forward1") && v:GetSequence() != v:LookupSequence("shoved_forward2") then
         v:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
 end
@@ -734,7 +734,6 @@ function ENT:MultipleMeleeAttacks()
    if self.Zombie_Crippled then
        self.MeleeAttackDistance = 25
        self.MeleeAttackDamageDistance = 45
-       self.NextAnyAttackTime_Melee = false
        self.AnimTbl_MeleeAttack = {
        "vjseq_crawl_melee2013_1",
        "vjseq_crawl_melee2013_2"
@@ -742,7 +741,6 @@ function ENT:MultipleMeleeAttacks()
        return end
 /*
    --if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
-       self.NextAnyAttackTime_Melee = false
        self.AnimTbl_MeleeAttack = {
        "vjseq_melee_cont_01"
 }
@@ -760,7 +758,7 @@ function ENT:MultipleMeleeAttacks()
        "vjseq_vjges_melee2013_03",
        "vjseq_vjges_melee2013_04",
        "vjseq_vjges_melee2013_05",
-       "vvjges_melee2013_06",
+       "vjseq_vjges_melee2013_06",
        "vjseq_vjges_melee2013_07",
        "vjseq_vjges_melee2013_08"
        //"vjges_"..ACT_MELEE_ATTACK2
