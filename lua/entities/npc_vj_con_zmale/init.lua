@@ -700,7 +700,7 @@ end
                 anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
                 finalpos = tr3.HitPos
             elseif IsValid(tr2.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72",""})
+                anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72"})
                 finalpos = tr2.HitPos
             elseif IsValid(tr1.Entity) then
                 anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
@@ -801,7 +801,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
         dmginfo:SetDamage(self:Health())
 end
     if self:GetClass() == "npc_vj_con_zcarrier" then
-        dmginfo:ScaleDamage(0.45)
+        dmginfo:ScaleDamage(0.5)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
