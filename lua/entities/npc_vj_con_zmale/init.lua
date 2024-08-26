@@ -621,15 +621,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
  self:Zombie_CustomOnThink_AIEnabled()
- if CurTime() > self.Zombie_NextRoarT then
+ if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self.Zombie_Crippled && !self:BusyWithActivity() then
   for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging then
+    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v.Zombie_Crippled && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
-    if !self.Zombie_Crippled && !self:BusyWithActivity() && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") then
         self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false)
-    elseif !v.Zombie_Crippled && !v:BusyWithActivity() && v:GetSequence() != v:LookupSequence("shoved_forward_01") && self:GetSequence() != self:LookupSequence("shoved_backward_03") && v:GetSequenceName(v:GetSequence()) != "brute_charge_begin" && v:GetSequenceName(v:GetSequence()) != "shoved_backwards_wall1" && v:GetSequence() != v:LookupSequence("shoved_forward_heavy") && v:GetSequence() != v:LookupSequence("shoved_forward1") && v:GetSequence() != v:LookupSequence("shoved_forward2") then
         v:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
-end
         v:PlaySoundSystem("CallForHelp",v.SoundTbl_CallForHelp)
         v:Follow(self,true)
         v.IsFollowing = true
@@ -639,7 +636,7 @@ end
 end
  if CurTime() > self.Zombie_NextCommandT then
   for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() && v:GetSequence() != v:LookupSequence("shoved_forward_01") && self:GetSequence() != self:LookupSequence("shoved_backward_03") && v:GetSequenceName(v:GetSequence()) != "brute_charge_begin" && v:GetSequenceName(v:GetSequence()) != "shoved_backwards_wall1" && v:GetSequence() != v:LookupSequence("shoved_forward_heavy") && v:GetSequence() != v:LookupSequence("shoved_forward1") && v:GetSequence() != v:LookupSequence("shoved_forward2") then
+    if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
         local bullseye = self.VJ_TheControllerBullseye
         v:PlaySoundSystem("InvestigateSound",v.SoundTbl_Investigate)
         v:FollowReset()
