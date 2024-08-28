@@ -621,12 +621,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
  self:Zombie_CustomOnThink_AIEnabled()
- if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self.Zombie_Crippled && !self:BusyWithActivity() then
+ if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:BusyWithActivity() then
   for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v.Zombie_Crippled && !v:BusyWithActivity() then
+    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false)
-        v:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false)
+    if !self.Zombie_Crippled && !self.Zombie_Crouching then
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false) end
+    if !v.Zombie_Crippled && !self.Zombie_Crouching then
+        v:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false) end
         v:PlaySoundSystem("CallForHelp",v.SoundTbl_CallForHelp)
         v:Follow(self,true)
         v.IsFollowing = true
@@ -644,7 +646,7 @@ end
         timer.Simple(0.1, function() if IsValid(v) then
         v:SetLastPosition(bullseye:GetPos())
         v:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() end end) end end)
-        self.Zombie_NextCommandT = CurTime() + 1
+        self.Zombie_NextCommandT = CurTime() + 3
         end
     end
 end
