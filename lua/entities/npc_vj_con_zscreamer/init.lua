@@ -37,8 +37,7 @@ ENT.VJC_Data = {
     FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
-    -- ====== File Path Variables ====== --
-    -- Leave blank if you don't want any sounds to play
+    -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_contagion/zombies/shared/z_hit-01.wav",
 "vj_contagion/zombies/shared/z_hit-02.wav",
