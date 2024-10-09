@@ -105,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckVisibility(pos,ent,mdl)
     local check = ents.Create("prop_vj_animatable")
-    check:SetModel(mdl or "models/cpthazama/contagion/zombies/carrier_zombie.mdl")
+    check:SetModel(mdl or "models/vj_contagion/zombies/carrier_zombie.mdl")
     check:SetPos(pos)
     check:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
     check:Spawn()

@@ -8,7 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 520 // 220
 ENT.FlinchChance = 30
-ENT.MeleeAttackDamage = 20
 /*ENT.IdleSoundPitch = VJ.SET(85, 85)
 ENT.CombatIdleSoundPitch = VJ.SET(85, 85)
 ENT.InvestigateSoundPitch = VJ.SET(85, 85)

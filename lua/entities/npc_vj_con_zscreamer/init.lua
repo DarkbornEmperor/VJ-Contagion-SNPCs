@@ -16,7 +16,7 @@ ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackDamage = 30
+ENT.MeleeAttackDamage = 35
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.SlowPlayerOnMeleeAttack = true
@@ -63,16 +63,16 @@ ENT.SoundTbl_Impact = {
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_06.wav",
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
 }
-ENT.NextSoundTime_Idle = VJ.SET(3, 5)
-ENT.NextSoundTime_Investigate = VJ.SET(3, 5)
-ENT.IdleSoundPitch = VJ.SET(120, 120)
-ENT.CombatIdleSoundPitch = VJ.SET(120, 120)
-ENT.InvestigateSoundPitch = VJ.SET(120, 120)
-ENT.AlertSoundPitch = VJ.SET(120, 120)
-ENT.CallForHelpSoundPitch = VJ.SET(120, 120)
-ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120, 120)
-ENT.PainSoundPitch = VJ.SET(120, 120)
-ENT.DeathSoundPitch = VJ.SET(120, 120)
+ENT.NextSoundTime_Idle = VJ.SET(3,5)
+ENT.NextSoundTime_Investigate = VJ.SET(3,5)
+ENT.IdleSoundPitch = VJ.SET(120,120)
+ENT.CombatIdleSoundPitch = VJ.SET(120,120)
+ENT.InvestigateSoundPitch = VJ.SET(120,120)
+ENT.AlertSoundPitch = VJ.SET(120,120)
+ENT.CallForHelpSoundPitch = VJ.SET(120,120)
+ENT.BeforeMeleeAttackSoundPitch = VJ.SET(120,120)
+ENT.PainSoundPitch = VJ.SET(120,120)
+ENT.DeathSoundPitch = VJ.SET(120,120)
 ENT.GeneralSoundPitch1 = 120
 -- Custom
 ENT.Zombie_Climbing = false

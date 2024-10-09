@@ -16,7 +16,7 @@ ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackDamage = 10 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
+ENT.MeleeAttackDamage = 21 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.SlowPlayerOnMeleeAttack = true
@@ -745,20 +745,20 @@ function ENT:MultipleMeleeAttacks()
 */
    if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
        self.AnimTbl_MeleeAttack = {
-       "vjseq_vjges_melee2020_player_01",
-       "vjseq_vjges_melee2020_player_02",
-       "vjseq_vjges_melee2020_player_03"
+       "vjges_melee2020_player_01",
+       "vjges_melee2020_player_02",
+       "vjges_melee2020_player_03"
 }
    elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
        self.AnimTbl_MeleeAttack = {
-       "vjseq_vjges_melee2013_01",
-       "vjseq_vjges_melee2013_02",
-       "vjseq_vjges_melee2013_03",
-       "vjseq_vjges_melee2013_04",
-       "vjseq_vjges_melee2013_05",
-       "vjseq_vjges_melee2013_06",
-       "vjseq_vjges_melee2013_07",
-       "vjseq_vjges_melee2013_08"
+       "vjges_melee2013_01",
+       "vjges_melee2013_02",
+       "vjges_melee2013_03",
+       "vjges_melee2013_04",
+       "vjges_melee2013_05",
+       "vjges_melee2013_06",
+       "vjges_melee2013_07",
+       "vjges_melee2013_08"
        //"vjges_"..ACT_MELEE_ATTACK2
 }
     end
@@ -806,19 +806,17 @@ end
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
     if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
     if self.Zombie_Crippled then return end
-    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
+    if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
         self:RemoveGesture(self.CurrentAttackAnimation)
-end*/
-        self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
-    else
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
+end
+        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2","vjseq_shoved_forward_heavy"},true,false,false)
+        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)
     end
 end
  if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
-    if self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND then
+    if self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
         local legs = {6,7,10,11}
         if VJ.HasValue(legs,hitgroup) then
             self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
@@ -840,12 +838,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
-    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-        self.AnimTbl_Flinch = "vjseq_shoved_backwards_heavy"
-        self.NextFlinchTime = 5
-    elseif dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
-        self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3"}
-        self.NextFlinchTime = 5
+    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
+        self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
+        self.NextFlinchTime = math.Rand(5,8)
     else
         self.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
         self.NextFlinchTime = 1
