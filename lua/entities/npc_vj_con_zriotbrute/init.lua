@@ -8,10 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 600 // 200
 ENT.HasMeleeAttackKnockBack = false
-ENT.MeleeAttackKnockBack_Forward1 = 60
-ENT.MeleeAttackKnockBack_Forward2 = 80
-ENT.MeleeAttackKnockBack_Up1 = 100
-ENT.MeleeAttackKnockBack_Up2 = 100
 ENT.FlinchChance = 50
 ENT.IdleSoundPitch = VJ.SET(85, 85)
 ENT.CombatIdleSoundPitch = VJ.SET(85, 85)
@@ -204,11 +200,11 @@ function ENT:StopCharging(crash)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
- dmginfo:ScaleDamage(0.10)
- if hitgroup == 9 then
-    dmginfo:ScaleDamage(0.00)
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+    return self:GetForward()*60 + self:GetUp()*100
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
     if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
@@ -256,7 +252,7 @@ end
         spark:Fire("StopSpark", "", 0.001)
         self:DeleteOnRemove(spark)
     else
-        dmginfo:ScaleDamage(0.1)
+        dmginfo:ScaleDamage(0.5)
         end
     end
 end

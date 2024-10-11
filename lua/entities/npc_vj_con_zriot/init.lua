@@ -76,7 +76,7 @@ end
         spark:Fire("StopSpark", "", 0.001)
         self:DeleteOnRemove(spark)
     else
-        dmginfo:ScaleDamage(0.1)
+        dmginfo:ScaleDamage(0.5)
         end
     end
 end
