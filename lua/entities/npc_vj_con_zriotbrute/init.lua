@@ -143,7 +143,7 @@ function ENT:Zombie_CustomOnThink_AIEnabled()
                     dmginfo:SetInflictor(self)
                     tr.Entity:TakeDamageInfo(dmginfo,self,self)
                     tr.Entity:SetGroundEntity(NULL)
-                    tr.Entity:SetVelocity(self:GetForward() *math.random(self.MeleeAttackKnockBack_Forward1, self.MeleeAttackKnockBack_Forward2) *2 + self:GetUp()*math.random(self.MeleeAttackKnockBack_Up1, self.MeleeAttackKnockBack_Up2) *2)
+                    tr.Entity:SetVelocity(self:GetForward()*60 *2 + self:GetUp()*100 *2)
 
                 if tr.Entity:GetClass() == "prop_physics" then
                 local HitProp = tr.Entity:GetPhysicsObject()
