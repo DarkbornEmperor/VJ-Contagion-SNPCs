@@ -10,13 +10,13 @@ include("shared.lua")
 ENT.Riot_Helmet = true
 ENT.Riot_HelmetHP = 25
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
- if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
-    dmginfo:SetDamage(self:Health())
-end
-    if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet then
+function ENT:ArmorDamage(dmginfo,hitgroup,status)
+ if status == "PreDamage" then
+    if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+    if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
+end
         self.Bleeds = false
         dmginfo:ScaleDamage(0.10)
         local spark = ents.Create("env_spark")
@@ -46,7 +46,7 @@ end
         self:SetBodygroup(1,1)
 end
         self:RemoveAllDecals()
-        self:BreakHelmet()
+        self:BreakHelmet() end
         end
     end
 end

@@ -9,9 +9,7 @@ if VJExists == true then
     VJ.AddCategoryInfo("Contagion", {Icon = "vj_contagion/icons/contagion.png"})
 
     local spawnCategory = "Contagion"
-    VJ.AddNPC("Common Zombie (Male)","npc_vj_con_zmale",spawnCategory)
     VJ.AddNPC("Civilian Zombie","npc_vj_con_zcivi",spawnCategory)
-    VJ.AddNPC("Common Zombie (Female)","npc_vj_con_zfemale",spawnCategory)
     VJ.AddNPC("Doctor Zombie","npc_vj_con_zdoc",spawnCategory)
     VJ.AddNPC("Curtis (Zombie)","npc_vj_con_zcurtis",spawnCategory)
     VJ.AddNPC("Diego (Zombie)","npc_vj_con_zdiego",spawnCategory)
@@ -36,6 +34,8 @@ if VJExists == true then
     VJ.AddNPC("Tony (Zombie)","npc_vj_con_ztony",spawnCategory)
     VJ.AddNPC("Yumi (Zombie)","npc_vj_con_zyumi",spawnCategory)
     VJ.AddNPC("Screamer Zombie","npc_vj_con_zscreamer",spawnCategory)
+    VJ.AddNPC("Zombie (Female)","npc_vj_con_zfemale",spawnCategory)
+    VJ.AddNPC("Zombie (Male)","npc_vj_con_zmale",spawnCategory)
 
     -- Spawners and Random
     VJ.AddNPC("Random Zombie","sent_vj_con_zom",spawnCategory)

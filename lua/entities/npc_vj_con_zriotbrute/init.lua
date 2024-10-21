@@ -24,8 +24,8 @@ ENT.ChargePercentage = 0.65
 ENT.ChargeDistance = 1500
 ENT.MinChargeDistance = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-    self:Zombie_CustomOnInitialize()
+function ENT:Init()
+    self:Zombie_Init()
     self:ZombieVoices()
     self.Zombie_Sprinter = true
     self.ChargeAnim = VJ.SequenceToActivity(self, "brute_charge")
@@ -45,7 +45,7 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_CustomOnInitialize()
+function ENT:Zombie_Init()
     timer.Simple(0, function()
     local shield = ents.Create("prop_vj_animatable")
     shield:SetModel("models/vj_contagion/zombies/police_shield.mdl")
@@ -111,7 +111,7 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_CustomOnThink_AIEnabled()
+function ENT:Zombie_OnThinkActive()
     if self.Zombie_Crouching or self.Zombie_Climbing then return end
     local ent = self:GetEnemy()
     local hasEnemy = IsValid(ent)
@@ -204,8 +204,8 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
     return self:GetForward()*60 + self:GetUp()*100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+function ENT:ArmorDamage(dmginfo,hitgroup,status)
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
         self.Bleeds = false
@@ -235,7 +235,7 @@ end
         self:BreakHelmet()
     end
 end
-     if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
     if math.random(1,3) == 1 then
@@ -257,22 +257,6 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
-    if self.RiotBrute_Charging then return end
-    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,50) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
-    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-    /*if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
-        self:RemoveGesture(self.CurrentAttackAnimation)
-end*/
-        self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_heavy",true,false,false)
-    else
-        self:VJ_ACT_PLAYACTIVITY({"vjseq_shoved_forward1","vjseq_shoved_forward2"},true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BreakHelmet()
     self:CreateGibEntity("prop_physics","models/vj_contagion/zombies/riot_helmet_gib01.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_neck")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
     self:CreateGibEntity("prop_physics","models/vj_contagion/zombies/riot_helmet_gib02.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_headr")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
@@ -280,7 +264,7 @@ function ENT:BreakHelmet()
     self:CreateGibEntity("prop_physics","models/vj_contagion/zombies/riot_helmet_gib04.mdl",{Pos=self:GetAttachment(self:LookupAttachment("forward")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     VJ_CON_ApplyCorpseEffects(self,corpseEnt)
     self:CreateExtraDeathCorpse("prop_physics","models/vj_contagion/zombies/police_shield.mdl",{Pos=self:GetAttachment(self:LookupAttachment("particle_larmr")).Pos + self:GetUp()*-40})
 end

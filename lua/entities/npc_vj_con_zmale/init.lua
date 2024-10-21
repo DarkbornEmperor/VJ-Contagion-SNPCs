@@ -90,10 +90,10 @@ ENT.IsContagionZombie = true
 
 util.AddNetworkString("vj_con_zombie_hud")
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:CustomOnFootStepSound()
+        self:OnFootstepSound()
     elseif key == "melee" then
         self:MeleeAttackCode()
     elseif key == "body_hit" then
@@ -148,7 +148,7 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
     if self:GetClass() == "npc_vj_con_zmale" then
         self.Model = {
         "models/vj_contagion/zombies/common_zombie_a_c.mdl",
@@ -288,7 +288,7 @@ end
         if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_CustomOnInitialize()
+function ENT:Zombie_Init()
      if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
         self:SetBodygroup(1,math.random(0,2))
         self:SetSkin(math.random(0,7))
@@ -384,12 +384,12 @@ end
     self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:VJ_GetDifficultyValue(self.StartHealth))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-    self:Zombie_CustomOnInitialize()
+function ENT:Init()
+    self:Zombie_Init()
     self:ZombieVoices()
     if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
     -- Getting up animation
-    if VJ_CVAR_AI_ENABLED && math.random(1,2) == 1 then
+    if VJ_CVAR_AI_ENABLED && math.random(1,3) == 1 then
         timer.Simple(0, function()
             self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
             self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
@@ -455,14 +455,14 @@ end
     return self.BaseClass.OnChangeActivity(self,newAct)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
         self:VJ_ACT_PLAYACTIVITY({"vjseq_idle2013_facearound_01","vjseq_idle2013_facearound_02"},"LetAttacks",math.Rand(0.5,1),true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnCallForHelp(ally)
+function ENT:OnCallForHelp(ally)
   if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
      if math.random(1,3) == 1 && !self:IsBusy() then
         self:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
@@ -546,7 +546,7 @@ end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
     if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
       if self:IsOnGround() && CurTime() > self.Zombie_NextJumpT then
       local maxDist = 220
@@ -618,8 +618,8 @@ function ENT:Crouch(bCrouch)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
- self:Zombie_CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
+ self:Zombie_OnThinkActive()
  if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:BusyWithActivity() then
   for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
@@ -726,7 +726,7 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_CustomOnThink_AIEnabled() end
+function ENT:Zombie_OnThinkActive() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
    if self.Zombie_Crippled then
@@ -794,19 +794,17 @@ function ENT:Cripple()
     self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-    if dmginfo:IsBulletDamage() && hitgroup == 1 && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" then
+function ENT:OnDamaged(dmginfo,hitgroup,status)
+    self:ArmorDamage(dmginfo,hitgroup,status)
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
         dmginfo:SetDamage(self:Health())
 end
-    if self:GetClass() == "npc_vj_con_zcarrier" then
+    /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
         dmginfo:ScaleDamage(0.5)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
-    if self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
+end*/
+    if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
     if self.Zombie_Crippled then return end
-    if self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
     if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
         self:RemoveGesture(self.CurrentAttackAnimation)
@@ -816,27 +814,30 @@ end
     end
 end
  if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
-    if self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
-        local legs = {6,7,10,11}
-        if VJ.HasValue(legs,hitgroup) then
-            self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
-            if self.Zombie_LegHealth <= 0 then
-                self.Zombie_Crippled = true
-                local anim = "vjseq_gib_legboth"
-                if hitgroup == 6 || hitgroup == 10 then
-                    anim = "vjseq_gib_legl"
-                elseif hitgroup == 7 || hitgroup == 11 then
-                    anim = "vjseq_gib_legr"
+    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
+    local legs = {6,7,10,11}
+     if VJ.HasValue(legs,hitgroup) then
+        self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
+     if self.Zombie_LegHealth <= 0 then
+        self.Zombie_Crippled = true
+        local anim = "vjseq_gib_legboth"
+        if hitgroup == HITGROUP_LEFTLEG or hitgroup == 10 then
+            anim = "vjseq_gib_legl"
+        elseif hitgroup == HITGROUP_RIGHTLEG or hitgroup == 11 then
+            anim = "vjseq_gib_legr"
 end
-                if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
-                self:VJ_ACT_PLAYACTIVITY(anim,true,false,false)
-                self:Cripple()
+            if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
+            self:VJ_ACT_PLAYACTIVITY(anim,true,false,false)
+            self:Cripple()
             end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+function ENT:ArmorDamage(dmginfo,hitgroup,status) end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo,hitgroup,status)
+ if status == "PriorExecution" then
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
         self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
@@ -846,24 +847,24 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
         self.NextFlinchTime = 1
     end
 end
-    return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
+        return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-    if self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage() then self.HasDeathAnimation = false end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:OnDeath(dmginfo,hitgroup,status)
+    if status == "Initial" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
     //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
+    if status == "DeathAnim" then
     if self:IsMoving() then -- Death anims when moving
        self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}
 end
     if dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 then -- When killed by shotgun damage
         self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward","vjseq_death2013_shotgun_left","vjseq_death2013_shotgun_right"}
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
     VJ_CON_ApplyCorpseEffects(self,corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1067,7 +1068,7 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFootStepSound()
+function ENT:OnFootstepSound()
     if !self:IsOnGround() then return end
     local tr = util.TraceLine({
         start = self:GetPos(),

@@ -24,13 +24,13 @@ function ENT:ZombieVoices()
     self:ZombieVoice_George()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
- if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVarNumber("VJ_CON_Headshot") == 1 && !self.Riot_Helmet then
-    dmginfo:SetDamage(self:Health())
-end
-    if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+function ENT:ArmorDamage(dmginfo,hitgroup,status)
+ if status == "PreDamage" then
+    if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+    if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
+end
         self.Bleeds = false
         dmginfo:ScaleDamage(0.10)
         local spark = ents.Create("env_spark")
@@ -57,11 +57,14 @@ end
         self:SetBodygroup(1,1)
         self:RemoveAllDecals()
         self:BreakHelmet()
+        end
     end
 end
-     if dmginfo:IsBulletDamage() && self.HasSounds && self.HasImpactSounds && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
+    if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
+end
     if math.random(1,3) == 1 then
         dmginfo:ScaleDamage(0.05)
         local spark = ents.Create("env_spark")
