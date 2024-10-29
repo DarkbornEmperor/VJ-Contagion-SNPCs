@@ -18,4 +18,5 @@ VertexLitGeneric
     $ambientocclusion           0
 
     $alphatest "1"
+    "$nocull" "1"
 }

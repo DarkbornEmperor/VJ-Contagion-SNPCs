@@ -5,4 +5,5 @@ VertexLitGeneric
     $phong 1
     $phongexponent 400
     $phongboost 2
+    "$nocull" "1"
 }

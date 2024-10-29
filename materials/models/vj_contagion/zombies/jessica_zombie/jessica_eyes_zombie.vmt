@@ -11,4 +11,5 @@ VertexLitGeneric
     $phongfresnelranges         "[.05 0.5 1]"
     $phongalbedotint            "1"
     $phongtint                  "[0 1 0]"
+    "$nocull" "1"
 }

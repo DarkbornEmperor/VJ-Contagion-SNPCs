@@ -10,4 +10,5 @@ VertexLitGeneric
     $phongboost                 "2"
     $phongfresnelranges         "[.3 2 3]"
     $halflambert                "1"
+    "$nocull" "1"
 }

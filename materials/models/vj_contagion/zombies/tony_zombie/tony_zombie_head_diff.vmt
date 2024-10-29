@@ -8,4 +8,5 @@ VertexLitGeneric
     $phongexponenttexture       "models\vj_contagion\zombies\tony_zombie\tony_zombie_head_exp"
     $phongboost                 "7"
     $phongfresnelranges         "[.05 0.5 1]"
+    "$nocull" "1"
 }

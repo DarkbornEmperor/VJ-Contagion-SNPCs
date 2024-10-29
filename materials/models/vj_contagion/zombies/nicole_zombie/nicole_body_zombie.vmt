@@ -26,4 +26,5 @@ VertexLitGeneric
 
 
     $alphatest                      "1"
+    "$nocull" "1"
 }

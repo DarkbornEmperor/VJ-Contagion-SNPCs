@@ -13,4 +13,5 @@ VertexLitGeneric
     $selfillum                  "0"
     $selfillummask              "white"
     $selfillumtint              "[1 1 1]"
+    "$nocull" "1"
 }

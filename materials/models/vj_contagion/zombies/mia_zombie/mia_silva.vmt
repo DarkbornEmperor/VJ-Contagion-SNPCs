@@ -5,10 +5,10 @@ VertexLitGeneric
     $envmapmask        "models\vj_contagion\zombies\mia_zombie\mia_s"
     $alphatest 1
     $normalmapalphaenvmapmask   "1"
-
     $phong                      "1"
     $phongexponenttexture       "models\vj_contagion\zombies\mia_zombie\mia_g"
     $phongboost                 "1"
     $phongfresnelranges         "[0.02 0.03 0.05]"
     $halflambert                "1"
+    "$nocull" "1"
 }

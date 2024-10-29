@@ -12,4 +12,5 @@ VertexLitGeneric
     $phongfresnelranges "[.05 0.5 1]"
     $phongalbedotint "1"
     $ambientocclusion           0
+    "$nocull" "1"
 }

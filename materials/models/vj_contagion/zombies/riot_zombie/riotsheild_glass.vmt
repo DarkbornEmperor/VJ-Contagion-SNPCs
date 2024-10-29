@@ -11,4 +11,5 @@ VertexLitGeneric
     $envmap env_cubemap
     $envmaptint "[.2 .2 .2]"
     $translucent 1
+    "$nocull" "1"
 }

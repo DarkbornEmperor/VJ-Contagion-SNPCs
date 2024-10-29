@@ -1,6 +1,6 @@
 VertexLitGeneric
 {
-    $basetexture "models/vj_contagion/zombies/nicole_zombie/nicole_mouth"
+    $basetexture "models/vj_contagion/zombies/shared_zombie/mouth_diff"
 
     $halflambert "1"
     $envmap env_cubemap
@@ -15,4 +15,5 @@ VertexLitGeneric
     $rimlightexponent ".5"
     $rimlightboost ".15"
     $ambientocclusion           0
+    "$nocull" "1"
 }

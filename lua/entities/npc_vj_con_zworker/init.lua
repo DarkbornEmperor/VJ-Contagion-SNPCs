@@ -12,7 +12,7 @@ ENT.Riot_HelmetHP = 25
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ArmorDamage(dmginfo,hitgroup,status)
  if status == "PreDamage" then
-    if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+    if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet /*&& self:GetBodygroup(1) == 0 or self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" && (self:GetBodygroup(1) == 0 or self:GetBodygroup(1) == 1 or self:GetBodygroup(1) == 2)*/ then
     if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
@@ -33,7 +33,7 @@ end
     else
         self.Bleeds = true
 end
-    if hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+    if hitgroup == HITGROUP_HEAD && self.Riot_Helmet /*&& self:GetBodygroup(1) == 0 or self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" && (self:GetBodygroup(1) == 0 or self:GetBodygroup(1) == 1 or self:GetBodygroup(1) == 2)*/ then
     self.Riot_HelmetHP = self.Riot_HelmetHP -dmginfo:GetDamage()
     if self.Riot_HelmetHP <= 0 then
     if IsValid(spark) then SafeRemoveEntity(spark) end

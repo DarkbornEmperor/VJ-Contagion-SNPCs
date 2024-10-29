@@ -12,5 +12,5 @@ VertexLitGeneric
     $phongboost                 "5"
     $phongexponent              "150"
     $phongalbedotint            "[.5 0 0]"
-
+    "$nocull" "1"
 }
