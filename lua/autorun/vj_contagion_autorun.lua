@@ -110,6 +110,7 @@ if VJExists == true then
     util.PrecacheModel("models/vj_contagion/zombies/worker_zombie.mdl")
     util.PrecacheModel("models/vj_contagion/zombies/yumi_zombie.mdl")
     util.PrecacheModel("models/vj_contagion/zombies/screamer.mdl")
+    util.PrecacheModel("models/vj_contagion/zombies/screamer_bride.mdl")
     /*util.PrecacheModel("models/vj_contagion/zombies/contagion_shared_zombie.mdl")
     util.PrecacheModel("models/vj_contagion/zombies/contagion_shared_zombie_female.mdl")*/
 

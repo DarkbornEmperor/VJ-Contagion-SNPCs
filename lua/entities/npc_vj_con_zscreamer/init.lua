@@ -152,7 +152,8 @@ end
 function ENT:PreInit()
     if self:GetClass() == "npc_vj_con_zscreamer" then
         self.Model = {
-        "models/vj_contagion/zombies/screamer.mdl"
+        "models/vj_contagion/zombies/screamer.mdl",
+        "models/vj_contagion/zombies/screamer_bride.mdl"
 }
 end
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
