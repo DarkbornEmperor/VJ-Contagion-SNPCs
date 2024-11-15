@@ -6,7 +6,7 @@ VertexLitGeneric
 	$envmap                     "env_cubemap"
 	$envmaptint                 "[.02 .02 .02]"
 	$phong                      "1"
-	$phongexponenttexture       "models\survivors\elijah\military_ao"
+	$phongexponenttexture       "models\vj_contagion\zombies\elijah_zombie\military_ao"
 	$phongboost                 "1"
 	$phongfresnelranges         "[.05 0.5 1]"
 	$halflambert                "1"
