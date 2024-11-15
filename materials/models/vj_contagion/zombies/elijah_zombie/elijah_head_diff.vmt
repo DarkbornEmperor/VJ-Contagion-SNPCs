@@ -1,0 +1,8 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\elijah_zombie\inmate_head_diff.vmt"
+    insert
+    {
+        $basetexture "models\vj_contagion\zombies\elijah_zombie\elijah_head_z_diff"
+    }
+}

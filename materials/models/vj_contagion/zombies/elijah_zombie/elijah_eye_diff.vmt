@@ -1,0 +1,8 @@
+Patch
+{
+    include "materials\models\vj_contagion\zombies\elijah_zombie\inmate_eye_diff.vmt"
+    insert
+    {
+        $basetexture "models\vj_contagion\zombies\elijah_zombie\inmate_eye_e_diff"
+    }
+}

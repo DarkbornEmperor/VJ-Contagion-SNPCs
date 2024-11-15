@@ -185,6 +185,10 @@ function ENT:PreInit()
         self.Model = {
         "models/vj_contagion/zombies/doctor_zombie.mdl"
 }
+    elseif self:GetClass() == "npc_vj_con_zelijah" then
+        self.Model = {
+        "models/vj_contagion/zombies/elijah_zombie.mdl"
+}
     elseif self:GetClass() == "npc_vj_con_zeugene" then
         self.Model = {
         "models/vj_contagion/zombies/eugene_zombie.mdl"
@@ -229,6 +233,12 @@ function ENT:PreInit()
     elseif self:GetClass() == "npc_vj_con_zmike" then
         self.Model = {
         "models/vj_contagion/zombies/engineer.mdl"
+}
+    elseif self:GetClass() == "npc_vj_con_zmilitary" then
+        self.Model = {
+        "models/vj_contagion/zombies/military_gasmask_zombie.mdl",
+        "models/vj_contagion/zombies/military_nohelmet_zombie.mdl",
+        "models/vj_contagion/zombies/military_zombie.mdl"
 }
     elseif self:GetClass() == "npc_vj_con_znick" then
         self.Model = {
@@ -380,6 +390,14 @@ function ENT:Zombie_Init()
 
      elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
         self:SetBodygroup(1,math.random(0,1))
+
+    elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
+        self.Riot_Helmet = false
+        self:SetSkin(math.random(0,3))
+
+    elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
+        self.StartHealth = 225
+        self:SetSkin(math.random(0,3))
 end
     self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:VJ_GetDifficultyValue(self.StartHealth))
 end
