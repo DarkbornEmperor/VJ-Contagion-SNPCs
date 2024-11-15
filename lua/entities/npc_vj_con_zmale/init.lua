@@ -393,7 +393,7 @@ function ENT:Zombie_Init()
 
      elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
         self.Riot_Helmet = false
-        self:SetBodygroup(0,math.random(0,1))
+        self:SetBodygroup(1,math.random(0,1))
         self:SetSkin(math.random(0,3))
 
      elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
