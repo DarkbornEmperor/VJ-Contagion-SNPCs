@@ -214,7 +214,7 @@ function ENT:Controller_Initialize(ply,controlEnt)
         net.WriteEntity(self)
     net.Send(ply)
 
-    function self.VJ_TheControllerEntity:CustomOnStopControlling()
+    function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start("vj_con_zombie_hud")
             net.WriteBool(true)
             net.WriteEntity(self)

@@ -6,9 +6,9 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.HasItemDropsOnDeath = true
-ENT.ItemDropsOnDeathChance = 3
-ENT.ItemDropsOnDeath_EntityList = {"item_healthvial","item_healthkit"}
+ENT.DropDeathLoot = true
+ENT.DeathLootChance = 3
+ENT.DeathLoot = {"item_healthvial","item_healthkit"}
 /*-----------------------------------------------
     *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
