@@ -24,7 +24,7 @@ function ENT:ZombieVoices()
     self:ZombieVoice_George()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
+function ENT:ArmorDamage(dmginfo,hitgroup,status)
  if status == "PreDamage" then
     if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
     if self.HasSounds && self.HasImpactSounds then
@@ -60,7 +60,7 @@ end
         end
     end
 end
-    if status == "PreDamage" && dmginfo:IsBulletDamage() && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH) then
     if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)

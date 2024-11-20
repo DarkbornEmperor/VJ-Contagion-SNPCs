@@ -814,13 +814,13 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
-    self:ArmorDamage(dmginfo,hitgroup,status)
     if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
-        dmginfo:SetDamage(self:Health())
+        dmginfo:SetDamage(self:GetMaxHealth())
 end
     /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
         dmginfo:ScaleDamage(0.5)
 end*/
+    self:ArmorDamage(dmginfo,hitgroup,status)
     if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
     if self.Zombie_Crippled then return end
     if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
@@ -832,7 +832,7 @@ end
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)
     end
 end
- if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
+ if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" then return end
     if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
     local legs = {6,7,10,11}
      if VJ.HasValue(legs,hitgroup) then
