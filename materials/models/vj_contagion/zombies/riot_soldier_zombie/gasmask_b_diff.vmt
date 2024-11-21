@@ -10,5 +10,4 @@ VertexLitGeneric
     $phongboost                 "0"
     $phongexponent              "0"
     $phongtint                  "[1 1 1]"
-    "$nocull" "1"
 }
