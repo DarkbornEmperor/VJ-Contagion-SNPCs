@@ -8,7 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 600 // 200
 ENT.HasMeleeAttackKnockBack = false
-ENT.FlinchChance = 50
 ENT.IdleSoundPitch = VJ.SET(85, 85)
 ENT.CombatIdleSoundPitch = VJ.SET(85, 85)
 ENT.InvestigateSoundPitch = VJ.SET(85, 85)
@@ -33,7 +32,7 @@ function ENT:Init()
     self.RiotBrute_StopChargingT = CurTime()
     self.RiotBrute_Charging = false
     -- Getting up animation
-    if VJ_CVAR_AI_ENABLED && math.random(1,2) == 1 then
+    if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
         timer.Simple(0, function()
             self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
             self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)

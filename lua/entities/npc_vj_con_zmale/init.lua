@@ -408,7 +408,7 @@ function ENT:Init()
     self:ZombieVoices()
     if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
     -- Getting up animation
-    if VJ_CVAR_AI_ENABLED && math.random(1,3) == 1 then
+    if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
         timer.Simple(0, function()
             self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
             self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
