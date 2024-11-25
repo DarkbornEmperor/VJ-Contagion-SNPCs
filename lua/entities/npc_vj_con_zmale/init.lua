@@ -290,7 +290,7 @@ function ENT:PreInit()
         "models/vj_contagion/zombies/yumi_zombie.mdl"
 }
 end
-        if math.random(1,10) == 1 && GetConVar("VJ_CON_AllRunners"):GetInt() == 0 then
+        if math.random(1,GetConVar("VJ_CON_RunnerChance"):GetInt()) == 1 && GetConVar("VJ_CON_AllRunners"):GetInt() == 0 then
             self.Zombie_Sprinter = true
 end
         if GetConVar("VJ_CON_AllRunners"):GetInt() == 1 then self.Zombie_Sprinter = true end
@@ -385,7 +385,7 @@ function ENT:Zombie_Init()
         self:SetSkin(math.random(0,5))
 
      elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
-        self.StartHealth = 225
+        //self.StartHealth = 225
         self:SetSkin(math.random(0,5))
 
      elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
@@ -397,7 +397,7 @@ function ENT:Zombie_Init()
         self:SetSkin(math.random(0,3))
 
      elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
-        self.StartHealth = 225
+        //self.StartHealth = 225
         self:SetSkin(math.random(0,3))
 end
     self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:VJ_GetDifficultyValue(self.StartHealth))
