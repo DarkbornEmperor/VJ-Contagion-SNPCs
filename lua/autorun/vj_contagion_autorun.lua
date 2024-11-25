@@ -145,7 +145,7 @@ if VJExists == true then
                 VJ_CON_OldOverlay = "0",
 }
                 Panel:AddControl("ComboBox", vj_conreset_cs)
-                 Panel:AddControl( "Label", {Text = "Client-Side Options:"})
+                Panel:AddControl( "Label", {Text = "Client-Side Options:"})
                 Panel:AddControl("Checkbox", {Label ="Enable Screen Overlay When Controlling Zombies?", Command ="VJ_CON_ZombieOverlay"})
                 Panel:AddControl("Checkbox", {Label ="Enable Old Screen Overlay?", Command ="VJ_CON_OldOverlay"})
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
@@ -157,8 +157,8 @@ end
             local vj_conreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_conreset.Options["#vjbase.menugeneral.default"] = {
                 VJ_CON_AllowClimbing = "0",
-                VJ_CON_RunnerChance = "1",
-                VJ_CON_AllRunners = "10",
+                VJ_CON_RunnerChance = "10",
+                VJ_CON_AllRunners = "0",
                 VJ_CON_BreakDoors = "1",
                 VJ_CON_Headshot = "0",
                 VJ_CON_CorpseEffects = "1",
@@ -168,11 +168,12 @@ end
             Panel:AddControl("Label", {Text = "Options:"})
             Panel:AddControl("Checkbox", {Label ="Enable Prop Climbing?", Command ="VJ_CON_AllowClimbing"})
             Panel:ControlHelp("Warning: Can cause performance issues.")
-            Panel:AddControl("Slider", {Label = "Sprinter Chance", Command = "VJ_CON_RunnerChance", Type = "Float", Min = "1", Max = "100"})
             Panel:AddControl("Checkbox", {Label ="Enable Sprinters Only?", Command ="VJ_CON_AllRunners"})
             Panel:AddControl("Checkbox", {Label ="Enable Zombies Breaking Doors?", Command ="VJ_CON_BreakDoors"})
             Panel:AddControl("Checkbox", {Label ="Enable Instant Headshot Death?", Command ="VJ_CON_Headshot"})
             Panel:AddControl("Checkbox", {Label ="Enable Corpse Effects & Decals?", Command ="VJ_CON_CorpseEffects"})
+            Panel:AddControl( "Label", {Text = "Modifiers:"})
+            Panel:AddControl("Slider", {Label = "Sprinter Chance", Command = "VJ_CON_RunnerChance", Min = "1", Max = "100"})
 end)
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Map Spawner)", "Contagion (Map Spawner)", "", "", function(Panel)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
