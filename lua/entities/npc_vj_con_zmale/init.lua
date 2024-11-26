@@ -832,7 +832,7 @@ end
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)
     end
 end
- if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" then return end
+ if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" or self:GetClass() == "npc_vj_con_zriotsol" then return end
     if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
     local legs = {6,7,10,11}
      if VJ.HasValue(legs,hitgroup) then
