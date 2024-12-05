@@ -401,7 +401,7 @@ function ENT:SpawnZombie(ent,pos,isMob)
     Zombie:Spawn()
     table_insert(self.tbl_SpawnedNPCs,Zombie)
     if isMob then
-        Zombie.FindEnemy_UseSphere = true
+        Zombie.SightAngle = 360
         Zombie.FindEnemy_CanSeeThroughWalls = true
         Zombie:DrawShadow(false)
         timer.Simple(0,function()
@@ -427,7 +427,7 @@ function ENT:SpawnBossZombie(ent,pos)
     Boss:SetPos(pos)
     Boss:SetAngles(Angle(0,math.random(0,360),0))
     Boss:Spawn()
-    //Boss.FindEnemy_UseSphere = true
+    //Boss.SightAngle = 360
     //Boss.FindEnemy_CanSeeThroughWalls = true
     table_insert(self.tbl_SpawnedBossZombie,Boss)
     Boss.MapSpawner = self
