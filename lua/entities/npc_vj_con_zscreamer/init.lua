@@ -187,7 +187,7 @@ end
 function ENT:OnAlert(ent)
  if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
-        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire",true,false,true)
+        self:PlayAnim("vjseq_wander_acquire",true,false,true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,9 +195,9 @@ function ENT:OnCallForHelp(ally)
   if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
      if math.random(1,3) == 1 && !self:IsBusy() then
         VJ.EmitSound(self,{"vj_contagion/zombies/screamer/Banshee Scream 004.wav","vj_contagion/zombies/screamer/Banshee Scream 007.wav","vj_contagion/zombies/screamer/Banshee Scream 008.wav"})
-        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire",true,math.Rand(1.5,3),true)
+        self:PlayAnim("vjseq_wander_acquire",true,math.Rand(1.5,3),true)
         if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:VJ_ACT_PLAYACTIVITY("vjseq_zombie_grapple_roar2",true,false,true)
+            ally:PlayAnim("vjseq_zombie_grapple_roar2",true,false,true)
         end
     end
 end
@@ -273,13 +273,13 @@ end
                 //local ang = self:GetAngles()
                 //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
                 self:SetTurnTarget(self.Zombie_DoorToBreak)
-                self:VJ_ACT_PLAYACTIVITY(ACT_OPEN_DOOR,true,false,false)
+                self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
                 self:SetState(VJ_STATE_ONLY_ANIMATION)
     end
 end
         if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
             self.Zombie_AttackingDoor = false
-            self:VJ_ACT_PLAYACTIVITY(ACT_IDLE,true,0,false)
+            self:PlayAnim(ACT_IDLE,true,0,false)
             self:SetState()
     end
 end
@@ -290,9 +290,9 @@ function ENT:OnThinkActive()
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
     if !self.Zombie_Crouching then
-        self:VJ_ACT_PLAYACTIVITY("vjseq_wander_acquire",true,1.7,false) end
+        self:PlayAnim("vjseq_wander_acquire",true,1.7,false) end
     if !v.Zombie_Crippled && !self.Zombie_Crouching then
-        v:VJ_ACT_PLAYACTIVITY({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false) end
+        v:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false) end
         v:PlaySoundSystem("CallForHelp",v.SoundTbl_CallForHelp)
         v:Follow(self,true)
         v.IsFollowing = true
@@ -309,7 +309,7 @@ end
         v.IsFollowing = false
         timer.Simple(0.1, function() if IsValid(v) then
         v:SetLastPosition(bullseye:GetPos())
-        v:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() end end) end end)
+        v:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() end end) end end)
         self.Zombie_NextCommandT = CurTime() + 3
         end
     end
@@ -377,7 +377,7 @@ end
                         self:SetPos(finalpos)
     end
 end)
-                self:VJ_ACT_PLAYACTIVITY(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
+                self:PlayAnim(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
                     vsched.RunCode_OnFinish = function()
                         //self:SetGroundEntity(NULL)
                         //self:SetPos(finalpos)
@@ -399,7 +399,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
     if status == "PostDamage" && !self.Flinching && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,14) == 1 && self:GetSequence() != self:LookupSequence("shoved_backward_03") then
-        self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_forward_01",true,false,false)
+        self:PlayAnim("vjseq_shoved_forward_01",true,false,false)
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,12)
     end
 end

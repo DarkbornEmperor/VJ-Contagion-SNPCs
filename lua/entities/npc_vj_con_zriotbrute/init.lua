@@ -34,7 +34,7 @@ function ENT:Init()
     -- Getting up animation
     if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
         timer.Simple(0, function()
-            self:VJ_ACT_PLAYACTIVITY("vjseq_sit_to_idle1",true,false)
+            self:PlayAnim("vjseq_sit_to_idle1",true,false)
             self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 end)
         timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
@@ -157,7 +157,7 @@ end
     end
 end
                 if IsValid(tr.Entity) && tr.Entity:GetClass() != "prop_physics" then
-                    local chargeattack = self:VJ_ACT_PLAYACTIVITY("vjseq_shoved_backwards_wall1",true,false,false)
+                    local chargeattack = self:PlayAnim("vjseq_shoved_backwards_wall1",true,false,false)
         end
     end
 end
@@ -168,7 +168,7 @@ end
     if hasEnemy && !self.Zombie_Crouching && !self.Zombie_Climbing then
     local dist = self:GetPos():Distance(ent:GetPos())
         if ((controlled && self.VJ_TheController:KeyDown(IN_SPEED)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:BusyWithActivity() && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
-            self:VJ_ACT_PLAYACTIVITY("brute_charge_begin",true,false,true)
+            self:PlayAnim("brute_charge_begin",true,false,true)
             self:PlaySoundSystem("Alert",self.SoundTbl_CallForHelp)
             timer.Simple(self:SequenceDuration(self:LookupSequence("brute_charge_begin")),function()
                 if IsValid(self) then
@@ -195,7 +195,7 @@ function ENT:StopCharging(crash)
     if crash then
         util.ScreenShake(self:GetPos(),16,100,1,150)
         VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Metal0"..math.random(1,4)..".wav",75,100)
-        self:VJ_ACT_PLAYACTIVITY(crash && "vjseq_shoved_backwards_heavy",true,false,false)
+        self:PlayAnim(crash && "vjseq_shoved_backwards_heavy",true,false,false)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
