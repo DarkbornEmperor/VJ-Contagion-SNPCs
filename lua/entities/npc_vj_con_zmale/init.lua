@@ -618,6 +618,7 @@ function ENT:Jump(pos)
     self:SetMoveType(MOVETYPE_STEP)
     if self.CurrentSchedule then
         self.CurrentSchedule = nil
+        self.CurrentScheduleName = nil
         self.CurrentTask = nil
         self.CurrentTaskID = nil
 end
