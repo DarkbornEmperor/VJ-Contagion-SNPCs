@@ -42,6 +42,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep = {
+"common/null.wav"
+}
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_contagion/zombies/shared/z_hit-01.wav",
 "vj_contagion/zombies/shared/z_hit-02.wav",
@@ -93,7 +96,6 @@ util.AddNetworkString("vj_con_zombie_hud")
 function ENT:OnInput(key,activator,caller,data)
     if key == "step" then
         self:FootStepSoundCode()
-        self:OnFootstepSound()
     elseif key == "melee" then
         self:MeleeAttackCode()
     elseif key == "body_hit" then
