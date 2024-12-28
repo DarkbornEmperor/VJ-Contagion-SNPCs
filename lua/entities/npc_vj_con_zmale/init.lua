@@ -403,7 +403,7 @@ function ENT:Zombie_Init()
         //self.StartHealth = 225
         self:SetSkin(math.random(0,3))
 end
-    self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:VJ_GetDifficultyValue(self.StartHealth))
+    self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -592,7 +592,7 @@ end
     end
 end
         else
-            //local dist = self:VJ_GetNearestPointToEntityDistance(self.Zombie_DoorToBreak)
+            //local dist = self:FindNearestDistance(self.Zombie_DoorToBreak)
             if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.CurrentAttackAnimationTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
             if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
                 //local ang = self:GetAngles()
@@ -658,7 +658,7 @@ end
     if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
         local bullseye = self.VJ_TheControllerBullseye
         v:PlaySoundSystem("InvestigateSound",v.SoundTbl_Investigate)
-        v:FollowReset()
+        v:ResetFollowBehavior()
         v.IsFollowing = false
         timer.Simple(0.1, function() if IsValid(v) then
         v:SetLastPosition(bullseye:GetPos())
@@ -865,7 +865,7 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
         self.NextFlinchTime = 1
     end
 end
-        return self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE && self:GetActivity() != ACT_LAND && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" && self:GetSequenceName(self:GetSequence()) != "shoved_backwards_wall1" && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
+        return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self:GetSequenceName(self:GetSequence()) == "brute_charge_begin" or self:GetSequenceName(self:GetSequence()) == "shoved_backwards_wall1" or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1094,10 +1094,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:VJ_DecideSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
