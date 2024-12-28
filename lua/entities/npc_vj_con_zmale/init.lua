@@ -462,11 +462,6 @@ end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetSightDirection()
-    local att = self:LookupAttachment("eyes") -- Not all models have it, must check for validity
-    return att != 0 && self:GetAttachment(att).Ang:Forward() or self:GetForward()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnChangeActivity(newAct)
  if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
     self:PlaySoundSystem("Alert",self.SoundTbl_Jump)
