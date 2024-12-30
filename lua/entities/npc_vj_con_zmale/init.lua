@@ -2647,7 +2647,7 @@ function ENT:ZombieVoice_Andy()
         self.SoundTbl_Death = {
         "vj_contagion/zombies/andyfield/1319 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1320 andyfield_zombie_die.wav",
-        "vj_contagion/zombies/andyfield/1321 andyfield_zombie_die.wav",
+        "vj_contagion/zombies/andyfield/1321 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1322 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1323 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1324 andyfield_zombie_die.wav",
