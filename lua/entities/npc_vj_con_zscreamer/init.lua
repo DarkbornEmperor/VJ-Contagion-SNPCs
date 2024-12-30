@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 500 // 1000
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
-ENT.BloodColor = "Red"
+ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.CustomBlood_Particle = {"vj_con_blood_impact_red_01"}
 ENT.CustomBlood_Decal = {"VJ_CON_Blood"}
 ENT.HasBloodPool = false
