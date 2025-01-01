@@ -2,7 +2,7 @@ include("entities/npc_vj_con_zmale/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -55,7 +55,7 @@ function ENT:BreakHelmet()
     self:CreateGibEntity("prop_physics","models/vj_contagion/zombies/riot_helmet_gib04.mdl",{Pos=self:GetAttachment(self:LookupAttachment("forward")).Pos,Ang=self:GetAngles(),Vel_ApplyDmgForce=false,Vel=Vector(0,0,0)})
 end
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

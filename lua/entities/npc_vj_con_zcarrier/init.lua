@@ -2,7 +2,7 @@ include("entities/npc_vj_con_zmale/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -19,7 +19,7 @@ ENT.DeathSoundPitch = VJ.SET(85, 85)*/
 -- Custom
 ENT.Zombie_Sprinter = true
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
