@@ -64,8 +64,8 @@ ENT.SoundTbl_Impact = {
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
 }
 ENT.IdleSoundChance = 1
-ENT.NextSoundTime_Idle = VJ.SET(3,5)
-ENT.NextSoundTime_Investigate = VJ.SET(3,5)
+ENT.NextSoundTime_Idle = VJ.SET(3,4)
+ENT.NextSoundTime_Investigate = VJ.SET(3,4)
 ENT.IdleSoundPitch = VJ.SET(120,120)
 ENT.CombatIdleSoundPitch = VJ.SET(120,120)
 ENT.InvestigateSoundPitch = VJ.SET(120,120)

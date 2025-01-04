@@ -71,8 +71,8 @@ ENT.SoundTbl_Impact = {
 "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
 }
 ENT.IdleSoundChance = 1
-ENT.NextSoundTime_Idle = VJ.SET(3,5)
-ENT.NextSoundTime_Investigate = VJ.SET(3,5)
+ENT.NextSoundTime_Idle = VJ.SET(3,4)
+ENT.NextSoundTime_Investigate = VJ.SET(3,4)
 ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Zombie_Climbing = false
@@ -91,11 +91,14 @@ ENT.Zombie_AttackingDoor = false
 ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 0 -- 0 = Male | 1 = Female
 ENT.IsContagionZombie = true
-
+ENT.FootData = {
+    ["lfoot"] = {Range=6.5,OnGround=true},
+    ["rfoot"] = {Range=6.5,OnGround=true}
+}
 util.AddNetworkString("vj_con_zombie_hud")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "step" then
+    if key == "step" && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_RUN then
         self:FootStepSoundCode()
     elseif key == "melee" then
         self:MeleeAttackCode()
@@ -407,6 +410,9 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+ for attName, var in pairs(self.FootData) do
+    var.AttID = self:LookupAttachment(attName)
+end
     self:Zombie_Init()
     self:ZombieVoices()
     if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
@@ -564,6 +570,21 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+    if self.FootData && self:GetSequenceActivity(self:GetIdealSequence()) == ACT_RUN then
+    local checkPos = self:GetPos()
+    for attName, var in pairs(self.FootData) do
+    if !var.AttID then continue end
+    local footPos = self:GetAttachment(var.AttID).Pos
+        checkPos.x = footPos.x
+        checkPos.y = footPos.y
+    if ((footPos -checkPos):LengthSqr()) > (var.Range *var.Range) then
+        var.OnGround = false
+    elseif !var.OnGround then
+        var.OnGround = true
+        self:FootStepSoundCode()
+        end
+    end
+end
     if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
       if self:IsOnGround() && CurTime() > self.Zombie_NextJumpT then
       local maxDist = 220
