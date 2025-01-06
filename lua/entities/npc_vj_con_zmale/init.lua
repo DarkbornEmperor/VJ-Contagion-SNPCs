@@ -613,14 +613,16 @@ end
     end
 end
         else
-            //local dist = self:GetNearestDistance(self.Zombie_DoorToBreak)
-            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.CurrentAttackAnimationTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
+            if IsValid(self.Zombie_DoorToBreak) then
+            local dist = self:GetNearestDistance(self.Zombie_DoorToBreak)
+            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.CurrentAttackAnimationTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
             if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
                 //local ang = self:GetAngles()
                 //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
                 self:SetTurnTarget(self.Zombie_DoorToBreak)
                 self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
                 self:SetState(VJ_STATE_ONLY_ANIMATION)
+        end
     end
 end
         if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
