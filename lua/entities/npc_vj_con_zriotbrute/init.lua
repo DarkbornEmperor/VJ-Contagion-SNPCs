@@ -56,7 +56,7 @@ function ENT:Zombie_Init()
     shield:Activate()
     //shield:SetSolid(SOLID_NONE)
     shield:AddEffects(EF_BONEMERGE)
-    shield.VJTag_IsAttackable = false
+    shield.VJ_ID_Attackable = false
     self.Shield = shield
     end)
 end
