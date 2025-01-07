@@ -406,7 +406,7 @@ function ENT:Zombie_Init()
         //self.StartHealth = 225
         self:SetSkin(math.random(0,3))
 end
-    self:SetHealth((GetConVar("vj_npc_allhealth"):GetInt() > 0) and GetConVar("vj_npc_allhealth"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
+    self:SetHealth((GetConVar("vj_npc_health"):GetInt() > 0) and GetConVar("vj_npc_health"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
