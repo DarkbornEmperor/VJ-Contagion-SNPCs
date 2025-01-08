@@ -270,7 +270,7 @@ end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ_CON_ApplyCorpseEffects(ent,corpse)
- if GetConVar("VJ_CON_CorpseEffects"):GetInt() == 0 or GetConVar("vj_npc_nobleed"):GetInt() == 1 then return end
+ if GetConVar("VJ_CON_CorpseEffects"):GetInt() == 0 or GetConVar("vj_npc_blood"):GetInt() == 0 then return end
     local defPos = Vector(0, 0, 0)
      corpse.CON_Corpse = true
     if ent.HasBloodParticle then corpse.BleedParticle = ent.CustomBlood_Particle or "" end
