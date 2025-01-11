@@ -87,25 +87,25 @@ function ENT:Controller_Initialize(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if act == ACT_IDLE && !self.Zombie_Crouching && !self.RiotBrute_Charging then
-        return ACT_IDLE_AGITATED
-    elseif act == ACT_WALK then
-        return ACT_WALK_AGITATED
-    elseif act == ACT_RUN then
-        return ACT_WALK_AGITATED
+ if act == ACT_IDLE && !self.Zombie_Crouching && !self.RiotBrute_Charging then
+    return ACT_IDLE_AGITATED
+ elseif act == ACT_WALK then
+    return ACT_WALK_AGITATED
+ elseif act == ACT_RUN then
+    return ACT_WALK_AGITATED
 end
-    if self.RiotBrute_Charging && !self.Zombie_Crouching then
-    if act == ACT_IDLE or act == ACT_WALK or act == ACT_RUN then
-        return self.ChargeAnim
+ if self.RiotBrute_Charging && !self.Zombie_Crouching then
+ if act == ACT_IDLE or act == ACT_WALK or act == ACT_RUN then
+    return self.ChargeAnim
 end
-    elseif self.Zombie_Crouching && !self.RiotBrute_Charging then
-    if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-        return ACT_IDLE_STEALTH
-    elseif act == ACT_WALK or act == ACT_RUN then
-        return ACT_WALK_STEALTH
+ elseif self.Zombie_Crouching && !self.RiotBrute_Charging then
+ if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+    return ACT_IDLE_STEALTH
+ elseif act == ACT_WALK or act == ACT_RUN then
+    return ACT_WALK_STEALTH
 end
-    elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching && !self.RiotBrute_Charging then
-        return ACT_IDLE_AIM_AGITATED
+ elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching && !self.RiotBrute_Charging then
+    return ACT_IDLE_AIM_AGITATED
 end
     return self.BaseClass.TranslateActivity(self, act)
 end

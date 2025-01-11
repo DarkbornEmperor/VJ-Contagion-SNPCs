@@ -530,13 +530,13 @@ function controlEnt:OnKeyBindPressed(key)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
-    if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && !self.Zombie_Crouching then
-        return ACT_IDLE_STIMULATED
-    elseif act == ACT_WALK && !self.Zombie_Crouching then
-        return ACT_WALK_STIMULATED
-    elseif act == ACT_RUN && !self.Zombie_Crouching then
-        return ACT_RUN_STIMULATED
+ if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
+ if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && !self.Zombie_Crouching then
+    return ACT_IDLE_STIMULATED
+ elseif act == ACT_WALK && !self.Zombie_Crouching then
+    return ACT_WALK_STIMULATED
+ elseif act == ACT_RUN && !self.Zombie_Crouching then
+    return ACT_RUN_STIMULATED
 end
     if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && self.Zombie_Crouching then
         return ACT_IDLE_STEALTH
@@ -544,27 +544,27 @@ end
         return ACT_WALK_STEALTH
     end
 end
-    if self.Zombie_Crouching && !self.Zombie_Sprinter && !self.Zombie_Crippled then
-    if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-        return ACT_IDLE_STEALTH
-    elseif act == ACT_WALK or act == ACT_RUN then
-        return ACT_WALK_STEALTH
+ if self.Zombie_Crouching && !self.Zombie_Sprinter && !self.Zombie_Crippled then
+ if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+    return ACT_IDLE_STEALTH
+ elseif act == ACT_WALK or act == ACT_RUN then
+    return ACT_WALK_STEALTH
 end
-    elseif self.Zombie_Crippled && !self.Zombie_Crouching then
-    if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-        return ACT_IDLE_HURT
-    elseif act == ACT_WALK or act == ACT_RUN then
-        return ACT_WALK_HURT
+ elseif self.Zombie_Crippled && !self.Zombie_Crouching then
+ if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+    return ACT_IDLE_HURT
+ elseif act == ACT_WALK or act == ACT_RUN then
+    return ACT_WALK_HURT
 end
-    elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-        //return ACT_IDLE_ANGRY
-        return self:ResolveAnimation({ACT_IDLE_ANGRY})
+ elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+    //return ACT_IDLE_ANGRY
+    return self:ResolveAnimation({ACT_IDLE_ANGRY})
 
-    elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-        return ACT_RUN_STIMULATED
+ elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+    return ACT_RUN_STIMULATED
 
-    elseif act == ACT_JUMP && self.VJ_IsBeingControlled then
-        return ACT_HOP
+ elseif act == ACT_JUMP && self.VJ_IsBeingControlled then
+    return ACT_HOP
 end
     return self.BaseClass.TranslateActivity(self, act)
 end

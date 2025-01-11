@@ -224,17 +224,17 @@ function ENT:Controller_Initialize(ply,controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.Zombie_Crouching then
-    if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-        return ACT_IDLE_STEALTH
-    elseif act == ACT_WALK or act == ACT_RUN then
-        return ACT_WALK_STEALTH
+ if self.Zombie_Crouching then
+ if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+    return ACT_IDLE_STEALTH
+ elseif act == ACT_WALK or act == ACT_RUN then
+    return ACT_WALK_STEALTH
 end
-    elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching then
-        return VJ.SequenceToActivity(self, "agitated_02") //ACT_IDLE_ANGRY
+ elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Crouching then
+    return VJ.SequenceToActivity(self, "agitated_02") //ACT_IDLE_ANGRY
 
-    elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Crouching then
-        return ACT_RUN_ON_FIRE
+ elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Crouching then
+    return ACT_RUN_ON_FIRE
 end
     return self.BaseClass.TranslateActivity(self, act)
 end
