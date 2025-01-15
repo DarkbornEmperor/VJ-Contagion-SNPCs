@@ -273,8 +273,8 @@ function VJ_CON_ApplyCorpseEffects(ent,corpse)
  if GetConVar("VJ_CON_CorpseEffects"):GetInt() == 0 or GetConVar("vj_npc_blood"):GetInt() == 0 then return end
     local defPos = Vector(0, 0, 0)
      corpse.CON_Corpse = true
-    if ent.HasBloodParticle then corpse.BleedParticle = ent.CustomBlood_Particle or "" end
-    corpse.BleedDecal = ent.HasBloodDecal and VJ.PICK(ent.CustomBlood_Decal) or ""
+    if ent.HasBloodParticle then corpse.BleedParticle = ent.BloodParticle or "" end
+    corpse.BleedDecal = ent.HasBloodDecal and VJ.PICK(ent.BloodDecal) or ""
     corpse.CON_Corpse_StartT = CurTime() + 1
     hook.Add("EntityTakeDamage","VJ_CON_CorpseBleed",function(target,dmginfo)
     if target.CON_Corpse && !target.Dead && CurTime() > target.CON_Corpse_StartT && target:GetColor().a > 50 then

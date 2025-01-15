@@ -8,8 +8,8 @@ include("shared.lua")
 ENT.StartHealth = 175
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.CustomBlood_Particle = {"vj_con_blood_impact_red_01"}
-ENT.CustomBlood_Decal = {"VJ_CON_Blood"}
+ENT.BloodParticle = {"vj_con_blood_impact_red_01"}
+ENT.BloodDecal = {"VJ_CON_Blood"}
 ENT.HasBloodPool = false
 //ENT.TurningSpeed = 5
 ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={}}
@@ -831,7 +831,7 @@ function ENT:Cripple()
     FirstP_Bone = "ValveBiped.Bip01_Head",
     FirstP_Offset = Vector(10, 0, -30),
 }
-    self.CanMoveJump = false
+    self.JumpVars.Enabled = false
     self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
