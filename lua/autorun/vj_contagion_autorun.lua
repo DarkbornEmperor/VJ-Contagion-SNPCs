@@ -140,7 +140,7 @@ if VJExists == true then
          hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CON", function()
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Main)", "Contagion (Main)", "", "", function(Panel)
             local vj_conreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_conreset_cs.Options["#vjbase.menugeneral.default"] = {
+            vj_conreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_ZombieOverlay = "1",
                 VJ_CON_OldOverlay = "0",
 }
@@ -155,7 +155,7 @@ if VJExists == true then
 end
             Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
             local vj_conreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_conreset.Options["#vjbase.menugeneral.default"] = {
+            vj_conreset.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_AllowClimbing = "0",
                 VJ_CON_RunnerChance = "10",
                 VJ_CON_AllRunners = "0",
@@ -183,7 +183,7 @@ end)
 end
             Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
             local vj_conreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
-            vj_conreset_mapspawner.Options["#vjbase.menugeneral.default"] = {
+            vj_conreset_mapspawner.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_MapSpawner_Enabled = "1",
                 VJ_CON_MapSpawner_MaxZom = "80",
                 VJ_CON_MapSpawner_HordeCount = "35",
