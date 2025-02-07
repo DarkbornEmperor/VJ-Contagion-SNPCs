@@ -614,8 +614,8 @@ end
 end
         else
             if IsValid(self.Zombie_DoorToBreak) then
-            local dist = self:GetNearestDistance(self.Zombie_DoorToBreak)
-            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.CurrentAttackAnimationTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
+            local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
+            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
             if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
                 //local ang = self:GetAngles()
                 //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
@@ -816,7 +816,7 @@ end
        self:PlayAnim("idle2013_facearound_01",true,0.1,true)
        self:StopAttacks(true)
        self.MeleeAttacking = false
-       self.CurrentAttackAnimationTime = 0
+       self.AttackAnimTime = 0
        self:DoChaseAnimation()
     end
 end*/
@@ -847,8 +847,8 @@ end*/
     if self.Zombie_Crippled then return end
     if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-    if self:IsPlayingGesture(self.CurrentAttackAnimation) then -- Stop the attack gesture!
-        self:RemoveGesture(self.CurrentAttackAnimation)
+    if self:IsPlayingGesture(self.AttackAnim) then -- Stop the attack gesture!
+        self:RemoveGesture(self.AttackAnim)
 end
         self:PlayAnim({"vjseq_shoved_forward1","vjseq_shoved_forward2","vjseq_shoved_forward_heavy"},true,false,false)
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)

@@ -268,8 +268,8 @@ function ENT:OnThink()
     end
 end
         else
-            //local dist = self:GetNearestDistance(self.Zombie_DoorToBreak)
-            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.CurrentAttackAnimationTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
+            //local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
+            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
             if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
                 //local ang = self:GetAngles()
                 //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))

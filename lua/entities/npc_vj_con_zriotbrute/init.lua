@@ -117,7 +117,7 @@ function ENT:Zombie_OnThinkActive()
     local controlled = IsValid(self.VJ_TheController)
     if self.RiotBrute_Charging then
         local tPos = hasEnemy && ent:GetPos() or self:GetPos() +self:GetForward() *500
-        local setangs = self:GetFaceAngle((tPos -self:GetPos()):Angle())
+        local setangs = self:GetTurnAngle((tPos -self:GetPos()):Angle())
         self:SetAngles(Angle(setangs.p,self:GetAngles().y,setangs.r))
         self:AutoMovement(self:GetAnimTimeInterval() *self.ChargePercentage) -- For some reason, letting it go at 100% forces the walkframe speed to be doubled, essentially ignoring the walkframes in the animation. Basically, think how NextBots just slide everywhere faster than their animation is supposed to
         self:SetGroundEntity(NULL)
