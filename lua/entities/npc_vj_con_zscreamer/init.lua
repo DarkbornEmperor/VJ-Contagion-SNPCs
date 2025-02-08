@@ -286,7 +286,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self:BusyWithActivity() then
+ if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self:IsBusy("Activities") then
   for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
