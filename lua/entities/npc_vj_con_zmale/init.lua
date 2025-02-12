@@ -35,7 +35,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"}
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
     ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -101,7 +101,7 @@ function ENT:OnInput(key,activator,caller,data)
     if key == "step" && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_RUN then
         self:PlayFootstepSound()
     elseif key == "melee" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "body_hit" then
         VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
 end
@@ -769,7 +769,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_OnThinkActive() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
    if self.Zombie_Crippled then
        self.MeleeAttackDistance = 25
        self.MeleeAttackDamageDistance = 45
@@ -825,13 +825,13 @@ function ENT:Cripple()
     self:SetHullType(HULL_TINY)
     self:SetCollisionBounds(Vector(13,13,25),Vector(-13,-13,0))
     //self.MeleeAttackDamage = self.MeleeAttackDamage /2
-    self.ControllerVars = {
+    self.ControllerParameters = {
     CameraMode = 1,
     ThirdP_Offset = Vector(45, 20, -15),
     FirstP_Bone = "ValveBiped.Bip01_Head",
     FirstP_Offset = Vector(10, 0, -30),
 }
-    self.JumpVars.Enabled = false
+    self.JumpParameters.Enabled = false
     self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

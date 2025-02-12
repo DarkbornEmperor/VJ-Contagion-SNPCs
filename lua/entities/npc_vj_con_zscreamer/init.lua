@@ -31,7 +31,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
-ENT.ControllerVars = {
+ENT.ControllerParameters = {
     CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
     ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -97,7 +97,7 @@ function ENT:OnInput(key,activator,caller,data)
         self:PlayFootstepSound()
         self:OnFootstepSound()
     elseif key == "melee" then
-        self:MeleeAttackCode()
+        self:ExecuteMeleeAttack()
     elseif key == "body_hit" then
         VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
 end
@@ -391,7 +391,7 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
     self.AnimTbl_MeleeAttack = {
     "vjseq_vjges_MovingMelee_01",
     "vjseq_vjges_MovingMelee_02"
