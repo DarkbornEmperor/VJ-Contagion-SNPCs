@@ -23,7 +23,7 @@ ENT.SlowPlayerOnMeleeAttack = true
 ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackSlowPlayerSound = false
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 //ENT.FlinchChance = 1
 ENT.NextFlinchTime = 1
 ENT.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
@@ -31,7 +31,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
     ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person

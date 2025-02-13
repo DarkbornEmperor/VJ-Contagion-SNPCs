@@ -24,7 +24,7 @@ ENT.SlowPlayerOnMeleeAttackTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackSlowPlayerSound = false
 //ENT.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_forward2","vjseq_shoved_forward2"}
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 //ENT.FlinchChance = 1
 ENT.NextFlinchTime = 1
 ENT.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
@@ -35,7 +35,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"}
     -- ====== Controller Data ====== --
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
     ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -825,13 +825,13 @@ function ENT:Cripple()
     self:SetHullType(HULL_TINY)
     self:SetCollisionBounds(Vector(13,13,25),Vector(-13,-13,0))
     //self.MeleeAttackDamage = self.MeleeAttackDamage /2
-    self.ControllerParameters = {
+    self.ControllerParams = {
     CameraMode = 1,
     ThirdP_Offset = Vector(45, 20, -15),
     FirstP_Bone = "ValveBiped.Bip01_Head",
     FirstP_Offset = Vector(10, 0, -30),
 }
-    self.JumpParameters.Enabled = false
+    self.JumpParams.Enabled = false
     self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
