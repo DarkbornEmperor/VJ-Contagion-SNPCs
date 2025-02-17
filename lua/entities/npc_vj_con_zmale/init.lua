@@ -42,9 +42,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = {
-"common/null.wav"
-}
+ENT.SoundTbl_FootStep = "common/null.wav"
 ENT.SoundTbl_MeleeAttackExtra = {
 "vj_contagion/zombies/shared/z_hit-01.wav",
 "vj_contagion/zombies/shared/z_hit-02.wav",
