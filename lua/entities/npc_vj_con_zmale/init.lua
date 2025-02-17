@@ -19,16 +19,16 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamage = 21 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
+ENT.MeleeAttackPlayerSpeed = true
+ENT.MeleeAttackPlayerSpeedTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackSlowPlayerSound = false
 //ENT.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_forward2","vjseq_shoved_forward2"}
 ENT.CanFlinch = true
 //ENT.FlinchChance = 1
-ENT.NextFlinchTime = 1
+ENT.FlinchCooldown = 1
 ENT.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
-ENT.HitGroupFlinching_Values = {
+ENT.FlinchHitGroupMap = {
     {HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2020_01","vjges_injured_head2020_02","vjges_injured_head2020_03","vjges_injured_head2020_04"}},
 }
 ENT.HasDeathAnimation = true
@@ -882,10 +882,10 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
         self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
-        self.NextFlinchTime = math.Rand(5,8)
+        self.FlinchCooldown = math.Rand(5,8)
     else
         self.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
-        self.NextFlinchTime = 1
+        self.FlinchCooldown = 1
     end
 end
         return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self:GetSequenceName(self:GetSequence()) == "brute_charge_begin" or self:GetSequenceName(self:GetSequence()) == "shoved_backwards_wall1" or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
@@ -1117,10 +1117,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

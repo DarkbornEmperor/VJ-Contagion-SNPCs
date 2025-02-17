@@ -19,13 +19,13 @@ ENT.MeleeAttackDamageDistance = 60
 ENT.MeleeAttackDamage = 30
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
-ENT.SlowPlayerOnMeleeAttack = true
-ENT.SlowPlayerOnMeleeAttackTime = 0.5
+ENT.MeleeAttackPlayerSpeed = true
+ENT.MeleeAttackPlayerSpeedTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackSlowPlayerSound = false
 ENT.CanFlinch = true
 //ENT.FlinchChance = 1
-ENT.NextFlinchTime = 1
+ENT.FlinchCooldown = 1
 ENT.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
@@ -409,10 +409,10 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
  if status == "PriorExecution" then
     if (dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC)) or (dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage()) then
         self.AnimTbl_Flinch = "vjseq_shoved_backward_03"
-        self.NextFlinchTime = 5
+        self.FlinchCooldown = 5
     else
         self.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
-        self.NextFlinchTime = 1
+        self.FlinchCooldown = 1
 end
         return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self:GetSequence() == self:LookupSequence("shoved_forward_01") -- If we are doing certaina activities then DO NOT flinch!
     end
@@ -638,10 +638,10 @@ function ENT:OnFootstepSound()
         filter = {self}
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootStepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
