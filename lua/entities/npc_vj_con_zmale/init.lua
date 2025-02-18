@@ -71,7 +71,7 @@ ENT.SoundTbl_Impact = {
 ENT.IdleSoundChance = 1
 ENT.NextSoundTime_Idle = VJ.SET(3,4)
 ENT.NextSoundTime_Investigate = VJ.SET(3,4)
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = VJ.SET(100, 100)
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_Crouching = false
