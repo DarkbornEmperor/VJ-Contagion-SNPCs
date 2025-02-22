@@ -71,7 +71,7 @@ ENT.SoundTbl_Impact = {
 ENT.IdleSoundChance = 1
 ENT.NextSoundTime_Idle = VJ.SET(3,4)
 ENT.NextSoundTime_Investigate = VJ.SET(3,4)
-ENT.MainSoundPitch = VJ.SET(100, 100)
+ENT.MainSoundPitch = 100
 -- Custom
 ENT.Zombie_Climbing = false
 ENT.Zombie_Crouching = false
@@ -876,7 +876,7 @@ end
 function ENT:ArmorDamage(dmginfo,hitgroup,status) end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "PriorExecution" then
+ if status == "Init" then
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
         self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
@@ -891,7 +891,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
+    if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
     //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
     if status == "DeathAnim" then
     if self:IsMoving() then -- Death anims when moving

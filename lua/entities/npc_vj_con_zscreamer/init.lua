@@ -406,7 +406,7 @@ function ENT:OnDamaged(dmginfo,hitgroup,status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "PriorExecution" then
+ if status == "Init" then
     if (dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC)) or (dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage()) then
         self.AnimTbl_Flinch = "vjseq_shoved_backward_03"
         self.FlinchCooldown = 5
@@ -419,7 +419,7 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Initial" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self:GetSequence() == self:LookupSequence("shoved_forward_01") or self:GetSequence() == self:LookupSequence("shoved_backward_03") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
+    if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self:GetSequence() == self:LookupSequence("shoved_forward_01") or self:GetSequence() == self:LookupSequence("shoved_backward_03") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
     //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
     if status == "DeathAnim" && self:IsMoving() then
         self.AnimTbl_Death = ACT_DIEFORWARD
