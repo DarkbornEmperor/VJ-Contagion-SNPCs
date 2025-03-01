@@ -11,9 +11,6 @@ ENT.PrintName = "Random Zombie"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Contagion"
-
-ENT.Spawnable = false
-ENT.AdminSpawnable = false
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
