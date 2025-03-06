@@ -391,11 +391,13 @@ end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
-    self.AnimTbl_MeleeAttack = {
-    "vjseq_vjges_MovingMelee_01",
-    "vjseq_vjges_MovingMelee_02"
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
+        self.AnimTbl_MeleeAttack = {
+        "vjseq_vjges_MovingMelee_01",
+        "vjseq_vjges_MovingMelee_02"
 }
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)

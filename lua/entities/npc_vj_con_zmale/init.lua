@@ -767,39 +767,41 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_OnThinkActive() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
-   if self.Zombie_Crippled then
-       self.MeleeAttackDistance = 25
-       self.MeleeAttackDamageDistance = 45
-       self.AnimTbl_MeleeAttack = {
-       "vjseq_crawl_melee2013_1",
-       "vjseq_crawl_melee2013_2"
+function ENT:OnMeleeAttack(status,enemy)
+    if status == "Init" then
+    if self.Zombie_Crippled then
+        self.MeleeAttackDistance = 25
+        self.MeleeAttackDamageDistance = 45
+        self.AnimTbl_MeleeAttack = {
+        "vjseq_crawl_melee2013_1",
+        "vjseq_crawl_melee2013_2"
 }
-       return end
-/*
-   --if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
-       self.AnimTbl_MeleeAttack = {
-       "vjseq_melee_cont_01"
+        return end
+    /*
+    --if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
+        self.AnimTbl_MeleeAttack = {
+        "vjseq_melee_cont_01"
 }
-*/
-   if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
-       self.AnimTbl_MeleeAttack = {
-       "vjges_melee2020_player_01",
-       "vjges_melee2020_player_02",
-       "vjges_melee2020_player_03"
+    */
+    if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
+        self.AnimTbl_MeleeAttack = {
+        "vjges_melee2020_player_01",
+        "vjges_melee2020_player_02",
+        "vjges_melee2020_player_03"
 }
-   elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
-       self.AnimTbl_MeleeAttack = {
-       "vjges_melee2013_01",
-       "vjges_melee2013_02",
-       "vjges_melee2013_03",
-       "vjges_melee2013_04",
-       "vjges_melee2013_05",
-       "vjges_melee2013_06",
-       "vjges_melee2013_07",
-       "vjges_melee2013_08"
-       //"vjges_"..ACT_MELEE_ATTACK2
+    elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
+        self.AnimTbl_MeleeAttack = {
+        "vjges_melee2013_01",
+        "vjges_melee2013_02",
+        "vjges_melee2013_03",
+        "vjges_melee2013_04",
+        "vjges_melee2013_05",
+        "vjges_melee2013_06",
+        "vjges_melee2013_07",
+        "vjges_melee2013_08"
+        //"vjges_"..ACT_MELEE_ATTACK2
 }
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
