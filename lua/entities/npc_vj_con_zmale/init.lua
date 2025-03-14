@@ -752,7 +752,7 @@ end
                         self:SetPos(finalpos)
     end
 end)
-                self:PlayAnim(anim,true,false/*self:DecideAnimationLength(anim,false,0.4)*/,true,0,{},function(vsched)
+                self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
                     vsched.RunCode_OnFinish = function()
                         //self:SetGroundEntity(NULL)
                         //self:SetPos(finalpos)
