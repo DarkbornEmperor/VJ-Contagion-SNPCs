@@ -199,7 +199,7 @@ function ENT:StopCharging(crash)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+function ENT:MeleeAttackKnockbackVelocity(ent)
     return self:GetForward()*60 + self:GetUp()*100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
