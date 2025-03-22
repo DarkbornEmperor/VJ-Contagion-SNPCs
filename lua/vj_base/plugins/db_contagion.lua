@@ -137,22 +137,22 @@
 
       if CLIENT then
          hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_CON", function()
-         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Main)", "Contagion (Main)", "", "", function(Panel)
+         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion - General", "Contagion - General", "", "", function(panel)
             local vj_conreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_conreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_ZombieOverlay = "1",
                 VJ_CON_OldOverlay = "0",
 }
-                Panel:AddControl("ComboBox", vj_conreset_cs)
-                Panel:AddControl( "Label", {Text = "Client-Side Options:"})
-                Panel:AddControl("Checkbox", {Label ="Enable Screen Overlay When Controlling Zombies?", Command ="VJ_CON_ZombieOverlay"})
-                Panel:AddControl("Checkbox", {Label ="Enable Old Screen Overlay?", Command ="VJ_CON_OldOverlay"})
+                panel:AddControl("ComboBox", vj_conreset_cs)
+                panel:CheckBox("Client-Side Options:")
+                panel:CheckBox("Enable Screen Overlay When Controlling Zombies?","VJ_CON_ZombieOverlay")
+                panel:CheckBox("Enable Old Screen Overlay?","VJ_CON_OldOverlay")
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-                Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+                panel:Help("#vjbase.menu.general.admin.not")
+                panel:CheckBox("#vjbase.menu.general.admin.only")
     return
 end
-            Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+            panel:CheckBox("#vjbase.menu.general.admin.only")
             local vj_conreset = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_conreset.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_AllowClimbing = "0",
@@ -162,25 +162,25 @@ end
                 VJ_CON_Headshot = "0",
                 VJ_CON_CorpseEffects = "1",
 }
-            Panel:AddControl("ComboBox", vj_conreset)
-            Panel:ControlHelp("Note: Only future spawned SNPCs will be affected.")
-            Panel:AddControl("Label", {Text = "Options:"})
-            Panel:AddControl("Checkbox", {Label ="Enable Prop Climbing?", Command ="VJ_CON_AllowClimbing"})
-            Panel:ControlHelp("Warning: Can cause performance issues.")
-            Panel:AddControl("Checkbox", {Label ="Enable Sprinters Only?", Command ="VJ_CON_AllRunners"})
-            Panel:AddControl("Checkbox", {Label ="Enable Zombies Breaking Doors?", Command ="VJ_CON_BreakDoors"})
-            Panel:AddControl("Checkbox", {Label ="Enable Instant Headshot Death?", Command ="VJ_CON_Headshot"})
-            Panel:AddControl("Checkbox", {Label ="Enable Corpse Effects & Decals?", Command ="VJ_CON_CorpseEffects"})
-            Panel:AddControl( "Label", {Text = "Modifiers:"})
-            Panel:AddControl("Slider", {Label = "Sprinter Chance", Command = "VJ_CON_RunnerChance", Min = "1", Max = "100"})
+            panel:AddControl("ComboBox", vj_conreset)
+            panel:ControlHelp("Note: Only future spawned SNPCs will be affected.")
+            panel:Help("Options:")
+            panel:CheckBox("Enable Prop Climbing?","VJ_CON_AllowClimbing")
+            panel:ControlHelp("Warning: Can cause performance issues.")
+            panel:CheckBox("Enable Sprinters Only?","VJ_CON_AllRunners")
+            panel:CheckBox("Enable Zombies Breaking Doors?","VJ_CON_BreakDoors")
+            panel:CheckBox("Enable Instant Headshot Death?","VJ_CON_Headshot")
+            panel:CheckBox("Enable Corpse Effects & Decals?","VJ_CON_CorpseEffects")
+            panel:CheckBox("Modifiers:")
+            panel:NumSlider("Sprinter Chance","VJ_CON_RunnerChance",1,100,2)
 end)
-         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion (Map Spawner)", "Contagion (Map Spawner)", "", "", function(Panel)
+         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion - Map Spawner", "Contagion - Map Spawner", "", "", function(panel)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-                Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-                Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+                panel:Help("#vjbase.menu.general.admin.not")
+                panel:CheckBox("#vjbase.menu.general.admin.only")
     return
 end
-            Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+            panel:CheckBox("#vjbase.menu.general.admin.only")
             local vj_conreset_mapspawner = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_conreset_mapspawner.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_MapSpawner_Enabled = "1",
@@ -192,21 +192,21 @@ end
                 VJ_CON_MapSpawner_HordeCooldownMin = "120",
                 VJ_CON_MapSpawner_HordeCooldownMax = "180",
                 VJ_CON_MapSpawner_DelayMin = "0.85",
-                VJ_CON_MapSpawner_DelayMax = "3",
+                VJ_CON_MapSpawner_DelayMax = "3"
 }
-            Panel:AddControl("ComboBox", vj_conreset_mapspawner)
-            Panel:AddControl("Label", {Text = "Options:"})
-            Panel:AddControl("Checkbox", {Label = "Enable Map Spawner processing?", Command = "VJ_CON_MapSpawner_Enabled"})
-            Panel:AddControl("Label", {Text = "Modifiers:"})
-            Panel:AddControl("Slider", {Label = "Max Zombies", Command = "VJ_CON_MapSpawner_MaxZom", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", {Label = "Min Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMin", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", {Label = "Max Distance they can spawn from players", Command = "VJ_CON_MapSpawner_SpawnMax", Type = "Float", Min = "150", Max = "30000"})
-            Panel:AddControl("Slider", {Label = "Min time between spawns", Command = "VJ_CON_MapSpawner_DelayMin", Type = "Float", Min = "0.1", Max = "15"})
-            Panel:AddControl("Slider", {Label = "Max time between spawns", Command = "VJ_CON_MapSpawner_DelayMax", Type = "Float", Min = "0.2", Max = "15"})
-            Panel:AddControl("Slider", {Label = "Max Zombie horde", Command = "VJ_CON_MapSpawner_HordeCount", Type = "Float", Min = "5", Max = "400"})
-            Panel:AddControl("Slider", {Label = "Chance that a horde will appear", Command = "VJ_CON_MapSpawner_HordeChance", Type = "Float", Min = "1", Max = "500"})
-            Panel:AddControl("Slider", {Label = "Min cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMin", Type = "Float", Min = "1", Max = "800"})
-            Panel:AddControl("Slider", {Label = "Max cooldown time for horde spawns", Command = "VJ_CON_MapSpawner_HordeCooldownMax", Type = "Float", Min = "1", Max = "800"})
+            panel:AddControl("ComboBox", vj_conreset_mapspawner)
+            panel:Help("Options:")
+            panel:CheckBox("Enable Map Spawner processing?","VJ_CON_MapSpawner_Enabled")
+            panel:Help("Modifiers:")
+            panel:NumSlider("Max Zombies","VJ_CON_MapSpawner_MaxZom",5,400,2)
+            panel:NumSlider("Min Distance they can spawn from players","VJ_CON_MapSpawner_SpawnMin",150,30000,2)
+            panel:NumSlider("Max Distance they can spawn from players","VJ_CON_MapSpawner_SpawnMax",150,30000,2)
+            panel:NumSlider("Min time between spawns","VJ_CON_MapSpawner_DelayMin",0.1,15,2)
+            panel:NumSlider("Max time between spawns","VJ_CON_MapSpawner_DelayMax",0.2,15,2)
+            panel:NumSlider("Max Zombie horde","VJ_CON_MapSpawner_HordeCount",5,400,2)
+            panel:NumSlider("Chance that a horde will appear","VJ_CON_MapSpawner_HordeChance",1,500,2)
+            panel:NumSlider("Min cooldown time for horde spawns","VJ_CON_MapSpawner_HordeCooldownMin",1,800,2)
+            panel:NumSlider("Max cooldown time for horde spawns","VJ_CON_MapSpawner_HordeCooldownMax",1,800,2)
         end)
     end)
 end
