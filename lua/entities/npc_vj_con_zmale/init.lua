@@ -29,7 +29,7 @@ ENT.CanFlinch = true
 ENT.FlinchCooldown = 1
 ENT.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
 ENT.FlinchHitGroupMap = {
-    {HitGroup = {HITGROUP_HEAD}, Animation = {"vjges_injured_head2020_01","vjges_injured_head2020_02","vjges_injured_head2020_03","vjges_injured_head2020_04"}},
+    {HitGroup = HITGROUP_HEAD, Animation = {"vjges_injured_head2020_01","vjges_injured_head2020_02","vjges_injured_head2020_03","vjges_injured_head2020_04"}},
 }
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
