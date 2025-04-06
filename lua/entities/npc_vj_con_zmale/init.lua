@@ -36,10 +36,10 @@ ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"}
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
-    CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 2,
+    ThirdP_Offset = Vector(40, 25, -50),
+    FirstP_Bone = "ValveBiped.Bip01_Head",
+    FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_FootStep = "common/null.wav"
@@ -96,313 +96,311 @@ ENT.FootData = {
 util.AddNetworkString("vj_con_zombie_hud")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "step" && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_RUN then
-        self:PlayFootstepSound()
-    elseif key == "melee" then
-        self:ExecuteMeleeAttack()
-    elseif key == "body_hit" then
-        VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
+if key == "step" && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_RUN then
+    self:PlayFootstepSound()
+elseif key == "melee" then
+    self:ExecuteMeleeAttack()
+elseif key == "body_hit" then
+    VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
 end
-    if key == "break_door" then
-        if IsValid(self.Zombie_DoorToBreak) then
-        self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
-        VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood0"..math.random(1,4)..".wav",75,100)
-        local doorDmg = self.MeleeAttackDamage
-        local door = self.Zombie_DoorToBreak
-        if door.doorHP == nil then
-            door.doorHP = 200 - doorDmg
-        elseif door.doorHP <= 0 then
-            self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
-            return -- To prevent door props making a duplication when it shouldn't
-        else
-            door.doorHP = door.doorHP - doorDmg
+ if key == "break_door" then
+ if IsValid(self.Zombie_DoorToBreak) then
+ self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
+ VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood0"..math.random(1,4)..".wav",75,100)
+ local doorDmg = self.MeleeAttackDamage
+ local door = self.Zombie_DoorToBreak
+ if door.doorHP == nil then
+    door.doorHP = 200 - doorDmg
+ elseif door.doorHP <= 0 then
+    self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
+    return -- To prevent door props making a duplication when it shouldn't
+ else
+    door.doorHP = door.doorHP - doorDmg
 end
-        if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
-            VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-            VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-            ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-            ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-            door:Remove()
-            local doorGib = ents.Create("prop_physics")
-            doorGib:SetPos(door:GetPos())
-            doorGib:SetAngles(door:GetAngles())
-            doorGib:SetModel(door:GetModel())
-            doorGib:SetSkin(door:GetSkin())
-            doorGib:SetBodygroup(1,door:GetBodygroup(1))
-            doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-            doorGib:SetSolid(SOLID_NONE)
-            doorGib:Spawn()
-            doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
-            SafeRemoveEntityDelayed(doorGib,30)
-        elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
-            VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-            VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-            ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-            ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-            door:Remove()
-            local doorGibs = ents.Create("prop_dynamic")
-            doorGibs:SetPos(door:GetPos())
-            doorGibs:SetAngles(door:GetAngles())
-            doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
-            doorGibs:Spawn()
-            doorGibs:TakeDamage(9999)
-            doorGibs:Fire("break")
-            end
+    if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
+        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
+        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
+        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
+        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
+        door:Remove()
+        local doorGib = ents.Create("prop_physics")
+        doorGib:SetPos(door:GetPos())
+        doorGib:SetAngles(door:GetAngles())
+        doorGib:SetModel(door:GetModel())
+        doorGib:SetSkin(door:GetSkin())
+        doorGib:SetBodygroup(1,door:GetBodygroup(1))
+        doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+        doorGib:SetSolid(SOLID_NONE)
+        doorGib:Spawn()
+        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
+        SafeRemoveEntityDelayed(doorGib,30)
+    elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
+        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
+        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
+        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
+        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
+        door:Remove()
+        local doorGibs = ents.Create("prop_dynamic")
+        doorGibs:SetPos(door:GetPos())
+        doorGibs:SetAngles(door:GetAngles())
+        doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
+        doorGibs:Spawn()
+        doorGibs:TakeDamage(9999)
+        doorGibs:Fire("break") end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if self:GetClass() == "npc_vj_con_zmale" then
-        self.Model = {
-        "models/vj_contagion/zombies/common_zombie_a_c.mdl",
-        "models/vj_contagion/zombies/common_zombie_a_f.mdl",
-        "models/vj_contagion/zombies/common_zombie_a_h.mdl",
-        "models/vj_contagion/zombies/common_zombie_a_t.mdl",
-        "models/vj_contagion/zombies/common_zombie_b_c.mdl",
-        "models/vj_contagion/zombies/common_zombie_b_f.mdl",
-        "models/vj_contagion/zombies/common_zombie_b_h.mdl",
-        "models/vj_contagion/zombies/common_zombie_b_t.mdl",
-        "models/vj_contagion/zombies/common_zombie_c_c.mdl",
-        "models/vj_contagion/zombies/common_zombie_c_f.mdl",
-        "models/vj_contagion/zombies/common_zombie_c_h.mdl",
-        "models/vj_contagion/zombies/common_zombie_c_t.mdl"
+ if self:GetClass() == "npc_vj_con_zmale" then
+    self.Model = {
+    "models/vj_contagion/zombies/common_zombie_a_c.mdl",
+    "models/vj_contagion/zombies/common_zombie_a_f.mdl",
+    "models/vj_contagion/zombies/common_zombie_a_h.mdl",
+    "models/vj_contagion/zombies/common_zombie_a_t.mdl",
+    "models/vj_contagion/zombies/common_zombie_b_c.mdl",
+    "models/vj_contagion/zombies/common_zombie_b_f.mdl",
+    "models/vj_contagion/zombies/common_zombie_b_h.mdl",
+    "models/vj_contagion/zombies/common_zombie_b_t.mdl",
+    "models/vj_contagion/zombies/common_zombie_c_c.mdl",
+    "models/vj_contagion/zombies/common_zombie_c_f.mdl",
+    "models/vj_contagion/zombies/common_zombie_c_h.mdl",
+    "models/vj_contagion/zombies/common_zombie_c_t.mdl"
 }
-    elseif self:GetClass() == "npc_vj_con_zcarrier" then
-        self.Zombie_Sprinter = true
-        self.Model = {
-        "models/vj_contagion/zombies/carrier_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zcivi" then
-        self.Model = {
-        "models/vj_contagion/zombies/civillian_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zcurtis" then
-        self.Model = {
-        "models/vj_contagion/zombies/curtis_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zdiego" then
-        self.Model = {
-        "models/vj_contagion/zombies/diego_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zdoc" then
-        self.Model = {
-        "models/vj_contagion/zombies/doctor_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zelijah" then
-        self.Model = {
-        "models/vj_contagion/zombies/elijah_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zeugene" then
-        self.Model = {
-        "models/vj_contagion/zombies/eugene_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zfemale" then
-        self.Zombie_Gender = 1
-        self.Model = {
-        "models/vj_contagion/zombies/common_zombie_female_a_t.mdl",
-        "models/vj_contagion/zombies/common_zombie_female_b_t.mdl",
-        "models/vj_contagion/zombies/common_zombie_female_c_t.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zinmate" then
-        self.Model = {
-        "models/vj_contagion/zombies/inmate_zombie01.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zjessica" then
-        self.Zombie_Gender = 1
-        self.Model = {
-        "models/vj_contagion/zombies/jessica_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zlawrence" then
-        self.Model = {
-        "models/vj_contagion/zombies/lawrence_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zlooter" then
-        self.Model = {
-        "models/vj_contagion/zombies/looter_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zmanuel" then
-        self.Model = {
-        "models/vj_contagion/zombies/manuel_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zmarcus" then
-        self.Model = {
-        "models/vj_contagion/zombies/marcus_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zmia" then
-        self.Zombie_Gender = 1
-        self.Model = {
-        "models/vj_contagion/zombies/mia_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zmike" then
-        self.Model = {
-        "models/vj_contagion/zombies/engineer.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zmilitary" then
-        self.Model = {
-        "models/vj_contagion/zombies/military_gasmask_zombie.mdl",
-        "models/vj_contagion/zombies/military_nohelmet_zombie.mdl",
-        "models/vj_contagion/zombies/military_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_znick" then
-        self.Model = {
-        "models/vj_contagion/zombies/nick_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_znicole" then
-        self.Zombie_Gender = 1
-        self.Model = {
-        "models/vj_contagion/zombies/nicole_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zofficer" then
-        self.Model = {
-        "models/vj_contagion/zombies/officer_alt.mdl",
-        "models/vj_contagion/zombies/officer_alt2.mdl",
-        "models/vj_contagion/zombies/officer_alt3.mdl",
-        "models/vj_contagion/zombies/officer_alt4.mdl",
-        "models/vj_contagion/zombies/officer_zombie.mdl",
-        "models/vj_contagion/zombies/officer_armor.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zriot" then
-        self.Model = {
-        "models/vj_contagion/zombies/riot_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zriotbrute" then
-        self.Model = {
-        "models/vj_contagion/zombies/riot_brute_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zriotsol" then
-        self.Model = {
-        "models/vj_contagion/zombies/riot_soldier.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zryan" then
-        self.Model = {
-        "models/vj_contagion/zombies/ryan_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_ztony" then
-        self.Model = {
-        "models/vj_contagion/zombies/tony_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zworker" then
-        self.Model = {
-        "models/vj_contagion/zombies/worker_visor01_zombie.mdl",
-        "models/vj_contagion/zombies/worker_visor02_zombie.mdl",
-        "models/vj_contagion/zombies/worker_zombie.mdl"
-}
-    elseif self:GetClass() == "npc_vj_con_zyumi" then
-        self.Zombie_Gender = 1
-        self.Model = {
-        "models/vj_contagion/zombies/yumi_zombie.mdl"
-}
-end
-        if math.random(1,GetConVar("VJ_CON_RunnerChance"):GetInt()) == 1 && GetConVar("VJ_CON_AllRunners"):GetInt() == 0 then
-            self.Zombie_Sprinter = true
-end
-        if GetConVar("VJ_CON_AllRunners"):GetInt() == 1 then self.Zombie_Sprinter = true end
+ elseif self:GetClass() == "npc_vj_con_zcarrier" then
+    self.Zombie_Sprinter = true
+    self.Model =
+    "models/vj_contagion/zombies/carrier_zombie.mdl"
 
-        if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
+ elseif self:GetClass() == "npc_vj_con_zcivi" then
+    self.Model =
+    "models/vj_contagion/zombies/civillian_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zcurtis" then
+    self.Model =
+    "models/vj_contagion/zombies/curtis_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zdiego" then
+    self.Model =
+    "models/vj_contagion/zombies/diego_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zdoc" then
+    self.Model =
+    "models/vj_contagion/zombies/doctor_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zelijah" then
+    self.Model =
+    "models/vj_contagion/zombies/elijah_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zeugene" then
+    self.Model =
+    "models/vj_contagion/zombies/eugene_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zfemale" then
+    self.Zombie_Gender = 1
+    self.Model = {
+    "models/vj_contagion/zombies/common_zombie_female_a_t.mdl",
+    "models/vj_contagion/zombies/common_zombie_female_b_t.mdl",
+    "models/vj_contagion/zombies/common_zombie_female_c_t.mdl"
+}
+ elseif self:GetClass() == "npc_vj_con_zinmate" then
+    self.Model =
+    "models/vj_contagion/zombies/inmate_zombie01.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zjessica" then
+    self.Zombie_Gender = 1
+    self.Model =
+    "models/vj_contagion/zombies/jessica_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zlawrence" then
+    self.Model =
+    "models/vj_contagion/zombies/lawrence_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zlooter" then
+    self.Model =
+    "models/vj_contagion/zombies/looter_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zmanuel" then
+    self.Model =
+    "models/vj_contagion/zombies/manuel_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zmarcus" then
+    self.Model =
+    "models/vj_contagion/zombies/marcus_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zmia" then
+    self.Zombie_Gender = 1
+    self.Model =
+    "models/vj_contagion/zombies/mia_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zmike" then
+    self.Model =
+    "models/vj_contagion/zombies/engineer.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zmilitary" then
+    self.Model = {
+    "models/vj_contagion/zombies/military_gasmask_zombie.mdl",
+    "models/vj_contagion/zombies/military_nohelmet_zombie.mdl",
+    "models/vj_contagion/zombies/military_zombie.mdl"
+}
+ elseif self:GetClass() == "npc_vj_con_znick" then
+    self.Model =
+    "models/vj_contagion/zombies/nick_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_znicole" then
+    self.Zombie_Gender = 1
+    self.Model =
+    "models/vj_contagion/zombies/nicole_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zofficer" then
+    self.Model = {
+    "models/vj_contagion/zombies/officer_alt.mdl",
+    "models/vj_contagion/zombies/officer_alt2.mdl",
+    "models/vj_contagion/zombies/officer_alt3.mdl",
+    "models/vj_contagion/zombies/officer_alt4.mdl",
+    "models/vj_contagion/zombies/officer_zombie.mdl",
+    "models/vj_contagion/zombies/officer_armor.mdl"
+}
+ elseif self:GetClass() == "npc_vj_con_zriot" then
+    self.Model =
+    "models/vj_contagion/zombies/riot_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zriotbrute" then
+    self.Model =
+    "models/vj_contagion/zombies/riot_brute_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zriotsol" then
+    self.Model =
+    "models/vj_contagion/zombies/riot_soldier.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zryan" then
+    self.Model =
+    "models/vj_contagion/zombies/ryan_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_ztony" then
+    self.Model =
+    "models/vj_contagion/zombies/tony_zombie.mdl"
+
+ elseif self:GetClass() == "npc_vj_con_zworker" then
+    self.Model = {
+    "models/vj_contagion/zombies/worker_visor01_zombie.mdl",
+    "models/vj_contagion/zombies/worker_visor02_zombie.mdl",
+    "models/vj_contagion/zombies/worker_zombie.mdl"
+}
+ elseif self:GetClass() == "npc_vj_con_zyumi" then
+    self.Zombie_Gender = 1
+    self.Model =
+    "models/vj_contagion/zombies/yumi_zombie.mdl"
+end
+ if math.random(1,GetConVar("VJ_CON_RunnerChance"):GetInt()) == 1 && GetConVar("VJ_CON_AllRunners"):GetInt() == 0 then
+    self.Zombie_Sprinter = true
+end
+    if GetConVar("VJ_CON_AllRunners"):GetInt() == 1 then self.Zombie_Sprinter = true end
+
+    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-     if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,7))
+ if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,7))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_f.mdl" then
-        self.StartHealth = 200
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,7))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_f.mdl" then
+    self.StartHealth = 200
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,7))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_t.mdl" then
-        self:SetBodygroup(0,math.random(0,3))
-        self:SetBodygroup(1,math.random(0,4))
-        self:SetSkin(math.random(0,7))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_t.mdl" then
+    self:SetBodygroup(0,math.random(0,3))
+    self:SetBodygroup(1,math.random(0,4))
+    self:SetSkin(math.random(0,7))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_c.mdl" then
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_c.mdl" then
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_f.mdl" then
-        self.StartHealth = 200
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_f.mdl" then
+    self.StartHealth = 200
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_t.mdl" then
-        self:SetBodygroup(0,math.random(0,3))
-        self:SetBodygroup(1,math.random(0,4))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_t.mdl" then
+    self:SetBodygroup(0,math.random(0,3))
+    self:SetBodygroup(1,math.random(0,4))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_c.mdl" then
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_c.mdl" then
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_f.mdl" then
-        self.StartHealth = 200
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_f.mdl" then
+    self.StartHealth = 200
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_h.mdl" then
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_h.mdl" then
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_t.mdl" then
-        self:SetBodygroup(0,math.random(0,3))
-        self:SetBodygroup(1,math.random(0,4))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_t.mdl" then
+    self:SetBodygroup(0,math.random(0,3))
+    self:SetBodygroup(1,math.random(0,4))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_a_t.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_b_t.mdl" then
-        self:SetBodygroup(0,math.random(0,1))
-        self:SetBodygroup(1,math.random(0,1))
-        self:SetBodygroup(2,math.random(0,1))
-        self:SetSkin(math.random(0,2))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_a_t.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_b_t.mdl" then
+    self:SetBodygroup(0,math.random(0,1))
+    self:SetBodygroup(1,math.random(0,1))
+    self:SetBodygroup(2,math.random(0,1))
+    self:SetSkin(math.random(0,2))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_c_t.mdl" then
-        self:SetBodygroup(0,math.random(0,1))
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetBodygroup(2,math.random(0,1))
-        self:SetSkin(math.random(0,2))
+ elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_c_t.mdl" then
+    self:SetBodygroup(0,math.random(0,1))
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetBodygroup(2,math.random(0,1))
+    self:SetSkin(math.random(0,2))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/civillian_zombie.mdl" then
-        self:SetBodygroup(0,math.random(0,1))
-        self:SetSkin(math.random(0,9))
+ elseif self:GetModel() == "models/vj_contagion/zombies/civillian_zombie.mdl" then
+    self:SetBodygroup(0,math.random(0,1))
+    self:SetSkin(math.random(0,9))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/doctor_zombie.mdl" then
-        self:SetBodygroup(0,math.random(0,1))
-        self:SetSkin(math.random(0,3))
+ elseif self:GetModel() == "models/vj_contagion/zombies/doctor_zombie.mdl" then
+    self:SetBodygroup(0,math.random(0,1))
+    self:SetSkin(math.random(0,3))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/worker_visor01_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/worker_visor02_zombie.mdl" then
-        self:SetSkin(math.random(0,14))
+ elseif self:GetModel() == "models/vj_contagion/zombies/worker_visor01_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/worker_visor02_zombie.mdl" then
+    self:SetSkin(math.random(0,14))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" then
-        self:SetBodygroup(1,math.random(0,2))
-        self:SetSkin(math.random(0,14))
+ elseif self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" then
+    self:SetBodygroup(1,math.random(0,2))
+    self:SetSkin(math.random(0,14))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/inmate_zombie01.mdl" then
-        self:SetBodygroup(0,math.random(0,3))
-        self:SetSkin(math.random(0,3))
+ elseif self:GetModel() == "models/vj_contagion/zombies/inmate_zombie01.mdl" then
+    self:SetBodygroup(0,math.random(0,3))
+    self:SetSkin(math.random(0,3))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/looter_zombie.mdl" then
-        self:SetBodygroup(2,math.random(0,4))
-        self:SetSkin(math.random(0,5))
+ elseif self:GetModel() == "models/vj_contagion/zombies/looter_zombie.mdl" then
+    self:SetBodygroup(2,math.random(0,4))
+    self:SetSkin(math.random(0,5))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/officer_alt.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt2.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt3.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt4.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_zombie.mdl" then
-        self.Riot_Helmet = false
-        self:SetSkin(math.random(0,5))
+ elseif self:GetModel() == "models/vj_contagion/zombies/officer_alt.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt2.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt3.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt4.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_zombie.mdl" then
+    self.Riot_Helmet = false
+    self:SetSkin(math.random(0,5))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
-        //self.StartHealth = 225
-        self:SetSkin(math.random(0,5))
+ elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
+    //self.StartHealth = 225
+    self:SetSkin(math.random(0,5))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
-        self:SetBodygroup(1,math.random(0,1))
+ elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
+    self:SetBodygroup(1,math.random(0,1))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
-        self.Riot_Helmet = false
-        self:SetBodygroup(1,math.random(0,1))
-        self:SetSkin(math.random(0,3))
+ elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
+    self.Riot_Helmet = false
+    self:SetBodygroup(1,math.random(0,1))
+    self:SetSkin(math.random(0,3))
 
-     elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
-        //self.StartHealth = 225
-        self:SetSkin(math.random(0,3))
+ elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
+    //self.StartHealth = 225
+    self:SetSkin(math.random(0,3))
 end
     self:SetHealth((GetConVar("vj_npc_health"):GetInt() > 0) and GetConVar("vj_npc_health"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
 end
@@ -411,18 +409,17 @@ function ENT:Init()
  for attName, var in pairs(self.FootData) do
     var.AttID = self:LookupAttachment(attName)
 end
-    self:Zombie_Init()
-    self:ZombieVoices()
-    if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
-    -- Getting up animation
-    if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
-        timer.Simple(0, function()
-            self:PlayAnim("vjseq_sit_to_idle1",true,false)
-            self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+ self:Zombie_Init()
+ self:ZombieVoices()
+ if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
+ -- Getting up animation
+ if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
+ timer.Simple(0, function()
+    self:PlayAnim("vjseq_sit_to_idle1",true,false)
+    self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 end)
-        timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
-            self:SetState()
-            end
+    timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
+        self:SetState() end
         end)
     end
 end
@@ -439,21 +436,21 @@ end*/
 function ENT:ZombieVoices()
  if self.Zombie_Gender == 0 then
  local maleVoice = math.random(1,6)
-    if maleVoice == 1 then
-        self:ZombieVoice_George()
-    elseif maleVoice == 2 then
-        self:ZombieVoice_Andy()
-    elseif maleVoice == 3 then
-        self:ZombieVoice_Jim()
-    elseif maleVoice == 4 then
-        self:ZombieVoice_Michael()
-    elseif maleVoice == 5 then
-        self:ZombieVoice_Scottlam()
-    elseif maleVoice == 6 then
-        self:ZombieVoice_2013()
+ if maleVoice == 1 then
+    self:ZombieVoice_George()
+ elseif maleVoice == 2 then
+    self:ZombieVoice_Andy()
+ elseif maleVoice == 3 then
+    self:ZombieVoice_Jim()
+ elseif maleVoice == 4 then
+    self:ZombieVoice_Michael()
+ elseif maleVoice == 5 then
+    self:ZombieVoice_Scottlam()
+ elseif maleVoice == 6 then
+    self:ZombieVoice_2013()
 end
- elseif self.Zombie_Gender == 1 then
- local femaleVoice = math.random(1,4)
+    elseif self.Zombie_Gender == 1 then
+    local femaleVoice = math.random(1,4)
     if femaleVoice == 1 then
         self:ZombieVoice_Christina()
     elseif femaleVoice == 2 then
@@ -477,52 +474,51 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
- if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
+    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
         self:PlayAnim({"vjseq_idle2013_facearound_01","vjseq_idle2013_facearound_02"},"LetAttacks",math.Rand(0.5,1),true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCallForHelp(ally)
-  if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
-     if math.random(1,3) == 1 && !self:IsBusy() then
+    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
+    if math.random(1,3) == 1 && !self:IsBusy() then
         self:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
-        if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
+    if math.random(1,3) == 1 && !ally:IsBusy() then
+        ally:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply,controlEnt)
-  ply:ChatPrint("DUCK: Crouch")
-  ply:ChatPrint("JUMP: Jump")
-  if !self.Zombie_Sprinter then ply:ChatPrint("WALK: Blend") end
-  ply:ChatPrint("RELOAD: Roar")
-  ply:ChatPrint("USE: Break Door")
-  ply:ChatPrint("ATTACK2: Command")
+ ply:ChatPrint("DUCK: Crouch")
+ ply:ChatPrint("JUMP: Jump")
+ if !self.Zombie_Sprinter then ply:ChatPrint("WALK: Blend") end
+ ply:ChatPrint("RELOAD: Roar")
+ ply:ChatPrint("USE: Break Door")
+ ply:ChatPrint("ATTACK2: Command")
 
+ net.Start("vj_con_zombie_hud")
+ net.WriteBool(false)
+ net.WriteEntity(self)
+ net.Send(ply)
+
+function self.VJ_TheControllerEntity:OnStopControlling()
     net.Start("vj_con_zombie_hud")
-        net.WriteBool(false)
-        net.WriteEntity(self)
+    net.WriteBool(true)
+    net.WriteEntity(self)
     net.Send(ply)
-
-    function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start("vj_con_zombie_hud")
-            net.WriteBool(true)
-            net.WriteEntity(self)
-        net.Send(ply)
 end
 function controlEnt:OnKeyBindPressed(key)
     local npc = self.VJCE_NPC
     -- Toggle blend setting
     if key == IN_WALK then
-        if npc.Zombie_ControllerAnim == 0 then
-            npc.Zombie_ControllerAnim = 1
-            self.VJCE_Player:ChatPrint("Blend Disabled")
-        else
-            npc.Zombie_ControllerAnim = 0
-            self.VJCE_Player:ChatPrint("Blend Enabled")
-            end
+    if npc.Zombie_ControllerAnim == 0 then
+        npc.Zombie_ControllerAnim = 1
+        self.VJCE_Player:ChatPrint("Blend Disabled")
+    else
+        npc.Zombie_ControllerAnim = 0
+        self.VJCE_Player:ChatPrint("Blend Enabled") end
         end
     end
 end
@@ -584,62 +580,60 @@ function ENT:OnThink()
     end
 end
     if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
-      if self:IsOnGround() && CurTime() > self.Zombie_NextJumpT then
-      local maxDist = 220
-      local maxDepth = 20
-      local targetPos = self:GetPos() +Vector(math.Rand(-maxDist,maxDist),math.Rand(-maxDist,maxDist),maxDepth)
+    if self:IsOnGround() && CurTime() > self.Zombie_NextJumpT then
+    local maxDist = 220
+    local maxDepth = 20
+    local targetPos = self:GetPos() +Vector(math.Rand(-maxDist,maxDist),math.Rand(-maxDist,maxDist),maxDepth)
         self:Jump(targetPos)
         self:PlaySoundSystem("Alert",self.SoundTbl_Jump)
         self.Zombie_NextJumpT = CurTime() + 1
     end
 end
- local curSeq = self:GetSequence()
- if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
- local curAct = self:GetSequenceActivity(self:GetIdealSequence())
-        if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
-          if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-            for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
-              //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
-                 if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
-                    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
-                    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
-                        self.Zombie_AttackingDoor = true
-                        self.Zombie_DoorToBreak = v
-                break
-            end
+    local curSeq = self:GetSequence()
+    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
+    local curAct = self:GetSequenceActivity(self:GetIdealSequence())
+    if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
+    if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
+    //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
+    if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
+    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
+    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
+        self.Zombie_AttackingDoor = true
+        self.Zombie_DoorToBreak = v break end
         end
     end
 end
-        else
-            if IsValid(self.Zombie_DoorToBreak) then
-            local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
-            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
-            if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
-                //local ang = self:GetAngles()
-                //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
-                self:SetTurnTarget(self.Zombie_DoorToBreak)
-                self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
-                self:SetState(VJ_STATE_ONLY_ANIMATION)
+    else
+    if IsValid(self.Zombie_DoorToBreak) then
+    local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
+    if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
+    if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
+        //local ang = self:GetAngles()
+        //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
+        self:SetTurnTarget(self.Zombie_DoorToBreak)
+        self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
+        self:SetState(VJ_STATE_ONLY_ANIMATION)
         end
     end
 end
-        if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
-            self.Zombie_AttackingDoor = false
-            self:PlayAnim(ACT_IDLE,true,0,false)
-            self:SetState()
+    if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
+        self.Zombie_AttackingDoor = false
+        self:PlayAnim(ACT_IDLE,true,0,false)
+        self:SetState()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Jump(pos)
-    self:StopMoving()
-    self:ResetMoveCalc()
-    self:SetNavType(NAV_GROUND)
-    self:SetMoveType(MOVETYPE_STEP)
-    if self.CurrentSchedule then
-        self.CurrentSchedule = nil
-        self.CurrentScheduleName = nil
-        self.CurrentTask = nil
-        self.CurrentTaskID = nil
+ self:StopMoving()
+ self:ResetMoveCalc()
+ self:SetNavType(NAV_GROUND)
+ self:SetMoveType(MOVETYPE_STEP)
+ if self.CurrentSchedule then
+    self.CurrentSchedule = nil
+    self.CurrentScheduleName = nil
+    self.CurrentTask = nil
+    self.CurrentTaskID = nil
 end
     //self.NextIdleStandTime = CurTime()
     self.NextIdleTime = CurTime()
@@ -658,10 +652,10 @@ function ENT:Crouch(bCrouch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- self:Zombie_OnThinkActive()
- if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:IsBusy("Activities") then
-  for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
+   self:Zombie_OnThinkActive()
+   if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:IsBusy("Activities") then
+    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) < 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
     if !self.Zombie_Crippled && !self.Zombie_Crouching then
         self:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false) end
@@ -674,8 +668,8 @@ function ENT:OnThinkActive()
         end
     end
 end
- if CurTime() > self.Zombie_NextCommandT then
-  for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+    if CurTime() > self.Zombie_NextCommandT then
+    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
     if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
         local bullseye = self.VJ_TheControllerBullseye
         v:PlaySoundSystem("InvestigateSound",v.SoundTbl_Investigate)
@@ -688,9 +682,9 @@ end
         end
     end
 end
-  if self.Zombie_Crippled then return end
-  if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching && !self:IsBusy() && !self.RiotBrute_Charging then
-     if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
+    if self.Zombie_Crippled then return end
+    if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching && !self:IsBusy() && !self.RiotBrute_Charging then
+    if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
         self:Crouch(true)
         self.Zombie_Crouching = true
     else
@@ -698,8 +692,8 @@ end
         self.Zombie_Crouching = false
     end
 end
-  if self.VJ_IsBeingControlled then
-     if self.VJ_TheController:KeyDown(IN_DUCK) then
+    if self.VJ_IsBeingControlled then
+    if self.VJ_TheController:KeyDown(IN_DUCK) then
         self:Crouch(true)
         self.Zombie_Crouching = true
     else
@@ -707,60 +701,60 @@ end
         self.Zombie_Crouching = false
     end
 end
-    //print(self:GetBlockingEntity())
-    // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
-    if self.Zombie_AllowClimbing && !self.RiotBrute_Charging && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
-        //print("-------------------------------------------------------------------------------------")
-        local anim = false
-        local finalpos = self:GetPos()
-        local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
-        local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
-        local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
-        local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
-        local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
-        local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
+ //print(self:GetBlockingEntity())
+ // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
+ if self.Zombie_AllowClimbing && !self.RiotBrute_Charging && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
+ //print("-------------------------------------------------------------------------------------")
+ local anim = false
+ local finalpos = self:GetPos()
+ local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
+ local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
+ local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
+ local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
+ local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
+ local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
 
-        //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
-        //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
-        //PrintTable(tr2)
-        if !IsValid(tru.Entity) then
-            if IsValid(tr5.Entity) then
-                local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
-                if !IsValid(tr5b.Entity) then
-                    anim = VJ.PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
-                    finalpos = tr5.HitPos
+ //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
+ //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
+ //PrintTable(tr2)
+ if !IsValid(tru.Entity) then
+ if IsValid(tr5.Entity) then
+ local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
+ if !IsValid(tr5b.Entity) then
+    anim = VJ.PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
+    finalpos = tr5.HitPos
 end
-            elseif IsValid(tr4.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-                finalpos = tr4.HitPos
-            elseif IsValid(tr3.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-                finalpos = tr3.HitPos
-            elseif IsValid(tr2.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72"})
-                finalpos = tr2.HitPos
-            elseif IsValid(tr1.Entity) then
-                anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
-                finalpos = tr1.HitPos
+ elseif IsValid(tr4.Entity) then
+    anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+    finalpos = tr4.HitPos
+ elseif IsValid(tr3.Entity) then
+    anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
+    finalpos = tr3.HitPos
+ elseif IsValid(tr2.Entity) then
+    anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72"})
+    finalpos = tr2.HitPos
+ elseif IsValid(tr1.Entity) then
+    anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
+    finalpos = tr1.HitPos
 end
-            if anim != false then
-                //print(anim)
-                self:SetGroundEntity(NULL)
-                self.Zombie_Climbing = true
-                timer.Simple(0.4,function()
-                    if IsValid(self) then
-                        self:SetPos(finalpos)
+    if anim != false then
+        //print(anim)
+        self:SetGroundEntity(NULL)
+        self.Zombie_Climbing = true
+    timer.Simple(0.4,function()
+    if IsValid(self) then
+        self:SetPos(finalpos)
     end
 end)
-                self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
-                    vsched.RunCode_OnFinish = function()
-                        //self:SetGroundEntity(NULL)
-                        //self:SetPos(finalpos)
-                        self.Zombie_Climbing = false
-                    end
-                end)
-            end
-            self.Zombie_NextClimb = CurTime() + 0.1 //5
+        self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
+        vsched.RunCode_OnFinish = function()
+        //self:SetGroundEntity(NULL)
+        //self:SetPos(finalpos)
+        self.Zombie_Climbing = false
+        end
+    end)
+end
+        self.Zombie_NextClimb = CurTime() + 0.1 //5
         end
     end
 end
@@ -837,41 +831,40 @@ function ENT:Cripple()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo,hitgroup,status)
-    if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
-        dmginfo:SetDamage(self:GetMaxHealth())
+ if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
+    dmginfo:SetDamage(self:GetMaxHealth())
 end
-    /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
-        dmginfo:ScaleDamage(0.5)
+ /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
+    dmginfo:ScaleDamage(0.5)
 end*/
-    self:ArmorDamage(dmginfo,hitgroup,status)
-    if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
-    if self.Zombie_Crippled then return end
-    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
-    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
-    if self:IsPlayingGesture(self.AttackAnim) then -- Stop the attack gesture!
-        self:RemoveGesture(self.AttackAnim)
+ self:ArmorDamage(dmginfo,hitgroup,status)
+ if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
+ if self.Zombie_Crippled then return end
+ if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+ if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
+ if self:IsPlayingGesture(self.AttackAnim) then -- Stop the attack gesture!
+    self:RemoveGesture(self.AttackAnim)
 end
         self:PlayAnim({"vjseq_shoved_forward1","vjseq_shoved_forward2","vjseq_shoved_forward_heavy"},true,false,false)
         self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)
     end
 end
  if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" or self:GetClass() == "npc_vj_con_zriotsol" then return end
-    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
-    local legs = {6,7,10,11}
-     if VJ.HasValue(legs,hitgroup) then
-        self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
-     if self.Zombie_LegHealth <= 0 then
-        self.Zombie_Crippled = true
-        local anim = "vjseq_gib_legboth"
-        if hitgroup == HITGROUP_LEFTLEG or hitgroup == 10 then
-            anim = "vjseq_gib_legl"
-        elseif hitgroup == HITGROUP_RIGHTLEG or hitgroup == 11 then
-            anim = "vjseq_gib_legr"
+ if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
+ local legs = {6,7,10,11}
+ if VJ.HasValue(legs,hitgroup) then
+    self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
+ if self.Zombie_LegHealth <= 0 then
+    self.Zombie_Crippled = true
+ local anim = "vjseq_gib_legboth"
+ if hitgroup == HITGROUP_LEFTLEG or hitgroup == 10 then
+    anim = "vjseq_gib_legl"
+ elseif hitgroup == HITGROUP_RIGHTLEG or hitgroup == 11 then
+    anim = "vjseq_gib_legr"
 end
-            if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
-            self:PlayAnim(anim,true,false,false)
-            self:Cripple()
-            end
+    if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
+        self:PlayAnim(anim,true,false,false)
+        self:Cripple() end
         end
     end
 end
@@ -879,7 +872,7 @@ end
 function ENT:ArmorDamage(dmginfo,hitgroup,status) end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
- if status == "Init" then
+    if status == "Init" then
     if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
     if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
         self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
@@ -894,11 +887,11 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
-    if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
-    //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
-    if status == "DeathAnim" then
-    if self:IsMoving() then -- Death anims when moving
-       self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}
+ if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
+ //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
+ if status == "DeathAnim" then
+ if self:IsMoving() then -- Death anims when moving
+    self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}
 end
     if dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 then -- When killed by shotgun damage
         self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward","vjseq_death2013_shotgun_left","vjseq_death2013_shotgun_right"}
