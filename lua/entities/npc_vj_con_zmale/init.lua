@@ -409,6 +409,7 @@ function ENT:Init()
  for attName, var in pairs(self.FootData) do
     var.AttID = self:LookupAttachment(attName)
 end
+ self:CapabilitiesRemove(CAP_ANIMATEDFACE)
  self:Zombie_Init()
  self:ZombieVoices()
  if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end

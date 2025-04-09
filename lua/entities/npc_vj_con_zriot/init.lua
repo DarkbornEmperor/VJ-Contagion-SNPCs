@@ -26,29 +26,29 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ArmorDamage(dmginfo,hitgroup,status)
  if status == "PreDamage" then
-    if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
-    if self.HasSounds && self.HasImpactSounds then
+ if dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
+ if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
 end
-        self.Bleeds = false
-        dmginfo:ScaleDamage(0.10)
-        local spark = ents.Create("env_spark")
-        spark:SetKeyValue("Magnitude","1")
-        spark:SetKeyValue("Spark Trail Length","1")
-        spark:SetPos(dmginfo:GetDamagePosition())
-        spark:SetAngles(self:GetAngles())
-        spark:SetParent(self)
-        spark:Spawn()
-        spark:Activate()
-        spark:Fire("StartSpark", "", 0)
-        spark:Fire("StopSpark", "", 0.001)
-        self:DeleteOnRemove(spark)
-    else
-        self.Bleeds = true
+    self.Bleeds = false
+    dmginfo:ScaleDamage(0.10)
+    local spark = ents.Create("env_spark")
+    spark:SetKeyValue("Magnitude","1")
+    spark:SetKeyValue("Spark Trail Length","1")
+    spark:SetPos(dmginfo:GetDamagePosition())
+    spark:SetAngles(self:GetAngles())
+    spark:SetParent(self)
+    spark:Spawn()
+    spark:Activate()
+    spark:Fire("StartSpark", "", 0)
+    spark:Fire("StopSpark", "", 0.001)
+    self:DeleteOnRemove(spark)
+ else
+    self.Bleeds = true
 end
     if hitgroup == HITGROUP_HEAD && self.Riot_Helmet && self:GetBodygroup(1) == 0 then
-    self.Riot_HelmetHP = self.Riot_HelmetHP -dmginfo:GetDamage()
+        self.Riot_HelmetHP = self.Riot_HelmetHP -dmginfo:GetDamage()
     if self.Riot_HelmetHP <= 0 then
     if IsValid(spark) then SafeRemoveEntity(spark) end
         VJ.EmitSound(self,"vj_contagion/zombies/shared/physics_impact_break_glass_layer02_0"..math.random(1,8)..".wav",80)
@@ -60,14 +60,14 @@ end
         end
     end
 end
-    if status == "PreDamage" && dmginfo:IsBulletDamage() && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
-    if self.HasSounds && self.HasImpactSounds then
+ if status == "PreDamage" && dmginfo:IsBulletDamage() && (hitgroup == HITGROUP_CHEST or hitgroup == HITGROUP_STOMACH or hitgroup == HITGROUP_RIGHTARM or hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTLEG or hitgroup == HITGROUP_LEFTLEG) then
+ if self.HasSounds && self.HasImpactSounds then
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer01_0"..math.random(1,5)..".wav",70)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
 end
     if math.random(1,3) == 1 then
         dmginfo:ScaleDamage(0.05)
-        local spark = ents.Create("env_spark")
+    local spark = ents.Create("env_spark")
         spark:SetKeyValue("Magnitude","1")
         spark:SetKeyValue("Spark Trail Length","1")
         spark:SetPos(dmginfo:GetDamagePosition())

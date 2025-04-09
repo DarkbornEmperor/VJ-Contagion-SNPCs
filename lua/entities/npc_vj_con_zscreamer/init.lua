@@ -32,10 +32,10 @@ ENT.DeathAnimationChance = 1
 ENT.AnimTbl_Death = ACT_DIESIMPLE
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
-    CameraMode = 2, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(40, 25, -50), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "ValveBiped.Bip01_Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+    CameraMode = 2,
+    ThirdP_Offset = Vector(40, 25, -50),
+    FirstP_Bone = "ValveBiped.Bip01_Head",
+    FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
 ENT.SoundTbl_MeleeAttackExtra = {
@@ -93,68 +93,67 @@ ENT.IsContagionZombie = true
 util.AddNetworkString("vj_con_zombie_hud")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key,activator,caller,data)
-    if key == "step" then
-        self:PlayFootstepSound()
-        self:OnFootstepSound()
-    elseif key == "melee" then
-        self:ExecuteMeleeAttack()
-    elseif key == "body_hit" then
-        VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
+ if key == "step" then
+    self:PlayFootstepSound()
+    self:OnFootstepSound()
+ elseif key == "melee" then
+    self:ExecuteMeleeAttack()
+ elseif key == "body_hit" then
+    VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
 end
-    if key == "break_door" then
-        if IsValid(self.Zombie_DoorToBreak) then
-        self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
-        VJ.EmitSound(self,{"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood1.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood2.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood3.wav"},75,100)
-        local doorDmg = self.MeleeAttackDamage
-        local door = self.Zombie_DoorToBreak
-        if door.doorHP == nil then
-            door.doorHP = 200 - doorDmg
-        elseif door.doorHP <= 0 then
-            self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
-            return -- To prevent door props making a duplication when it shouldn't
-        else
-            door.doorHP = door.doorHP - doorDmg
+ if key == "break_door" then
+ if IsValid(self.Zombie_DoorToBreak) then
+    self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
+    VJ.EmitSound(self,{"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood1.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood2.wav","vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood3.wav"},75,100)
+ local doorDmg = self.MeleeAttackDamage
+ local door = self.Zombie_DoorToBreak
+ if door.doorHP == nil then
+    door.doorHP = 200 - doorDmg
+ elseif door.doorHP <= 0 then
+    self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
+    return -- To prevent door props making a duplication when it shouldn't
+ else
+    door.doorHP = door.doorHP - doorDmg
 end
-        if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
-            VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-            VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-            ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-            ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-            door:Remove()
-            local doorGib = ents.Create("prop_physics")
-            doorGib:SetPos(door:GetPos())
-            doorGib:SetAngles(door:GetAngles())
-            doorGib:SetModel(door:GetModel())
-            doorGib:SetSkin(door:GetSkin())
-            doorGib:SetBodygroup(1,door:GetBodygroup(1))
-            doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-            doorGib:SetSolid(SOLID_NONE)
-            doorGib:Spawn()
-            doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
-            SafeRemoveEntityDelayed(doorGib,30)
-        elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
-            VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-            VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-            ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-            ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-            door:Remove()
-            local doorGibs = ents.Create("prop_dynamic")
-            doorGibs:SetPos(door:GetPos())
-            doorGibs:SetAngles(door:GetAngles())
-            doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
-            doorGibs:Spawn()
-            doorGibs:TakeDamage(9999)
-            doorGibs:Fire("break")
-            end
+    if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
+        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
+        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
+        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
+        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
+        door:Remove()
+        local doorGib = ents.Create("prop_physics")
+        doorGib:SetPos(door:GetPos())
+        doorGib:SetAngles(door:GetAngles())
+        doorGib:SetModel(door:GetModel())
+        doorGib:SetSkin(door:GetSkin())
+        doorGib:SetBodygroup(1,door:GetBodygroup(1))
+        doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+        doorGib:SetSolid(SOLID_NONE)
+        doorGib:Spawn()
+        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
+        SafeRemoveEntityDelayed(doorGib,30)
+    elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
+        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
+        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
+        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
+        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
+        door:Remove()
+        local doorGibs = ents.Create("prop_dynamic")
+        doorGibs:SetPos(door:GetPos())
+        doorGibs:SetAngles(door:GetAngles())
+        doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
+        doorGibs:Spawn()
+        doorGibs:TakeDamage(9999)
+        doorGibs:Fire("break") end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if self:GetClass() == "npc_vj_con_zscreamer" then
-        self.Model = {
-        "models/vj_contagion/zombies/screamer.mdl",
-        "models/vj_contagion/zombies/screamer_bride.mdl"
+ if self:GetClass() == "npc_vj_con_zscreamer" then
+    self.Model = {
+    "models/vj_contagion/zombies/screamer.mdl",
+    "models/vj_contagion/zombies/screamer_bride.mdl"
 }
 end
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
@@ -165,6 +164,7 @@ function ENT:Zombie_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self:CapabilitiesRemove(CAP_ANIMATEDFACE)
     self:Zombie_Init()
     self:ZombieVoices()
 end
@@ -186,19 +186,19 @@ end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
- if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
+    if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
     if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
         self:PlayAnim("vjseq_wander_acquire",true,false,true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCallForHelp(ally)
-  if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
-     if math.random(1,3) == 1 && !self:IsBusy() then
+    if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
+    if math.random(1,3) == 1 && !self:IsBusy() then
         VJ.EmitSound(self,{"vj_contagion/zombies/screamer/Banshee Scream 004.wav","vj_contagion/zombies/screamer/Banshee Scream 007.wav","vj_contagion/zombies/screamer/Banshee Scream 008.wav"})
         self:PlayAnim("vjseq_wander_acquire",true,math.Rand(1.5,3),true)
-        if math.random(1,3) == 1 && !ally:IsBusy() then
-            ally:PlayAnim("vjseq_zombie_grapple_roar2",true,false,true)
+    if math.random(1,3) == 1 && !ally:IsBusy() then
+        ally:PlayAnim("vjseq_zombie_grapple_roar2",true,false,true)
         end
     end
 end
@@ -211,14 +211,14 @@ function ENT:Controller_Initialize(ply,controlEnt)
     ply:ChatPrint("ATTACK2: Command")
 
     net.Start("vj_con_zombie_hud")
-        net.WriteBool(false)
-        net.WriteEntity(self)
+    net.WriteBool(false)
+    net.WriteEntity(self)
     net.Send(ply)
 
-    function self.VJ_TheControllerEntity:OnStopControlling()
+function self.VJ_TheControllerEntity:OnStopControlling()
         net.Start("vj_con_zombie_hud")
-            net.WriteBool(true)
-            net.WriteEntity(self)
+        net.WriteBool(true)
+        net.WriteEntity(self)
         net.Send(ply)
     end
 end
@@ -250,44 +250,42 @@ function ENT:Crouch(bCrouch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
- local curSeq = self:GetSequence()
- if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Climbing or self.Zombie_Crouching or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
- local curAct = self:GetSequenceActivity(self:GetIdealSequence())
-        if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
-          if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-            for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
-              //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
-                 if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
-                    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
-                    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
-                        self.Zombie_AttackingDoor = true
-                        self.Zombie_DoorToBreak = v
-                break
-            end
+    local curSeq = self:GetSequence()
+    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Climbing or self.Zombie_Crouching or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
+    local curAct = self:GetSequenceActivity(self:GetIdealSequence())
+    if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
+    if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+    for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
+    //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
+    if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
+    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
+    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
+        self.Zombie_AttackingDoor = true
+        self.Zombie_DoorToBreak = v break end
         end
     end
 end
-        else
-            //local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
-            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
-            if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
-                //local ang = self:GetAngles()
-                //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
-                self:SetTurnTarget(self.Zombie_DoorToBreak)
-                self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
-                self:SetState(VJ_STATE_ONLY_ANIMATION)
+    else
+    //local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
+    if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) /*or (curAct == ACT_OPEN_DOOR && dist <= 100)*/ then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL return end
+    if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
+        //local ang = self:GetAngles()
+        //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
+        self:SetTurnTarget(self.Zombie_DoorToBreak)
+        self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
+        self:SetState(VJ_STATE_ONLY_ANIMATION)
     end
 end
-        if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
-            self.Zombie_AttackingDoor = false
-            self:PlayAnim(ACT_IDLE,true,0,false)
-            self:SetState()
+    if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
+        self.Zombie_AttackingDoor = false
+        self:PlayAnim(ACT_IDLE,true,0,false)
+        self:SetState()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
- if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self:IsBusy("Activities") then
-  for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+    if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self:IsBusy("Activities") then
+    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
     if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
         self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
     if !self.Zombie_Crouching then
@@ -301,8 +299,8 @@ function ENT:OnThinkActive()
         end
     end
 end
- if CurTime() > self.Zombie_NextCommandT then
-  for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+    if CurTime() > self.Zombie_NextCommandT then
+    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
     if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
         local bullseye = self.VJ_TheControllerBullseye
         v:PlaySoundSystem("InvestigateSound",v.SoundTbl_Investigate)
@@ -315,8 +313,8 @@ end
         end
     end
 end
-  if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching && !self:IsBusy() then
-     if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
+    if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching && !self:IsBusy() then
+    if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
         self:Crouch(true)
         self.Zombie_Crouching = true
     else
@@ -324,8 +322,8 @@ end
         self.Zombie_Crouching = false
     end
 end
-  if self.VJ_IsBeingControlled then
-     if self.VJ_TheController:KeyDown(IN_DUCK) then
+    if self.VJ_IsBeingControlled then
+    if self.VJ_TheController:KeyDown(IN_DUCK) then
         self:Crouch(true)
         self.Zombie_Crouching = true
     else
@@ -333,60 +331,60 @@ end
         self.Zombie_Crouching = false
     end
 end
-    //print(self:GetBlockingEntity())
-    // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
-    if self.Zombie_AllowClimbing && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
-        //print("-------------------------------------------------------------------------------------")
-        local anim = false
-        local finalpos = self:GetPos()
-        local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
-        local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
-        local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
-        local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
-        local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
-        local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
+ //print(self:GetBlockingEntity())
+ // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
+ if self.Zombie_AllowClimbing && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
+    //print("-------------------------------------------------------------------------------------")
+ local anim = false
+ local finalpos = self:GetPos()
+ local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
+ local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
+ local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
+ local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
+ local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
+ local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
 
-        //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
-        //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
-        //PrintTable(tr2)
-        if !IsValid(tru.Entity) then
-            if IsValid(tr5.Entity) then
-                local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
-                if !IsValid(tr5b.Entity) then
-                    anim = VJ.PICK({"vjseq_climb144_03_inplace"})
-                    finalpos = tr5.HitPos
+ //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
+ //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
+ //PrintTable(tr2)
+ if !IsValid(tru.Entity) then
+ if IsValid(tr5.Entity) then
+ local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
+ if !IsValid(tr5b.Entity) then
+    anim = VJ.PICK({"vjseq_climb144_03_inplace"})
+    finalpos = tr5.HitPos
 end
-            elseif IsValid(tr4.Entity) then
-                anim = VJ.PICK({"vjseq_climb120_00_inplace"})
-                finalpos = tr4.HitPos
-            elseif IsValid(tr3.Entity) then
-                anim = VJ.PICK({"vjseq_climb96_04a_inplace"})
-                finalpos = tr3.HitPos
-            elseif IsValid(tr2.Entity) then
-                anim = VJ.PICK({"vjseq_climb72_04_inplace"})
-                finalpos = tr2.HitPos
-            elseif IsValid(tr1.Entity) then
-                anim = VJ.PICK({"vjseq_climb48_01_inplace"})
-                finalpos = tr1.HitPos
+ elseif IsValid(tr4.Entity) then
+    anim = VJ.PICK({"vjseq_climb120_00_inplace"})
+    finalpos = tr4.HitPos
+ elseif IsValid(tr3.Entity) then
+    anim = VJ.PICK({"vjseq_climb96_04a_inplace"})
+    finalpos = tr3.HitPos
+ elseif IsValid(tr2.Entity) then
+    anim = VJ.PICK({"vjseq_climb72_04_inplace"})
+    finalpos = tr2.HitPos
+ elseif IsValid(tr1.Entity) then
+    anim = VJ.PICK({"vjseq_climb48_01_inplace"})
+    finalpos = tr1.HitPos
 end
-            if anim != false then
-                //print(anim)
-                self:SetGroundEntity(NULL)
-                self.Zombie_Climbing = true
-                timer.Simple(0.4,function()
-                    if IsValid(self) then
-                        self:SetPos(finalpos)
+    if anim != false then
+        //print(anim)
+        self:SetGroundEntity(NULL)
+        self.Zombie_Climbing = true
+    timer.Simple(0.4,function()
+    if IsValid(self) then
+        self:SetPos(finalpos)
     end
 end)
-                self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
-                    vsched.RunCode_OnFinish = function()
-                        //self:SetGroundEntity(NULL)
-                        //self:SetPos(finalpos)
-                        self.Zombie_Climbing = false
-                    end
-                end)
-            end
-            self.Zombie_NextClimb = CurTime() + 0.1 //5
+        self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
+        vsched.RunCode_OnFinish = function()
+        //self:SetGroundEntity(NULL)
+        //self:SetPos(finalpos)
+        self.Zombie_Climbing = false
+        end
+    end)
+end
+        self.Zombie_NextClimb = CurTime() + 0.1 //5
         end
     end
 end
@@ -409,12 +407,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo,hitgroup,status)
  if status == "Init" then
-    if (dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC)) or (dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage()) then
-        self.AnimTbl_Flinch = "vjseq_shoved_backward_03"
-        self.FlinchCooldown = 5
-    else
-        self.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
-        self.FlinchCooldown = 1
+ if (dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC)) or (dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage()) then
+    self.AnimTbl_Flinch = "vjseq_shoved_backward_03"
+    self.FlinchCooldown = 5
+ else
+    self.AnimTbl_Flinch = {"vjges_flinch_01","vjges_flinch_02"}
+    self.FlinchCooldown = 1
 end
         return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self:GetSequence() == self:LookupSequence("shoved_forward_01") -- If we are doing certaina activities then DO NOT flinch!
     end
