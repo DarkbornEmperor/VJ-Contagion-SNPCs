@@ -13,7 +13,7 @@ function ENT:ArmorDamage(dmginfo,hitgroup,status)
     VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ImpactBullet_Metal_layer02_0"..math.random(1,7)..".wav",70)
     if math.random(1,3) == 1 then
         dmginfo:ScaleDamage(0.50)
-        local spark = ents.Create("env_spark")
+    local spark = ents.Create("env_spark")
         spark:SetKeyValue("Magnitude","1")
         spark:SetKeyValue("Spark Trail Length","1")
         spark:SetPos(dmginfo:GetDamagePosition())
