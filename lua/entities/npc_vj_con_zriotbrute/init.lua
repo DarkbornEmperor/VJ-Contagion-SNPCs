@@ -51,11 +51,11 @@ function ENT:Zombie_Init()
         shield:SetLocalPos(self:GetPos())
         shield:SetOwner(self)
         shield:SetParent(self)
-        shield:SetCollisionGroup(COLLISION_GROUP_WEAPON)
         shield:Spawn()
         shield:Activate()
-        //shield:SetSolid(SOLID_NONE)
         shield:AddEffects(EF_BONEMERGE)
+        shield:AddEFlags(EFL_DONTBLOCKLOS)
+        shield:AddEFlags(EFL_DONTWALKON)
         shield.VJ_ID_Attackable = false
         self.Shield = shield
     end)
