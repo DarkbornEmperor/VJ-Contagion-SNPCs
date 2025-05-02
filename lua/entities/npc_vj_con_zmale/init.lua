@@ -883,7 +883,7 @@ function ENT:OnFlinch(dmginfo,hitgroup,status)
         self.FlinchCooldown = 1
     end
 end
-        return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self:GetSequenceName(self:GetSequence()) == "brute_charge_begin" or self:GetSequenceName(self:GetSequence()) == "shoved_backwards_wall1" or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
+        return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self.Zombie_Crippled or self.RiotBrute_Charging or self:GetSequenceName(self:GetSequence()) == "brute_charge_begin" or self:GetSequenceName(self:GetSequence()) == "shoved_backwards_wall1" or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
