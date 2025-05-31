@@ -135,7 +135,7 @@ function ENT:Zombie_OnThinkActive()
     hitEnt = tr.Entity
     VJ.CreateSound(self,"physics/metal/metal_sheet_impact_hard8.wav",75)
     local dmginfo = DamageInfo()
-    dmginfo:SetDamage(35)
+    dmginfo:SetDamage(self.MeleeAttackDamage)
     dmginfo:SetDamageType(DMG_CLUB)
     dmginfo:SetDamagePosition(tr.Entity:GetPos() +tr.Entity:OBBCenter())
     dmginfo:SetAttacker(self)

@@ -118,6 +118,7 @@
     VJ.AddConVar("VJ_CON_RunnerChance", 10, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_CON_AllRunners", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_CON_BreakDoors", 0, {FCVAR_ARCHIVE})
+    VJ.AddConVar("VJ_CON_Damage", 3, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_CON_Headshot", 0, {FCVAR_ARCHIVE})
     VJ.AddConVar("VJ_CON_CorpseEffects", 1, {FCVAR_ARCHIVE})
     VJ.AddClientConVar("VJ_CON_ZombieOverlay", 1, "Screen Overlay When Controlling Zombies")
@@ -141,7 +142,7 @@
             local vj_conreset_cs = {Options = {}, CVars = {}, Label = "Reset Everything:", MenuButton = "0"}
             vj_conreset_cs.Options["#vjbase.menu.general.reset.everything"] = {
                 VJ_CON_ZombieOverlay = "1",
-                VJ_CON_OldOverlay = "0",
+                VJ_CON_OldOverlay = "0"
 }
                 panel:AddControl("ComboBox", vj_conreset_cs)
                 panel:CheckBox("Client-Side Options:")
@@ -159,8 +160,9 @@ end
                 VJ_CON_RunnerChance = "10",
                 VJ_CON_AllRunners = "0",
                 VJ_CON_BreakDoors = "1",
+                VJ_CON_Damage = "3",
                 VJ_CON_Headshot = "0",
-                VJ_CON_CorpseEffects = "1",
+                VJ_CON_CorpseEffects = "1"
 }
             panel:AddControl("ComboBox", vj_conreset)
             panel:ControlHelp("Note: Only future spawned SNPCs will be affected.")
@@ -172,7 +174,8 @@ end
             panel:CheckBox("Enable Instant Headshot Death?","VJ_CON_Headshot")
             panel:CheckBox("Enable Corpse Effects & Decals?","VJ_CON_CorpseEffects")
             panel:CheckBox("Modifiers:")
-            panel:NumSlider("Sprinter Chance","VJ_CON_RunnerChance",1,100,2)
+            panel:NumSlider("Sprinter Chance","VJ_CON_RunnerChance",1,100,0)
+            panel:NumSlider("Zombie Damage","VJ_CON_Damage",1,5,0)
 end)
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion - Map Spawner", "Contagion - Map Spawner", "", "", function(panel)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then

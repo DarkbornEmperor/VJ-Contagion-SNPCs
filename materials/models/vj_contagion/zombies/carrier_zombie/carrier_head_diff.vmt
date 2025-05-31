@@ -3,7 +3,7 @@ Patch
     include "materials\models\vj_contagion\zombies\carrier_zombie\inmate_head_diff.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\carrier_zombie\carrier_head_diff"
-        $bumpmap "models\vj_contagion\zombies\carrier_zombie\carrier_head_nrm"
+        "$basetexture" "models\vj_contagion\zombies\carrier_zombie\carrier_head_diff"
+        "$bumpmap" "models\vj_contagion\zombies\carrier_zombie\carrier_head_nrm"
     }
 }

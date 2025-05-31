@@ -16,7 +16,7 @@ ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
-ENT.MeleeAttackDamage = 21 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
+//ENT.MeleeAttackDamage = 21 // 5 = Easy || 10 = Normal || 21 = Hard || 37 = Extreme || 48 = Nightmare
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasExtraMeleeAttackSounds = true
 ENT.MeleeAttackPlayerSpeed = true
@@ -132,7 +132,7 @@ end
         doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
         doorGib:SetSolid(SOLID_NONE)
         doorGib:Spawn()
-        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
+        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*10000)
         SafeRemoveEntityDelayed(doorGib,30)
     elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
         VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
@@ -412,6 +412,17 @@ end
  self:CapabilitiesRemove(CAP_ANIMATEDFACE)
  self:Zombie_Init()
  self:ZombieVoices()
+ if GetConVar("VJ_CON_Damage"):GetInt() == 1 then // Easy
+    self.MeleeAttackDamage = 5
+ elseif GetConVar("VJ_CON_Damage"):GetInt() == 2 then // Normal
+    self.MeleeAttackDamage = 10
+ elseif GetConVar("VJ_CON_Damage"):GetInt() == 3 then // Hard
+    self.MeleeAttackDamage = 21
+ elseif GetConVar("VJ_CON_Damage"):GetInt() == 4 then // Extreme
+    self.MeleeAttackDamage = 37
+ elseif GetConVar("VJ_CON_Damage"):GetInt() == 5 then // Nightmare
+    self.MeleeAttackDamage = 48
+end
  if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
  -- Getting up animation
  if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
@@ -591,12 +602,12 @@ end
     end
 end
     local curSeq = self:GetSequence()
-    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
+    if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching or self:GetSequence() == self:LookupSequence("sit_to_idle1") then self.Zombie_DoorToBreak = NULL return end
     local curAct = self:GetSequenceActivity(self:GetIdealSequence())
     if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
     if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-    for _,v in pairs(ents.FindInSphere(self:GetPos(),40)) do
-    //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
+    for _,v in pairs(ents.FindInSphere(self:GetPos(),30)) do
+    //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v self.Zombie_AttackingDoor = true end
     if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
     local anim = string.lower(v:GetSequenceName(v:GetSequence()))
     if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
