@@ -1,14 +1,13 @@
 VertexLitGeneric
 {
-    $basetexture                "models\vj_contagion\zombies\manuel_zombie\manuel_diffuse"
-    $bumpmap                    "models\vj_contagion\zombies\manuel_zombie\manuel_norm"
-    $envmapmask                    "models\vj_contagion\zombies\manuel_zombie\manuel_s"
-
-    $phong                        "1"
-    $phongexponenttexture        "models\vj_contagion\zombies\manuel_zombie\manuel_g"
-    $phongboost                    ".2"
-    $phongfresnelranges            "[0.02 0.03 0.1]"
-    $halflambert                "1"
-    $normalmapalphaenvmapmask   "1"
+    "$basetexture" "models\vj_contagion\zombies\manuel_zombie\manuel_diffuse"
+    "$bumpmap" "models\vj_contagion\zombies\manuel_zombie\manuel_norm"
+    "$envmapmask" "models\vj_contagion\zombies\manuel_zombie\manuel_s"
+    "$phong" "1"
+    "$phongexponenttexture" "models\vj_contagion\zombies\manuel_zombie\manuel_g"
+    "$phongboost" ".2"
+    "$phongfresnelranges" "[0.02 0.03 0.1]"
+    "$halflambert" "1"
+    "$normalmapalphaenvmapmask" "1"
     "$nocull" "1"
 }

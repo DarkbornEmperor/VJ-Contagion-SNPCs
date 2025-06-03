@@ -46,7 +46,7 @@
 
     -- Particles --
     VJ.AddParticle("particles/vj_con_blood_impact.pcf", {
-    "vj_con_blood_impact_red_01",
+    "vj_con_blood_impact_red_01"
 })
 
     -- Decals --
@@ -176,6 +176,7 @@ end
             panel:CheckBox("Modifiers:")
             panel:NumSlider("Sprinter Chance","VJ_CON_RunnerChance",1,100,0)
             panel:NumSlider("Zombie Damage","VJ_CON_Damage",1,5,0)
+            panel:ControlHelp("Note: Only applies to normal Zombies.")
 end)
          spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Contagion - Map Spawner", "Contagion - Map Spawner", "", "", function(panel)
             if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then

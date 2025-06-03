@@ -1,6 +1,6 @@
 VertexLitGeneric
 {
-    $basetexture                "models\vj_contagion\zombies\elijah_zombie\inmate_hair_diff"
-    $alphatest                  "1"
-    $nocull                     "1"
+    "$basetexture" "models\vj_contagion\zombies\elijah_zombie\inmate_hair_diff"
+    "$alphatest" "1"
+    "$nocull" "1"
 }

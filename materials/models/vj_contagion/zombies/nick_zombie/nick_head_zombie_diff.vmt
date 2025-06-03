@@ -1,11 +1,11 @@
 VertexLitGeneric
 {
-    $basetexture "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_diff"
-    $bumpmap "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_norm"
-    $halflambert "1"
-    $phong "1"
-    $phongexponenttexture "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_exp"
-    $phongboost "2"
-    $phongfresnelranges "[.45 0.65 1]"
+    "$basetexture" "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_diff"
+    "$bumpmap" "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_norm"
+    "$halflambert" "1"
+    "$phong" "1"
+    "$phongexponenttexture" "models\vj_contagion\zombies\nick_zombie\nick_head_zombie_exp"
+    "$phongboost" "2"
+    "$phongfresnelranges" "[.45 0.65 1]"
     "$nocull" "1"
 }

@@ -3,7 +3,7 @@ Patch
     include "materials\models\vj_contagion\zombies\officer_zombie\static\ref.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\officer_zombie\headdiff_d"
-        $bumpmap "models\vj_contagion\zombies\officer_zombie\headdiff_d_nrm"
+        "$basetexture" "models\vj_contagion\zombies\officer_zombie\headdiff_d"
+        "$bumpmap" "models\vj_contagion\zombies\officer_zombie\headdiff_d_nrm"
     }
 }

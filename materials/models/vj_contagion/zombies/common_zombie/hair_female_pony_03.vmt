@@ -1,11 +1,11 @@
 VertexLitGeneric
 {
-    $basetexture                "models\vj_contagion\zombies\common_zombie\skin_female_c_04"
-    $bumpmap                    "models\vj_contagion\zombies\common_zombie\skin_female_c_04_bump"
-    $halflambert                "1"
-    $phong                      "1"
-    $phongboost                 "1"
-    $phongexponent              "85"
-    $phongfresnelranges         "[.25 .45 .75]"
+    "$basetexture" "models\vj_contagion\zombies\common_zombie\skin_female_c_04"
+    "$bumpmap" "models\vj_contagion\zombies\common_zombie\skin_female_c_04_bump"
+    "$halflambert" "1"
+    "$phong" "1"
+    "$phongboost" "1"
+    "$phongexponent" "85"
+    "$phongfresnelranges" "[.25 .45 .75]"
     "$nocull" "1"
 }

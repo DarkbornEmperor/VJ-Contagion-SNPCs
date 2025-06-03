@@ -3,6 +3,6 @@ Patch
     include "materials\models\vj_contagion\zombies\carrier_zombie\inmate_head_diff.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\inmate\head_diff"
+        "$basetexture" "models\vj_contagion\zombies\inmate\head_diff"
     }
 }

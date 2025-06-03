@@ -1,9 +1,9 @@
 VertexLitGeneric
 {
-	$basetexture "models\vj_contagion\zombies\elijah_zombie\inmate_eye_diff"
-	$bumpmap "models\vj_contagion\zombies\elijah_zombie\flat"
-	$phong "1"
-	$phongexponent "400"
-	$phongboost "2"
-	$nocull                     "1"
+    "$basetexture" "models\vj_contagion\zombies\elijah_zombie\inmate_eye_diff"
+    "$bumpmap" "models\vj_contagion\zombies\elijah_zombie\flat"
+    "$phong" "1"
+    "$phongexponent" "400"
+    "$phongboost" "2"
+    "$nocull" "1"
 }

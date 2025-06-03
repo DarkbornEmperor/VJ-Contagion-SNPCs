@@ -1,4 +1,4 @@
 Patch
 {
-    include            "materials/models/vj_contagion/zombies/nicole_zombie/eyeball_l.vmt"
+    include "materials/models/vj_contagion/zombies/nicole_zombie/eyeball_l.vmt"
 }

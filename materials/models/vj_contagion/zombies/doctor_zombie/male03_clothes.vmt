@@ -3,7 +3,7 @@ Patch
     include "materials\models\vj_contagion\zombies\doctor_zombie\male01_clothes.vmt"
     insert
     {
-        $basetexture    "models\vj_contagion\zombies\doctor_zombie\male03_clothes_diff"
-        $bumpmap        "models\vj_contagion\zombies\doctor_zombie\male03_clothes_norm"
+        "$basetexture" "models\vj_contagion\zombies\doctor_zombie\male03_clothes_diff"
+        "$bumpmap" "models\vj_contagion\zombies\doctor_zombie\male03_clothes_norm"
     }
 }

@@ -3,7 +3,7 @@ Patch
     include "materials\models\vj_contagion\zombies\carrier_zombie\inmate_mouth_diff.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\carrier_zombie\carrier_mouth_diff"
-        $bumpmap "models\vj_contagion\zombies\carrier_zombie\inmate_mouth_nrm"
+        "$basetexture" "models\vj_contagion\zombies\carrier_zombie\carrier_mouth_diff"
+        "$bumpmap" "models\vj_contagion\zombies\carrier_zombie\inmate_mouth_nrm"
     }
 }

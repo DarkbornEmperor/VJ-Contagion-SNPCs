@@ -1,12 +1,12 @@
 VertexLitGeneric
 {
-    $basetexture                "models\vj_contagion\zombies\common_zombie\lowtopjeans_01"
-    $bumpmap                    "models\vj_contagion\zombies\common_zombie\lowtopjeans_01_bump"
-    //$basemapalphaphongmask      "1"
-    $halflambert                "1"
-    $phong                      "1"
-    $phongboost                 "0.3"
-    $phongexponent              "15"
-    $phongfresnelranges         "[.15 .35 .65]"
+    "$basetexture" "models\vj_contagion\zombies\common_zombie\lowtopjeans_01"
+    "$bumpmap" "models\vj_contagion\zombies\common_zombie\lowtopjeans_01_bump"
+    //"$basemapalphaphongmask" "1"
+    "$halflambert" "1"
+    "$phong" "1"
+    "$phongboost" "0.3"
+    "$phongexponent" "15"
+    "$phongfresnelranges" "[.15 .35 .65]"
     "$nocull" "1"
 }

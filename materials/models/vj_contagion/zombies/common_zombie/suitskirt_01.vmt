@@ -3,7 +3,7 @@ Patch
     include "materials\models\vj_contagion\zombies\common_zombie\common_zombie_f_shared.vmt"
     insert
     {
-        $basetexture    "models\vj_contagion\zombies\common_zombie\suitskirt_01"
-        $bumpmap        "models\vj_contagion\zombies\common_zombie\suitskirt_01_bump"
+        "$basetexture" "models\vj_contagion\zombies\common_zombie\suitskirt_01"
+        "$bumpmap" "models\vj_contagion\zombies\common_zombie\suitskirt_01_bump"
     }
 }

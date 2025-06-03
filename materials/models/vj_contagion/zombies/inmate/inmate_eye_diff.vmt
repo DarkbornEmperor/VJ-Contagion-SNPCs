@@ -3,6 +3,6 @@ Patch
     include "materials\models\vj_contagion\zombies\carrier_zombie\inmate_eye_diff.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\carrier_zombie\carrier_eye_diff"
+        "$basetexture" "models\vj_contagion\zombies\carrier_zombie\carrier_eye_diff"
     }
 }

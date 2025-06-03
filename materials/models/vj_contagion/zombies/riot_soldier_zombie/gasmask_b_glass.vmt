@@ -1,15 +1,15 @@
 VertexLitGeneric
 {
-    $basetexture                "models\vj_contagion\zombies\riot_soldier_zombie\gasmask_b_diff"
-    $bumpmap                    "models\vj_contagion\zombies\riot_soldier_zombie\gasmask_b_norm"
-    $normalmapalphaenvmapmask   "1"
-    $envmap                     env_cubemap
-    $envmaptint                 "[0.8 0.8 0.8]"
-    $translucent                "1"
-    $phong                      "1"
-    $phongtint                  "[1 .6 .5]"
-    $phongboost                 "4"
-    $phongfresnelranges         "[.3 1 3]"
-    $phongexponent              "14"
-    $nocull                     "1"
+    "$basetexture" "models\vj_contagion\zombies\riot_soldier_zombie\gasmask_b_diff"
+    "$bumpmap" "models\vj_contagion\zombies\riot_soldier_zombie\gasmask_b_norm"
+    "$normalmapalphaenvmapmask" "1"
+    "$envmap" "env_cubemap"
+    "$envmaptint" "[0.8 0.8 0.8]"
+    "$translucent" "1"
+    "$phong" "1"
+    "$phongtint" "[1 .6 .5]"
+    "$phongboost"  "4"
+    "$phongfresnelranges" "[.3 1 3]"
+    "$phongexponent" "14"
+    $nocull "1"
 }

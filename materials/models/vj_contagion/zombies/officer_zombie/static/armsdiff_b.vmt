@@ -3,6 +3,6 @@ Patch
     include "materials\models\vj_contagion\zombies\officer_zombie\static\ref_arm.vmt"
     insert
     {
-        $basetexture "models\vj_contagion\zombies\officer_zombie\armsdiff_b"
+        "$basetexture" "models\vj_contagion\zombies\officer_zombie\armsdiff_b"
     }
 }
