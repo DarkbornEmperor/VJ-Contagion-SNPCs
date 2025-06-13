@@ -1,4 +1,4 @@
-VertexLitGeneric
+"VertexLitGeneric"
 {
     "$basetexture" "models\vj_contagion\zombies\worker_zombie\hardhat_visor_glass_diff"
     "$bumpmap" "models\vj_contagion\zombies\worker_zombie\hardhat_visor_glass_nrm"

@@ -1,4 +1,4 @@
-VertexLitGeneric
+"VertexLitGeneric"
 {
     "$basetexture" "models\vj_contagion\zombies\worker_zombie\MaleCorporateEngDiff"
     "$bumpmap" "models\vj_contagion\zombies\worker_zombie\MaleCorporateEngNorm"

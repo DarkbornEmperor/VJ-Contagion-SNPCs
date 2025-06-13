@@ -130,7 +130,7 @@ end
         doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
         doorGib:SetSolid(SOLID_NONE)
         doorGib:Spawn()
-        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*5000)
+        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*10000)
         SafeRemoveEntityDelayed(doorGib,30)
     elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
         VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
@@ -420,7 +420,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
     if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self:GetSequence() == self:LookupSequence("shoved_forward_01") or self:GetSequence() == self:LookupSequence("shoved_backward_03") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
-    //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
+        //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
     if status == "DeathAnim" && self:IsMoving() then
         self.AnimTbl_Death = ACT_DIEFORWARD
     end

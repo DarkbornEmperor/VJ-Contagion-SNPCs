@@ -1,4 +1,4 @@
-VertexLitGeneric
+"VertexLitGeneric"
 {
     "$basetexture" "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_diffuse_alpha"
     "$bumpmap" "models\vj_contagion\zombies\yumi_zombie\yumi_zombie_n"

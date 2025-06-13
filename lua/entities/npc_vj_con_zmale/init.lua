@@ -820,11 +820,11 @@ end
 /*function ENT:CustomOnMeleeAttack_Miss()
     if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_IsBeingControlled then return end
     if self.MeleeAttacking && self:GetSequence() == self:LookupSequence("melee_cont_01") then
-       self:PlayAnim("idle2013_facearound_01",true,0.1,true)
-       self:StopAttacks(true)
-       self.MeleeAttacking = false
-       self.AttackAnimTime = 0
-       self:DoChaseAnimation()
+        self:PlayAnim("idle2013_facearound_01",true,0.1,true)
+        self:StopAttacks(true)
+        self.MeleeAttacking = false
+        self.AttackAnimTime = 0
+        self:DoChaseAnimation()
     end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------

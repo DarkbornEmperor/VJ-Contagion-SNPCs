@@ -1,4 +1,4 @@
-VertexLitGeneric
+"VertexLitGeneric"
 {
     "$basetexture " "models\vj_contagion\zombies\screamer\witch_bride_veil"
     "$allowdiffusemodulation" "0"

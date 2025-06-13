@@ -1,4 +1,4 @@
-VertexLitGeneric
+"VertexLitGeneric"
 {
     "$basetexture" "models\vj_contagion\zombies\carrier_zombie\inmate_eye_diff"
     "$bumpmap" "models\vj_contagion\zombies\carrier_zombie\flat"
