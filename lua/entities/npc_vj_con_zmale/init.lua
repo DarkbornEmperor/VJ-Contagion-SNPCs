@@ -592,7 +592,7 @@ function ENT:OnThink()
     end
 end
     if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
-    if self:IsOnGround() && CurTime() > self.Zombie_NextJumpT then
+    if self:OnGround() && CurTime() > self.Zombie_NextJumpT then
     local maxDist = 220
     local maxDepth = 20
     local targetPos = self:GetPos() +Vector(math.Rand(-maxDist,maxDist),math.Rand(-maxDist,maxDist),maxDepth)
@@ -1116,7 +1116,7 @@ ENT.FootSteps = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
- if !self:IsOnGround() then return end
+ if !self:OnGround() then return end
  local tr = util.TraceLine({
     start = self:GetPos(),
     endpos = self:GetPos() +Vector(0,0,-150),

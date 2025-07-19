@@ -631,15 +631,15 @@ ENT.FootSteps = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
-    if !self:IsOnGround() then return end
-    local tr = util.TraceLine({
-        start = self:GetPos(),
-        endpos = self:GetPos() +Vector(0,0,-150),
-        filter = {self}
-    })
-    if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-    end
+ if !self:OnGround() then return end
+ local tr = util.TraceLine({
+    start = self:GetPos(),
+    endpos = self:GetPos() +Vector(0,0,-150),
+    filter = {self}
+})
+ if tr.Hit && self.FootSteps[tr.MatType] then
+    VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
         VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
     end
