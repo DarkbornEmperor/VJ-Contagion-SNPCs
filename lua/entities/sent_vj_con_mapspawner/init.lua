@@ -58,7 +58,7 @@ end
  self.nodePositions = {}
  self.navAreas = {}
 
- for _,pos in pairs(VJ_ZPS_NODEPOS) do
+ for _,pos in pairs(VJ_CON_NODEPOS) do
     if pos then table_insert(self.nodePositions,{Position = pos, Time = 0}) end
 end
 
