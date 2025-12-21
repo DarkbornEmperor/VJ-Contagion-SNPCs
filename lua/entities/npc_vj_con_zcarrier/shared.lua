@@ -4,3 +4,5 @@ ENT.PrintName = "Carrier Zombie"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Contagion"
+
+ENT.VJ_ID_Undead = true
