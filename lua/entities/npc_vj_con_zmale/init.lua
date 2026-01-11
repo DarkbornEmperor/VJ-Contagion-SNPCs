@@ -90,7 +90,6 @@ ENT.Zombie_Crippled = false
 ENT.Zombie_AttackingDoor = false
 ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 0 -- 0 = Male | 1 = Female
-ENT.IsContagionZombie = true
 ENT.FootData = {
     ["lfoot"] = {Range = 6.5, OnGround = true},
     ["rfoot"] = {Range = 6.5, OnGround = true}

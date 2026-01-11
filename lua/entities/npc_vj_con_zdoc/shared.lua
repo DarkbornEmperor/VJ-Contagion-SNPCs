@@ -6,3 +6,4 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Contagion"
 
 ENT.VJ_ID_Undead = true
+ENT.VJ_CON_Zombie = true

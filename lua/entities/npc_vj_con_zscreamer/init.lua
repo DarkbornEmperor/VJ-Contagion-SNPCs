@@ -88,7 +88,6 @@ ENT.Zombie_ControllerAnim = 0
 ENT.Zombie_AttackingDoor = false
 ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 1 -- 0 = Male | 1 = Female
-ENT.IsContagionZombie = true
 
 util.AddNetworkString("VJ_CON_Zombie_HUD")
 
