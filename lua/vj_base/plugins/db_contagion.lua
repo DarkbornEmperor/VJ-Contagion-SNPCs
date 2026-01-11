@@ -212,7 +212,7 @@ hook.Add("EntityRemoved", "VJ_CON_AddNodes", function(ent)
 end)
 
 if CLIENT then
-    net.Receive("vj_con_zombie_hud", function(len, pl)
+    net.Receive("VJ_CON_Zombie_HUD", function(len, pl)
         local delete = net.ReadBool()
         local ent = net.ReadEntity()
         if !IsValid(ent) then delete = true end

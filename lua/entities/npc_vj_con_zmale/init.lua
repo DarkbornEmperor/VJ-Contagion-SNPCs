@@ -95,7 +95,7 @@ ENT.FootData = {
     ["lfoot"] = {Range = 6.5, OnGround = true},
     ["rfoot"] = {Range = 6.5, OnGround = true}
 }
-util.AddNetworkString("vj_con_zombie_hud")
+util.AddNetworkString("VJ_CON_Zombie_HUD")
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -485,33 +485,6 @@ function ENT:ZombieVoices()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnChangeActivity(newAct)
-    if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
-        self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
-    end
-    if newAct == ACT_LAND && self.VJ_IsBeingControlled then
-        self:SetNavType(NAV_GROUND)
-    end
-    return self.BaseClass.OnChangeActivity(self, newAct)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
-    if math_random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
-        self:PlayAnim({"vjseq_idle2013_facearound_01", "vjseq_idle2013_facearound_02"}, "LetAttacks", math_rand(0.5,1), true)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCallForHelp(ally)
-    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
-    if math_random(1,3) == 1 && !self:IsBusy() then
-        self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
-        if math_random(1,3) == 1 && !ally:IsBusy() then
-            ally:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("DUCK: Crouch")
     ply:ChatPrint("JUMP: Jump")
@@ -520,13 +493,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("USE: Break Door")
     ply:ChatPrint("ATTACK2: Command")
 
-    net.Start("vj_con_zombie_hud")
+    net.Start("VJ_CON_Zombie_HUD")
         net.WriteBool(false)
         net.WriteEntity(self)
     net.Send(ply)
 
     function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start("vj_con_zombie_hud")
+        net.Start("VJ_CON_Zombie_HUD")
             net.WriteBool(true)
             net.WriteEntity(self)
         net.Send(ply)
@@ -535,8 +508,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
         self.VJCE_NPC:SetArrivalSpeed(9999)
-        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
-        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+        if self.VJCE_NPC.Zombie_Crippled then
+            self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
+            self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        else
+            self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
+            self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+        end
         self.VJCE_NPC.EnemyDetection = true
         self.VJCE_NPC.JumpParams.Enabled = false
     end
@@ -583,10 +561,12 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_WALK or act == ACT_RUN then
             return ACT_WALK_HURT
         end
-    elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-        //return ACT_IDLE_ANGRY
-        return self:ResolveAnimation({ACT_IDLE_ANGRY})
-
+    elseif act == ACT_IDLE && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+        if IsValid(self:GetEnemy()) && self:IsUnreachable(self:GetEnemy()) then
+            return ACT_IDLE_ANGRY
+        else
+            return ACT_IDLE_RELAXED
+        end
     elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
         return ACT_RUN_STIMULATED
 
@@ -594,6 +574,16 @@ function ENT:TranslateActivity(act)
         return ACT_HOP
     end
     return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnChangeActivity(newAct)
+    if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
+        self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
+    end
+    if newAct == ACT_LAND && self.VJ_IsBeingControlled then
+        self:SetNavType(NAV_GROUND)
+    end
+    return self.BaseClass.OnChangeActivity(self, newAct)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -800,6 +790,23 @@ function ENT:OnThinkActive()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_OnThinkActive() end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent)
+    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
+    if math_random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
+        self:PlayAnim({"vjseq_idle2013_facearound_01", "vjseq_idle2013_facearound_02"}, "LetAttacks", math_rand(0.5,1), true)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnCallForHelp(ally)
+    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
+    if math_random(1,3) == 1 && !self:IsBusy() then
+        self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
+        if math_random(1,3) == 1 && !ally:IsBusy() then
+            ally:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
+        end
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then

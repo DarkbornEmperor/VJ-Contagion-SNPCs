@@ -90,7 +90,7 @@ ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 1 -- 0 = Male | 1 = Female
 ENT.IsContagionZombie = true
 
-util.AddNetworkString("vj_con_zombie_hud")
+util.AddNetworkString("VJ_CON_Zombie_HUD")
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -195,13 +195,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
         self.VJCE_NPC.JumpParams.Enabled = false
     end
 
-    net.Start("vj_con_zombie_hud")
+    net.Start("VJ_CON_Zombie_HUD")
         net.WriteBool(false)
         net.WriteEntity(self)
     net.Send(ply)
 
     function self.VJ_TheControllerEntity:OnStopControlling()
-        net.Start("vj_con_zombie_hud")
+        net.Start("VJ_CON_Zombie_HUD")
             net.WriteBool(true)
             net.WriteEntity(self)
         net.Send(ply)
