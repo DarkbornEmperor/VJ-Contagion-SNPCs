@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -12,7 +12,7 @@ ENT.BloodParticle = {"vj_con_blood_impact_red_01"}
 ENT.BloodDecal = {"VJ_CON_Blood"}
 ENT.HasBloodPool = false
 //ENT.TurningSpeed = 5
-ENT.PoseParameterLooking_Names = {pitch={"body_pitch"}, yaw={"body_yaw"}, roll={}}
+ENT.PoseParameterLooking_Names = {pitch = {"body_pitch"}, yaw = {"body_yaw"}, roll = {}}
 ENT.HasMeleeAttack = true
 ENT.MeleeAttackDistance = 30
 ENT.MeleeAttackDamageDistance = 60
@@ -23,17 +23,17 @@ ENT.MeleeAttackPlayerSpeed = true
 ENT.MeleeAttackPlayerSpeedTime = 0.5
 ENT.DisableFootStepSoundTimer = true
 ENT.HasMeleeAttackPlayerSpeedSounds = false
-//ENT.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_forward2","vjseq_shoved_forward2"}
+//ENT.AnimTbl_Flinch = {"vjseq_shoved_backwards1", "vjseq_shoved_backwards2", "vjseq_shoved_backwards3", "vjseq_shoved_forward2", "vjseq_shoved_forward2"}
 ENT.CanFlinch = true
 //ENT.FlinchChance = 1
 ENT.FlinchCooldown = 1
-ENT.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
+ENT.AnimTbl_Flinch = {"vjges_injured2013_01", "vjges_injured2013_02", "vjges_injured2013_03", "vjges_injured2013_04", "vjges_injured2013_05", "vjges_injured2013_06"}
 ENT.FlinchHitGroupMap = {
-    {HitGroup = HITGROUP_HEAD, Animation = {"vjges_injured_head2020_01","vjges_injured_head2020_02","vjges_injured_head2020_03","vjges_injured_head2020_04"}},
+    {HitGroup = HITGROUP_HEAD, Animation = {"vjges_injured_head2020_01", "vjges_injured_head2020_02", "vjges_injured_head2020_03", "vjges_injured_head2020_04"}},
 }
 ENT.HasDeathAnimation = true
 ENT.DeathAnimationChance = 1
-ENT.AnimTbl_Death = {"vjseq_death2013_01","vjseq_death2013_02","vjseq_death2013_03","vjseq_death2013_04"}
+ENT.AnimTbl_Death = {"vjseq_death2013_01", "vjseq_death2013_02", "vjseq_death2013_03", "vjseq_death2013_04"}
     -- ====== Controller Data ====== --
 ENT.ControllerParams = {
     CameraMode = 2,
@@ -42,31 +42,33 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
-ENT.SoundTbl_FootStep = "common/null.wav"
+ENT.SoundTbl_FootStep =
+    "common/null.wav"
+
 ENT.SoundTbl_MeleeAttackExtra = {
-"vj_contagion/zombies/shared/z_hit-01.wav",
-"vj_contagion/zombies/shared/z_hit-02.wav",
-"vj_contagion/zombies/shared/z_hit-03.wav",
-"vj_contagion/zombies/shared/z_hit-04.wav",
-"vj_contagion/zombies/shared/z_hit-05.wav",
-"vj_contagion/zombies/shared/z_hit-06.wav"
+    "vj_contagion/zombies/shared/z_hit-01.wav",
+    "vj_contagion/zombies/shared/z_hit-02.wav",
+    "vj_contagion/zombies/shared/z_hit-03.wav",
+    "vj_contagion/zombies/shared/z_hit-04.wav",
+    "vj_contagion/zombies/shared/z_hit-05.wav",
+    "vj_contagion/zombies/shared/z_hit-06.wav"
 }
 ENT.SoundTbl_MeleeAttackMiss = {
-"vj_contagion/zombies/shared/z-swipe-1.wav",
-"vj_contagion/zombies/shared/z-swipe-2.wav",
-"vj_contagion/zombies/shared/z-swipe-3.wav",
-"vj_contagion/zombies/shared/z-swipe-4.wav",
-"vj_contagion/zombies/shared/z-swipe-5.wav",
-"vj_contagion/zombies/shared/z-swipe-6.wav"
+    "vj_contagion/zombies/shared/z-swipe-1.wav",
+    "vj_contagion/zombies/shared/z-swipe-2.wav",
+    "vj_contagion/zombies/shared/z-swipe-3.wav",
+    "vj_contagion/zombies/shared/z-swipe-4.wav",
+    "vj_contagion/zombies/shared/z-swipe-5.wav",
+    "vj_contagion/zombies/shared/z-swipe-6.wav"
 }
 ENT.SoundTbl_Impact = {
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_01.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_02.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_03.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_04.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_05.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_06.wav",
-"vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_01.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_02.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_03.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_04.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_05.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_06.wav",
+    "vj_contagion/zombies/shared/SFX_ImpactBullet_flesh_layer01_07.wav"
 }
 ENT.IdleSoundChance = 1
 ENT.NextSoundTime_Idle = VJ.SET(3,4)
@@ -90,737 +92,767 @@ ENT.Zombie_DoorToBreak = NULL
 ENT.Zombie_Gender = 0 -- 0 = Male | 1 = Female
 ENT.IsContagionZombie = true
 ENT.FootData = {
-    ["lfoot"] = {Range=6.5,OnGround=true},
-    ["rfoot"] = {Range=6.5,OnGround=true}
+    ["lfoot"] = {Range = 6.5, OnGround = true},
+    ["rfoot"] = {Range = 6.5, OnGround = true}
 }
 util.AddNetworkString("vj_con_zombie_hud")
+
+local math_random = math.random
+local math_rand = math.Rand
+local string_find = string.find
+local string_lower = string.lower
+local bit_bor = bit.bor
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key,activator,caller,data)
+function ENT:OnInput(key, activator, caller, data)
 if key == "step" && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_RUN then
     self:PlayFootstepSound()
 elseif key == "melee" then
     self:ExecuteMeleeAttack()
 elseif key == "body_hit" then
-    VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math.random(1,5)..".wav",75,100)
+    VJ.EmitSound(self, "vj_contagion/zombies/shared/physics_impact_short_flesh_layer01_0"..math_random(1,5)..".wav",75,100)
 end
- if key == "break_door" then
- if IsValid(self.Zombie_DoorToBreak) then
- self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
- VJ.EmitSound(self,"vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood0"..math.random(1,4)..".wav",75,100)
- local doorDmg = self.MeleeAttackDamage
- local door = self.Zombie_DoorToBreak
- if door.doorHP == nil then
-    door.doorHP = 200 - doorDmg
- elseif door.doorHP <= 0 then
-    self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
-    return -- To prevent door props making a duplication when it shouldn't
- else
-    door.doorHP = door.doorHP - doorDmg
-end
-    if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
-        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-        door:Remove()
-        local doorGib = ents.Create("prop_physics")
-        doorGib:SetPos(door:GetPos())
-        doorGib:SetAngles(door:GetAngles())
-        doorGib:SetModel(door:GetModel())
-        doorGib:SetSkin(door:GetSkin())
-        doorGib:SetBodygroup(1,door:GetBodygroup(1))
-        doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-        doorGib:SetSolid(SOLID_NONE)
-        doorGib:Spawn()
-        doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward()*10000)
-        SafeRemoveEntityDelayed(doorGib,30)
-    elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
-        VJ.EmitSound(door,"physics/wood/wood_furniture_break"..math.random(1,2)..".wav",75,100)
-        VJ.EmitSound(door,"ambient/materials/door_hit1.wav",75,100)
-        ParticleEffect("door_pound_core",door:GetPos(),door:GetAngles(),nil)
-        ParticleEffect("door_explosion_chunks",door:GetPos(),door:GetAngles(),nil)
-        door:Remove()
-        local doorGibs = ents.Create("prop_dynamic")
-        doorGibs:SetPos(door:GetPos())
-        doorGibs:SetAngles(door:GetAngles())
-        doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
-        doorGibs:Spawn()
-        doorGibs:TakeDamage(9999)
-        doorGibs:Fire("break") end
+    if key == "break_door" then
+        if IsValid(self.Zombie_DoorToBreak) then
+            self:PlaySoundSystem("BeforeMeleeAttack", self.SoundTbl_BeforeMeleeAttack)
+            VJ.EmitSound(self, "vj_contagion/zombies/shared/SFX_ZombiePoundDoor_Wood0" .. math_random(1,4) .. ".wav", 75, 100)
+            local doorDmg = self.MeleeAttackDamage
+            local door = self.Zombie_DoorToBreak
+            if door.doorHP == nil then
+                door.doorHP = 200 - doorDmg
+            elseif door.doorHP <= 0 then
+                self:PlaySoundSystem("MeleeAttackMiss", self.SoundTbl_MeleeAttackMiss)
+                return -- To prevent door props making a duplication when it shouldn't
+            else
+                door.doorHP = door.doorHP - doorDmg
+            end
+            if door:GetClass() == "prop_door_rotating" && door.doorHP <= 0 then
+                VJ.EmitSound(door, "physics/wood/wood_furniture_break" .. math_random(1,2) .. ".wav", 75, 100)
+                VJ.EmitSound(door, "ambient/materials/door_hit1.wav",75,100)
+                ParticleEffect("door_pound_core", door:GetPos(), door:GetAngles(), nil)
+                ParticleEffect("door_explosion_chunks", door:GetPos(), door:GetAngles(), nil)
+                door:Remove()
+                local doorGib = ents.Create("prop_physics")
+                doorGib:SetPos(door:GetPos())
+                doorGib:SetAngles(door:GetAngles())
+                doorGib:SetModel(door:GetModel())
+                doorGib:SetSkin(door:GetSkin())
+                doorGib:SetBodygroup(1, door:GetBodygroup(1))
+                doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+                doorGib:SetSolid(SOLID_NONE)
+                doorGib:Spawn()
+                doorGib:GetPhysicsObject():ApplyForceCenter(self:GetForward() * 10000)
+                SafeRemoveEntityDelayed(doorGib, 30)
+            elseif door:GetClass() == "func_door_rotating" && door.doorHP <= 0 then
+                VJ.EmitSound(door, "physics/wood/wood_furniture_break" .. math_random(1,2) .. ".wav", 75, 100)
+                VJ.EmitSound(door, "ambient/materials/door_hit1.wav", 75, 100)
+                ParticleEffect("door_pound_core", door:GetPos(), door:GetAngles(), nil)
+                ParticleEffect("door_explosion_chunks", door:GetPos(), door:GetAngles(), nil)
+                door:Remove()
+                local doorGibs = ents.Create("prop_dynamic")
+                doorGibs:SetPos(door:GetPos())
+                doorGibs:SetAngles(door:GetAngles())
+                doorGibs:SetModel("models/props_c17/FurnitureDresser001a.mdl")
+                doorGibs:Spawn()
+                doorGibs:TakeDamage(9999)
+                doorGibs:Fire("break")
+            end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
- if self:GetClass() == "npc_vj_con_zmale" then
-    self.Model = {
-    "models/vj_contagion/zombies/common_zombie_a_c.mdl",
-    "models/vj_contagion/zombies/common_zombie_a_f.mdl",
-    "models/vj_contagion/zombies/common_zombie_a_h.mdl",
-    "models/vj_contagion/zombies/common_zombie_a_t.mdl",
-    "models/vj_contagion/zombies/common_zombie_b_c.mdl",
-    "models/vj_contagion/zombies/common_zombie_b_f.mdl",
-    "models/vj_contagion/zombies/common_zombie_b_h.mdl",
-    "models/vj_contagion/zombies/common_zombie_b_t.mdl",
-    "models/vj_contagion/zombies/common_zombie_c_c.mdl",
-    "models/vj_contagion/zombies/common_zombie_c_f.mdl",
-    "models/vj_contagion/zombies/common_zombie_c_h.mdl",
-    "models/vj_contagion/zombies/common_zombie_c_t.mdl"
-}
- elseif self:GetClass() == "npc_vj_con_zcarrier" then
-    self.Zombie_Sprinter = true
-    self.Model =
-    "models/vj_contagion/zombies/carrier_zombie.mdl"
+    if self:GetClass() == "npc_vj_con_zmale" then
+        self.Model = {
+            "models/vj_contagion/zombies/common_zombie_a_c.mdl",
+            "models/vj_contagion/zombies/common_zombie_a_f.mdl",
+            "models/vj_contagion/zombies/common_zombie_a_h.mdl",
+            "models/vj_contagion/zombies/common_zombie_a_t.mdl",
+            "models/vj_contagion/zombies/common_zombie_b_c.mdl",
+            "models/vj_contagion/zombies/common_zombie_b_f.mdl",
+            "models/vj_contagion/zombies/common_zombie_b_h.mdl",
+            "models/vj_contagion/zombies/common_zombie_b_t.mdl",
+            "models/vj_contagion/zombies/common_zombie_c_c.mdl",
+            "models/vj_contagion/zombies/common_zombie_c_f.mdl",
+            "models/vj_contagion/zombies/common_zombie_c_h.mdl",
+            "models/vj_contagion/zombies/common_zombie_c_t.mdl"
+        }
+    elseif self:GetClass() == "npc_vj_con_zcarrier" then
+        self.Zombie_Sprinter = true
+        self.Model =
+            "models/vj_contagion/zombies/carrier_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zcivi" then
-    self.Model =
-    "models/vj_contagion/zombies/civillian_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zcivi" then
+        self.Model =
+            "models/vj_contagion/zombies/civillian_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zcurtis" then
-    self.Model =
-    "models/vj_contagion/zombies/curtis_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zcurtis" then
+        self.Model =
+            "models/vj_contagion/zombies/curtis_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zdiego" then
-    self.Model =
-    "models/vj_contagion/zombies/diego_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zdiego" then
+        self.Model =
+            "models/vj_contagion/zombies/diego_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zdoc" then
-    self.Model =
-    "models/vj_contagion/zombies/doctor_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zdoc" then
+        self.Model =
+            "models/vj_contagion/zombies/doctor_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zelijah" then
-    self.Model =
-    "models/vj_contagion/zombies/elijah_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zelijah" then
+        self.Model =
+            "models/vj_contagion/zombies/elijah_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zeugene" then
-    self.Model =
-    "models/vj_contagion/zombies/eugene_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zeugene" then
+        self.Model =
+            "models/vj_contagion/zombies/eugene_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zfemale" then
-    self.Zombie_Gender = 1
-    self.Model = {
-    "models/vj_contagion/zombies/common_zombie_female_a_t.mdl",
-    "models/vj_contagion/zombies/common_zombie_female_b_t.mdl",
-    "models/vj_contagion/zombies/common_zombie_female_c_t.mdl"
-}
- elseif self:GetClass() == "npc_vj_con_zinmate" then
-    self.Model =
-    "models/vj_contagion/zombies/inmate_zombie01.mdl"
+    elseif self:GetClass() == "npc_vj_con_zfemale" then
+        self.Zombie_Gender = 1
+        self.Model = {
+            "models/vj_contagion/zombies/common_zombie_female_a_t.mdl",
+            "models/vj_contagion/zombies/common_zombie_female_b_t.mdl",
+            "models/vj_contagion/zombies/common_zombie_female_c_t.mdl"
+        }
+    elseif self:GetClass() == "npc_vj_con_zinmate" then
+        self.Model =
+            "models/vj_contagion/zombies/inmate_zombie01.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zjessica" then
-    self.Zombie_Gender = 1
-    self.Model =
-    "models/vj_contagion/zombies/jessica_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zjessica" then
+        self.Zombie_Gender = 1
+        self.Model =
+            "models/vj_contagion/zombies/jessica_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zlawrence" then
-    self.Model =
-    "models/vj_contagion/zombies/lawrence_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zlawrence" then
+        self.Model =
+            "models/vj_contagion/zombies/lawrence_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zlooter" then
-    self.Model =
-    "models/vj_contagion/zombies/looter_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zlooter" then
+        self.Model =
+            "models/vj_contagion/zombies/looter_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zmanuel" then
-    self.Model =
-    "models/vj_contagion/zombies/manuel_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zmanuel" then
+        self.Model =
+            "models/vj_contagion/zombies/manuel_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zmarcus" then
-    self.Model =
-    "models/vj_contagion/zombies/marcus_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zmarcus" then
+        self.Model =
+            "models/vj_contagion/zombies/marcus_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zmia" then
-    self.Zombie_Gender = 1
-    self.Model =
-    "models/vj_contagion/zombies/mia_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zmia" then
+        self.Zombie_Gender = 1
+        self.Model =
+            "models/vj_contagion/zombies/mia_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zmike" then
-    self.Model =
-    "models/vj_contagion/zombies/engineer.mdl"
+    elseif self:GetClass() == "npc_vj_con_zmike" then
+        self.Model =
+            "models/vj_contagion/zombies/engineer.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zmilitary" then
-    self.Model = {
-    "models/vj_contagion/zombies/military_gasmask_zombie.mdl",
-    "models/vj_contagion/zombies/military_nohelmet_zombie.mdl",
-    "models/vj_contagion/zombies/military_zombie.mdl"
-}
- elseif self:GetClass() == "npc_vj_con_znick" then
-    self.Model =
-    "models/vj_contagion/zombies/nick_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zmilitary" then
+        self.Model = {
+            "models/vj_contagion/zombies/military_gasmask_zombie.mdl",
+            "models/vj_contagion/zombies/military_nohelmet_zombie.mdl",
+            "models/vj_contagion/zombies/military_zombie.mdl"
+        }
+    elseif self:GetClass() == "npc_vj_con_znick" then
+        self.Model =
+            "models/vj_contagion/zombies/nick_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_znicole" then
-    self.Zombie_Gender = 1
-    self.Model =
-    "models/vj_contagion/zombies/nicole_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_znicole" then
+        self.Zombie_Gender = 1
+        self.Model =
+            "models/vj_contagion/zombies/nicole_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zofficer" then
-    self.Model = {
-    "models/vj_contagion/zombies/officer_alt.mdl",
-    "models/vj_contagion/zombies/officer_alt2.mdl",
-    "models/vj_contagion/zombies/officer_alt3.mdl",
-    "models/vj_contagion/zombies/officer_alt4.mdl",
-    "models/vj_contagion/zombies/officer_zombie.mdl",
-    "models/vj_contagion/zombies/officer_armor.mdl"
-}
- elseif self:GetClass() == "npc_vj_con_zriot" then
-    self.Model =
-    "models/vj_contagion/zombies/riot_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zofficer" then
+        self.Model = {
+            "models/vj_contagion/zombies/officer_alt.mdl",
+            "models/vj_contagion/zombies/officer_alt2.mdl",
+            "models/vj_contagion/zombies/officer_alt3.mdl",
+            "models/vj_contagion/zombies/officer_alt4.mdl",
+            "models/vj_contagion/zombies/officer_zombie.mdl",
+            "models/vj_contagion/zombies/officer_armor.mdl"
+        }
+    elseif self:GetClass() == "npc_vj_con_zriot" then
+        self.Model =
+            "models/vj_contagion/zombies/riot_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zriotbrute" then
-    self.Model =
-    "models/vj_contagion/zombies/riot_brute_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zriotbrute" then
+        self.Model =
+            "models/vj_contagion/zombies/riot_brute_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zriotsol" then
-    self.Model =
-    "models/vj_contagion/zombies/riot_soldier.mdl"
+    elseif self:GetClass() == "npc_vj_con_zriotsol" then
+        self.Model =
+            "models/vj_contagion/zombies/riot_soldier.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zryan" then
-    self.Model =
-    "models/vj_contagion/zombies/ryan_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_zryan" then
+        self.Model =
+            "models/vj_contagion/zombies/ryan_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_ztony" then
-    self.Model =
-    "models/vj_contagion/zombies/tony_zombie.mdl"
+    elseif self:GetClass() == "npc_vj_con_ztony" then
+        self.Model =
+            "models/vj_contagion/zombies/tony_zombie.mdl"
 
- elseif self:GetClass() == "npc_vj_con_zworker" then
-    self.Model = {
-    "models/vj_contagion/zombies/worker_visor01_zombie.mdl",
-    "models/vj_contagion/zombies/worker_visor02_zombie.mdl",
-    "models/vj_contagion/zombies/worker_zombie.mdl"
-}
- elseif self:GetClass() == "npc_vj_con_zyumi" then
-    self.Zombie_Gender = 1
-    self.Model =
-    "models/vj_contagion/zombies/yumi_zombie.mdl"
-end
- if math.random(1,GetConVar("VJ_CON_RunnerChance"):GetInt()) == 1 && GetConVar("VJ_CON_AllRunners"):GetInt() == 0 then
-    self.Zombie_Sprinter = true
-end
-    if GetConVar("VJ_CON_AllRunners"):GetInt() == 1 then self.Zombie_Sprinter = true end
-
+    elseif self:GetClass() == "npc_vj_con_zworker" then
+        self.Model = {
+            "models/vj_contagion/zombies/worker_visor01_zombie.mdl",
+            "models/vj_contagion/zombies/worker_visor02_zombie.mdl",
+            "models/vj_contagion/zombies/worker_zombie.mdl"
+        }
+    elseif self:GetClass() == "npc_vj_con_zyumi" then
+        self.Zombie_Gender = 1
+        self.Model =
+            "models/vj_contagion/zombies/yumi_zombie.mdl"
+    end
+    if math_random(1, GetConVar("VJ_CON_SprinterChance"):GetInt()) == 1 && GetConVar("VJ_CON_Panic"):GetInt() == 0 then
+        self.Zombie_Sprinter = true
+    end
+    if GetConVar("VJ_CON_Panic"):GetInt() == 1 then self.Zombie_Sprinter = true end
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 1 then self.CanOpenDoors = false end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
- if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,7))
+    if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,7))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_f.mdl" then
-    self.StartHealth = 200
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,7))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_f.mdl" then
+        self.StartHealth = 200
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,7))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_t.mdl" then
-    self:SetBodygroup(0,math.random(0,3))
-    self:SetBodygroup(1,math.random(0,4))
-    self:SetSkin(math.random(0,7))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_t.mdl" then
+        self:SetBodygroup(0, math_random(0,3))
+        self:SetBodygroup(1, math_random(0,4))
+        self:SetSkin(math_random(0,7))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_c.mdl" then
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_c.mdl" then
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_f.mdl" then
-    self.StartHealth = 200
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_f.mdl" then
+        self.StartHealth = 200
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_t.mdl" then
-    self:SetBodygroup(0,math.random(0,3))
-    self:SetBodygroup(1,math.random(0,4))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_h.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_t.mdl" then
+        self:SetBodygroup(0, math_random(0,3))
+        self:SetBodygroup(1, math_random(0,4))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_c.mdl" then
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_c.mdl" then
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_f.mdl" then
-    self.StartHealth = 200
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_f.mdl" then
+        self.StartHealth = 200
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_h.mdl" then
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_h.mdl" then
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_t.mdl" then
-    self:SetBodygroup(0,math.random(0,3))
-    self:SetBodygroup(1,math.random(0,4))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_t.mdl" then
+        self:SetBodygroup(0, math_random(0,3))
+        self:SetBodygroup(1, math_random(0,4))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_a_t.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_b_t.mdl" then
-    self:SetBodygroup(0,math.random(0,1))
-    self:SetBodygroup(1,math.random(0,1))
-    self:SetBodygroup(2,math.random(0,1))
-    self:SetSkin(math.random(0,2))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_a_t.mdl" or self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_b_t.mdl" then
+        self:SetBodygroup(0, math_random(0,1))
+        self:SetBodygroup(1, math_random(0,1))
+        self:SetBodygroup(2, math_random(0,1))
+        self:SetSkin(math_random(0,2))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_c_t.mdl" then
-    self:SetBodygroup(0,math.random(0,1))
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetBodygroup(2,math.random(0,1))
-    self:SetSkin(math.random(0,2))
+    elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_female_c_t.mdl" then
+        self:SetBodygroup(0, math_random(0,1))
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetBodygroup(2, math_random(0,1))
+        self:SetSkin(math_random(0,2))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/civillian_zombie.mdl" then
-    self:SetBodygroup(0,math.random(0,1))
-    self:SetSkin(math.random(0,9))
+    elseif self:GetModel() == "models/vj_contagion/zombies/civillian_zombie.mdl" then
+        self:SetBodygroup(0, math_random(0,1))
+        self:SetSkin(math_random(0,9))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/doctor_zombie.mdl" then
-    self:SetBodygroup(0,math.random(0,1))
-    self:SetSkin(math.random(0,3))
+    elseif self:GetModel() == "models/vj_contagion/zombies/doctor_zombie.mdl" then
+        self:SetBodygroup(0, math_random(0,1))
+        self:SetSkin(math_random(0,3))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/worker_visor01_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/worker_visor02_zombie.mdl" then
-    self:SetSkin(math.random(0,14))
+    elseif self:GetModel() == "models/vj_contagion/zombies/worker_visor01_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/worker_visor02_zombie.mdl" then
+        self:SetSkin(math_random(0,14))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" then
-    self:SetBodygroup(1,math.random(0,2))
-    self:SetSkin(math.random(0,14))
+    elseif self:GetModel() == "models/vj_contagion/zombies/worker_zombie.mdl" then
+        self:SetBodygroup(1, math_random(0,2))
+        self:SetSkin(math_random(0,14))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/inmate_zombie01.mdl" then
-    self:SetBodygroup(0,math.random(0,3))
-    self:SetSkin(math.random(0,3))
+    elseif self:GetModel() == "models/vj_contagion/zombies/inmate_zombie01.mdl" then
+        self:SetBodygroup(0, math_random(0,3))
+        self:SetSkin(math_random(0,3))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/looter_zombie.mdl" then
-    self:SetBodygroup(2,math.random(0,4))
-    self:SetSkin(math.random(0,5))
+    elseif self:GetModel() == "models/vj_contagion/zombies/looter_zombie.mdl" then
+        self:SetBodygroup(2, math_random(0,4))
+        self:SetSkin(math_random(0,5))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/officer_alt.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt2.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt3.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt4.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_zombie.mdl" then
-    self.Riot_Helmet = false
-    self:SetSkin(math.random(0,5))
+    elseif self:GetModel() == "models/vj_contagion/zombies/officer_alt.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt2.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt3.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_alt4.mdl" or self:GetModel() == "models/vj_contagion/zombies/officer_zombie.mdl" then
+        self.Riot_Helmet = false
+        self:SetSkin(math_random(0,5))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
-    //self.StartHealth = 225
-    self:SetSkin(math.random(0,5))
+    elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
+        //self.StartHealth = 225
+        self:SetSkin(math_random(0,5))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
-    self:SetBodygroup(1,math.random(0,1))
+    elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
+        self:SetBodygroup(1, math_random(0,1))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
-    self.Riot_Helmet = false
-    self:SetBodygroup(1,math.random(0,1))
-    self:SetSkin(math.random(0,3))
+    elseif self:GetModel() == "models/vj_contagion/zombies/military_nohelmet_zombie.mdl" then
+        self.Riot_Helmet = false
+        self:SetBodygroup(1, math_random(0,1))
+        self:SetSkin(math_random(0,3))
 
- elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
-    //self.StartHealth = 225
-    self:SetSkin(math.random(0,3))
-end
+    elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
+        //self.StartHealth = 225
+        self:SetSkin(math_random(0,3))
+    end
     self:SetHealth((GetConVar("vj_npc_health"):GetInt() > 0) and GetConVar("vj_npc_health"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
- for attName, var in pairs(self.FootData) do
-    var.AttID = self:LookupAttachment(attName)
-end
- self:CapabilitiesRemove(CAP_ANIMATEDFACE)
- self:Zombie_Init()
- self:ZombieVoices()
- if GetConVar("VJ_CON_Damage"):GetInt() == 1 then // Easy
-    self.MeleeAttackDamage = 5
- elseif GetConVar("VJ_CON_Damage"):GetInt() == 2 then // Normal
-    self.MeleeAttackDamage = 10
- elseif GetConVar("VJ_CON_Damage"):GetInt() == 3 then // Hard
-    self.MeleeAttackDamage = 21
- elseif GetConVar("VJ_CON_Damage"):GetInt() == 4 then // Extreme
-    self.MeleeAttackDamage = 37
- elseif GetConVar("VJ_CON_Damage"):GetInt() == 5 then // Nightmare
-    self.MeleeAttackDamage = 48
-end
- if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
- -- Getting up animation
- if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math.random(1,4) == 1 then
- timer.Simple(0, function()
-    self:PlayAnim("vjseq_sit_to_idle1",true,false)
-    self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-end)
-    timer.Simple(VJ.AnimDuration(self,"sit_to_idle1"), function() if IsValid(self) then
-        self:SetState() end
+    for attName, var in pairs(self.FootData) do
+        var.AttID = self:LookupAttachment(attName)
+    end
+    self:CapabilitiesRemove(CAP_ANIMATEDFACE)
+    self:Zombie_Init()
+    self:ZombieVoices()
+    if GetConVar("VJ_CON_Difficulty"):GetInt() == 1 then // Easy
+        self.MeleeAttackDamage = 5
+    elseif GetConVar("VJ_CON_Difficulty"):GetInt() == 2 then // Normal
+        self.MeleeAttackDamage = 10
+    elseif GetConVar("VJ_CON_Difficulty"):GetInt() == 3 then // Hard
+        self.MeleeAttackDamage = 21
+    elseif GetConVar("VJ_CON_Difficulty"):GetInt() == 4 then // Extreme
+        self.MeleeAttackDamage = 37
+    elseif GetConVar("VJ_CON_Difficulty"):GetInt() == 5 then // Nightmare
+        self.MeleeAttackDamage = 48
+    end
+    if GetConVar("VJ_CON_AllowClimbing"):GetInt() == 1 then self.Zombie_AllowClimbing = true end
+    -- Getting up animation
+    if VJ_CVAR_AI_ENABLED && self.Zombie_Gender == 0 && math_random(1,4) == 1 then
+        timer.Simple(0, function()
+            self:PlayAnim("vjseq_sit_to_idle1", true, false)
+            self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+        end)
+        timer.Simple(VJ.AnimDuration(self, "sit_to_idle1"), function()
+            if IsValid(self) then
+                self:SetState()
+            end
         end)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:SetSuperStrain()
  if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" then return end
-    //self:SetHealth(hp)
-    //self:SetMaxHealth(hp)
-    //self.MeleeAttackDamage = self.MeleeAttackDamage +10
-    //self.MaxJumpLegalDistance = VJ.SET(0,600)
-    //self.Zombie_LegHealth = hp /2
+    self:SetHealth(hp)
+    self:SetMaxHealth(hp)
+    self.MeleeAttackDamage = self.MeleeAttackDamage + 10
+    self.MaxJumpLegalDistance = VJ.SET(0,600)
+    self.Zombie_LegHealth = hp /2
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoices()
- if self.Zombie_Gender == 0 then
- local maleVoice = math.random(1,6)
- if maleVoice == 1 then
-    self:ZombieVoice_George()
- elseif maleVoice == 2 then
-    self:ZombieVoice_Andy()
- elseif maleVoice == 3 then
-    self:ZombieVoice_Jim()
- elseif maleVoice == 4 then
-    self:ZombieVoice_Michael()
- elseif maleVoice == 5 then
-    self:ZombieVoice_Scottlam()
- elseif maleVoice == 6 then
-    self:ZombieVoice_2013()
-end
+    if self.Zombie_Gender == 0 then
+        local maleVoice = math_random(1,6)
+        if maleVoice == 1 then
+            self:ZombieVoice_George()
+        elseif maleVoice == 2 then
+            self:ZombieVoice_Andy()
+        elseif maleVoice == 3 then
+            self:ZombieVoice_Jim()
+        elseif maleVoice == 4 then
+            self:ZombieVoice_Michael()
+        elseif maleVoice == 5 then
+            self:ZombieVoice_Scottlam()
+        elseif maleVoice == 6 then
+            self:ZombieVoice_2013()
+        end
     elseif self.Zombie_Gender == 1 then
-    local femaleVoice = math.random(1,4)
-    if femaleVoice == 1 then
-        self:ZombieVoice_Christina()
-    elseif femaleVoice == 2 then
-        self:ZombieVoice_Amisar()
-    elseif femaleVoice == 3 then
-        self:ZombieVoice_Lindsay()
-    elseif femaleVoice == 4 then
-        self:ZombieVoice_2013()
+        local femaleVoice = math_random(1,4)
+        if femaleVoice == 1 then
+            self:ZombieVoice_Christina()
+        elseif femaleVoice == 2 then
+            self:ZombieVoice_Amisar()
+        elseif femaleVoice == 3 then
+            self:ZombieVoice_Lindsay()
+        elseif femaleVoice == 4 then
+            self:ZombieVoice_2013()
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnChangeActivity(newAct)
- if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
-    self:PlaySoundSystem("Alert",self.SoundTbl_Jump)
-end
- if newAct == ACT_LAND && self.VJ_IsBeingControlled then
-    self:SetNavType(NAV_GROUND)
-end
-    return self.BaseClass.OnChangeActivity(self,newAct)
+    if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
+        self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
+    end
+    if newAct == ACT_LAND && self.VJ_IsBeingControlled then
+        self:SetNavType(NAV_GROUND)
+    end
+    return self.BaseClass.OnChangeActivity(self, newAct)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
-    if math.random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
-        self:PlayAnim({"vjseq_idle2013_facearound_01","vjseq_idle2013_facearound_02"},"LetAttacks",math.Rand(0.5,1),true)
+    if math_random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
+        self:PlayAnim({"vjseq_idle2013_facearound_01", "vjseq_idle2013_facearound_02"}, "LetAttacks", math_rand(0.5,1), true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCallForHelp(ally)
     if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
-    if math.random(1,3) == 1 && !self:IsBusy() then
-        self:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
-    if math.random(1,3) == 1 && !ally:IsBusy() then
-        ally:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,true)
+    if math_random(1,3) == 1 && !self:IsBusy() then
+        self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
+        if math_random(1,3) == 1 && !ally:IsBusy() then
+            ally:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply,controlEnt)
- ply:ChatPrint("DUCK: Crouch")
- ply:ChatPrint("JUMP: Jump")
- if !self.Zombie_Sprinter then ply:ChatPrint("WALK: Blend") end
- ply:ChatPrint("RELOAD: Roar")
- ply:ChatPrint("USE: Break Door")
- ply:ChatPrint("ATTACK2: Command")
+function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("DUCK: Crouch")
+    ply:ChatPrint("JUMP: Jump")
+    if !self.Zombie_Sprinter then ply:ChatPrint("WALK: Blend") end
+    ply:ChatPrint("RELOAD: Roar")
+    ply:ChatPrint("USE: Break Door")
+    ply:ChatPrint("ATTACK2: Command")
 
- net.Start("vj_con_zombie_hud")
- net.WriteBool(false)
- net.WriteEntity(self)
- net.Send(ply)
-
-function self.VJ_TheControllerEntity:OnStopControlling()
     net.Start("vj_con_zombie_hud")
-    net.WriteBool(true)
-    net.WriteEntity(self)
+        net.WriteBool(false)
+        net.WriteEntity(self)
     net.Send(ply)
-end
-function controlEnt:OnKeyBindPressed(key)
-    local npc = self.VJCE_NPC
-    -- Toggle blend setting
-    if key == IN_WALK then
-    if npc.Zombie_ControllerAnim == 0 then
-        npc.Zombie_ControllerAnim = 1
-        self.VJCE_Player:ChatPrint("Blend Disabled")
-    else
-        npc.Zombie_ControllerAnim = 0
-        self.VJCE_Player:ChatPrint("Blend Enabled") end
+
+    function self.VJ_TheControllerEntity:OnStopControlling()
+        net.Start("vj_con_zombie_hud")
+            net.WriteBool(true)
+            net.WriteEntity(self)
+        net.Send(ply)
+    end
+
+    controlEnt.VJC_Player_DrawHUD = false
+    function controlEnt:OnThink()
+        self.VJCE_NPC:SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
+        self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+        self.VJCE_NPC.EnemyDetection = true
+        self.VJCE_NPC.JumpParams.Enabled = false
+    end
+
+    function controlEnt:OnKeyBindPressed(key)
+        local npc = self.VJCE_NPC
+        -- Toggle blend setting
+        if key == IN_WALK then
+            if npc.Zombie_ControllerAnim == 0 then
+                npc.Zombie_ControllerAnim = 1
+                self.VJCE_Player:ChatPrint("Blend Disabled")
+            else
+                npc.Zombie_ControllerAnim = 0
+                self.VJCE_Player:ChatPrint("Blend Enabled")
+            end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
- if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
- if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && !self.Zombie_Crouching then
-    return ACT_IDLE_STIMULATED
- elseif act == ACT_WALK && !self.Zombie_Crouching then
-    return ACT_WALK_STIMULATED
- elseif act == ACT_RUN && !self.Zombie_Crouching then
-    return ACT_RUN_STIMULATED
-end
-    if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && self.Zombie_Crouching then
-        return ACT_IDLE_STEALTH
-    elseif (act == ACT_WALK or act == ACT_RUN) && self.Zombie_Crouching then
-        return ACT_WALK_STEALTH
+    if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
+        if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && !self.Zombie_Crouching then
+            return ACT_IDLE_STIMULATED
+        elseif act == ACT_WALK && !self.Zombie_Crouching then
+            return ACT_WALK_STIMULATED
+        elseif act == ACT_RUN && !self.Zombie_Crouching then
+            return ACT_RUN_STIMULATED
+        end
+        if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && self.Zombie_Crouching then
+            return ACT_IDLE_STEALTH
+        elseif (act == ACT_WALK or act == ACT_RUN) && self.Zombie_Crouching then
+            return ACT_WALK_STEALTH
+        end
     end
-end
- if self.Zombie_Crouching && !self.Zombie_Sprinter && !self.Zombie_Crippled then
- if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-    return ACT_IDLE_STEALTH
- elseif act == ACT_WALK or act == ACT_RUN then
-    return ACT_WALK_STEALTH
-end
- elseif self.Zombie_Crippled && !self.Zombie_Crouching then
- if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
-    return ACT_IDLE_HURT
- elseif act == ACT_WALK or act == ACT_RUN then
-    return ACT_WALK_HURT
-end
- elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-    //return ACT_IDLE_ANGRY
-    return self:ResolveAnimation({ACT_IDLE_ANGRY})
+    if self.Zombie_Crouching && !self.Zombie_Sprinter && !self.Zombie_Crippled then
+        if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+            return ACT_IDLE_STEALTH
+        elseif act == ACT_WALK or act == ACT_RUN then
+            return ACT_WALK_STEALTH
+        end
+    elseif self.Zombie_Crippled && !self.Zombie_Crouching then
+        if act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT then
+            return ACT_IDLE_HURT
+        elseif act == ACT_WALK or act == ACT_RUN then
+            return ACT_WALK_HURT
+        end
+    elseif act == ACT_IDLE && IsValid(self:GetEnemy()) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+        //return ACT_IDLE_ANGRY
+        return self:ResolveAnimation({ACT_IDLE_ANGRY})
 
- elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
-    return ACT_RUN_STIMULATED
+    elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+        return ACT_RUN_STIMULATED
 
- elseif act == ACT_JUMP && self.VJ_IsBeingControlled then
-    return ACT_HOP
-end
+    elseif act == ACT_JUMP && self.VJ_IsBeingControlled then
+        return ACT_HOP
+    end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     if self.FootData && self:GetSequenceActivity(self:GetIdealSequence()) == ACT_RUN then
-    local checkPos = self:GetPos()
-    for attName, var in pairs(self.FootData) do
-    if !var.AttID then continue end
-    local footPos = self:GetAttachment(var.AttID).Pos
-        checkPos.x = footPos.x
-        checkPos.y = footPos.y
-    if ((footPos -checkPos):LengthSqr()) > (var.Range *var.Range) then
-        var.OnGround = false
-    elseif !var.OnGround then
-        var.OnGround = true
-        self:PlayFootstepSound()
+        local checkPos = self:GetPos()
+        for attName, var in pairs(self.FootData) do
+            if !var.AttID then continue end
+            local footPos = self:GetAttachment(var.AttID).Pos
+            checkPos.x = footPos.x
+            checkPos.y = footPos.y
+            if ((footPos -checkPos):LengthSqr()) > (var.Range * var.Range) then
+                var.OnGround = false
+            elseif !var.OnGround then
+                var.OnGround = true
+                self:PlayFootstepSound()
+            end
         end
     end
-end
     if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
-    if self:OnGround() && CurTime() > self.Zombie_NextJumpT then
-    local maxDist = 220
-    local maxDepth = 20
-    local targetPos = self:GetPos() +Vector(math.Rand(-maxDist,maxDist),math.Rand(-maxDist,maxDist),maxDepth)
-        self:Jump(targetPos)
-        self:PlaySoundSystem("Alert",self.SoundTbl_Jump)
-        self.Zombie_NextJumpT = CurTime() + 1
+        if self:OnGround() && CurTime() > self.Zombie_NextJumpT then
+            local maxDist = 220
+            local maxDepth = 20
+            local targetPos = self:GetPos() + Vector(math_rand(-maxDist, maxDist), math_rand(-maxDist, maxDist), maxDepth)
+            self:Jump(targetPos)
+            self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
+            self.Zombie_NextJumpT = CurTime() + 1
+        end
     end
-end
     local curSeq = self:GetSequence()
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching or self:GetSequence() == self:LookupSequence("sit_to_idle1") then self.Zombie_DoorToBreak = NULL return end
     local curAct = self:GetSequenceActivity(self:GetIdealSequence())
     if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
-    if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
-    for _,v in pairs(ents.FindInSphere(self:GetPos(),30)) do
-    //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v self.Zombie_AttackingDoor = true end
-    if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
-    local anim = string.lower(v:GetSequenceName(v:GetSequence()))
-    if string.find(anim,"idle") or string.find(anim,"open") /*or string.find(anim,"locked")*/ then
-        self.Zombie_AttackingDoor = true
-        self.Zombie_DoorToBreak = v break end
+        if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+            for _, v in pairs(ents.FindInSphere(self:GetPos(), 35)) do
+                //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v self.Zombie_AttackingDoor = true end
+                if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
+                    local anim = string_lower(v:GetSequenceName(v:GetSequence()))
+                    if string_find(anim, "idle") or string_find(anim, "open") /*or string_find(anim, "locked")*/ then
+                        self.Zombie_AttackingDoor = true
+                        self.Zombie_DoorToBreak = v
+                        break
+                    end
+                end
+            end
         end
-    end
-end
     else
-    if IsValid(self.Zombie_DoorToBreak) then
-    local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
-    if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
-    if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
-        //local ang = self:GetAngles()
-        //self:SetAngles(Angle(ang.x,(self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y,ang.z))
-        self:SetTurnTarget(self.Zombie_DoorToBreak)
-        self:PlayAnim(ACT_OPEN_DOOR,true,false,false)
-        self:SetState(VJ_STATE_ONLY_ANIMATION)
+        if IsValid(self.Zombie_DoorToBreak) then
+            local dist = VJ.GetNearestDistance(self,self.Zombie_DoorToBreak)
+            if IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor && (self.AttackAnimTime > CurTime() or !self.Zombie_DoorToBreak:Visible(self)) or curAct == ACT_OPEN_DOOR && dist > 40 then self.Zombie_AttackingDoor = false self.Zombie_DoorToBreak = NULL self:SetState() return end
+            if curAct != ACT_OPEN_DOOR && IsValid(self.Zombie_DoorToBreak) then
+                //local ang = self:GetAngles()
+                //self:SetAngles(Angle(ang.x, (self.Zombie_DoorToBreak:GetPos() -self:GetPos()):Angle().y, ang.z))
+                self:SetTurnTarget(self.Zombie_DoorToBreak)
+                self:PlayAnim(ACT_OPEN_DOOR, true, false, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION)
+            end
         end
     end
-end
     if !IsValid(self.Zombie_DoorToBreak) && self.Zombie_AttackingDoor then
         self.Zombie_AttackingDoor = false
-        self:PlayAnim(ACT_IDLE,true,0,false)
+        self:PlayAnim(ACT_IDLE, true, 0, false)
         self:SetState()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Jump(pos)
- self:StopMoving()
- self:ResetMoveCalc()
- self:SetNavType(NAV_GROUND)
- self:SetMoveType(MOVETYPE_STEP)
- if self.CurrentSchedule then
-    self.CurrentSchedule = nil
-    self.CurrentScheduleName = nil
-    self.CurrentTask = nil
-    self.CurrentTaskID = nil
-end
+    self:StopMoving()
+    self:ResetMoveCalc()
+    self:SetNavType(NAV_GROUND)
+    self:SetMoveType(MOVETYPE_STEP)
+    if self.CurrentSchedule then
+        self.CurrentSchedule = nil
+        self.CurrentScheduleName = nil
+        self.CurrentTask = nil
+        self.CurrentTaskID = nil
+    end
     //self.NextIdleStandTime = CurTime()
     self.NextIdleTime = CurTime()
     self.NextChaseTime = CurTime()
-    self:ForceMoveJump(VJ.CalculateTrajectory(self, NULL, "CurveOld", self:GetPos(), self:GetPos() +((((pos or self:GetPos() +self:GetUp() *100) -self:GetPos()):GetNormalized() *50) +(self:GetUp() *25)), 250))
+    self:ForceMoveJump(VJ.CalculateTrajectory(self, NULL, "CurveOld", self:GetPos(), self:GetPos() + ((((pos or self:GetPos() + self:GetUp() * 100) - self:GetPos()):GetNormalized() * 50) + (self:GetUp() * 25)), 250))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Crouch(bCrouch)
     if bCrouch then
         self:SetHullType(HULL_TINY)
-        self:SetCollisionBounds(Vector(13,13,35),Vector(-13,-13,0))
+        self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     else
         self:SetHullType(HULL_HUMAN)
-        self:SetCollisionBounds(Vector(13,13,72),Vector(-13,-13,0))
+        self:SetCollisionBounds(Vector(13, 13, 72), Vector(-13, -13, 0))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-   self:Zombie_OnThinkActive()
-   if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:IsBusy("Activities") then
-    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) < 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
-        self:PlaySoundSystem("CallForHelp",self.SoundTbl_CallForHelp)
-    if !self.Zombie_Crippled && !self.Zombie_Crouching then
-        self:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,1.7,false) end
-    if !v.Zombie_Crippled && !self.Zombie_Crouching then
-        v:PlayAnim({"vjseq_zombie_grapple_roar1","vjseq_zombie_grapple_roar2"},true,false,false) end
-        v:PlaySoundSystem("CallForHelp",v.SoundTbl_CallForHelp)
-        v:Follow(self,true)
-        v.IsFollowing = true
-        self.Zombie_NextRoarT = CurTime() + math.Rand(5,10)
+    self:Zombie_OnThinkActive()
+    if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:IsBusy("Activities") then
+        for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+            if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) < 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
+                self:PlaySoundSystem("CallForHelp", self.SoundTbl_CallForHelp)
+                if !self.Zombie_Crippled && !self.Zombie_Crouching then
+                    self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, 1.7, false)
+                end
+                if !v.Zombie_Crippled && !self.Zombie_Crouching then
+                    v:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, false)
+                end
+                v:PlaySoundSystem("CallForHelp", v.SoundTbl_CallForHelp)
+                v:Follow(self, true)
+                v.IsFollowing = true
+                self.Zombie_NextRoarT = CurTime() + math_rand(5,10)
+            end
         end
     end
-end
     if CurTime() > self.Zombie_NextCommandT then
-    for _,v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-    if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class,"CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
-    local bullseye = self.VJ_TheControllerBullseye
-        v:PlaySoundSystem("InvestigateSound",v.SoundTbl_Investigate)
-        v:ResetFollowBehavior()
-        v.IsFollowing = false
-        timer.Simple(0.1, function() if IsValid(v) then
-        v:SetLastPosition(bullseye:GetPos())
-        v:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() end end) end end)
-        self.Zombie_NextCommandT = CurTime() + 3
+        for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
+            if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
+                local bullseye = self.VJ_TheControllerBullseye
+                v:PlaySoundSystem("InvestigateSound", v.SoundTbl_Investigate)
+                v:ResetFollowBehavior()
+                v.IsFollowing = false
+                timer.Simple(0.1, function()
+                    if IsValid(v) then
+                        v:SetLastPosition(bullseye:GetPos())
+                        v:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() end end)
+                    end
+                end)
+                self.Zombie_NextCommandT = CurTime() + 3
+            end
         end
     end
-end
     if self.Zombie_Crippled then return end
-    if IsValid(self:GetEnemy()) && self:GetEnemy():IsPlayer() && !self:IsOnFire() && !self.Flinching && !self:IsBusy() && !self.RiotBrute_Charging then
-    if IsValid(self:GetBlockingEntity()) || (self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
-        self:Crouch(true)
-        self.Zombie_Crouching = true
-    else
-        self:Crouch(false)
-        self.Zombie_Crouching = false
-    end
-end
-    if self.VJ_IsBeingControlled then
-    if self.VJ_TheController:KeyDown(IN_DUCK) then
-        self:Crouch(true)
-        self.Zombie_Crouching = true
-    else
-        self:Crouch(false)
-        self.Zombie_Crouching = false
-    end
-end
- //print(self:GetBlockingEntity())
- // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
- if self.Zombie_AllowClimbing && !self.RiotBrute_Charging && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
- //print("-------------------------------------------------------------------------------------")
- local anim = false
- local finalpos = self:GetPos()
- local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp()*144, endpos = self:GetPos() + self:GetUp()*144 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
- local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp()*120, endpos = self:GetPos() + self:GetUp()*120 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
- local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp()*96, endpos = self:GetPos() + self:GetUp()*96 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
- local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp()*72, endpos = self:GetPos() + self:GetUp()*72 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
- local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*48, endpos = self:GetPos() + self:GetUp()*48 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
- local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*200, filter = self})
-
- //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
- //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
- //PrintTable(tr2)
- if !IsValid(tru.Entity) then
- if IsValid(tr5.Entity) then
- local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp()*160, endpos = self:GetPos() + self:GetUp()*160 + self:GetForward()*40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
- if !IsValid(tr5b.Entity) then
-    anim = VJ.PICK({"vjseq_zombie_climb_108","vjseq_zombie_climb_120"})
-    finalpos = tr5.HitPos
-end
- elseif IsValid(tr4.Entity) then
-    anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-    finalpos = tr4.HitPos
- elseif IsValid(tr3.Entity) then
-    anim = VJ.PICK({"vjseq_zombie_climb_84","vjseq_zombie_climb_96"})
-    finalpos = tr3.HitPos
- elseif IsValid(tr2.Entity) then
-    anim = VJ.PICK({"vjseq_zombie_climb_50","vjseq_zombie_climb_60","vjseq_zombie_climb_70","vjseq_zombie_climb_72"})
-    finalpos = tr2.HitPos
- elseif IsValid(tr1.Entity) then
-    anim = VJ.PICK({"vjseq_zombie_climb_24","vjseq_zombie_climb_36","vjseq_zombie_climb_38","vjseq_zombie_climb_48","vjseq_zombie_climb_38"})
-    finalpos = tr1.HitPos
-end
-    if anim != false then
-        //print(anim)
-        self:SetGroundEntity(NULL)
-        self.Zombie_Climbing = true
-    timer.Simple(0.4,function()
-    if IsValid(self) then
-        self:SetPos(finalpos)
-    end
-end)
-        self:PlayAnim(anim,true,false/*VJ.AnimDurationEx(self,anim,false,0.4)*/,true,0,{},function(vsched)
-        vsched.RunCode_OnFinish = function()
-        //self:SetGroundEntity(NULL)
-        //self:SetPos(finalpos)
-        self.Zombie_Climbing = false
+    if IsValid(self:GetEnemy()) && !self:IsOnFire() && !self.Flinching && !self:IsBusy() && !self.RiotBrute_Charging then
+        if (IsValid(self:GetBlockingEntity()) && self:GetBlockingEntity():GetClass() == "prop_physics") or (self:GetEnemy():IsPlayer() && self:GetEnemy():GetPos():Distance(self:GetPos()) <= 350 && self:GetEnemy():Crouching()) then
+            self:Crouch(true)
+            self.Zombie_Crouching = true
+        else
+            self:Crouch(false)
+            self.Zombie_Crouching = false
         end
-    end)
-end
-        self.Zombie_NextClimb = CurTime() + 0.1 //5
+    end
+    if self.VJ_IsBeingControlled then
+        if self.VJ_TheController:KeyDown(IN_DUCK) then
+            self:Crouch(true)
+            self.Zombie_Crouching = true
+        else
+            self:Crouch(false)
+            self.Zombie_Crouching = false
+        end
+    end
+    //print(self:GetBlockingEntity())
+    // IsValid(self:GetBlockingEntity()) && !self:GetBlockingEntity():IsNPC() && !self:GetBlockingEntity():IsPlayer()
+    if self.Zombie_AllowClimbing && !self.RiotBrute_Charging && !self.Zombie_Crouching && !self.Dead && !self.Zombie_Climbing && CurTime() > self.Zombie_NextClimb then
+        //print("-------------------------------------------------------------------------------------")
+        local anim = false
+        local finalpos = self:GetPos()
+        local tr5 = util.TraceLine({start = self:GetPos() + self:GetUp() * 144, endpos = self:GetPos() + self:GetUp() * 144 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 144
+        local tr4 = util.TraceLine({start = self:GetPos() + self:GetUp() * 120, endpos = self:GetPos() + self:GetUp() * 120 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 120
+        local tr3 = util.TraceLine({start = self:GetPos() + self:GetUp() * 96, endpos = self:GetPos() + self:GetUp() * 96 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 96
+        local tr2 = util.TraceLine({start = self:GetPos() + self:GetUp() * 72, endpos = self:GetPos() + self:GetUp() * 72 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 72
+        local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp() * 48, endpos = self:GetPos() + self:GetUp() * 48 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 48
+        local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp() * 200, filter = self})
+
+        //VJ_CreateTestObject(tru.StartPos,self:GetAngles(),Color(0,0,255))
+        //VJ_CreateTestObject(tru.HitPos,self:GetAngles(),Color(0,255,0))
+        //PrintTable(tr2)
+        if !IsValid(tru.Entity) then
+            if IsValid(tr5.Entity) then
+                local tr5b = util.TraceLine({start = self:GetPos() + self:GetUp() * 160, endpos = self:GetPos() + self:GetUp() * 160 + self:GetForward() * 40, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end})
+                if !IsValid(tr5b.Entity) then
+                    anim = VJ.PICK({"vjseq_zombie_climb_108", "vjseq_zombie_climb_120"})
+                    finalpos = tr5.HitPos
+                end
+            elseif IsValid(tr4.Entity) then
+                anim = VJ.PICK({"vjseq_zombie_climb_84", "vjseq_zombie_climb_96"})
+                finalpos = tr4.HitPos
+            elseif IsValid(tr3.Entity) then
+                anim = VJ.PICK({"vjseq_zombie_climb_84", "vjseq_zombie_climb_96"})
+                finalpos = tr3.HitPos
+            elseif IsValid(tr2.Entity) then
+                anim = VJ.PICK({"vjseq_zombie_climb_50", "vjseq_zombie_climb_60", "vjseq_zombie_climb_70", "vjseq_zombie_climb_72"})
+                finalpos = tr2.HitPos
+            elseif IsValid(tr1.Entity) then
+                anim = VJ.PICK({"vjseq_zombie_climb_24", "vjseq_zombie_climb_36", "vjseq_zombie_climb_38", "vjseq_zombie_climb_48", "vjseq_zombie_climb_38"})
+                finalpos = tr1.HitPos
+            end
+            if anim != false then
+                //print(anim)
+                self:SetGroundEntity(NULL)
+                self.Zombie_Climbing = true
+                timer.Simple(0.4, function()
+                    if IsValid(self) then
+                        self:SetPos(finalpos)
+                    end
+                end)
+                self:PlayAnim(anim, true, false /*VJ.AnimDurationEx(self, anim, false, 0.4)*/, true, 0, {}, function(vsched)
+                    vsched.RunCode_OnFinish = function()
+                        //self:SetGroundEntity(NULL)
+                        //self:SetPos(finalpos)
+                        self.Zombie_Climbing = false
+                    end
+                end)
+            end
+            self.Zombie_NextClimb = CurTime() + 0.1 //5
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_OnThinkActive() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttack(status,enemy)
+function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
-    if self.Zombie_Crippled then
-        self.MeleeAttackDistance = 25
-        self.MeleeAttackDamageDistance = 45
-        self.AnimTbl_MeleeAttack = {
-        "vjseq_crawl_melee2013_1",
-        "vjseq_crawl_melee2013_2"
-}
-        return end
-    /*
-    --if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then
-        self.AnimTbl_MeleeAttack = {
-        "vjseq_melee_cont_01"
-}
-    */
-    if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
-        self.AnimTbl_MeleeAttack = {
-        "vjges_melee2020_player_01",
-        "vjges_melee2020_player_02",
-        "vjges_melee2020_player_03"
-}
-    elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
-        self.AnimTbl_MeleeAttack = {
-        "vjges_melee2013_01",
-        "vjges_melee2013_02",
-        "vjges_melee2013_03",
-        "vjges_melee2013_04",
-        "vjges_melee2013_05",
-        "vjges_melee2013_06",
-        "vjges_melee2013_07",
-        "vjges_melee2013_08"
-        //"vjges_"..ACT_MELEE_ATTACK2
-}
+        if self.Zombie_Crippled then
+            self.MeleeAttackDistance = 25
+            self.MeleeAttackDamageDistance = 45
+            self.AnimTbl_MeleeAttack = {
+                "vjseq_crawl_melee2013_1",
+                "vjseq_crawl_melee2013_2"
+            }
+            return
+        end
+
+        --/*if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then*/
+            /*self.AnimTbl_MeleeAttack =
+            "vjseq_melee_cont_01"*/
+
+        if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
+            self.AnimTbl_MeleeAttack = {
+                "vjges_melee2020_player_01",
+                "vjges_melee2020_player_02",
+                "vjges_melee2020_player_03"
+            }
+        elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
+            self.AnimTbl_MeleeAttack = {
+                "vjges_melee2013_01",
+                "vjges_melee2013_02",
+                "vjges_melee2013_03",
+                "vjges_melee2013_04",
+                "vjges_melee2013_05",
+                "vjges_melee2013_06",
+                "vjges_melee2013_07",
+                "vjges_melee2013_08"
+                //"vjges_" .. ACT_MELEE_ATTACK2
+            }
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttackExecute(status,ent,isProp)
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
     if status == "PreDamage" then
-    if self:IsOnFire() then ent:Ignite(4) end
+        if self:IsOnFire() then ent:Ignite(4) end
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnMeleeAttack_Miss()
     if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_IsBeingControlled then return end
     if self.MeleeAttacking && self:GetSequence() == self:LookupSequence("melee_cont_01") then
-        self:PlayAnim("idle2013_facearound_01",true,0.1,true)
+        self:PlayAnim("idle2013_facearound_01", true, 0.1, true)
         self:StopAttacks(true)
         self.MeleeAttacking = false
         self.AttackAnimTime = 0
@@ -830,89 +862,90 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Cripple()
     self:SetHullType(HULL_TINY)
-    self:SetCollisionBounds(Vector(13,13,25),Vector(-13,-13,0))
+    self:SetCollisionBounds(Vector(13, 13, 25), Vector(-13, -13, 0))
     //self.MeleeAttackDamage = self.MeleeAttackDamage /2
     self.ControllerParams = {
-    CameraMode = 1,
-    ThirdP_Offset = Vector(45, 20, -15),
-    FirstP_Bone = "ValveBiped.Bip01_Head",
-    FirstP_Offset = Vector(10, 0, -30),
-}
+        CameraMode = 1,
+        ThirdP_Offset = Vector(45, 20, -15),
+        FirstP_Bone = "ValveBiped.Bip01_Head",
+        FirstP_Offset = Vector(10, 0, -30),
+    }
     self.JumpParams.Enabled = false
-    self:CapabilitiesRemove(bit.bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
+    self:CapabilitiesRemove(bit_bor(CAP_MOVE_JUMP, CAP_MOVE_CLIMB))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo,hitgroup,status)
- if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
-    dmginfo:SetDamage(self:GetMaxHealth())
-end
- /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
-    dmginfo:ScaleDamage(0.5)
-end*/
- self:ArmorDamage(dmginfo,hitgroup,status)
- if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain",self.SoundTbl_Burning) end
- if self.Zombie_Crippled then return end
- if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math.random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
- if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
- if self:IsPlayingGesture(self.AttackAnim) then -- Stop the attack gesture!
-    self:RemoveGesture(self.AttackAnim)
-end
-        self:PlayAnim({"vjseq_shoved_forward1","vjseq_shoved_forward2","vjseq_shoved_forward_heavy"},true,false,false)
-        self.Zombie_NextStumbleT = CurTime() + math.Rand(8,14)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" && dmginfo:IsBulletDamage() && hitgroup == HITGROUP_HEAD && GetConVar("VJ_CON_Headshot"):GetInt() == 1 && self:GetClass() != "npc_vj_con_zcarrier" && self:GetClass() != "npc_vj_con_zriotbrute" && !self.Riot_Helmet then
+        dmginfo:SetDamage(self:GetMaxHealth())
     end
-end
- if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" or self:GetClass() == "npc_vj_con_zriotsol" then return end
- if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
- local legs = {6,7,10,11}
- if VJ.HasValue(legs,hitgroup) then
-    self.Zombie_LegHealth = self.Zombie_LegHealth -dmginfo:GetDamage()
- if self.Zombie_LegHealth <= 0 then
-    self.Zombie_Crippled = true
- local anim = "vjseq_gib_legboth"
- if hitgroup == HITGROUP_LEFTLEG or hitgroup == 10 then
-    anim = "vjseq_gib_legl"
- elseif hitgroup == HITGROUP_RIGHTLEG or hitgroup == 11 then
-    anim = "vjseq_gib_legr"
-end
-    if math.random(1,4) == 1 then anim = "vjseq_gib_legboth" end
-        self:PlayAnim(anim,true,false,false)
-        self:Cripple() end
+    /*if status == "PreDamage" && self:GetClass() == "npc_vj_con_zcarrier" then
+        dmginfo:ScaleDamage(0.5)
+    end*/
+    self:ArmorDamage(dmginfo, hitgroup, status)
+    if status == "PostDamage" && self:IsOnFire() && self:Health() > 0 then self:PlaySoundSystem("Pain", self.SoundTbl_Burning) end
+    if self.Zombie_Crippled then return end
+    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crouching && self:IsMoving() && self.Zombie_NextStumbleT < CurTime() && math_random(1,16) == 1 && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetSequence() != self:LookupSequence("shoved_forward1") && self:GetSequence() != self:LookupSequence("shoved_forward2") && self:GetSequence() != self:LookupSequence("shoved_backwards1") && self:GetSequence() != self:LookupSequence("shoved_backwards2") && self:GetSequence() != self:LookupSequence("shoved_backwards3") then
+        if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() then
+            if self:IsPlayingGesture(self.AttackAnim) then -- Stop the attack gesture!
+                self:RemoveGesture(self.AttackAnim)
+            end
+            self:PlayAnim({"vjseq_shoved_forward1", "vjseq_shoved_forward2", "vjseq_shoved_forward_heavy"}, true, false, false)
+            self.Zombie_NextStumbleT = CurTime() + math_rand(8,14)
+        end
+    end
+    if self:GetClass() == "npc_vj_con_zcarrier" or self:GetClass() == "npc_vj_con_zriotbrute" or self:GetClass() == "npc_vj_con_zriot" or self:GetClass() == "npc_vj_con_zriotsol" then return end
+    if status == "PostDamage" && self:Health() > 0 && !self.Zombie_Crippled && !self.Zombie_Crouching && self:GetSequence() != self:LookupSequence("shoved_forward_heavy") && self:GetSequence() != self:LookupSequence("shoved_backwards_heavy") && self:GetActivity() != ACT_JUMP && self:GetActivity() != ACT_GLIDE then
+        local legs = {6, 7, 10, 11}
+        if VJ.HasValue(legs, hitgroup) then
+            self.Zombie_LegHealth = self.Zombie_LegHealth - dmginfo:GetDamage()
+            if self.Zombie_LegHealth <= 0 then
+                self.Zombie_Crippled = true
+                local anim = "vjseq_gib_legboth"
+                if hitgroup == HITGROUP_LEFTLEG or hitgroup == 10 then
+                    anim = "vjseq_gib_legl"
+                elseif hitgroup == HITGROUP_RIGHTLEG or hitgroup == 11 then
+                    anim = "vjseq_gib_legr"
+                end
+                if math_random(1,4) == 1 then anim = "vjseq_gib_legboth" end
+                self:PlayAnim(anim, true, false, false)
+                self:Cripple()
+            end
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:ArmorDamage(dmginfo,hitgroup,status) end
+function ENT:ArmorDamage(dmginfo, hitgroup, status) end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFlinch(dmginfo,hitgroup,status)
+function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-    if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
-    if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
-        self.AnimTbl_Flinch = {"vjseq_shoved_backwards1","vjseq_shoved_backwards2","vjseq_shoved_backwards3","vjseq_shoved_backwards_heavy"}
-        self.FlinchCooldown = math.Rand(5,8)
-    else
-        self.AnimTbl_Flinch = {"vjges_injured2013_01","vjges_injured2013_02","vjges_injured2013_03","vjges_injured2013_04","vjges_injured2013_05","vjges_injured2013_06"}
-        self.FlinchCooldown = 1
-    end
-end
+        if !self.Zombie_Crouching && !self.Zombie_Crippled && !self.Zombie_Climbing && !self.RiotBrute_Charging then
+            if dmginfo:GetDamage() > 30 or dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 or dmginfo:IsExplosionDamage() or dmginfo:IsDamageType(DMG_CLUB) or dmginfo:IsDamageType(DMG_SLASH) or dmginfo:IsDamageType(DMG_GENERIC) then
+                self.AnimTbl_Flinch = {"vjseq_shoved_backwards1", "vjseq_shoved_backwards2", "vjseq_shoved_backwards3", "vjseq_shoved_backwards_heavy"}
+                self.FlinchCooldown = math_rand(5,8)
+            else
+                self.AnimTbl_Flinch = {"vjges_injured2013_01", "vjges_injured2013_02", "vjges_injured2013_03", "vjges_injured2013_04", "vjges_injured2013_05", "vjges_injured2013_06"}
+                self.FlinchCooldown = 1
+            end
+        end
         return self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_Crouching or self.Zombie_Climbing or self.Zombie_Crippled or self.RiotBrute_Charging or self:GetSequenceName(self:GetSequence()) == "brute_charge_begin" or self:GetSequenceName(self:GetSequence()) == "shoved_backwards_wall1" or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") -- If we are doing certaina activities then DO NOT flinch!
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo,hitgroup,status)
- if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
- //self.DeathAnimationDecreaseLengthAmount = math.Rand(0,0.325)
- if status == "DeathAnim" then
- if self:IsMoving() then -- Death anims when moving
-    self.AnimTbl_Death = {"vjseq_death2013_run_06","vjseq_death2013_run_07","vjseq_death2012_run","vjseq_death2012_run2","vjseq_death2012_run3"}
-end
-    if dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 then -- When killed by shotgun damage
-        self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward","vjseq_death2013_shotgun_forward","vjseq_death2013_shotgun_left","vjseq_death2013_shotgun_right"}
+    if status == "Init" && (self:GetActivity() == ACT_JUMP or self:GetActivity() == ACT_GLIDE or self:GetActivity() == ACT_LAND or self.Zombie_IsClimbing or self.Zombie_Crouching or self.Zombie_Crippled or self:GetSequence() == self:LookupSequence("shoved_forward_heavy") or self:GetSequence() == self:LookupSequence("shoved_backwards_heavy") or self:GetSequence() == self:LookupSequence("shoved_forward1") or self:GetSequence() == self:LookupSequence("shoved_forward2") or self:GetSequence() == self:LookupSequence("shoved_backwards1") or self:GetSequence() == self:LookupSequence("shoved_backwards2") or self:GetSequence() == self:LookupSequence("shoved_backwards3") or dmginfo:IsExplosionDamage()) then self.HasDeathAnimation = false end
+    //self.DeathAnimationDecreaseLengthAmount = math_rand(0,0.325)
+    if status == "DeathAnim" then
+        if self:IsMoving() then -- Death anims when moving
+            self.AnimTbl_Death = {"vjseq_death2013_run_06", "vjseq_death2013_run_07", "vjseq_death2012_run", "vjseq_death2012_run2", "vjseq_death2012_run3"}
+        end
+        if dmginfo:GetDamageForce():Length() > 10000 or bit.band(dmginfo:GetDamageType(), DMG_BUCKSHOT) != 0 then -- When killed by shotgun damage
+            self.AnimTbl_Death = {"vjseq_death2013_shotgun_backward", "vjseq_death2013_shotgun_forward", "vjseq_death2013_shotgun_left", "vjseq_death2013_shotgun_right"}
         end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo,hitgroup,corpseEnt)
-    VJ_CON_ApplyCorpseEffects(self,corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
+    VJ_CON_ApplyCorpseEffects(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
@@ -1116,22 +1149,22 @@ ENT.FootSteps = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFootstepSound()
- if !self:OnGround() then return end
- local tr = util.TraceLine({
-    start = self:GetPos(),
-    endpos = self:GetPos() +Vector(0,0,-150),
-    filter = {self}
-})
- if tr.Hit && self.FootSteps[tr.MatType] then
-    VJ.EmitSound(self,VJ.PICK(self.FootSteps[tr.MatType]),self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
-end
+    if !self:OnGround() then return end
+    local tr = util.TraceLine({
+        start = self:GetPos(),
+        endpos = self:GetPos() + Vector(0, 0, -150),
+        filter = {self}
+    })
+    if tr.Hit && self.FootSteps[tr.MatType] then
+        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self,"vj_contagion/zombies/footsteps/footsteps_wade_0" .. math.random(1,4) .. ".wav",self.FootstepSoundLevel,self:GetSoundPitch(self.FootStepPitch1,self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_contagion/zombies/footsteps/footsteps_wade_0" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_2013()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 167 - Idle.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 168 - Idle.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 169 - Idle.wav",
@@ -1159,8 +1192,8 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 191 - Idle.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 192 - Idle.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 193 - Idle.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 1 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 2 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 3 - Alert.wav",
@@ -1195,8 +1228,8 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 32 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 33 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 34 - Alert.wav"
-}
-        self.SoundTbl_Alert = {
+    }
+    self.SoundTbl_Alert = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 1 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 2 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 3 - Alert.wav",
@@ -1231,16 +1264,16 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 32 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 33 - Alert.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 34 - Alert.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 161 - Roar.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 162 - Roar.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 163 - Roar.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 164 - Roar.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 165 - Roar.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 166 - Roar.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+    self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 100 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 101 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 102 - BecomeEnraged.wav",
@@ -1296,8 +1329,8 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 152 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 153 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 154 - BecomeEnraged.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 70 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 71 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 72 - BecomeEnraged.wav",
@@ -1328,8 +1361,8 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 97 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 98 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 99 - BecomeEnraged.wav"
-}
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 70 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 71 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 72 - BecomeEnraged.wav",
@@ -1360,11 +1393,11 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 97 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 98 - BecomeEnraged.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 99 - BecomeEnraged.wav"
-}
-        self.SoundTbl_Feast = {
+    }
+    self.SoundTbl_Feast =
         ""
-}
-        self.SoundTbl_Jump = {
+
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 35 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 36 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 37 - Pain.wav",
@@ -1380,8 +1413,8 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 47 - Jump.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 48 - Jump.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 49 - Jump.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 50 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 51 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 52 - Pain.wav",
@@ -1396,32 +1429,32 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 61 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 62 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 63 - Pain.wav"
-}
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning =
         ""
-}
-        self.SoundTbl_Death = {
+
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 155 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 156 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 157 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 158 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 159 - Pain.wav",
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 160 - Pain.wav"
-}
-     if self.Zombie_Gender == 1 then
-        self.IdleSoundPitch = VJ.SET(120, 120)
-        self.CombatIdleSoundPitch = VJ.SET(120, 120)
-        self.InvestigateSoundPitch = VJ.SET(120, 120)
-        self.AlertSoundPitch = VJ.SET(120, 120)
-        self.CallForHelpSoundPitch = VJ.SET(120, 120)
-        self.BeforeMeleeAttackSoundPitch = VJ.SET(120, 120)
-        self.PainSoundPitch = VJ.SET(120, 120)
-        self.DeathSoundPitch = VJ.SET(120, 120)
+    }
+    if self.Zombie_Gender == 1 then
+        self.IdleSoundPitch = VJ.SET(120,120)
+        self.CombatIdleSoundPitch = VJ.SET(120,120)
+        self.InvestigateSoundPitch = VJ.SET(120,120)
+        self.AlertSoundPitch = VJ.SET(120,120)
+        self.CallForHelpSoundPitch = VJ.SET(120,120)
+        self.BeforeMeleeAttackSoundPitch = VJ.SET(120,120)
+        self.PainSoundPitch = VJ.SET(120,120)
+        self.DeathSoundPitch = VJ.SET(120,120)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Scottlam()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/scottlambright/149 scottlambright_zombie_idle_short_01.wav",
         "vj_contagion/zombies/scottlambright/150 scottlambright_zombie_idle_short_02.wav",
         "vj_contagion/zombies/scottlambright/151 scottlambright_zombie_idle_short_03.wav",
@@ -1448,8 +1481,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/172 scottlambright_zombie_idle_long_03.wav",
         "vj_contagion/zombies/scottlambright/173 scottlambright_zombie_idle_long_04.wav",
         "vj_contagion/zombies/scottlambright/174 scottlambright_zombie_idle_long_05.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/scottlambright/3 scottlambright_zombie_alert_veryshort_01.wav",
         "vj_contagion/zombies/scottlambright/4 scottlambright_zombie_alert_veryshort_02.wav",
         "vj_contagion/zombies/scottlambright/5 scottlambright_zombie_alert_veryshort_03.wav",
@@ -1476,7 +1509,7 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/26 scottlambright_zombie_alert_medium_04.wav",
         "vj_contagion/zombies/scottlambright/27 scottlambright_zombie_alert_medium_05.wav",
         "vj_contagion/zombies/scottlambright/28 scottlambright_zombie_alert_medium_06.wav"
-}
+    }
         self.SoundTbl_Alert = {
         "vj_contagion/zombies/scottlambright/3 scottlambright_zombie_alert_veryshort_01.wav",
         "vj_contagion/zombies/scottlambright/4 scottlambright_zombie_alert_veryshort_02.wav",
@@ -1504,16 +1537,16 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/26 scottlambright_zombie_alert_medium_04.wav",
         "vj_contagion/zombies/scottlambright/27 scottlambright_zombie_alert_medium_05.wav",
         "vj_contagion/zombies/scottlambright/28 scottlambright_zombie_alert_medium_06.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/scottlambright/217 scottlambright_zombie_roar_01.wav",
         "vj_contagion/zombies/scottlambright/218 scottlambright_zombie_roar_02.wav",
         "vj_contagion/zombies/scottlambright/219 scottlambright_zombie_roar_03.wav",
         "vj_contagion/zombies/scottlambright/220 scottlambright_zombie_roar_04.wav",
         "vj_contagion/zombies/scottlambright/221 scottlambright_zombie_roar_05.wav",
         "vj_contagion/zombies/scottlambright/222 scottlambright_zombie_roar_06.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+    self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/scottlambright/263 scottlambright_zombie_wild_01.wav",
         "vj_contagion/zombies/scottlambright/264 scottlambright_zombie_wild_02.wav",
         "vj_contagion/zombies/scottlambright/265 scottlambright_zombie_wild_03.wav",
@@ -1602,8 +1635,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/348 scottlambright_zombie_wild_86.wav",
         "vj_contagion/zombies/scottlambright/349 scottlambright_zombie_wild_87.wav",
         "vj_contagion/zombies/scottlambright/350 scottlambright_zombie_wild_88.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/scottlambright/244 scottlambright_zombie_fight_01.wav",
         "vj_contagion/zombies/scottlambright/245 scottlambright_zombie_fight_02.wav",
         "vj_contagion/zombies/scottlambright/246 scottlambright_zombie_fight_03.wav",
@@ -1623,8 +1656,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/260 scottlambright_zombie_fight_17.wav",
         "vj_contagion/zombies/scottlambright/261 scottlambright_zombie_fight_18.wav",
         "vj_contagion/zombies/scottlambright/262 scottlambright_zombie_fight_19.wav"
-}
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/scottlambright/137 scottlambright_zombie_grapple_short_01.wav",
         "vj_contagion/zombies/scottlambright/138 scottlambright_zombie_grapple_short_02.wav",
         "vj_contagion/zombies/scottlambright/139 scottlambright_zombie_grapple_short_03.wav",
@@ -1637,8 +1670,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/146 scottlambright_zombie_grapple_medium_04.wav",
         "vj_contagion/zombies/scottlambright/147 scottlambright_zombie_grapple_medium_05.wav",
         "vj_contagion/zombies/scottlambright/148 scottlambright_zombie_grapple_medium_06.wav"
-}
-        self.SoundTbl_Feast = {
+    }
+    self.SoundTbl_Feast = {
         "vj_contagion/zombies/scottlambright/223 scottlambright_zombie_feasting_01.wav",
         "vj_contagion/zombies/scottlambright/224 scottlambright_zombie_feasting_02.wav",
         "vj_contagion/zombies/scottlambright/225 scottlambright_zombie_feasting_03.wav",
@@ -1650,8 +1683,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/231 scottlambright_zombie_feasting_09.wav",
         "vj_contagion/zombies/scottlambright/232 scottlambright_zombie_feasting_10.wav",
         "vj_contagion/zombies/scottlambright/233 scottlambright_zombie_feasting_11.wav"
-}
-        self.SoundTbl_Jump = {
+    }
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/scottlambright/175 scottlambright_zombie_jump_01.wav",
         "vj_contagion/zombies/scottlambright/176 scottlambright_zombie_jump_02.wav",
         "vj_contagion/zombies/scottlambright/177 scottlambright_zombie_jump_03.wav",
@@ -1668,8 +1701,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/188 scottlambright_zombie_jump_14.wav",
         "vj_contagion/zombies/scottlambright/189 scottlambright_zombie_jump_15.wav",
         "vj_contagion/zombies/scottlambright/190 scottlambright_zombie_jump_16.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/scottlambright/191 scottlambright_zombie_pain_veryshort_01.wav",
         "vj_contagion/zombies/scottlambright/192 scottlambright_zombie_pain_veryshort_02.wav",
         "vj_contagion/zombies/scottlambright/193 scottlambright_zombie_pain_veryshort_03.wav",
@@ -1696,8 +1729,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/214 scottlambright_zombie_pain_medium_06.wav",
         "vj_contagion/zombies/scottlambright/215 scottlambright_zombie_pain_medium_07.wav",
         "vj_contagion/zombies/scottlambright/216 scottlambright_zombie_pain_medium_08.wav"
-}
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning = {
         "vj_contagion/zombies/scottlambright/127 scottlambright_zombie_burning_short_01.wav",
         "vj_contagion/zombies/scottlambright/128 scottlambright_zombie_burning_short_02.wav",
         "vj_contagion/zombies/scottlambright/129 scottlambright_zombie_burning_short_03.wav",
@@ -1708,8 +1741,8 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/134 scottlambright_zombie_burning_medium_03.wav",
         "vj_contagion/zombies/scottlambright/135 scottlambright_zombie_burning_medium_04.wav",
         "vj_contagion/zombies/scottlambright/136 scottlambright_zombie_burning_medium_05.wav"
-}
-        self.SoundTbl_Death = {
+    }
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/scottlambright/96 scottlambright_zombie_die_short_01.wav",
         "vj_contagion/zombies/scottlambright/97 scottlambright_zombie_die_short_02.wav",
         "vj_contagion/zombies/scottlambright/98 scottlambright_zombie_die_short_03.wav",
@@ -1752,11 +1785,11 @@ function ENT:ZombieVoice_Scottlam()
         "vj_contagion/zombies/scottlambright/93 scottlambright_zombie_die_veryshort_09.wav",
         "vj_contagion/zombies/scottlambright/94 scottlambright_zombie_die_veryshort_10.wav",
         "vj_contagion/zombies/scottlambright/95 scottlambright_zombie_die_veryshort_11.wav"
-}
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Michael()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/michaelmitchell/731 MichaelMitchell_zombie_idle.wav",
         "vj_contagion/zombies/michaelmitchell/732 MichaelMitchell_zombie_idle.wav",
         "vj_contagion/zombies/michaelmitchell/733 MichaelMitchell_zombie_idle.wav",
@@ -1790,8 +1823,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/761 MichaelMitchell_zombie_idle.wav",
         "vj_contagion/zombies/michaelmitchell/762 MichaelMitchell_zombie_idle.wav",
         "vj_contagion/zombies/michaelmitchell/763 MichaelMitchell_zombie_idle.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/michaelmitchell/534 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/535 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/536 MichaelMitchell_zombie_alert.wav",
@@ -1809,8 +1842,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/548 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/549 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/550 MichaelMitchell_zombie_alert.wav"
-}
-        self.SoundTbl_Alert = {
+    }
+    self.SoundTbl_Alert = {
         "vj_contagion/zombies/michaelmitchell/534 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/535 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/536 MichaelMitchell_zombie_alert.wav",
@@ -1828,15 +1861,15 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/548 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/549 MichaelMitchell_zombie_alert.wav",
         "vj_contagion/zombies/michaelmitchell/550 MichaelMitchell_zombie_alert.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/michaelmitchell/803 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/805 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/806 MichaelMitchell_zombie_roar.wav",
         "vj_contagion/zombies/michaelmitchell/807 MichaelMitchell_zombie_roar.wav",
         "vj_contagion/zombies/michaelmitchell/808 MichaelMitchell_zombie_roar.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+    self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/michaelmitchell/551 MichaelMitchell_zombie_attack.wav",
         "vj_contagion/zombies/michaelmitchell/552 MichaelMitchell_zombie_attack.wav",
         "vj_contagion/zombies/michaelmitchell/553 MichaelMitchell_zombie_attack.wav",
@@ -1960,8 +1993,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/878 MichaelMitchell_zombie_attackfast.wav",
         "vj_contagion/zombies/michaelmitchell/879 MichaelMitchell_zombie_attackfast.wav",
         "vj_contagion/zombies/michaelmitchell/880 MichaelMitchell_zombie_attackfast.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/michaelmitchell/612 MichaelMitchell_zombie_burning.wav",
         "vj_contagion/zombies/michaelmitchell/614 MichaelMitchell_zombie_attackfast.wav",
         "vj_contagion/zombies/michaelmitchell/615 MichaelMitchell_zombie_attackfast.wav",
@@ -2019,16 +2052,16 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/776 MichaelMitchell_zombie_fight.wav",
         "vj_contagion/zombies/michaelmitchell/777 MichaelMitchell_zombie_fight.wav",
         "vj_contagion/zombies/michaelmitchell/778 MichaelMitchell_zombie_fight.wav"
-}
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/michaelmitchell/684 MichaelMitchell_zombie_grapple.wav",
         "vj_contagion/zombies/michaelmitchell/685 MichaelMitchell_zombie_grapple.wav",
         "vj_contagion/zombies/michaelmitchell/686 MichaelMitchell_zombie_grapple.wav",
         "vj_contagion/zombies/michaelmitchell/687 MichaelMitchell_zombie_grapple.wav",
         "vj_contagion/zombies/michaelmitchell/688 MichaelMitchell_zombie_grapple.wav",
         "vj_contagion/zombies/michaelmitchell/689 MichaelMitchell_zombie_grapple.wav"
-}
-        self.SoundTbl_Feast = {
+    }
+    self.SoundTbl_Feast = {
         "vj_contagion/zombies/michaelmitchell/650 MichaelMitchell_zombie_feasting.wav",
         "vj_contagion/zombies/michaelmitchell/651 MichaelMitchell_zombie_feasting.wav",
         "vj_contagion/zombies/michaelmitchell/652 MichaelMitchell_zombie_feasting.wav",
@@ -2047,8 +2080,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/665 MichaelMitchell_zombie_feasting.wav",
         "vj_contagion/zombies/michaelmitchell/666 MichaelMitchell_zombie_feasting.wav",
         "vj_contagion/zombies/michaelmitchell/667 MichaelMitchell_zombie_feasting.wav"
-}
-        self.SoundTbl_Jump = {
+    }
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/michaelmitchell/690 MichaelMitchell_zombie_jump.wav",
         "vj_contagion/zombies/michaelmitchell/691 MichaelMitchell_zombie_jump.wav",
         "vj_contagion/zombies/michaelmitchell/692 MichaelMitchell_zombie_jump.wav",
@@ -2071,8 +2104,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/709 MichaelMitchell_zombie_jump.wav",
         "vj_contagion/zombies/michaelmitchell/710 MichaelMitchell_zombie_jump.wav",
         "vj_contagion/zombies/michaelmitchell/711 MichaelMitchell_zombie_jump.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/michaelmitchell/712 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/713 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/714 MichaelMitchell_zombie_pain.wav",
@@ -2092,8 +2125,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/728 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/729 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/730 MichaelMitchell_zombie_pain.wav"
-}
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning = {
         "vj_contagion/zombies/michaelmitchell/602 MichaelMitchell_zombie_burning.wav",
         "vj_contagion/zombies/michaelmitchell/603 MichaelMitchell_zombie_burning.wav",
         "vj_contagion/zombies/michaelmitchell/604 MichaelMitchell_zombie_burning.wav",
@@ -2104,8 +2137,8 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/609 MichaelMitchell_zombie_burning.wav",
         "vj_contagion/zombies/michaelmitchell/610 MichaelMitchell_zombie_burning.wav",
         "vj_contagion/zombies/michaelmitchell/611 MichaelMitchell_zombie_burning.wav"
-}
-        self.SoundTbl_Death = {
+    }
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/michaelmitchell/641 MichaelMitchell_zombie_dieheadshot.wav",
         "vj_contagion/zombies/michaelmitchell/642 MichaelMitchell_zombie_dieheadshot.wav",
         "vj_contagion/zombies/michaelmitchell/643 MichaelMitchell_zombie_dieheadshot.wav",
@@ -2139,11 +2172,11 @@ function ENT:ZombieVoice_Michael()
         "vj_contagion/zombies/michaelmitchell/800 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/801 MichaelMitchell_zombie_pain.wav",
         "vj_contagion/zombies/michaelmitchell/802 MichaelMitchell_zombie_pain.wav"
-}
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Jim()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/jimcurtis/2001 jimcurtis_zombie_idle.wav",
         "vj_contagion/zombies/jimcurtis/2002 jimcurtis_zombie_idle.wav",
         "vj_contagion/zombies/jimcurtis/2003 jimcurtis_zombie_idle.wav",
@@ -2158,8 +2191,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2012 jimcurtis_zombie_idle.wav",
         "vj_contagion/zombies/jimcurtis/2013 jimcurtis_zombie_idle.wav",
         "vj_contagion/zombies/jimcurtis/2014 jimcurtis_zombie_idle.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/jimcurtis/2048 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2049 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2050 jimcurtis_zombie_alert.wav",
@@ -2174,8 +2207,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2059 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2060 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2061 jimcurtis_zombie_alert.wav"
-}
-        self.SoundTbl_Alert = {
+    }
+    self.SoundTbl_Alert = {
         "vj_contagion/zombies/jimcurtis/2048 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2049 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2050 jimcurtis_zombie_alert.wav",
@@ -2190,8 +2223,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2059 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2060 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2061 jimcurtis_zombie_alert.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/jimcurtis/1950 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/1951 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/1952 jimcurtis_zombie_alert.wav",
@@ -2201,8 +2234,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/1956 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/1957 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/1958 jimcurtis_zombie_alert.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+    self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/jimcurtis/1959 jimcurtis_zombie_attack.wav",
         "vj_contagion/zombies/jimcurtis/1960 jimcurtis_zombie_attack.wav",
         "vj_contagion/zombies/jimcurtis/1961 jimcurtis_zombie_attack.wav",
@@ -2214,8 +2247,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/1967 jimcurtis_zombie_attack.wav",
         "vj_contagion/zombies/jimcurtis/1968 jimcurtis_zombie_attack.wav",
         "vj_contagion/zombies/jimcurtis/1969 jimcurtis_zombie_attack.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/jimcurtis/2015 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2016 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2017 jimcurtis_zombie_alert.wav",
@@ -2227,13 +2260,13 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2023 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2024 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2025 jimcurtis_zombie_alert.wav"
-}
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/jimcurtis/1997 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/1998 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/1999 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/2000 jimcurtis_zombie_grapple.wav"
-}
+    }
         self.SoundTbl_Feast = {
         "vj_contagion/zombies/jimcurtis/2038 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/2039 jimcurtis_zombie_grapple.wav",
@@ -2245,8 +2278,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2045 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/2046 jimcurtis_zombie_grapple.wav",
         "vj_contagion/zombies/jimcurtis/2047 jimcurtis_zombie_grapple.wav"
-}
-        self.SoundTbl_Jump = {
+    }
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/jimcurtis/2015 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2016 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2017 jimcurtis_zombie_alert.wav",
@@ -2258,8 +2291,8 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2023 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2024 jimcurtis_zombie_alert.wav",
         "vj_contagion/zombies/jimcurtis/2025 jimcurtis_zombie_alert.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/jimcurtis/2026 jimcurtis_zombie_pain.wav",
         "vj_contagion/zombies/jimcurtis/2027 jimcurtis_zombie_pain.wav",
         "vj_contagion/zombies/jimcurtis/2028 jimcurtis_zombie_pain.wav",
@@ -2272,16 +2305,16 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/2035 jimcurtis_zombie_pain.wav",
         "vj_contagion/zombies/jimcurtis/2036 jimcurtis_zombie_pain.wav",
         "vj_contagion/zombies/jimcurtis/2037 jimcurtis_zombie_pain.wav"
-}
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning = {
         "vj_contagion/zombies/jimcurtis/1991 jimcurtis_zombie_burning.wav",
         "vj_contagion/zombies/jimcurtis/1992 jimcurtis_zombie_burning.wav",
         "vj_contagion/zombies/jimcurtis/1993 jimcurtis_zombie_burning.wav",
         "vj_contagion/zombies/jimcurtis/1994 jimcurtis_zombie_burning.wav",
         "vj_contagion/zombies/jimcurtis/1995 jimcurtis_zombie_burning.wav",
         "vj_contagion/zombies/jimcurtis/1996 jimcurtis_zombie_burning.wav"
-}
-        self.SoundTbl_Death = {
+    }
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/jimcurtis/1970 jimcurtis_zombie_die.wav",
         "vj_contagion/zombies/jimcurtis/1971 jimcurtis_zombie_die.wav",
         "vj_contagion/zombies/jimcurtis/1972 jimcurtis_zombie_die.wav",
@@ -2303,11 +2336,11 @@ function ENT:ZombieVoice_Jim()
         "vj_contagion/zombies/jimcurtis/1988 jimcurtis_zombie_die.wav",
         "vj_contagion/zombies/jimcurtis/1989 jimcurtis_zombie_die.wav",
         "vj_contagion/zombies/jimcurtis/1990 jimcurtis_zombie_die.wav"
-}
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Andy()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/andyfield/1434 andyfield_zombie_idle.wav",
         "vj_contagion/zombies/andyfield/1435 andyfield_zombie_idle.wav",
         "vj_contagion/zombies/andyfield/1436 andyfield_zombie_idle.wav",
@@ -2358,8 +2391,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1481 andyfield_zombie_idle.wav",
         "vj_contagion/zombies/andyfield/1482 andyfield_zombie_idle.wav",
         "vj_contagion/zombies/andyfield/1483 andyfield_zombie_idle.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/andyfield/1579 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1580 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1581 andyfield_zombie_alert.wav",
@@ -2372,8 +2405,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1588 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1589 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1590 andyfield_zombie_alert.wav"
-}
-        self.SoundTbl_Alert = {
+    }
+    self.SoundTbl_Alert = {
         "vj_contagion/zombies/andyfield/1579 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1580 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1581 andyfield_zombie_alert.wav",
@@ -2386,8 +2419,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1588 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1589 andyfield_zombie_alert.wav",
         "vj_contagion/zombies/andyfield/1590 andyfield_zombie_alert.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/andyfield/1549 andyfield_zombie_roar.wav",
         "vj_contagion/zombies/andyfield/1550 andyfield_zombie_roar.wav",
         "vj_contagion/zombies/andyfield/1551 andyfield_zombie_roar.wav",
@@ -2397,8 +2430,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1555 andyfield_zombie_roar.wav",
         "vj_contagion/zombies/andyfield/1556 andyfield_zombie_roar.wav",
         "vj_contagion/zombies/andyfield/1557 andyfield_zombie_roar.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+    self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/andyfield/1245 andyfield_zombie_attack.wav",
         "vj_contagion/zombies/andyfield/1246 andyfield_zombie_attack.wav",
         "vj_contagion/zombies/andyfield/1247 andyfield_zombie_attack.wav",
@@ -2474,8 +2507,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1316 andyfield_zombie_attack.wav",
         "vj_contagion/zombies/andyfield/1317 andyfield_zombie_attack.wav",
         "vj_contagion/zombies/andyfield/1318 andyfield_zombie_attack.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/andyfield/1591 andyfield_zombie_fight.wav",
         "vj_contagion/zombies/andyfield/1592 andyfield_zombie_fight.wav",
         "vj_contagion/zombies/andyfield/1593 andyfield_zombie_fight.wav",
@@ -2512,8 +2545,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1624 andyfield_zombie_fight.wav",
         "vj_contagion/zombies/andyfield/1625 andyfield_zombie_fight.wav",
         "vj_contagion/zombies/andyfield/1626 andyfield_zombie_fight.wav"
-}
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/andyfield/1394 andyfield_zombie_grapple.wav",
         "vj_contagion/zombies/andyfield/1395 andyfield_zombie_grapple.wav",
         "vj_contagion/zombies/andyfield/1396 andyfield_zombie_grapple.wav",
@@ -2554,8 +2587,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1431 andyfield_zombie_grapple.wav",
         "vj_contagion/zombies/andyfield/1432 andyfield_zombie_grapple.wav",
         "vj_contagion/zombies/andyfield/1433 andyfield_zombie_grapple.wav"
-}
-        self.SoundTbl_Feast = {
+    }
+    self.SoundTbl_Feast = {
         "vj_contagion/zombies/andyfield/1558 andyfield_zombie_feasting.wav",
         "vj_contagion/zombies/andyfield/1559 andyfield_zombie_feasting.wav",
         "vj_contagion/zombies/andyfield/1560 andyfield_zombie_feasting.wav",
@@ -2577,8 +2610,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1576 andyfield_zombie_feasting.wav",
         "vj_contagion/zombies/andyfield/1577 andyfield_zombie_feasting.wav",
         "vj_contagion/zombies/andyfield/1578 andyfield_zombie_feasting.wav"
-}
-        self.SoundTbl_Jump = {
+    }
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/andyfield/1484 andyfield_zombie_jump.wav",
         "vj_contagion/zombies/andyfield/1485 andyfield_zombie_jump.wav",
         "vj_contagion/zombies/andyfield/1486 andyfield_zombie_jump.wav",
@@ -2590,8 +2623,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1492 andyfield_zombie_jump.wav",
         "vj_contagion/zombies/andyfield/1493 andyfield_zombie_jump.wav",
         "vj_contagion/zombies/andyfield/1494 andyfield_zombie_jump.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/andyfield/1495 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1496 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1497 andyfield_zombie_pain.wav",
@@ -2647,8 +2680,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1546 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1547 andyfield_zombie_pain.wav",
         "vj_contagion/zombies/andyfield/1548 andyfield_zombie_pain.wav"
-}
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning = {
         "vj_contagion/zombies/andyfield/1371 andyfield_zombie_burning.wav",
         "vj_contagion/zombies/andyfield/1372 andyfield_zombie_burning.wav",
         "vj_contagion/zombies/andyfield/1373 andyfield_zombie_burning.wav",
@@ -2672,8 +2705,8 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1391 andyfield_zombie_burning.wav",
         "vj_contagion/zombies/andyfield/1392 andyfield_zombie_burning.wav",
         "vj_contagion/zombies/andyfield/1393 andyfield_zombie_burning.wav"
-}
-        self.SoundTbl_Death = {
+    }
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/andyfield/1319 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1320 andyfield_zombie_die.wav",
         "vj_contagion/zombies/andyfield/1321 andyfield_zombie_alert.wav",
@@ -2726,11 +2759,11 @@ function ENT:ZombieVoice_Andy()
         "vj_contagion/zombies/andyfield/1368 andyfield_zombie_dieheadshot.wav",
         "vj_contagion/zombies/andyfield/1369 andyfield_zombie_dieheadshot.wav",
         "vj_contagion/zombies/andyfield/1370 andyfield_zombie_dieheadshot.wav"
-}
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_George()
-        self.SoundTbl_Idle = {
+    self.SoundTbl_Idle = {
         "vj_contagion/zombies/georgeledoux/954 georgeledoux_zombie_attackfast.wav",
         "vj_contagion/zombies/georgeledoux/955 georgeledoux_zombie_idle.wav",
         "vj_contagion/zombies/georgeledoux/956 georgeledoux_zombie_idle.wav",
@@ -2748,8 +2781,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/968 georgeledoux_zombie_idle.wav",
         "vj_contagion/zombies/georgeledoux/969 georgeledoux_zombie_idle.wav",
         "vj_contagion/zombies/georgeledoux/970 georgeledoux_zombie_idle.wav"
-}
-        self.SoundTbl_Investigate = {
+    }
+    self.SoundTbl_Investigate = {
         "vj_contagion/zombies/georgeledoux/882 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/883 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/884 georgeledoux_zombie_alert.wav",
@@ -2758,8 +2791,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/887 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/888 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/889 georgeledoux_zombie_alert.wav"
-}
-        self.SoundTbl_Alert = {
+    }
+    self.SoundTbl_Alert = {
         "vj_contagion/zombies/georgeledoux/882 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/883 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/884 georgeledoux_zombie_alert.wav",
@@ -2768,15 +2801,15 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/887 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/888 georgeledoux_zombie_alert.wav",
         "vj_contagion/zombies/georgeledoux/889 georgeledoux_zombie_alert.wav"
-}
-        self.SoundTbl_CallForHelp = {
+    }
+    self.SoundTbl_CallForHelp = {
         "vj_contagion/zombies/georgeledoux/997 georgeledoux_zombie_roar.wav",
         "vj_contagion/zombies/georgeledoux/998 georgeledoux_zombie_roar.wav",
         "vj_contagion/zombies/georgeledoux/999 georgeledoux_zombie_roar.wav",
         "vj_contagion/zombies/georgeledoux/1000 georgeledoux_zombie_roar.wav",
         "vj_contagion/zombies/georgeledoux/1001 georgeledoux_zombie_roar.wav"
-}
-        self.SoundTbl_CombatIdle = {
+    }
+            self.SoundTbl_CombatIdle = {
         "vj_contagion/zombies/georgeledoux/890 georgeledoux_zombie_attack.wav",
         "vj_contagion/zombies/georgeledoux/891 georgeledoux_zombie_attack.wav",
         "vj_contagion/zombies/georgeledoux/892 georgeledoux_zombie_attack.wav",
@@ -2796,8 +2829,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/906 georgeledoux_zombie_attackfast.wav",
         "vj_contagion/zombies/georgeledoux/907 georgeledoux_zombie_attackfast.wav",
         "vj_contagion/zombies/georgeledoux/908 georgeledoux_zombie_attackfast.wav"
-}
-        self.SoundTbl_BeforeMeleeAttack = {
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
         "vj_contagion/zombies/georgeledoux/1018 georgeledoux_zombie_attackfast.wav",
         "vj_contagion/zombies/georgeledoux/1019 georgeledoux_zombie_attackfast.wav",
         "vj_contagion/zombies/georgeledoux/1020 georgeledoux_zombie_attackfast.wav",
@@ -2835,8 +2868,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/1052 georgeledoux_zombie_fight.wav",
         "vj_contagion/zombies/georgeledoux/1053 georgeledoux_zombie_fight.wav",
         "vj_contagion/zombies/georgeledoux/1054 georgeledoux_zombie_fight.wav"
- }
-        self.SoundTbl_Grapple = {
+    }
+    self.SoundTbl_Grapple = {
         "vj_contagion/zombies/georgeledoux/936 georgeledoux_zombie_grapple.wav",
         "vj_contagion/zombies/georgeledoux/937 georgeledoux_zombie_grapple.wav",
         "vj_contagion/zombies/georgeledoux/938 georgeledoux_zombie_grapple.wav",
@@ -2845,8 +2878,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/941 georgeledoux_zombie_grapple.wav",
         "vj_contagion/zombies/georgeledoux/942 georgeledoux_zombie_grapple.wav",
         "vj_contagion/zombies/georgeledoux/943 georgeledoux_zombie_grapple.wav"
-}
-        self.SoundTbl_Feast = {
+    }
+    self.SoundTbl_Feast = {
         "vj_contagion/zombies/georgeledoux/1002 georgeledoux_zombie_feasting.wav",
         "vj_contagion/zombies/georgeledoux/1003 georgeledoux_zombie_feasting.wav",
         "vj_contagion/zombies/georgeledoux/1004 georgeledoux_zombie_feasting.wav",
@@ -2863,8 +2896,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/1015 georgeledoux_zombie_feasting.wav",
         "vj_contagion/zombies/georgeledoux/1016 georgeledoux_zombie_feasting.wav",
         "vj_contagion/zombies/georgeledoux/1017 georgeledoux_zombie_feasting.wav"
-}
-        self.SoundTbl_Jump = {
+    }
+    self.SoundTbl_Jump = {
         "vj_contagion/zombies/georgeledoux/971 georgeledoux_zombie_jump.wav",
         "vj_contagion/zombies/georgeledoux/972 georgeledoux_zombie_jump.wav",
         "vj_contagion/zombies/georgeledoux/973 georgeledoux_zombie_jump.wav",
@@ -2881,8 +2914,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/984 georgeledoux_zombie_jump.wav",
         "vj_contagion/zombies/georgeledoux/985 georgeledoux_zombie_jump.wav",
         "vj_contagion/zombies/georgeledoux/986 georgeledoux_zombie_jump.wav"
-}
-        self.SoundTbl_Pain = {
+    }
+    self.SoundTbl_Pain = {
         "vj_contagion/zombies/georgeledoux/987 georgeledoux_zombie_pain.wav",
         "vj_contagion/zombies/georgeledoux/988 georgeledoux_zombie_pain.wav",
         "vj_contagion/zombies/georgeledoux/989 georgeledoux_zombie_pain.wav",
@@ -2893,8 +2926,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/994 georgeledoux_zombie_pain.wav",
         "vj_contagion/zombies/georgeledoux/995 georgeledoux_zombie_pain.wav",
         "vj_contagion/zombies/georgeledoux/996 georgeledoux_zombie_pain.wav"
- }
-        self.SoundTbl_Burning = {
+    }
+    self.SoundTbl_Burning = {
         "vj_contagion/zombies/georgeledoux/928 georgeledoux_zombie_burning.wav",
         "vj_contagion/zombies/georgeledoux/929 georgeledoux_zombie_burning.wav",
         "vj_contagion/zombies/georgeledoux/930 georgeledoux_zombie_burning.wav",
@@ -2903,8 +2936,8 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/933 georgeledoux_zombie_burning.wav",
         "vj_contagion/zombies/georgeledoux/934 georgeledoux_zombie_burning.wav",
         "vj_contagion/zombies/georgeledoux/935 georgeledoux_zombie_burning.wav"
- }
-        self.SoundTbl_Death = {
+    }
+    self.SoundTbl_Death = {
         "vj_contagion/zombies/georgeledoux/909 georgeledoux_zombie_die.wav",
         "vj_contagion/zombies/georgeledoux/910 georgeledoux_zombie_die.wav",
         "vj_contagion/zombies/georgeledoux/911 georgeledoux_zombie_die.wav",
@@ -2924,852 +2957,852 @@ function ENT:ZombieVoice_George()
         "vj_contagion/zombies/georgeledoux/925 georgeledoux_zombie_dieheadshot.wav",
         "vj_contagion/zombies/georgeledoux/926 georgeledoux_zombie_dieheadshot.wav",
         "vj_contagion/zombies/georgeledoux/927 georgeledoux_zombie_dieheadshot.wav"
- }
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Lindsay()
     self.SoundTbl_Idle = {
-    "vj_contagion/zombies/lindsaysheppard/1758 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1759 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1760 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1761 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1762 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1763 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1764 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1765 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1766 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1767 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1768 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1769 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1770 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1771 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1772 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1773 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1774 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1775 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1776 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1777 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1778 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1779 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1780 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1781 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1782 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1783 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1784 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1785 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1786 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1787 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1788 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1789 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1790 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1791 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1792 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1793 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1794 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1795 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1796 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1797 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1798 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1799 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1800 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1801 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1802 lindsaysheppard_zombie_idle.wav",
-    "vj_contagion/zombies/lindsaysheppard/1803 lindsaysheppard_zombie_idle.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1758 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1759 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1760 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1761 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1762 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1763 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1764 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1765 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1766 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1767 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1768 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1769 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1770 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1771 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1772 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1773 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1774 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1775 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1776 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1777 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1778 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1779 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1780 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1781 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1782 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1783 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1784 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1785 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1786 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1787 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1788 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1789 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1790 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1791 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1792 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1793 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1794 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1795 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1796 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1797 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1798 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1799 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1800 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1801 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1802 lindsaysheppard_zombie_idle.wav",
+        "vj_contagion/zombies/lindsaysheppard/1803 lindsaysheppard_zombie_idle.wav"
+    }
     self.SoundTbl_Investigate = {
-    "vj_contagion/zombies/lindsaysheppard/1627 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1628 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1629 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1630 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1631 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1632 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1633 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1634 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1635 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1636 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1637 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1638 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1639 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1640 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1641 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1642 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1643 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1644 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1645 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1646 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1647 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1648 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1649 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1650 lindsaysheppard_zombie_alert.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1627 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1628 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1629 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1630 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1631 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1632 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1633 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1634 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1635 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1636 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1637 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1638 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1639 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1640 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1641 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1642 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1643 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1644 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1645 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1646 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1647 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1648 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1649 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1650 lindsaysheppard_zombie_alert.wav"
+    }
     self.SoundTbl_Alert = {
-    "vj_contagion/zombies/lindsaysheppard/1627 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1628 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1629 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1630 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1631 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1632 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1633 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1634 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1635 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1636 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1637 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1638 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1639 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1640 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1641 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1642 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1643 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1644 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1645 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1646 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1647 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1648 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1649 lindsaysheppard_zombie_alert.wav",
-    "vj_contagion/zombies/lindsaysheppard/1650 lindsaysheppard_zombie_alert.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1627 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1628 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1629 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1630 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1631 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1632 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1633 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1634 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1635 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1636 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1637 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1638 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1639 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1640 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1641 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1642 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1643 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1644 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1645 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1646 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1647 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1648 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1649 lindsaysheppard_zombie_alert.wav",
+        "vj_contagion/zombies/lindsaysheppard/1650 lindsaysheppard_zombie_alert.wav"
+    }
     self.SoundTbl_CallForHelp = {
-    "vj_contagion/zombies/lindsaysheppard/1849 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1850 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1851 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1852 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1853 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1854 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1936 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1937 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1938 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1939 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1940 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1941 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1942 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1943 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1944 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1946 lindsaysheppard_zombie_roar.wav",
-    "vj_contagion/zombies/lindsaysheppard/1946 lindsaysheppard_zombie_roar.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1849 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1850 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1851 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1852 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1853 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1854 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1936 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1937 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1938 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1939 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1940 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1941 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1942 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1943 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1944 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1946 lindsaysheppard_zombie_roar.wav",
+        "vj_contagion/zombies/lindsaysheppard/1946 lindsaysheppard_zombie_roar.wav"
+    }
     self.SoundTbl_CombatIdle = {
-    "vj_contagion/zombies/lindsaysheppard/1651 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1652 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1653 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1654 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1655 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1656 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1657 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1658 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1659 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1660 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1661 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1662 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1663 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1664 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1665 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1666 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1667 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1668 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1669 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1670 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1671 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1672 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1673 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1674 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1675 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1676 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1677 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1678 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1679 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1680 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1681 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1682 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1683 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1684 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1685 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1686 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1687 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1688 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1689 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1690 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1691 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1692 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1693 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1694 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1695 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1696 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1697 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1698 lindsaysheppard_zombie_attack.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1651 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1652 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1653 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1654 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1655 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1656 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1657 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1658 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1659 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1660 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1661 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1662 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1663 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1664 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1665 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1666 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1667 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1668 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1669 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1670 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1671 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1672 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1673 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1674 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1675 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1676 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1677 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1678 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1679 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1680 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1681 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1682 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1683 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1684 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1685 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1686 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1687 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1688 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1689 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1690 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1691 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1692 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1693 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1694 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1695 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1696 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1697 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1698 lindsaysheppard_zombie_attack.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_contagion/zombies/lindsaysheppard/1875 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1876 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1877 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1878 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1879 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1880 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1881 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1882 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1883 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1884 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1885 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1886 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1887 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1888 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1889 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1890 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1891 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1892 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1893 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1894 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1895 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1896 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1897 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1898 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1899 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1900 lindsaysheppard_zombie_fight.wav",
-    "vj_contagion/zombies/lindsaysheppard/1901 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1901 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1902 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1903 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1904 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1905 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1906 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1907 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1908 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1909 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1910 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1911 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1912 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1913 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1914 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1915 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1916 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1917 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1918 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1919 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1920 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1921 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1922 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1923 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1924 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1925 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1926 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1927 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1928 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1929 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1930 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1931 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1932 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1933 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1934 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1935 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1947 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1948 lindsaysheppard_zombie_attack.wav",
-    "vj_contagion/zombies/lindsaysheppard/1949 lindsaysheppard_zombie_attack.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1875 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1876 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1877 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1878 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1879 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1880 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1881 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1882 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1883 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1884 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1885 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1886 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1887 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1888 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1889 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1890 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1891 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1892 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1893 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1894 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1895 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1896 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1897 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1898 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1899 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1900 lindsaysheppard_zombie_fight.wav",
+        "vj_contagion/zombies/lindsaysheppard/1901 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1901 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1902 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1903 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1904 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1905 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1906 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1907 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1908 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1909 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1910 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1911 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1912 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1913 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1914 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1915 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1916 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1917 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1918 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1919 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1920 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1921 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1922 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1923 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1924 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1925 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1926 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1927 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1928 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1929 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1930 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1931 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1932 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1933 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1934 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1935 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1947 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1948 lindsaysheppard_zombie_attack.wav",
+        "vj_contagion/zombies/lindsaysheppard/1949 lindsaysheppard_zombie_attack.wav"
+    }
     self.SoundTbl_Grapple = {
-    "vj_contagion/zombies/lindsaysheppard/1745 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1746 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1747 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1748 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1749 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1750 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1751 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1752 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1753 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1754 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1755 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1756 lindsaysheppard_zombie_grapple.wav",
-    "vj_contagion/zombies/lindsaysheppard/1757 lindsaysheppard_zombie_grapple.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1745 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1746 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1747 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1748 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1749 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1750 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1751 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1752 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1753 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1754 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1755 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1756 lindsaysheppard_zombie_grapple.wav",
+        "vj_contagion/zombies/lindsaysheppard/1757 lindsaysheppard_zombie_grapple.wav"
+    }
     self.SoundTbl_Feast = {
-    //"vj_contagion/zombies/lindsaysheppard/1855 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1856 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1857 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1858 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1859 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1860 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1861 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1862 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1863 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1864 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1865 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1866 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1867 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1868 lindsaysheppard_zombie_feasting.wav",
-    "vj_contagion/zombies/lindsaysheppard/1869 lindsaysheppard_zombie_feasting.wav"
-}
+        //"vj_contagion/zombies/lindsaysheppard/1855 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1856 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1857 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1858 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1859 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1860 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1861 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1862 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1863 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1864 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1865 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1866 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1867 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1868 lindsaysheppard_zombie_feasting.wav",
+        "vj_contagion/zombies/lindsaysheppard/1869 lindsaysheppard_zombie_feasting.wav"
+    }
     self.SoundTbl_Jump = {
-    "vj_contagion/zombies/lindsaysheppard/1804 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1805 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1806 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1807 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1808 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1809 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1810 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1811 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1812 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1813 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1814 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1815 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1816 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1817 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1818 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1819 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1820 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1821 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1822 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1822 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1823 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1824 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1825 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1826 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1827 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1828 lindsaysheppard_zombie_jump.wav",
-    "vj_contagion/zombies/lindsaysheppard/1829 lindsaysheppard_zombie_jump.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1804 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1805 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1806 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1807 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1808 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1809 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1810 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1811 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1812 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1813 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1814 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1815 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1816 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1817 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1818 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1819 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1820 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1821 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1822 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1822 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1823 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1824 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1825 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1826 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1827 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1828 lindsaysheppard_zombie_jump.wav",
+        "vj_contagion/zombies/lindsaysheppard/1829 lindsaysheppard_zombie_jump.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_contagion/zombies/lindsaysheppard/1830 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1831 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1832 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1833 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1834 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1835 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1836 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1837 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1838 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1839 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1840 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1841 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1842 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1843 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1844 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1845 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1846 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1847 lindsaysheppard_zombie_pain.wav",
-    "vj_contagion/zombies/lindsaysheppard/1848 lindsaysheppard_zombie_pain.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1830 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1831 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1832 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1833 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1834 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1835 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1836 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1837 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1838 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1839 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1840 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1841 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1842 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1843 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1844 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1845 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1846 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1847 lindsaysheppard_zombie_pain.wav",
+        "vj_contagion/zombies/lindsaysheppard/1848 lindsaysheppard_zombie_pain.wav"
+    }
     self.SoundTbl_Burning = {
-    "vj_contagion/zombies/lindsaysheppard/1734 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1735 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1736 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1737 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1738 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1739 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1740 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1741 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1742 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1743 lindsaysheppard_zombie_burning.wav",
-    "vj_contagion/zombies/lindsaysheppard/1744 lindsaysheppard_zombie_burning.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1734 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1735 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1736 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1737 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1738 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1739 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1740 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1741 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1742 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1743 lindsaysheppard_zombie_burning.wav",
+        "vj_contagion/zombies/lindsaysheppard/1744 lindsaysheppard_zombie_burning.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_contagion/zombies/lindsaysheppard/1699 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1700 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1701 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1702 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1703 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1704 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1705 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1706 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1707 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1708 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1709 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1710 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1711 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1712 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1713 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1714 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1715 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1716 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1717 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1718 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1719 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1720 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1721 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1722 lindsaysheppard_zombie_die.wav",
-    "vj_contagion/zombies/lindsaysheppard/1723 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1724 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1725 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1726 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1727 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1728 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1729 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1730 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1731 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1732 lindsaysheppard_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/lindsaysheppard/1733 lindsaysheppard_zombie_dieheadshot.wav"
-}
+        "vj_contagion/zombies/lindsaysheppard/1699 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1700 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1701 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1702 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1703 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1704 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1705 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1706 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1707 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1708 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1709 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1710 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1711 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1712 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1713 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1714 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1715 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1716 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1717 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1718 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1719 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1720 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1721 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1722 lindsaysheppard_zombie_die.wav",
+        "vj_contagion/zombies/lindsaysheppard/1723 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1724 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1725 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1726 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1727 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1728 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1729 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1730 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1731 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1732 lindsaysheppard_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/lindsaysheppard/1733 lindsaysheppard_zombie_dieheadshot.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Amisar()
     self.SoundTbl_Idle = {
-    "vj_contagion/zombies/amisarfati/1185 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1186 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1187 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1188 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1189 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1190 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1191 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1192 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1193 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1194 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1195 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1196 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1197 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1198 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1199 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1200 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1201 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1202 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1203 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1204 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1205 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1206 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1207 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1208 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1209 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1210 amisarfati_zombie_idle.wav",
-    "vj_contagion/zombies/amisarfati/1211 amisarfati_zombie_idle.wav"
-}
+        "vj_contagion/zombies/amisarfati/1185 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1186 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1187 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1188 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1189 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1190 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1191 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1192 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1193 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1194 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1195 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1196 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1197 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1198 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1199 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1200 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1201 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1202 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1203 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1204 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1205 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1206 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1207 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1208 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1209 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1210 amisarfati_zombie_idle.wav",
+        "vj_contagion/zombies/amisarfati/1211 amisarfati_zombie_idle.wav"
+    }
     self.SoundTbl_Investigate = {
-    "vj_contagion/zombies/amisarfati/1055 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1056 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1057 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1058 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1059 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1060 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1061 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1062 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1063 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1064 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1065 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1066 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1067 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1068 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1069 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1070 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1071 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1072 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1073 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1074 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1075 amisarfati_zombie_alert.wav",
-}
+        "vj_contagion/zombies/amisarfati/1055 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1056 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1057 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1058 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1059 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1060 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1061 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1062 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1063 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1064 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1065 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1066 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1067 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1068 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1069 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1070 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1071 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1072 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1073 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1074 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1075 amisarfati_zombie_alert.wav",
+    }
     self.SoundTbl_Alert = {
-    "vj_contagion/zombies/amisarfati/1055 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1056 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1057 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1058 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1059 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1060 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1061 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1062 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1063 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1064 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1065 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1066 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1067 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1068 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1069 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1070 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1071 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1072 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1073 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1074 amisarfati_zombie_alert.wav",
-    "vj_contagion/zombies/amisarfati/1075 amisarfati_zombie_alert.wav"
-}
+        "vj_contagion/zombies/amisarfati/1055 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1056 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1057 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1058 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1059 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1060 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1061 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1062 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1063 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1064 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1065 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1066 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1067 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1068 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1069 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1070 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1071 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1072 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1073 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1074 amisarfati_zombie_alert.wav",
+        "vj_contagion/zombies/amisarfati/1075 amisarfati_zombie_alert.wav"
+    }
     self.SoundTbl_CallForHelp = {
-    "vj_contagion/zombies/amisarfati/1241 amisarfati_zombie_roar.wav",
-    "vj_contagion/zombies/amisarfati/1242 amisarfati_zombie_roar.wav",
-    "vj_contagion/zombies/amisarfati/1243 amisarfati_zombie_roar.wav",
-    "vj_contagion/zombies/amisarfati/1244 amisarfati_zombie_roar.wav"
-}
+        "vj_contagion/zombies/amisarfati/1241 amisarfati_zombie_roar.wav",
+        "vj_contagion/zombies/amisarfati/1242 amisarfati_zombie_roar.wav",
+        "vj_contagion/zombies/amisarfati/1243 amisarfati_zombie_roar.wav",
+        "vj_contagion/zombies/amisarfati/1244 amisarfati_zombie_roar.wav"
+    }
     self.SoundTbl_CombatIdle = {
-    "vj_contagion/zombies/amisarfati/1076 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1077 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1078 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1079 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1080 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1081 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1082 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1083 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1084 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1085 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1086 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1087 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1088 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1089 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1090 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1091 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1092 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1093 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1094 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1095 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1096 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1097 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1098 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1099 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1100 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1101 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1102 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1103 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1104 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1105 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1106 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1107 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1108 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1109 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1110 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1111 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1112 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1113 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1114 amisarfati_zombie_attack.wav",
-    "vj_contagion/zombies/amisarfati/1115 amisarfati_zombie_attack.wav"
-}
+        "vj_contagion/zombies/amisarfati/1076 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1077 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1078 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1079 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1080 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1081 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1082 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1083 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1084 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1085 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1086 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1087 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1088 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1089 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1090 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1091 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1092 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1093 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1094 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1095 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1096 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1097 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1098 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1099 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1100 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1101 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1102 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1103 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1104 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1105 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1106 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1107 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1108 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1109 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1110 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1111 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1112 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1113 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1114 amisarfati_zombie_attack.wav",
+        "vj_contagion/zombies/amisarfati/1115 amisarfati_zombie_attack.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_contagion/zombies/amisarfati/1164 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1165 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1166 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1167 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1168 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1169 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1170 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1171 amisarfati_zombie_fight.wav",
-    "vj_contagion/zombies/amisarfati/1172 amisarfati_zombie_fight.wav"
-}
+        "vj_contagion/zombies/amisarfati/1164 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1165 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1166 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1167 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1168 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1169 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1170 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1171 amisarfati_zombie_fight.wav",
+        "vj_contagion/zombies/amisarfati/1172 amisarfati_zombie_fight.wav"
+    }
     self.SoundTbl_Grapple = {
-    "vj_contagion/zombies/amisarfati/1173 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1174 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1175 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1176 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1177 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1178 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1179 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1180 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1181 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1182 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1183 amisarfati_zombie_grapple.wav",
-    "vj_contagion/zombies/amisarfati/1184 amisarfati_zombie_grapple.wav"
-}
+        "vj_contagion/zombies/amisarfati/1173 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1174 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1175 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1176 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1177 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1178 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1179 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1180 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1181 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1182 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1183 amisarfati_zombie_grapple.wav",
+        "vj_contagion/zombies/amisarfati/1184 amisarfati_zombie_grapple.wav"
+    }
     self.SoundTbl_Feast = {
-    "vj_contagion/zombies/amisarfati/1156 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1157 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1158 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1159 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1160 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1161 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1162 amisarfati_zombie_feasting.wav",
-    "vj_contagion/zombies/amisarfati/1163 amisarfati_zombie_feasting.wav"
-}
+        "vj_contagion/zombies/amisarfati/1156 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1157 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1158 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1159 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1160 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1161 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1162 amisarfati_zombie_feasting.wav",
+        "vj_contagion/zombies/amisarfati/1163 amisarfati_zombie_feasting.wav"
+    }
     self.SoundTbl_Jump = {
-    "vj_contagion/zombies/amisarfati/1212 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1213 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1214 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1215 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1216 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1217 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1218 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1219 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1220 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1221 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1222 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1223 amisarfati_zombie_jump.wav",
-    "vj_contagion/zombies/amisarfati/1224 amisarfati_zombie_jump.wav"
+        "vj_contagion/zombies/amisarfati/1212 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1213 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1214 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1215 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1216 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1217 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1218 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1219 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1220 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1221 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1222 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1223 amisarfati_zombie_jump.wav",
+        "vj_contagion/zombies/amisarfati/1224 amisarfati_zombie_jump.wav"
 
-    /*"vj_contagion/zombies/amisarfati/1124 amisarfati_zombie_climbing.wav",
-    "vj_contagion/zombies/amisarfati/1125 amisarfati_zombie_climbing.wav",
-    "vj_contagion/zombies/amisarfati/1126 amisarfati_zombie_climbing.wav",
-    "vj_contagion/zombies/amisarfati/1127 amisarfati_zombie_climbing.wav",*/
-}
+        /*"vj_contagion/zombies/amisarfati/1124 amisarfati_zombie_climbing.wav",
+        "vj_contagion/zombies/amisarfati/1125 amisarfati_zombie_climbing.wav",
+        "vj_contagion/zombies/amisarfati/1126 amisarfati_zombie_climbing.wav",
+        "vj_contagion/zombies/amisarfati/1127 amisarfati_zombie_climbing.wav",*/
+    }
     self.SoundTbl_Pain = {
-    "vj_contagion/zombies/amisarfati/1225 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1226 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1227 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1228 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1229 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1230 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1231 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1232 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1233 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1234 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1235 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1236 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1237 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1238 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1239 amisarfati_zombie_pain.wav",
-    "vj_contagion/zombies/amisarfati/1240 amisarfati_zombie_pain.wav"
-}
+        "vj_contagion/zombies/amisarfati/1225 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1226 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1227 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1228 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1229 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1230 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1231 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1232 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1233 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1234 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1235 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1236 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1237 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1238 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1239 amisarfati_zombie_pain.wav",
+        "vj_contagion/zombies/amisarfati/1240 amisarfati_zombie_pain.wav"
+    }
     self.SoundTbl_Burning = {
-    "vj_contagion/zombies/amisarfati/1116 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1117 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1118 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1119 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1120 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1121 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1122 amisarfati_zombie_burning.wav",
-    "vj_contagion/zombies/amisarfati/1123 amisarfati_zombie_burning.wav"
-}
+        "vj_contagion/zombies/amisarfati/1116 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1117 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1118 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1119 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1120 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1121 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1122 amisarfati_zombie_burning.wav",
+        "vj_contagion/zombies/amisarfati/1123 amisarfati_zombie_burning.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_contagion/zombies/amisarfati/1128 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1129 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1130 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1131 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1132 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1133 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1134 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1135 amisarfati_zombie_dieheadshot.wav",
-    "vj_contagion/zombies/amisarfati/1136 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1137 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1138 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1139 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1140 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1141 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1142 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1143 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1144 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1145 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1146 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1147 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1148 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1149 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1150 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1151 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1152 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1153 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1154 amisarfati_zombie_die.wav",
-    "vj_contagion/zombies/amisarfati/1155 amisarfati_zombie_die.wav"
-}
+        "vj_contagion/zombies/amisarfati/1128 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1129 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1130 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1131 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1132 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1133 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1134 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1135 amisarfati_zombie_dieheadshot.wav",
+        "vj_contagion/zombies/amisarfati/1136 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1137 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1138 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1139 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1140 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1141 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1142 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1143 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1144 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1145 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1146 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1147 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1148 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1149 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1150 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1151 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1152 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1153 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1154 amisarfati_zombie_die.wav",
+        "vj_contagion/zombies/amisarfati/1155 amisarfati_zombie_die.wav"
+    }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ZombieVoice_Christina()
     self.SoundTbl_Idle = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_12.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_idle_12.wav"
+    }
     self.SoundTbl_Investigate = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_16.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_17.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_18.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_19.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_20.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_21.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_22.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_16.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_17.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_18.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_19.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_20.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_21.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_22.wav"
+    }
     self.SoundTbl_Alert = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_16.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_17.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_18.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_19.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_20.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_21.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_22.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_16.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_17.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_18.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_19.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_20.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_21.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_alert_22.wav"
+    }
     self.SoundTbl_CallForHelp = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_04.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_roar_04.wav"
+    }
     self.SoundTbl_CombatIdle = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_16.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_17.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_18.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_19.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_20.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_21.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_22.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_23.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_24.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_25.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_26.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_27.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_28.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_29.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_30.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_31.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_32.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_33.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_34.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_35.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_16.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_17.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_18.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_19.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_20.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_21.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_22.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_23.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_24.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_25.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_26.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_27.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_28.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_29.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_30.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_31.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_32.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_33.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_34.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_attack_35.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_16.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_17.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_18.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_19.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_20.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_21.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_22.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_23.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_24.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_25.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_26.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_27.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_16.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_17.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_18.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_19.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_20.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_21.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_22.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_23.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_24.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_25.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_26.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_fight_27.wav"
+    }
     self.SoundTbl_Grapple = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_16.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_grapple_16.wav"
+    }
     self.SoundTbl_Feast = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_12.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_13.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_14.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_15.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_16.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_17.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_18.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_19.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_20.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_21.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_22.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_23.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_24.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_25.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_12.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_13.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_14.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_15.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_16.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_17.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_18.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_19.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_20.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_21.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_22.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_23.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_24.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_feasting_25.wav"
+    }
     self.SoundTbl_Jump = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_08.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_jump_08.wav"
+    }
     self.SoundTbl_Pain = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_09.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_pain_09.wav"
+    }
     self.SoundTbl_Burning = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_06.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_burning_06.wav"
+    }
     self.SoundTbl_Death = {
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_08.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_09.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_10.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_11.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_01.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_02.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_03.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_04.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_05.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_06.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_07.wav",
-    "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_08.wav"
-}
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_08.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_09.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_10.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_die_11.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_01.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_02.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_03.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_04.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_05.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_06.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_07.wav",
+        "vj_contagion/zombies/christinasmith/christinasmith_zombie_dieheadshot_08.wav"
+    }
 end
 /*-----------------------------------------------
-    *** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
