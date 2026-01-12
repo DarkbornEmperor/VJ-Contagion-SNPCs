@@ -560,7 +560,7 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_WALK or act == ACT_RUN then
             return ACT_WALK_HURT
         end
-    elseif act == ACT_IDLE && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+    elseif act == ACT_IDLE && !self.VJ_IsBeingControlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
         if IsValid(self:GetEnemy()) && self:IsUnreachable(self:GetEnemy()) then
             return ACT_IDLE_ANGRY
         else
