@@ -272,8 +272,8 @@ function ENT:BreakHelmet()
     self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib04.mdl", {Pos = self:GetAttachment(self:LookupAttachment("forward")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector(0, 0, 0)})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    VJ_CON_ApplyCorpseEffects(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    VJ_CON_ApplyCorpseEffects(self, corpse)
     self:CreateExtraDeathCorpse("prop_physics", "models/vj_contagion/zombies/police_shield.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_larmr")).Pos + self:GetUp() * -40})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

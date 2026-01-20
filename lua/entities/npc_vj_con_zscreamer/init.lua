@@ -446,8 +446,8 @@ function ENT:OnDeath(dmginfo,hitgroup,status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-    VJ_CON_ApplyCorpseEffects(self, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    VJ_CON_ApplyCorpseEffects(self, corpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.FootSteps = {
