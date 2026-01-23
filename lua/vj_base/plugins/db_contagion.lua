@@ -5,6 +5,7 @@
 --------------------------------------------------*/
     local table_insert = table.insert
     local math_random = math.random
+    local math_clamp = math.Clamp
     local string_find = string.find
     local bit_bor = bit.bor
 
@@ -285,7 +286,7 @@ function VJ_CON_ApplyCorpseEffects(ent, corpse)
             end
             local decal = VJ.PICK(target.BleedDecal)
             if decal then
-                local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormal() * math.Clamp(dmgForce:Length() * 10, 100, 150), filter = target})
+                local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormal() * math_clamp(dmgForce:Length() * 10, 100, 150), filter = target})
                 util.Decal(decal, tr.HitPos + tr.HitNormal + Vector(math_random(-30,30), math_random(-30,30), 0), tr.HitPos - tr.HitNormal, target)
             end
         end
