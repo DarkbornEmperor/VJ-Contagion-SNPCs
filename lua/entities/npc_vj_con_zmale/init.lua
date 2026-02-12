@@ -308,12 +308,14 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
+    local hp = self.StartHealth * 1.144 -- For fat zombie models
     if self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_c.mdl" then
         self:SetBodygroup(1, math_random(0,2))
         self:SetSkin(math_random(0,7))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_a_f.mdl" then
-        self.StartHealth = 200
+        self:SetHealth(hp)
+        self:SetMaxHealth(hp)
         self:SetBodygroup(1, math_random(0,2))
         self:SetSkin(math_random(0,7))
 
@@ -327,7 +329,8 @@ function ENT:Zombie_Init()
         self:SetSkin(math_random(0,9))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_b_f.mdl" then
-        self.StartHealth = 200
+        self:SetHealth(hp)
+        self:SetMaxHealth(hp)
         self:SetBodygroup(1, math_random(0,2))
         self:SetSkin(math_random(0,9))
 
@@ -341,7 +344,8 @@ function ENT:Zombie_Init()
         self:SetSkin(math_random(0,9))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/common_zombie_c_f.mdl" then
-        self.StartHealth = 200
+        self:SetHealth(hp)
+        self:SetMaxHealth(hp)
         self:SetBodygroup(1, math_random(0,2))
         self:SetSkin(math_random(0,9))
 
@@ -394,7 +398,6 @@ function ENT:Zombie_Init()
         self:SetSkin(math_random(0,5))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/officer_armor.mdl" then
-        //self.StartHealth = 225
         self:SetSkin(math_random(0,5))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/riot_soldier.mdl" then
@@ -406,10 +409,8 @@ function ENT:Zombie_Init()
         self:SetSkin(math_random(0,3))
 
     elseif self:GetModel() == "models/vj_contagion/zombies/military_gasmask_zombie.mdl" or self:GetModel() == "models/vj_contagion/zombies/military_zombie.mdl" then
-        //self.StartHealth = 225
         self:SetSkin(math_random(0,3))
     end
-    self:SetHealth((GetConVar("vj_npc_health"):GetInt() > 0) and GetConVar("vj_npc_health"):GetInt() or self:ScaleByDifficulty(self.StartHealth))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
