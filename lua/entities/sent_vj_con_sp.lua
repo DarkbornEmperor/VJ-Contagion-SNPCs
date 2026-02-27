@@ -1,8 +1,8 @@
-/*--------------------------------------------------
+/*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
+-----------------------------------------------*/
 AddCSLuaFile()
 
 ENT.Base = "obj_vj_spawner_base"
@@ -52,8 +52,8 @@ ENT.EntitiesToSpawn = {
     {SpawnPosition = Vector(-50, 50, 0), Entities = entsList},
     {SpawnPosition = Vector(-50, -50, 0), Entities = entsList},
 }
-/*--------------------------------------------------
+/*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
+-----------------------------------------------*/
