@@ -19,17 +19,12 @@ function ENT:ArmorDamage(dmginfo, hitgroup, status)
             end
             if math.random(1,3) == 1 then
                 dmginfo:ScaleDamage(0.50)
-                local spark = ents.Create("env_spark")
-                spark:SetKeyValue("Magnitude", "1")
-                spark:SetKeyValue("Spark Trail Length", "1")
-                spark:SetPos(dmginfo:GetDamagePosition())
-                spark:SetAngles(self:GetAngles())
-                spark:SetParent(self)
-                spark:Spawn()
-                spark:Activate()
-                spark:Fire("StartSpark", "", 0)
-                spark:Fire("StopSpark", "", 0.001)
-                self:DeleteOnRemove(spark)
+                local effectData = EffectData()
+                effectData:SetOrigin(dmginfo:GetDamagePosition())
+                effectData:SetNormal(dmginfo:GetDamageForce():GetNormalized())
+                effectData:SetMagnitude(3)
+                effectData:SetScale(1)
+                util.Effect("ElectricSpark", effectData)
             else
                 dmginfo:ScaleDamage(0.80)
             end
@@ -42,17 +37,12 @@ function ENT:ArmorDamage(dmginfo, hitgroup, status)
             end
             self.Bleeds = false
             dmginfo:ScaleDamage(0.10)
-            local spark = ents.Create("env_spark")
-            spark:SetKeyValue("Magnitude", "1")
-            spark:SetKeyValue("Spark Trail Length", "1")
-            spark:SetPos(dmginfo:GetDamagePosition())
-            spark:SetAngles(self:GetAngles())
-            spark:SetParent(self)
-            spark:Spawn()
-            spark:Activate()
-            spark:Fire("StartSpark", "", 0)
-            spark:Fire("StopSpark", "", 0.001)
-            self:DeleteOnRemove(spark)
+            local effectData = EffectData()
+            effectData:SetOrigin(dmginfo:GetDamagePosition())
+            effectData:SetNormal(dmginfo:GetDamageForce():GetNormalized())
+            effectData:SetMagnitude(3)
+            effectData:SetScale(1)
+            util.Effect("ElectricSpark", effectData)
         else
             self.Bleeds = true
         end
