@@ -38,6 +38,9 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 5),
 }
     -- ====== Sound File Paths ====== --
+ENT.SoundTbl_FootStep =
+    "common/null.wav"
+
 ENT.SoundTbl_MeleeAttackExtra = {
     "vj_contagion/zombies/shared/z_hit-01.wav",
     "vj_contagion/zombies/shared/z_hit-02.wav",
@@ -99,7 +102,6 @@ local string_lower = string.lower
 function ENT:OnInput(key, activator, caller, data)
     if key == "step" then
         self:PlayFootstepSound()
-        self:OnFootstepSound()
     elseif key == "melee" then
         self:ExecuteMeleeAttack()
     elseif key == "body_hit" then
