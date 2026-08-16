@@ -56,7 +56,7 @@ ENT.HordeAlert = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
     local i = 0
-    for k, v in ipairs(ents.GetAll()) do
+    for _, v in ipairs(ents.GetAll()) do
         if v:GetClass() == "sent_vj_con_mapspawner" then
         i = i + 1
             if i > 1 then PrintMessage(HUD_PRINTTALK, "Only one Map Spawner is allowed on the map.") self.SkipOnRemove = true self:Remove() end
@@ -88,7 +88,7 @@ function ENT:Initialize()
     self:SetCollisionGroup(COLLISION_GROUP_NONE)
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_NONE)
-    self:SetPos(Vector(0, 0, 0))
+    self:SetPos(Vector())
     self:SetNoDraw(true)
     self:DrawShadow(false)
 
@@ -267,7 +267,7 @@ function ENT:GetClosestEnemy(pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CheckEnemyDistance(ent, remove)
-    local remove = remove or true
+    remove = remove or true
     local closestDist = 999999999
     local visible = false
     for _, v in pairs(self:FindEnemy()) do
@@ -445,14 +445,10 @@ function ENT:SpawnBossZombie(ent, pos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-    for index, object in ipairs(self.tbl_SpawnedNPCs) do
-        if IsValid(object) then
-            object:Remove()
-        end
+    for _, object in ipairs(self.tbl_SpawnedNPCs) do
+        if IsValid(object) then object:Remove() end
     end
-    for index, object in ipairs(self.tbl_SpawnedBossZombie) do
-        if IsValid(object) then
-            object:Remove()
-        end
+    for _, object in ipairs(self.tbl_SpawnedBossZombie) do
+        if IsValid(object) then object:Remove() end
     end
 end

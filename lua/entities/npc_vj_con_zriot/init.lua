@@ -75,10 +75,10 @@ function ENT:ArmorDamage(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:BreakHelmet()
-    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib01.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_neck")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector(0, 0, 0)})
-    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib02.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_headr")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel= Vector(0, 0, 0)})
-    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib03.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_headl")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector(0, 0, 0)})
-    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib04.mdl", {Pos = self:GetAttachment(self:LookupAttachment("forward")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector(0, 0, 0)})
+    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib01.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_neck")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector()})
+    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib02.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_headr")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel= Vector()})
+    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib03.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_headl")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector()})
+    self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib04.mdl", {Pos = self:GetAttachment(self:LookupAttachment("forward")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector()})
 end
 /*-----------------------------------------------
     *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
