@@ -282,7 +282,7 @@ function VJ_CON_ApplyCorpseEffects(ent, corpse)
                 particle:Spawn()
                 particle:Activate()
                 particle:Fire("Start")
-                particle:Fire("Kill", "", 0.1)
+                particle:Fire("Kill", nil, 0.1)
             end
             local decal = VJ.PICK(target.BleedDecal)
             if decal then
