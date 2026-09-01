@@ -150,9 +150,9 @@ function ENT:Zombie_OnThinkActive()
                     local hitProp = tr.Entity:GetPhysicsObject()
                     if IsValid(ent) && IsValid(hitProp) then
                         hitProp:EnableMotion(true)
-                        hitProp:SetVelocity(((ent:GetPos() + ent:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormal() * 400 + self:GetForward() * 300 + self:GetUp() * 300)
+                        hitProp:SetVelocity(((ent:GetPos() + ent:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormalized() * 400 + self:GetForward() * 300 + self:GetUp() * 300)
                     elseif !IsValid(ent) && IsValid(hitProp) then
-                        hitProp:SetVelocity(((self:GetPos() + self:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormal() * 400 + self:GetForward() * 300 + self:GetUp() * 300)
+                        hitProp:SetVelocity(((self:GetPos() + self:OBBCenter()) - (self:GetPos() + self:OBBCenter())):GetNormalized() * 400 + self:GetForward() * 300 + self:GetUp() * 300)
                     end
                     if IsValid(hitProp) && tr.Entity:GetClass() == "prop_physics" && tr.Entity:Health() >= 0 then
                         tr.Entity:TakeDamage(tr.Entity:GetMaxHealth())
