@@ -47,8 +47,7 @@ ENT.BossZombie = {
     {class = "npc_vj_con_zriotbrute", max = 1},
     {class = "npc_vj_con_zscreamer", max = 1},
 }
-
-ENT.HordeAlert = {
+local horde = {
     "vj_contagion/zombies/shared/horde_alert01_r.wav",
     "vj_contagion/zombies/shared/horde_alert02_r.wav",
     "vj_contagion/zombies/shared/horde_alert03_r.wav"
@@ -108,8 +107,6 @@ function ENT:Initialize()
     self.NextBossZombieSpawnTime = CurTime() + math_random(4,20)
     self.NextHordeSpawnTime = CurTime() + math_rand(self.CON_HordeCooldownMin, self.CON_HordeCooldownMax)
     self.DidStartMusic = false
-    self.NextMusicSwitchT = CurTime() + 1
-    self.NextAIBossCheckTime = CurTime() + 5
     self.HordeSpawnRate = 0.19
     self.MaxBossZombie = 1
     self.CanSpawnBossZombie = false
@@ -302,11 +299,11 @@ function ENT:Think()
             if #self.tbl_SpawnedNPCs > 0 then
                 for i, v in ipairs(self.tbl_SpawnedNPCs) do
                     if IsValid(v) then
-                        local enemy = v:GetEnemy()
+                        local enemy = v.EnemyData.Target
                         self:CheckEnemyDistance(v)
                         if IsValid(enemy) && !VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
-                            table_insert(self.tbl_NPCsWithEnemies, v)
-                        elseif !IsValid(enemy) then
+                                table_insert(self.tbl_NPCsWithEnemies, v)
+                            elseif !IsValid(enemy) then
                             if VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
                                 table_remove(self.tbl_NPCsWithEnemies, i)
                             end
@@ -314,12 +311,28 @@ function ENT:Think()
                     else
                         table_remove(self.tbl_SpawnedNPCs, i)
                     end
+                    -- Handle stuck AI and remove them
+                    if IsValid(v) then
+                        local ene = v.EnemyData.Target
+                        local vPos = v:GetPos()
+                        local tr = util.TraceHull({
+                            start = vPos,
+                            endpos = vPos,
+                            mins = v:OBBMins(),
+                            maxs = v:OBBMaxs(),
+                            filter = v
+                        })
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                            //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
+                            SafeRemoveEntity(v)
+                        end
+                    end
                 end
             end
             if #self.tbl_SpawnedBossZombie > 0 then
                 for i, v in ipairs(self.tbl_SpawnedBossZombie) do
                     if IsValid(v) then
-                        local enemy = v:GetEnemy()
+                        local enemy = v.EnemyData.Target
                         self:CheckEnemyDistance(v)
                         if IsValid(enemy) && !VJ.HasValue(self.tbl_NPCsWithEnemies, v) then
                             table_insert(self.tbl_NPCsWithEnemies, v)
@@ -330,6 +343,22 @@ function ENT:Think()
                         end
                     else
                         table_remove(self.tbl_SpawnedBossZombie, i)
+                    end
+                    -- Handle stuck AI and remove them
+                    if IsValid(v) then
+                        local ene = v.EnemyData.Target
+                        local vPos = v:GetPos()
+                        local tr = util.TraceHull({
+                            start = vPos,
+                            endpos = vPos,
+                            mins = v:OBBMins(),
+                            maxs = v:OBBMaxs(),
+                            filter = v
+                        })
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                            //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
+                            SafeRemoveEntity(v)
+                        end
                     end
                 end
             end
@@ -350,8 +379,8 @@ function ENT:Think()
                 self.NextBossZombieSpawnTime = CurTime() +math_rand(4,20)
             end
         end
-                -- Spawns Hordes
-        if CurTime() > self.NextHordeSpawnTime && math_random(1, self.CON_HordeChance) == 1 then
+        -- Spawns Hordes
+        if CurTime() > self.NextHordeSpawnTime && math_random(1, self.CON_HordeChance) == 1 && self.CON_MaxHordeSpawn > 0 then
             for i = 1, self.CON_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
@@ -359,12 +388,11 @@ function ENT:Think()
                     end
                 end)
             end
-            local horde = VJ.PICK(self.HordeAlert)
             for _, v in ipairs(player.GetAll()) do
                 v:ChatPrint("Incoming horde!")
-                v:EmitSound(horde, 100, 100)
+                v:EmitSound(VJ.PICK(horde), 100, 100)
             end
-            self.NextHordeSpawnTime = CurTime() +math_rand(self.CON_HordeCooldownMin, self.CON_HordeCooldownMax)
+            self.NextHordeSpawnTime = CurTime() + math_rand(self.CON_HordeCooldownMin, self.CON_HordeCooldownMax)
         end
     end
 end
@@ -402,26 +430,26 @@ function ENT:SpawnZombie(ent, pos, isMob)
     if !ent then return end
     if pos == nil or !pos then return end
     if #self.tbl_SpawnedNPCs >= self.CON_MaxZombie then return end
-    local Zombie = ents.Create(ent)
-    Zombie:SetPos(pos)
-    Zombie:SetAngles(Angle(0, math_random(0,360), 0))
-    Zombie:Spawn()
-    table_insert(self.tbl_SpawnedNPCs, Zombie)
+    local zomEnt = ents.Create(ent)
+    zomEnt:SetPos(pos + Vector(0, 0, 10))
+    zomEnt:SetAngles(Angle(0, math_random(0,360), 0))
+    zomEnt:Spawn()
+    table_insert(self.tbl_SpawnedNPCs, zomEnt)
     if isMob then
-        Zombie.SightAngle = 360
-        Zombie.EnemyXRayDetection = true
-        Zombie:DrawShadow(false)
+        zomEnt.SightAngle = 360
+        zomEnt.EnemyXRayDetection = true
+        zomEnt:DrawShadow(false)
         timer.Simple(0, function()
-            if IsValid(Zombie) then
-                Zombie:DrawShadow(false)
+            if IsValid(zomEnt) then
+                zomEnt:DrawShadow(false)
             end
         end)
     end
-    Zombie.MapSpawner = self
-    Zombie.EntitiesToNoCollide = {}
-    Zombie.CallForHelp = false
-    for _, v in pairs(self.Zombie) do
-        table_insert(Zombie.EntitiesToNoCollide, v.class)
+    zomEnt.MapSpawner = self
+    zomEnt.EntitiesToNoCollide = {}
+    zomEnt.CallForHelpDistance = 250
+    for _, v in pairs(self.zomEnt) do
+        table_insert(zomEnt.EntitiesToNoCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -429,18 +457,18 @@ function ENT:SpawnBossZombie(ent, pos)
     if !ent then return end
     if pos == nil or !pos then return end
     if #self.tbl_SpawnedBossZombie >= self.MaxBossZombie then return end
-
-    local Boss = ents.Create(ent)
-    Boss:SetPos(pos)
-    Boss:SetAngles(Angle(0, math_random(0,360), 0))
-    Boss:Spawn()
-    //Boss.SightAngle = 360
-    //Boss.EnemyXRayDetection = true
-    table_insert(self.tbl_SpawnedBossZombie, Boss)
-    Boss.MapSpawner = self
-    Boss.EntitiesToNoCollide = {}
+    local zomBossEnt = ents.Create(ent)
+    zomBossEnt:SetPos(pos + Vector(0, 0, 10))
+    zomBossEnt:SetAngles(Angle(0, math_random(0,360), 0))
+    zomBossEnt:Spawn()
+    //zomBossEnt.SightAngle = 360
+    //zomBossEnt.EnemyXRayDetection = true
+    zomBossEnt.CallForHelpDistance = 250
+    table_insert(self.tbl_SpawnedBossZombie, zomBossEnt)
+    zomBossEnt.MapSpawner = self
+    zomBossEnt.EntitiesToNoCollide = {}
     for _,v in pairs(self.BossZombie) do
-        table_insert(Boss.EntitiesToNoCollide, v.class)
+        table_insert(zomBossEnt.EntitiesToNoCollide, v.class)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
