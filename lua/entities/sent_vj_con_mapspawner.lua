@@ -380,7 +380,8 @@ function ENT:Think()
             end
         end
         -- Spawns Hordes
-        if CurTime() > self.NextHordeSpawnTime && math_random(1, self.CON_HordeChance) == 1 && self.CON_MaxHordeSpawn > 0 then
+        if self.CON_MaxHordeSpawn <= 0 then return end
+        if CurTime() > self.NextHordeSpawnTime && math_random(1, self.CON_HordeChance) == 1 then
             for i = 1, self.CON_MaxHordeSpawn do
                 timer.Simple(self.HordeSpawnRate * i, function() -- Help with lag when spawning
                     if IsValid(self) then
