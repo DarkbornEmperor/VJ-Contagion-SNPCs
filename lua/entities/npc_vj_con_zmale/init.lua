@@ -507,20 +507,20 @@ function ENT:Controller_Initialize(ply, controlEnt)
 
     controlEnt.VJC_Player_DrawHUD = false
     function controlEnt:OnThink()
-        self.VJCE_NPC:SetArrivalSpeed(9999)
-        if self.VJCE_NPC.Zombie_Crippled then
-            self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 2
-            self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 2
+        self:GetNPC():SetArrivalSpeed(9999)
+        if self:GetNPC().Zombie_Crippled then
+            self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
+            self.VJC_BullseyeTracking = self:GetCameraMode() == 2
         else
-            self.VJC_NPC_CanTurn = self.VJC_Camera_Mode == 1
-            self.VJC_BullseyeTracking = self.VJC_Camera_Mode == 1
+            self.VJC_NPC_CanTurn = self:GetCameraMode() == 1
+            self.VJC_BullseyeTracking = self:GetCameraMode() == 1
         end
-        self.VJCE_NPC.EnemyDetection = true
-        self.VJCE_NPC.JumpParams.Enabled = false
+        self:GetNPC().EnemyDetection = true
+        self:GetNPC().JumpParams.Enabled = false
     end
 
     function controlEnt:OnKeyBindPressed(key)
-        local npc = self.VJCE_NPC
+        local npc = self:GetNPC()
         -- Toggle blend setting
         if key == IN_WALK then
             if npc.Zombie_ControllerAnim == 0 then
