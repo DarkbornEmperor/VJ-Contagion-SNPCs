@@ -525,10 +525,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
         if key == IN_WALK then
             if npc.Zombie_ControllerAnim == 0 then
                 npc.Zombie_ControllerAnim = 1
-                self.VJCE_Player:ChatPrint("Blend Disabled")
+                self:GetPlayer():ChatPrint("Blend Disabled")
             else
                 npc.Zombie_ControllerAnim = 0
-                self.VJCE_Player:ChatPrint("Blend Enabled")
+                self:GetPlayer():ChatPrint("Blend Enabled")
             end
         end
     end
