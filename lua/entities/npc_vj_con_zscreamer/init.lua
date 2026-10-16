@@ -317,7 +317,7 @@ function ENT:OnThinkActive()
     if CurTime() > self.Zombie_NextCommandT then
         for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
             if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
-                local bullseye = self.VJ_TheControllerBullseye
+                local bullseye = self.VJ_TheControllerEntity:GetBullseye()
                 v:PlaySoundSystem("InvestigateSound", v.SoundTbl_Investigate)
                 v:ResetFollowBehavior()
                 v.IsFollowing = false

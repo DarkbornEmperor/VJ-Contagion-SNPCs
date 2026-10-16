@@ -132,7 +132,7 @@ function ENT:Zombie_OnThinkActive()
             filter = {self, self.Shield}
         })
         local hitEnt = NULL
-        if IsValid(tr.Entity) && tr.Entity != self && (tr.Entity != self.VJ_TheController && tr.Entity != self.VJ_TheControllerBullseye) then
+        if IsValid(tr.Entity) && tr.Entity != self && (tr.Entity != self.VJ_TheController && tr.Entity != self.VJ_TheControllerEntity:GetBullseye()) then
             if self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute" && IsValid(self.Shield) && tr.Entity != self.Shield then
                 hitEnt = tr.Entity
                 VJ.CreateSound(self, "physics/metal/metal_sheet_impact_hard8.wav", 75)
