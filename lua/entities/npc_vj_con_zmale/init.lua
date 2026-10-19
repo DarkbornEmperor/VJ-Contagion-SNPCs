@@ -498,7 +498,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
         net.WriteEntity(self)
     net.Send(ply)
 
-    function self.VJ_TheControllerEntity:OnStopControlling()
+    function self.VJ_Controller:OnStopControlling()
         net.Start("VJ_CON_Zombie_HUD")
             net.WriteBool(true)
             net.WriteEntity(self)
@@ -535,7 +535,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
+    if self.Zombie_Sprinter && !self.Zombie_Crippled or (self.VJ_Controlled && self.Zombie_ControllerAnim == 1 && !self.Zombie_Crippled) then
         if (act == ACT_IDLE or act == ACT_TURN_LEFT or act == ACT_TURN_RIGHT) && !self.Zombie_Crouching then
             return ACT_IDLE_STIMULATED
         elseif act == ACT_WALK && !self.Zombie_Crouching then
@@ -561,7 +561,7 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_WALK or act == ACT_RUN then
             return ACT_WALK_HURT
         end
-    elseif act == ACT_IDLE && !self.VJ_IsBeingControlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
+    elseif act == ACT_IDLE && !self.VJ_Controlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
         if IsValid(self:GetEnemy()) && self:IsUnreachable(self:GetEnemy()) then
             return ACT_IDLE_ANGRY
         else
@@ -570,17 +570,17 @@ function ENT:TranslateActivity(act)
     elseif (act == ACT_RUN or act == ACT_WALK) && self:IsOnFire() && !self.Zombie_Sprinter && !self.Zombie_Crouching && !self.Zombie_Crippled then
         return ACT_RUN_STIMULATED
 
-    elseif act == ACT_JUMP && self.VJ_IsBeingControlled then
+    elseif act == ACT_JUMP && self.VJ_Controlled then
         return ACT_HOP
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnChangeActivity(newAct)
-    if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
+    if newAct == ACT_JUMP && !self.VJ_Controlled then
         self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
     end
-    if newAct == ACT_LAND && self.VJ_IsBeingControlled then
+    if newAct == ACT_LAND && self.VJ_Controlled then
         self:SetNavType(NAV_GROUND)
     end
     return self.BaseClass.OnChangeActivity(self, newAct)
@@ -602,7 +602,7 @@ function ENT:OnThink()
             end
         end
     end
-    if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
+    if self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP) && self:GetNavType() != NAV_JUMP && !self.RiotBrute_Charging then
         if self:OnGround() && CurTime() > self.Zombie_NextJumpT then
             local maxDist = 220
             local maxDepth = 20
@@ -616,7 +616,7 @@ function ENT:OnThink()
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Crippled or self.Zombie_Climbing or self.Zombie_Crouching or self.RiotBrute_Charging or self.Dead or self.DeathAnimationCodeRan or self.Flinching or self:GetSequence() == self:LookupSequence("sit_to_idle1") then self.Zombie_DoorToBreak = NULL return end
     local curAct = self:GetSequenceActivity(self:GetIdealSequence())
     if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
-        if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+        if ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_USE))) then
             for _, v in pairs(ents.FindInSphere(self:GetPos(), 35)) do
                 //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v self.Zombie_AttackingDoor = true end
                 if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
@@ -680,7 +680,7 @@ function ENT:OnThinkActive()
     self:Zombie_OnThinkActive()
     if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self.RiotBrute_Charging && !self:IsBusy("Activities") then
         for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-            if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) < 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
+            if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) < 500 && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
                 self:PlaySoundSystem("CallForHelp", self.SoundTbl_CallForHelp)
                 if !self.Zombie_Crippled && !self.Zombie_Crouching then
                     self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, 1.7, false)
@@ -697,8 +697,8 @@ function ENT:OnThinkActive()
     end
     if CurTime() > self.Zombie_NextCommandT then
         for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-            if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
-                local bullseye = self.VJ_TheControllerEntity:GetBullseye()
+            if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
+                local bullseye = self.VJ_Controller:GetBullseye()
                 v:PlaySoundSystem("InvestigateSound", v.SoundTbl_Investigate)
                 v:ResetFollowBehavior()
                 v.IsFollowing = false
@@ -722,8 +722,8 @@ function ENT:OnThinkActive()
             self.Zombie_Crouching = false
         end
     end
-    if self.VJ_IsBeingControlled then
-        if self.VJ_TheController:KeyDown(IN_DUCK) then
+    if self.VJ_Controlled then
+        if self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK) then
             self:Crouch(true)
             self.Zombie_Crouching = true
         else
@@ -792,14 +792,14 @@ end
 function ENT:Zombie_OnThinkActive() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
+    if self.VJ_Controlled or self.Zombie_Crippled or self.Zombie_Sprinter or self.Zombie_Crouching then return end
     if math_random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
         self:PlayAnim({"vjseq_idle2013_facearound_01", "vjseq_idle2013_facearound_02"}, "LetAttacks", math_rand(0.5,1), true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCallForHelp(ally)
-    if self.VJ_IsBeingControlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
+    if self.VJ_Controlled or self.Zombie_Crippled or self.Zombie_Crouching or self.RiotBrute_Charging then return end
     if math_random(1,3) == 1 && !self:IsBusy() then
         self:PlayAnim({"vjseq_zombie_grapple_roar1", "vjseq_zombie_grapple_roar2"}, true, false, true)
         if math_random(1,3) == 1 && !ally:IsBusy() then
@@ -820,17 +820,17 @@ function ENT:OnMeleeAttack(status, enemy)
             return
         end
 
-        --/*if !self:IsMoving() && !self.VJ_IsBeingControlled && !self.Zombie_Crouching then*/
+        --/*if !self:IsMoving() && !self.VJ_Controlled && !self.Zombie_Crouching then*/
             /*self.AnimTbl_MeleeAttack =
             "vjseq_melee_cont_01"*/
 
-        if self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 1) then
+        if self.Zombie_Sprinter or (self.VJ_Controlled && self.Zombie_ControllerAnim == 1) then
             self.AnimTbl_MeleeAttack = {
                 "vjges_melee2020_player_01",
                 "vjges_melee2020_player_02",
                 "vjges_melee2020_player_03"
             }
-        elseif !self.Zombie_Sprinter or (self.VJ_IsBeingControlled && self.Zombie_ControllerAnim == 0) then
+        elseif !self.Zombie_Sprinter or (self.VJ_Controlled && self.Zombie_ControllerAnim == 0) then
             self.AnimTbl_MeleeAttack = {
                 "vjges_melee2013_01",
                 "vjges_melee2013_02",
@@ -857,7 +857,7 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnMeleeAttack_Miss()
-    if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_IsBeingControlled then return end
+    if self.Zombie_Crippled or self.Zombie_Crouching or self.VJ_Controlled then return end
     if self.MeleeAttacking && self:GetSequence() == self:LookupSequence("melee_cont_01") then
         self:PlayAnim("idle2013_facearound_01", true, 0.1, true)
         self:StopAttacks(true)

@@ -80,7 +80,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
         net.WriteEntity(self)
     net.Send(ply)
 
-    function self.VJ_TheControllerEntity:OnStopControlling()
+    function self.VJ_Controller:OnStopControlling()
         net.Start("VJ_CON_Zombie_HUD")
         net.WriteBool(true)
         net.WriteEntity(self)
@@ -116,7 +116,7 @@ function ENT:Zombie_OnThinkActive()
     if self.Zombie_Crouching or self.Zombie_Climbing then return end
     local ent = self:GetEnemy()
     local hasEnemy = IsValid(ent)
-    local controlled = IsValid(self.VJ_TheController)
+    local controlled = IsValid(self.VJ_Controller:GetPlayer())
     if self.RiotBrute_Charging then
         local tPos = hasEnemy && ent:GetPos() or self:GetPos() + self:GetForward() * 500
         local setangs = self:GetTurnAngle((tPos - self:GetPos()):Angle())
@@ -132,7 +132,7 @@ function ENT:Zombie_OnThinkActive()
             filter = {self, self.Shield}
         })
         local hitEnt = NULL
-        if IsValid(tr.Entity) && tr.Entity != self && (tr.Entity != self.VJ_TheController && tr.Entity != self.VJ_TheControllerEntity:GetBullseye()) then
+        if IsValid(tr.Entity) && tr.Entity != self && (tr.Entity != self.VJ_Controller:GetPlayer() && tr.Entity != self.VJ_Controller:GetBullseye()) then
             if self:Disposition(tr.Entity) != D_LI && tr.Entity:GetClass() != "npc_vj_con_zriotbrute" && IsValid(self.Shield) && tr.Entity != self.Shield then
                 hitEnt = tr.Entity
                 VJ.CreateSound(self, "physics/metal/metal_sheet_impact_hard8.wav", 75)
@@ -169,7 +169,7 @@ function ENT:Zombie_OnThinkActive()
     end
     if hasEnemy && !self.Zombie_Crouching && !self.Zombie_Climbing then
         local dist = self:GetPos():Distance(ent:GetPos())
-        if ((controlled && self.VJ_TheController:KeyDown(IN_SPEED)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:IsBusy("Activities") && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
+        if ((controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_SPEED)) or !controlled) && dist <= self.ChargeDistance  && dist > self.MinChargeDistance && !self:IsBusy("Activities") && CurTime() > self.RiotBrute_NextChargeT && !self.RiotBrute_Charging && ent:Visible(self) && self:GetSequenceName(self:GetSequence()) != "brute_charge_begin" then
             self:PlayAnim("brute_charge_begin", true, false, true)
             self:PlaySoundSystem("Alert", self.SoundTbl_CallForHelp)
             timer.Simple(self:SequenceDuration(self:LookupSequence("brute_charge_begin")), function()

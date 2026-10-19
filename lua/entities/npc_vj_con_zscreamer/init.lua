@@ -201,7 +201,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
         net.WriteEntity(self)
     net.Send(ply)
 
-    function self.VJ_TheControllerEntity:OnStopControlling()
+    function self.VJ_Controller:OnStopControlling()
         net.Start("VJ_CON_Zombie_HUD")
             net.WriteBool(true)
             net.WriteEntity(self)
@@ -210,21 +210,21 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnChangeActivity(newAct)
-    if newAct == ACT_JUMP && !self.VJ_IsBeingControlled then
+    if newAct == ACT_JUMP && !self.VJ_Controlled then
         self:PlaySoundSystem("Alert", self.SoundTbl_Jump)
     end
     return self.BaseClass.OnChangeActivity(self, newAct)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
+    if self.VJ_Controlled or self.Zombie_Crouching then return end
     if math_random(1,3) == 1 && !self:IsBusy() && ent:Visible(self) then
         self:PlayAnim("vjseq_wander_acquire", true, false, true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCallForHelp(ally)
-    if self.VJ_IsBeingControlled or self.Zombie_Crouching then return end
+    if self.VJ_Controlled or self.Zombie_Crouching then return end
     if math_random(1,3) == 1 && !self:IsBusy() then
         VJ.EmitSound(self, {"vj_contagion/zombies/screamer/Banshee Scream 004.wav", "vj_contagion/zombies/screamer/Banshee Scream 007.wav", "vj_contagion/zombies/screamer/Banshee Scream 008.wav"})
         self:PlayAnim("vjseq_wander_acquire", true, math_rand(1.5,3), true)
@@ -265,7 +265,7 @@ function ENT:OnThink()
     if GetConVar("VJ_CON_BreakDoors"):GetInt() == 0 or self.Zombie_Climbing or self.Zombie_Crouching or self.Dead or self.DeathAnimationCodeRan or self.Flinching then self.Zombie_DoorToBreak = NULL return end
     local curAct = self:GetSequenceActivity(self:GetIdealSequence())
     if !IsValid(self.Zombie_DoorToBreak) && !self.Zombie_AttackingDoor then
-        if ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_USE))) then
+        if ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_USE))) then
             for _, v in pairs(ents.FindInSphere(self:GetPos(), 35)) do
                 //if GetConVar("VJ_CON_BreakDoors_Func"):GetInt() == 1 && v:GetClass() == "func_door_rotating" && v:Visible(self) then self.Zombie_DoorToBreak = v end
                 if v:GetClass() == "prop_door_rotating" && v:Visible(self) then
@@ -299,7 +299,7 @@ end
 function ENT:OnThinkActive()
     if CurTime() > self.Zombie_NextRoarT && !self.Zombie_AttackingDoor && !self:IsBusy("Activities") then
         for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-            if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
+            if !v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && v:GetPos():Distance(self:GetPos()) <= 500 && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_RELOAD) && !v.Zombie_AttackingDoor && !v.RiotBrute_Charging && !v:BusyWithActivity() then
                 self:PlaySoundSystem("CallForHelp", self.SoundTbl_CallForHelp)
                 if !self.Zombie_Crouching then
                     self:PlayAnim("vjseq_wander_acquire", true, 1.7, false)
@@ -316,8 +316,8 @@ function ENT:OnThinkActive()
     end
     if CurTime() > self.Zombie_NextCommandT then
         for _, v in pairs(ents.FindByClass("npc_vj_con_z*")) do
-            if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
-                local bullseye = self.VJ_TheControllerEntity:GetBullseye()
+            if v.IsFollowing && VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) && !v:BusyWithActivity() then
+                local bullseye = self.VJ_Controller:GetBullseye()
                 v:PlaySoundSystem("InvestigateSound", v.SoundTbl_Investigate)
                 v:ResetFollowBehavior()
                 v.IsFollowing = false
@@ -340,8 +340,8 @@ function ENT:OnThinkActive()
             self.Zombie_Crouching = false
         end
     end
-    if self.VJ_IsBeingControlled then
-        if self.VJ_TheController:KeyDown(IN_DUCK) then
+    if self.VJ_Controlled then
+        if self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK) then
             self:Crouch(true)
             self.Zombie_Crouching = true
         else
