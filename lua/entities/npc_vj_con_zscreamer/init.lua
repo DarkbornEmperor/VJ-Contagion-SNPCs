@@ -652,18 +652,21 @@ ENT.FootSteps = {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFootstepSound()
+local vecZ150 = Vector(0, 0, -150)
+--
+function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
+    local myPos = self:GetPos()
     local tr = util.TraceLine({
-        start = self:GetPos(),
-        endpos = self:GetPos() + Vector(0, 0, -150),
-        filter = {self}
+        start = myPos,
+        endpos = myPos + vecZ150,
+        filter = self
     })
     if tr.Hit && self.FootSteps[tr.MatType] then
-        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, VJ.PICK(self.FootSteps[tr.MatType]), self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
     end
     if self:WaterLevel() > 0 && self:WaterLevel() < 3 then
-        VJ.EmitSound(self, "vj_contagion/zombies/footsteps/footsteps_wade_0" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+        VJ.EmitSound(self, "vj_contagion/zombies/footsteps/footsteps_wade_0" .. math_random(1,4) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -905,8 +908,3 @@ function ENT:ZombieVoice_Amisar()
         "vj_contagion/zombies/amisarfati/1155 amisarfati_zombie_die.wav"
     }
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -80,8 +80,3 @@ function ENT:BreakHelmet()
     self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib03.mdl", {Pos = self:GetAttachment(self:LookupAttachment("particle_headl")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector()})
     self:CreateGibEntity("prop_physics", "models/vj_contagion/zombies/riot_helmet_gib04.mdl", {Pos = self:GetAttachment(self:LookupAttachment("forward")).Pos, Ang = self:GetAngles(), Vel_ApplyDmgForce = false, Vel = Vector()})
 end
-/*-----------------------------------------------
-    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
-    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
