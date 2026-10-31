@@ -1452,14 +1452,7 @@ function ENT:ZombieVoice_2013()
         "vj_contagion/zombies/2013/2013 03 21 VO Zombie - 160 - Pain.wav"
     }
     if self.Zombie_Gender == 1 then
-        self.IdleSoundPitch = VJ.SET(120,120)
-        self.CombatIdleSoundPitch = VJ.SET(120,120)
-        self.InvestigateSoundPitch = VJ.SET(120,120)
-        self.AlertSoundPitch = VJ.SET(120,120)
-        self.CallForHelpSoundPitch = VJ.SET(120,120)
-        self.BeforeMeleeAttackSoundPitch = VJ.SET(120,120)
-        self.PainSoundPitch = VJ.SET(120,120)
-        self.DeathSoundPitch = VJ.SET(120,120)
+        self.MainSoundPitch = 120
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
