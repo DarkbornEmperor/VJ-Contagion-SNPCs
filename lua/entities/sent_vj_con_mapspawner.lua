@@ -95,8 +95,8 @@ function ENT:Initialize()
     self.CON_SpawnDistance = GetConVar("VJ_CON_MapSpawner_SpawnMax"):GetInt()
     self.CON_SpawnDistanceClose = GetConVar("VJ_CON_MapSpawner_SpawnMin"):GetInt()
     self.CON_HordeChance = GetConVar("VJ_CON_MapSpawner_HordeChance"):GetInt()
-    self.CON_HordeCooldownMin = GetConVar("VJ_CON_MapSpawner_HordeCooldownMin"):GetInt()
-    self.CON_HordeCooldownMax = GetConVar("VJ_CON_MapSpawner_HordeCooldownMax"):GetInt()
+    self.CON_HordeCooldownMin = GetConVar("VJ_CON_MapSpawner_HordeCooldownMin"):GetFloat()
+    self.CON_HordeCooldownMax = GetConVar("VJ_CON_MapSpawner_HordeCooldownMax"):GetFloat()
     self.CON_MaxZombie = GetConVar("VJ_CON_MapSpawner_MaxZom"):GetInt()
     self.CON_MaxHordeSpawn = GetConVar("VJ_CON_MapSpawner_HordeCount"):GetInt()
     self.tbl_SpawnedNPCs = {}
@@ -288,8 +288,8 @@ function ENT:Think()
         self.CON_SpawnDistance = GetConVar("VJ_CON_MapSpawner_SpawnMax"):GetInt()
         self.CON_SpawnDistanceClose = GetConVar("VJ_CON_MapSpawner_SpawnMin"):GetInt()
         self.CON_HordeChance = GetConVar("VJ_CON_MapSpawner_HordeChance"):GetInt()
-        self.CON_HordeCooldownMin = GetConVar("VJ_CON_MapSpawner_HordeCooldownMin"):GetInt()
-        self.CON_HordeCooldownMax = GetConVar("VJ_CON_MapSpawner_HordeCooldownMax"):GetInt()
+        self.CON_HordeCooldownMin = GetConVar("VJ_CON_MapSpawner_HordeCooldownMin"):GetFloat()
+        self.CON_HordeCooldownMax = GetConVar("VJ_CON_MapSpawner_HordeCooldownMax"):GetFloat()
         self.CON_MaxZombie = GetConVar("VJ_CON_MapSpawner_MaxZom"):GetInt()
         self.CON_MaxHordeSpawn = GetConVar("VJ_CON_MapSpawner_HordeCount"):GetInt()
         //self.AI_RefreshTime = GetConVar("VJ_CON_MapSpawner_RefreshRate"):GetInt()
@@ -369,7 +369,7 @@ function ENT:Think()
         if CurTime() > self.NextZombieSpawnTime then
             if #self.tbl_SpawnedNPCs >= self.CON_MaxZombie - self.CON_MaxHordeSpawn then return end -- Makes sure that we can at least spawn a mob when it's time
             self:SpawnZombie(self:PickZombie(self.Zombie), self:FindSpawnPosition(false))
-            self.NextZombieSpawnTime = CurTime() + math_rand(GetConVar("VJ_CON_MapSpawner_DelayMin"):GetInt(), GetConVar("VJ_CON_MapSpawner_DelayMax"):GetInt())
+            self.NextZombieSpawnTime = CurTime() + math_rand(GetConVar("VJ_CON_MapSpawner_DelayMin"):GetFloat(), GetConVar("VJ_CON_MapSpawner_DelayMax"):GetFloat())
         end
 
         if GetConVar("VJ_CON_MapSpawner_Boss") == 1 then
