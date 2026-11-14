@@ -322,7 +322,7 @@ function ENT:Think()
                             maxs = v:OBBMaxs(),
                             filter = v
                         })
-                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene) && !v:Visible(ene)) then
                             //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
                             SafeRemoveEntity(v)
                         end
@@ -355,7 +355,7 @@ function ENT:Think()
                             maxs = v:OBBMaxs(),
                             filter = v
                         })
-                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene)) then
+                        if (tr.HitWorld && (!v:IsMoving() or v:GetVelocity():Length() <= 0)) or (v:WaterLevel() == 3 && v.MovementType != VJ_MOVETYPE_AQUATIC && v.MovementType != VJ_MOVETYPE_AERIAL) or (IsValid(ene) && v:IsUnreachable(ene) && !v:Visible(ene)) then
                             //PrintMessage(HUD_PRINTCENTER, "Removing " .. VJ.GetName(v) .. ".")
                             SafeRemoveEntity(v)
                         end
